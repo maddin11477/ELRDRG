@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        print("UI loaded")
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +23,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func TestPushed(_ sender: UIButton) {
-        Print("You pushed the test button")
+        print("You pushed the test button")
     }
     
 }
