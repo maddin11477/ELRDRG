@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func TestPushed(_ sender: UIButton) {
+        Print("You pushed the test button")
+    }
+    
 }
 
