@@ -32,7 +32,9 @@ class StartVC: UIViewController {
         }
         
         //Debug
-        print(users)
+        for x in users {
+            print (x.lastName! + ", " + x.firstName!)
+        }
         
         
         //Testing
@@ -70,12 +72,14 @@ class StartVC: UIViewController {
     }
     
     private func addUserToDataBase(lastname last: String, firstname first:String){
-        print("Adding Firstname: " + first + " Lastname: " + last)
+        print("Adding Firstname: " + first + " Lastname: " + last) //debug
+        
+        //create new entity in memory
         let user = User(context: AppDelegate.viewContext)
         user.firstName = first
         user.lastName = last
-        print("Added to DB")
         
+        //save to database
         do
         {
             try AppDelegate.viewContext.save()
