@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
 		5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B41E9B6212C5F5300525804 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B41E9B4212C5F5300525804 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
@@ -41,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0183A589212CA9EE006036FA /* Klassen */ = {
+			isa = PBXGroup;
+			children = (
+				0183A587212CA9E7006036FA /* DataHandler.swift */,
+			);
+			name = Klassen;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		5B41E9A6212C5F5300525804 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +79,7 @@
 				5B41E9C1212C5F5400525804 /* Info.plist */,
 				5B41E9BC212C5F5400525804 /* Assets.xcassets */,
 				5B41E9B9212C5F5300525804 /* ELRDRG.xcdatamodeld */,
+				0183A589212CA9EE006036FA /* Klassen */,
 			);
 			path = ELRDRG;
 			sourceTree = "<group>";
@@ -164,6 +176,7 @@
 				5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
 				5B6D7742212C86B400DDFA2B /* Mission.swift in Sources */,
+				0183A588212CA9E7006036FA /* DataHandler.swift in Sources */,
 				5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

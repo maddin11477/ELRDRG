@@ -22,24 +22,30 @@ class StartVC: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //Lese alle User aus Datenbank
-        getAllUsersFromDB()
+        users = DataHandler.getAllUsers()
+        print(users.count)
+        
+        
         
         if users.count == 0 //wenn noch keiner in Datenbank, dann neuen Anlegen -> MasterUser oder UI für initial start
         {
             print("No users found, adding a default user")
-            addUserToDataBase(lastname: "Administrator", firstname: "Admin")
+            DataHandler.addUser(lastname: "Administrator", firstname: "Admin")
+            users = DataHandler.getAllUsers()
             print(users)
         }
         
         //Debug
+        
         for x in users {
-            print (x.lastName! + ", " + x.firstName!)
+            print(x.lastName ?? "leer")
         }
         
         
         //Testing
         userText.text = users[0].lastName! + ", " + users[0].firstName!
-        
+        userCount.text = String(users.count)
+ 
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,8 +55,8 @@ class StartVC: UIViewController {
     
     @IBAction func addUser(_ sender: UIButton) {
         let newNr = users.count + 1
-        addUserToDataBase(lastname: "Administrator" + String(newNr), firstname: "Admin" + String(newNr))
-        getAllUsersFromDB()
+        DataHandler.addUser(lastname: "Administrator" + String(newNr), firstname: "Admin" + String(newNr))
+        users = DataHandler.getAllUsers()
     }
     
     @IBAction func TestPushed(_ sender: UIButton) {
@@ -58,36 +64,10 @@ class StartVC: UIViewController {
         
     }
     
-    private func getAllUsersFromDB(){
-        let userRequest: NSFetchRequest<User> = User.fetchRequest()
-        do
-        {
-            users = try AppDelegate.viewContext.fetch(userRequest)
-            userCount.text = String(users.count)
-        }
-        catch
-        {
-            print(error)
-        }
-    }
     
-    private func addUserToDataBase(lastname last: String, firstname first:String){
-        print("Adding Firstname: " + first + " Lastname: " + last) //debug
-        
-        //create new entity in memory
-        let user = User(context: AppDelegate.viewContext)
-        user.firstName = first
-        user.lastName = last
-        
-        //save to database
-        do
-        {
-            try AppDelegate.viewContext.save()
-        }
-        catch
-        {
-            print(error)
-        }
-    }
+    
+   
+    
+    
 }
 

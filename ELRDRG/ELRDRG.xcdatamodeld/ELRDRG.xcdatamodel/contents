@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="18A347e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Fahrzeug" representedClassName="Fahrzeug" syncable="YES" codeGenerationType="class">
+        <attribute name="funkrufName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="fahrzeug" inverseEntity="Mission" syncable="YES"/>
+        <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patient" inverseName="fahrzeug" inverseEntity="Patient" syncable="YES"/>
+    </entity>
     <entity name="Mission" representedClassName=".Mission" syncable="YES" codeGenerationType="category">
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="fahrzeug" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Fahrzeug" inverseName="mission" inverseEntity="Fahrzeug" syncable="YES"/>
+        <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patient" inverseName="mission" inverseEntity="Patient" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="missions" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Patient" representedClassName="Patient" syncable="YES" codeGenerationType="class">
+        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fahrzeug" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Fahrzeug" inverseName="patient" inverseEntity="Fahrzeug" syncable="YES"/>
+        <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="patient" inverseEntity="Mission" syncable="YES"/>
+        <relationship name="verletzung" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Verletzung" inverseName="patient" inverseEntity="Verletzung" syncable="YES"/>
+    </entity>
+    <entity name="TempFahrzeug" representedClassName="TempFahrzeug" syncable="YES" codeGenerationType="class">
+        <attribute name="funkrufName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TempVerletzung" representedClassName="TempVerletzung" syncable="YES" codeGenerationType="class">
+        <attribute name="bezeichnung" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES" codeGenerationType="category">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="missions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mission" inverseName="user" inverseEntity="Mission" syncable="YES"/>
     </entity>
+    <entity name="Verletzung" representedClassName="Verletzung" syncable="YES" codeGenerationType="class">
+        <attribute name="bezeichnung" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patient" inverseName="verletzung" inverseEntity="Patient" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="User" positionX="-371" positionY="-358" width="128" height="88"/>
-        <element name="Mission" positionX="-126" positionY="-358" width="128" height="88"/>
+        <element name="Mission" positionX="-56" positionY="-483" width="128" height="120"/>
+        <element name="User" positionX="133" positionY="-450" width="128" height="90"/>
+        <element name="Patient" positionX="-396" positionY="-522" width="128" height="135"/>
+        <element name="Fahrzeug" positionX="-225" positionY="-540" width="128" height="90"/>
+        <element name="Verletzung" positionX="-587" positionY="-441" width="128" height="75"/>
+        <element name="TempFahrzeug" positionX="-218" positionY="-618" width="128" height="60"/>
+        <element name="TempVerletzung" positionX="-585" positionY="-348" width="128" height="60"/>
     </elements>
 </model>
