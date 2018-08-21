@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Mission.swift
 //  ELRDRG
 //
 //  Created by Martin Mangold on 21.08.18.
@@ -9,6 +9,6 @@
 import UIKit
 import CoreData
 
-public class User: NSManagedObject{
+public class Mission: NSManagedObject {
 
 }
