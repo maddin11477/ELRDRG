@@ -34,9 +34,7 @@ class StartVC: UIViewController {
             //Lese alle User aus Datenbank
             users = LoginHandler.getAllUsers()
             print(users.count)
-            
-            
-            
+
             //Debug
             
             for x in users {
@@ -54,20 +52,18 @@ class StartVC: UIViewController {
             let saveAction = UIAlertAction(title: "Speichern", style: .default, handler: { alert -> Void in
                 let firstTextField = alertController.textFields![0] as UITextField
                 self.Login.addAdminUser(password: firstTextField.text!)
+                self.getAllAllowedMissions()
             })
             
             alertController.addAction(saveAction)
             
             self.present(alertController, animated: true, completion: nil)
-            
-            getAllAllowedMissions()
         }
         
     }
     
     private func getAllAllowedMissions(){
-        let user: User = Login.getLoggedInUser()!
-            if(user != nil){
+        if let user: User = Login.getLoggedInUser(){
                 //Daten in Tableview laden, sonst nichts machen
                 loginButton.title = "Abmelden"
             }

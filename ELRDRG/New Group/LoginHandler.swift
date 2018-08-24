@@ -80,15 +80,19 @@ public struct LoginHandler {
     
     private func addUser(lastname: String, firstname:String, password:String, isAdmin:Bool){
         //create new entity in memory
-        let user = User(context: AppDelegate.viewContext)
+        let uuid: String = NSUUID().uuidString
         
+        
+        print("Adding Firstname: " + firstname + " Lastname: " + lastname + " Password: " + password + " UUID: " + uuid) //debug
+        
+        let user = User(context: AppDelegate.viewContext)
         user.firstName = firstname
         user.lastName = lastname
         user.isAdmin = isAdmin
         user.password = password
-        user.unique = NSUUID().uuidString
+        user.unique = uuid
         
-        print("Adding Firstname: " + user.firstName + " Lastname: " + user.lastName + " Password: " + user.password + " UUID: " + user.unique) //debug
+        
         
         //save to database
         do
