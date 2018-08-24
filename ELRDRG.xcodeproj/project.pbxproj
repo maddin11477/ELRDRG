@@ -16,6 +16,20 @@
 		5B41E9C0212C5F5400525804 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B41E9BE212C5F5400525804 /* LaunchScreen.storyboard */; };
 		5B41E9D1212C6CA700525804 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9CF212C6CA700525804 /* User.swift */; };
 		5B6D7742212C86B400DDFA2B /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D7741212C86B400DDFA2B /* Mission.swift */; };
+		5B6D774721304FF400DDFA2B /* Victim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774621304FF400DDFA2B /* Victim.swift */; };
+		5B6D77492130501100DDFA2B /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77482130501100DDFA2B /* Section.swift */; };
+		5B6D774B2130501E00DDFA2B /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774A2130501E00DDFA2B /* Unit.swift */; };
+		5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774C2130502C00DDFA2B /* Injury.swift */; };
+		5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774E2130503C00DDFA2B /* Documentation.swift */; };
+		5B6D77512130505F00DDFA2B /* TextDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77502130505F00DDFA2B /* TextDocumentation.swift */; };
+		5B6D77532130506E00DDFA2B /* AudioDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */; };
+		5B6D77552130507C00DDFA2B /* PhotoDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */; };
+		5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77562130508E00DDFA2B /* BaseInjury.swift */; };
+		5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77582130509900DDFA2B /* BaseHospital.swift */; };
+		5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D775A213050A300DDFA2B /* BaseUnit.swift */; };
+		5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D775C213052AD00DDFA2B /* LoginHandler.swift */; };
+		5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */; };
+		5B6D776121305D7200DDFA2B /* ApplicationFirstStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +44,20 @@
 		5B41E9C1212C5F5400525804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B41E9CF212C6CA700525804 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5B6D7741212C86B400DDFA2B /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		5B6D774621304FF400DDFA2B /* Victim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Victim.swift; sourceTree = "<group>"; };
+		5B6D77482130501100DDFA2B /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		5B6D774A2130501E00DDFA2B /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
+		5B6D774C2130502C00DDFA2B /* Injury.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injury.swift; sourceTree = "<group>"; };
+		5B6D774E2130503C00DDFA2B /* Documentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Documentation.swift; sourceTree = "<group>"; };
+		5B6D77502130505F00DDFA2B /* TextDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocumentation.swift; sourceTree = "<group>"; };
+		5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDocumentation.swift; sourceTree = "<group>"; };
+		5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDocumentation.swift; sourceTree = "<group>"; };
+		5B6D77562130508E00DDFA2B /* BaseInjury.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInjury.swift; sourceTree = "<group>"; };
+		5B6D77582130509900DDFA2B /* BaseHospital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHospital.swift; sourceTree = "<group>"; };
+		5B6D775A213050A300DDFA2B /* BaseUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUnit.swift; sourceTree = "<group>"; };
+		5B6D775C213052AD00DDFA2B /* LoginHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
+		5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPicker.xcassets; sourceTree = "<group>"; };
+		5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFirstStartVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				0183A587212CA9E7006036FA /* DataHandler.swift */,
+				5B6D775C213052AD00DDFA2B /* LoginHandler.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
@@ -71,6 +100,7 @@
 		5B41E9B1212C5F5300525804 /* ELRDRG */ = {
 			isa = PBXGroup;
 			children = (
+				5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */,
 				5B41E9B6212C5F5300525804 /* Main.storyboard */,
 				5B41E9C7212C64F300525804 /* Models */,
 				5B6D7743212C888400DDFA2B /* ViewController */,
@@ -89,6 +119,17 @@
 			children = (
 				5B41E9CF212C6CA700525804 /* User.swift */,
 				5B6D7741212C86B400DDFA2B /* Mission.swift */,
+				5B6D774621304FF400DDFA2B /* Victim.swift */,
+				5B6D77482130501100DDFA2B /* Section.swift */,
+				5B6D774A2130501E00DDFA2B /* Unit.swift */,
+				5B6D774C2130502C00DDFA2B /* Injury.swift */,
+				5B6D774E2130503C00DDFA2B /* Documentation.swift */,
+				5B6D77502130505F00DDFA2B /* TextDocumentation.swift */,
+				5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */,
+				5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */,
+				5B6D77562130508E00DDFA2B /* BaseInjury.swift */,
+				5B6D77582130509900DDFA2B /* BaseHospital.swift */,
+				5B6D775A213050A300DDFA2B /* BaseUnit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -97,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				5B41E9B4212C5F5300525804 /* StartVC.swift */,
+				5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -160,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B41E9C0212C5F5400525804 /* LaunchScreen.storyboard in Resources */,
+				5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */,
 				5B41E9BD212C5F5400525804 /* Assets.xcassets in Resources */,
 				5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */,
 			);
@@ -172,10 +215,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */,
+				5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */,
+				5B6D77552130507C00DDFA2B /* PhotoDocumentation.swift in Sources */,
+				5B6D77512130505F00DDFA2B /* TextDocumentation.swift in Sources */,
 				5B41E9BB212C5F5300525804 /* ELRDRG.xcdatamodeld in Sources */,
 				5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */,
+				5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
+				5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */,
+				5B6D77532130506E00DDFA2B /* AudioDocumentation.swift in Sources */,
+				5B6D776121305D7200DDFA2B /* ApplicationFirstStartVC.swift in Sources */,
+				5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */,
+				5B6D774B2130501E00DDFA2B /* Unit.swift in Sources */,
+				5B6D774721304FF400DDFA2B /* Victim.swift in Sources */,
 				5B6D7742212C86B400DDFA2B /* Mission.swift in Sources */,
+				5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */,
+				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				0183A588212CA9E7006036FA /* DataHandler.swift in Sources */,
 				5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */,
 			);

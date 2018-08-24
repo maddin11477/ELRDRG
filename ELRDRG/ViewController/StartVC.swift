@@ -12,40 +12,69 @@ import CoreData
 class StartVC: UIViewController {
     
     var users: [User] = []
+    var Login: LoginHandler = LoginHandler()
     
-    @IBOutlet weak var userText: UITextField!
-    @IBOutlet weak var userCount: UITextField!
+    @IBOutlet weak var loginButton: UIBarButtonItem!
+    
+    @IBAction func loginButtonPressed(_ sender: UIBarButtonItem) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
-        //Lese alle User aus Datenbank
-        users = DataHandler.getAllUsers()
-        print(users.count)
-        
-        
-        
-        if users.count == 0 //wenn noch keiner in Datenbank, dann neuen Anlegen -> MasterUser oder UI für initial start
+        if(Login.isAppAlreadyLaunchedOnce()){
+            //start application with normal UI and proceed
+            print("Normal app start... yeah!")
+            //Lese alle User aus Datenbank
+            users = LoginHandler.getAllUsers()
+            print(users.count)
+            
+            
+            
+            //Debug
+            
+            for x in users {
+                print(x.lastName ?? "leer")
+            }
+            
+        }
+        else
         {
-            print("No users found, adding a default user")
-            DataHandler.addUser(lastname: "Administrator", firstname: "Admin")
-            users = DataHandler.getAllUsers()
-            print(users)
+            //this is the first start, show UI to enter the Admin password and add a Admin user
+            let alertController = UIAlertController(title: "Bitte Passwort für den Administrator Zugang festlegen.", message: "", preferredStyle: .alert)
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Admin-Passwort"
+            }
+            let saveAction = UIAlertAction(title: "Speichern", style: .default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+                self.Login.addAdminUser(password: firstTextField.text!)
+            })
+            
+            alertController.addAction(saveAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+            getAllAllowedMissions()
         }
         
-        //Debug
+    }
+    
+    private func getAllAllowedMissions(){
+        let user: User = Login.getLoggedInUser()!
+            if(user != nil){
+                //Daten in Tableview laden, sonst nichts machen
+                loginButton.title = "Abmelden"
+            }
+            else{
+                loginButton.title = "Anmelden"
+            }
         
-        for x in users {
-            print(x.lastName ?? "leer")
-        }
-        
-        
-        //Testing
-        userText.text = users[0].lastName! + ", " + users[0].firstName!
-        userCount.text = String(users.count)
- 
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,21 +82,6 @@ class StartVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func addUser(_ sender: UIButton) {
-        let newNr = users.count + 1
-        DataHandler.addUser(lastname: "Administrator" + String(newNr), firstname: "Admin" + String(newNr))
-        users = DataHandler.getAllUsers()
-    }
-    
-    @IBAction func TestPushed(_ sender: UIButton) {
-        print("You pushed the test button")
-        
-    }
-    
-    
-    
-   
-    
-    
+
 }
 
