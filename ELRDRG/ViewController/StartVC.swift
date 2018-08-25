@@ -11,9 +11,11 @@ import CoreData
 
 class StartVC: UIViewController {
     
-    var users: [User] = []
     var Login: LoginHandler = LoginHandler()
     
+    @IBOutlet weak var searchMissions: UISearchBar!
+    @IBOutlet weak var allowedMissions: UITableView!
+    @IBOutlet weak var newMission: UIButton!
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     @IBAction func loginButtonPressed(_ sender: UIBarButtonItem) {
@@ -26,58 +28,72 @@ class StartVC: UIViewController {
 
     }
     
+    func addaptUIForLoggedInUser(userLoggedIn: Bool){
+        if(userLoggedIn){
+            loginButton.title = "Abmelden"
+            searchMissions.isHidden = false
+            allowedMissions.isHidden = false
+            newMission.isHidden = false
+        }
+        else{
+            loginButton.title = "Anmelden"
+            searchMissions.isHidden = true
+            allowedMissions.isHidden = true
+            newMission.isHidden = true
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         
+        //Check of die Anwendung das erste mal gestartet wird, wenn ja dann Onboarding
         if(Login.isAppAlreadyLaunchedOnce()){
             //start application with normal UI and proceed
             print("Normal app start... yeah!")
-            //Lese alle User aus Datenbank
-            users = LoginHandler.getAllUsers()
-            print(users.count)
-
-            //Debug
-            
-            for x in users {
-                print(x.lastName ?? "leer")
+            //Schauen ob bereits jemand angemledet ist. Wenn nicht auf Anmeldung warten
+            if let user = Login.getLoggedInUser(){
+                addaptUIForLoggedInUser(userLoggedIn: true)
+                loadAllAllowedMissions(loggedInUser: user)
             }
-            
+            else {
+                addaptUIForLoggedInUser(userLoggedIn: false)
+                
+            }
         }
         else
         {
-            //this is the first start, show UI to enter the Admin password and add a Admin user
-            let alertController = UIAlertController(title: "Bitte Passwort für den Administrator Zugang festlegen.", message: "", preferredStyle: .alert)
-            alertController.addTextField { (textField : UITextField!) -> Void in
-                textField.placeholder = "Admin-Passwort"
-            }
-            let saveAction = UIAlertAction(title: "Speichern", style: .default, handler: { alert -> Void in
-                let firstTextField = alertController.textFields![0] as UITextField
-                self.Login.addAdminUser(password: firstTextField.text!)
-                self.getAllAllowedMissions()
-            })
-            
-            alertController.addAction(saveAction)
-            
-            self.present(alertController, animated: true, completion: nil)
+            //App startet zum ersten mal
+            doOnboarding()
+            addaptUIForLoggedInUser(userLoggedIn: false)
         }
         
     }
     
-    private func getAllAllowedMissions(){
-        if let user: User = Login.getLoggedInUser(){
-                //Daten in Tableview laden, sonst nichts machen
-                loginButton.title = "Abmelden"
-            }
-            else{
-                loginButton.title = "Anmelden"
-            }
-        
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func doOnboarding(){
+        //TODO: Onboarding: Hier kann Erklärung kommen und so weiter... aktuell wird nur das Passwort für den Admin Zugang abgefragt
+        let alertController = UIAlertController(title: "Bitte Passwort für den Administrator Zugang festlegen.", message: "", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Admin-Passwort"
+        }
+        let saveAction = UIAlertAction(title: "Speichern", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            self.Login.addAdminUser(password: firstTextField.text!)
+        })
+        
+        alertController.addAction(saveAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func loadAllAllowedMissions(loggedInUser user: User){
+        //TODO: Alle Einsätze laden, die dieser Nutzer sehen darf
+        print("keiner angemeldet...")
+    }
 
 }
 
