@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 
-class StartVC: UIViewController, UIPopoverPresentationControllerDelegate {
+class StartVC: UIViewController, LoginProtocol {
+
     
     var Login: LoginHandler = LoginHandler()
     
@@ -17,6 +18,7 @@ class StartVC: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var allowedMissions: UITableView!
     @IBOutlet weak var newMission: UIButton!
     @IBOutlet weak var loginButton: UIBarButtonItem!
+    @IBOutlet weak var lblCurrentUser: UIBarButtonItem!
     
     
     
@@ -37,6 +39,14 @@ class StartVC: UIViewController, UIPopoverPresentationControllerDelegate {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showLoginPopover"){
+            let popoverViewController = segue.destination as! LoginPopupVC
+            // added Line
+            popoverViewController.delegate = self
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,15 +55,23 @@ class StartVC: UIViewController, UIPopoverPresentationControllerDelegate {
 
     }
     
+    
+    func loginUser(user: User) {
+        Login.loggInUser(user: user)
+        adaptUIForLoggedInUser(userLoggedIn: true)
+    }
+    
     func adaptUIForLoggedInUser(userLoggedIn: Bool){
         if(userLoggedIn){
             loginButton.title = "Abmelden"
+            lblCurrentUser.title = Login.getLoggedInUserName()
             searchMissions.isHidden = false
             allowedMissions.isHidden = false
             newMission.isHidden = false
         }
         else{
             loginButton.title = "Anmelden"
+            lblCurrentUser.title = Login.getLoggedInUserName()
             searchMissions.isHidden = true
             allowedMissions.isHidden = true
             newMission.isHidden = true

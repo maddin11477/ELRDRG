@@ -28,25 +28,10 @@ public struct LoginHandler {
         print ("Added Adminuser...let's continue")
     }
     
-    public func loggInUser(unique: String, password: String){
-        var user = User()
-        let userRequest: NSFetchRequest<User> = User.fetchRequest()
-        //TODO: Anpassen der Anmeldung an namen oder was auch immer da so kommt... am besten "UNIQUE"
-        userRequest.predicate = NSPredicate(format: "unique == %@", unique)
-        do
-        {
-            let users = try AppDelegate.viewContext.fetch(userRequest)
-            if(users.count == 1){
-            user = users[0]
-            let defaults = UserDefaults.standard
-            defaults.set(user.unique, forKey: "loggedInUser")
-            print("user logged in: \(String(describing: user.unique))")
-            }
-        }
-        catch
-        {
-            print(error)
-        }
+    public func loggInUser(user: User){
+        let defaults = UserDefaults.standard
+        defaults.set(user.unique, forKey: "loggedInUser")
+        print("user logged in: \(String(describing: user.unique))")
     }
     
     public func loggOffUser(){
@@ -64,6 +49,20 @@ public struct LoginHandler {
             print("Nobody logged in")
             return nil
         }
+    }
+    
+    public func getLoggedInUserName() -> String {
+        let defaults = UserDefaults.standard
+        var combinedusername = ""
+        if let uuid = defaults.string(forKey: "loggedInUser"){
+            print("uuid: \(uuid)")
+            if let user = getUser(unique: uuid){
+                let last = user.lastName!
+                let first = user.firstName!
+                combinedusername = "\(last), \(first)"
+            }
+        }
+        return combinedusername
     }
     
     private func getUser(unique: String) -> User?{

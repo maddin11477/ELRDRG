@@ -30,6 +30,7 @@
 		5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D775C213052AD00DDFA2B /* LoginHandler.swift */; };
 		5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */; };
 		5B6D776121305D7200DDFA2B /* ApplicationFirstStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */; };
+		5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7AE74121319693007552C3 /* LoginProtocol.swift */; };
 		5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8D21315CC100DA1073 /* Shift.swift */; };
 		5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		5B6D775C213052AD00DDFA2B /* LoginHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
 		5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPicker.xcassets; sourceTree = "<group>"; };
 		5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFirstStartVC.swift; sourceTree = "<group>"; };
+		5B7AE74121319693007552C3 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
 		5B84BB8D21315CC100DA1073 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 				5B41E9C7212C64F300525804 /* Models */,
 				5B6D7743212C888400DDFA2B /* ViewController */,
 				5B41E9B2212C5F5300525804 /* AppDelegate.swift */,
+				5B7AE74021319660007552C3 /* Protocols */,
 				5B41E9BE212C5F5400525804 /* LaunchScreen.storyboard */,
 				5B41E9C1212C5F5400525804 /* Info.plist */,
 				5B41E9BC212C5F5400525804 /* Assets.xcassets */,
@@ -147,6 +150,14 @@
 				5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		5B7AE74021319660007552C3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5B7AE74121319693007552C3 /* LoginProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +251,7 @@
 				5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */,
 				5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */,
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
+				5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */,
 				0183A588212CA9E7006036FA /* DataHandler.swift in Sources */,
 				5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */,
 			);

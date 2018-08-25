@@ -14,6 +14,8 @@ class LoginPopupVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     var users = [User]()
     var selectableUsers = [String]()
     var tmpUsers = [String]()
+    
+    var delegate: LoginProtocol?
 
     @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -23,8 +25,11 @@ class LoginPopupVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         //soooo jetzt richtigen nutzer finden um an die unique id zu kommen
         let last = txtUsername.text!.components(separatedBy: ",")[0]
         if let currentUser = users.first(where: {$0.lastName == last}){
-            login.loggInUser(unique: currentUser.unique!, password: txtPassword.text!)
-            dismiss(animated: true)
+            if(currentUser.password == txtPassword.text){
+                delegate?.loginUser(user: (currentUser))
+                //login.loggInUser(unique: currentUser.unique!, password: txtPassword.text!)
+                dismiss(animated: true)
+            }
         }
     }
     override func viewDidLoad() {
