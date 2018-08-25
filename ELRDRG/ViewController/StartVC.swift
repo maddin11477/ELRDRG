@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class StartVC: UIViewController {
+class StartVC: UIViewController, UIPopoverPresentationControllerDelegate {
     
     var Login: LoginHandler = LoginHandler()
     
@@ -18,8 +18,25 @@ class StartVC: UIViewController {
     @IBOutlet weak var newMission: UIButton!
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
-    @IBAction func loginButtonPressed(_ sender: UIBarButtonItem) {
+    
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showLoginPopover"{
+            if(loginButton.title == "Anmelden"){
+                return true
+            }
+            else{
+                Login.loggOffUser()
+                adaptUIForLoggedInUser(userLoggedIn: false)
+                return false
+            }
+        }
+        else
+        {
+            return true
+        }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +45,7 @@ class StartVC: UIViewController {
 
     }
     
-    func addaptUIForLoggedInUser(userLoggedIn: Bool){
+    func adaptUIForLoggedInUser(userLoggedIn: Bool){
         if(userLoggedIn){
             loginButton.title = "Abmelden"
             searchMissions.isHidden = false
@@ -51,11 +68,11 @@ class StartVC: UIViewController {
             print("Normal app start... yeah!")
             //Schauen ob bereits jemand angemledet ist. Wenn nicht auf Anmeldung warten
             if let user = Login.getLoggedInUser(){
-                addaptUIForLoggedInUser(userLoggedIn: true)
+                adaptUIForLoggedInUser(userLoggedIn: true)
                 loadAllAllowedMissions(loggedInUser: user)
             }
             else {
-                addaptUIForLoggedInUser(userLoggedIn: false)
+                adaptUIForLoggedInUser(userLoggedIn: false)
                 
             }
         }
@@ -63,7 +80,7 @@ class StartVC: UIViewController {
         {
             //App startet zum ersten mal
             doOnboarding()
-            addaptUIForLoggedInUser(userLoggedIn: false)
+            adaptUIForLoggedInUser(userLoggedIn: false)
         }
         
     }
@@ -92,7 +109,7 @@ class StartVC: UIViewController {
     
     func loadAllAllowedMissions(loggedInUser user: User){
         //TODO: Alle Einsätze laden, die dieser Nutzer sehen darf
-        print("keiner angemeldet...")
+        print("")
     }
 
 }

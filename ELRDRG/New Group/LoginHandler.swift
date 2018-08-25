@@ -28,11 +28,11 @@ public struct LoginHandler {
         print ("Added Adminuser...let's continue")
     }
     
-    public func loggInUser(username: String, password: String){
+    public func loggInUser(unique: String, password: String){
         var user = User()
         let userRequest: NSFetchRequest<User> = User.fetchRequest()
         //TODO: Anpassen der Anmeldung an namen oder was auch immer da so kommt... am besten "UNIQUE"
-        userRequest.predicate = NSPredicate(format: "lastName == %@", username)
+        userRequest.predicate = NSPredicate(format: "unique == %@", unique)
         do
         {
             let users = try AppDelegate.viewContext.fetch(userRequest)
@@ -49,10 +49,15 @@ public struct LoginHandler {
         }
     }
     
+    public func loggOffUser(){
+        let defaults = UserDefaults.standard
+        defaults.set(nil, forKey: "loggedInUser")
+    }
+    
     public func getLoggedInUser() -> User? {
         let defaults = UserDefaults.standard
         if let uuid = defaults.string(forKey: "loggedInUser"){
-            print("uuid")
+            print("uuid: \(uuid)")
             
             return getUser(unique: uuid)
         }else{
