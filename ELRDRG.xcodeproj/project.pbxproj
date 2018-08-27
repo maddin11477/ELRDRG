@@ -29,7 +29,6 @@
 		5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D775A213050A300DDFA2B /* BaseUnit.swift */; };
 		5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D775C213052AD00DDFA2B /* LoginHandler.swift */; };
 		5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */; };
-		5B6D776121305D7200DDFA2B /* ApplicationFirstStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */; };
 		5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7AE74121319693007552C3 /* LoginProtocol.swift */; };
 		5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8D21315CC100DA1073 /* Shift.swift */; };
 		5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */; };
@@ -60,7 +59,6 @@
 		5B6D775A213050A300DDFA2B /* BaseUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUnit.swift; sourceTree = "<group>"; };
 		5B6D775C213052AD00DDFA2B /* LoginHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHandler.swift; sourceTree = "<group>"; };
 		5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPicker.xcassets; sourceTree = "<group>"; };
-		5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFirstStartVC.swift; sourceTree = "<group>"; };
 		5B7AE74121319693007552C3 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
 		5B84BB8D21315CC100DA1073 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				5B41E9B4212C5F5300525804 /* StartVC.swift */,
-				5B6D776021305D7200DDFA2B /* ApplicationFirstStartVC.swift */,
 				5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */,
 			);
 			path = ViewController;
@@ -243,7 +240,6 @@
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
 				5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */,
 				5B6D77532130506E00DDFA2B /* AudioDocumentation.swift in Sources */,
-				5B6D776121305D7200DDFA2B /* ApplicationFirstStartVC.swift in Sources */,
 				5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */,
 				5B6D774B2130501E00DDFA2B /* Unit.swift in Sources */,
 				5B6D774721304FF400DDFA2B /* Victim.swift in Sources */,
