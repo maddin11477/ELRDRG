@@ -10,24 +10,57 @@ import UIKit
 import CoreData
 
 class DataHandler: NSObject {
+   
+    let login : LoginHandler = LoginHandler()
     
-    public static  func addFahrzeugToDataBase(callsign : String)
+    var delegate : missionProtocol?
+    
+    public func addBaseUnit(callsign : String, type : String, crewCount : Int16)
     {
         print("Adding Fahrzeug: " + callsign)
-        let unit = Unit(context: AppDelegate.viewContext)
-        unit.callsign = callsign
+        let unit = BaseUnit(context: AppDelegate.viewContext)
+       // let unit = Unit(context: AppDelegate.viewContext)
+        unit.funkrufName = callsign
+        unit.type = type
+        unit.crewCount = crewCount
         saveData()
+        
         
     }
     
-    public static func getAllFahrzeuge() -> [Unit]
+    public func addMission(reason : String?)
     {
-        let userRequest: NSFetchRequest<Unit> = Unit.fetchRequest()
+        let mission = Mission(context: AppDelegate.viewContext)
+        mission.user = login.getLoggedInUser()
+        mission.start = Date()
+        mission.reason = reason
+        saveData()
+        delegate?.updatedMissionList(missionList: getAllMissions())
+    }
+    
+    public func getAllBaseUnits() -> [BaseUnit]
+    {
+        let userRequest: NSFetchRequest<BaseUnit> = BaseUnit.fetchRequest()
         do
         {
-            let cars = try AppDelegate.viewContext.fetch(userRequest)
+            let baseCars = try AppDelegate.viewContext.fetch(userRequest)
             
-            return cars
+            return baseCars
+        }
+        catch
+        {
+            print(error)
+        }
+        return []
+    }
+    
+    public func getAllMissions() -> [Mission]
+    {
+        let missionRequest : NSFetchRequest<Mission> = Mission.fetchRequest()
+        do
+        {
+            let missionList = try AppDelegate.viewContext.fetch(missionRequest)
+            return missionList
         }
         catch
         {
@@ -37,8 +70,7 @@ class DataHandler: NSObject {
     }
     
     
-    
-    public static func saveData()
+    private func saveData()
     {
         //save to database
         do

@@ -9,16 +9,66 @@
 import UIKit
 import CoreData
 
-class StartVC: UIViewController, LoginProtocol {
+class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDelegate, UITableViewDataSource {
+    
+    var missions : [Mission] = []
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return missions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = allowedMissions.dequeueReusableCell(withIdentifier: "MissionCostumTableViewCell") as! MissionCostumTableViewCell
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        cell.Date.text = formatter.string(from: missions[indexPath.row].start!)
+        cell.ID.text = String(indexPath.row + 1)
+        cell.Reason.text = missions[indexPath.row].reason
+        return cell
+    }
+    
+    
+    func updatedMissionList(missionList: [Mission]) {
+        missions = missionList
+        allowedMissions.reloadData()
+    }
+    
 
     
     var Login: LoginHandler = LoginHandler()
+    let data: DataHandler = DataHandler()
     
     @IBOutlet weak var searchMissions: UISearchBar!
     @IBOutlet weak var allowedMissions: UITableView!
     @IBOutlet weak var newMission: UIButton!
     @IBOutlet weak var loginButton: UIBarButtonItem!
     @IBOutlet weak var lblCurrentUser: UIBarButtonItem!
+    
+    
+    @IBAction func newMission_Click(_ sender: Any)
+    {
+        let alertController = UIAlertController(title: "Einsatzname", message: "Stichwort für Schadensereignis", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Einsatzname"
+        }
+        let createAction = UIAlertAction(title: "Anlegen", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            let text = firstTextField.text
+            if((text?.count)! > 0 && text != " ")
+            {
+                self.data.addMission(reason: text!)
+            }
+            
+        })
+        
+        alertController.addAction(createAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+        
+    }
     
     
     
@@ -50,7 +100,11 @@ class StartVC: UIViewController, LoginProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        data.delegate = self
+        missions = data.getAllMissions()
+        allowedMissions.delegate = self
+        allowedMissions.dataSource = self
+        allowedMissions.reloadData()
         // Do any additional setup after loading the view, typically from a nib.
 
     }

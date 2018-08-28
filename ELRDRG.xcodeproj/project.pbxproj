@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012508072135AED40065FDF0 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508062135AED40065FDF0 /* DataProtocol.swift */; };
+		0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */; };
 		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		012508062135AED40065FDF0 /* DataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
+		012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +90,14 @@
 			path = NotImplemented;
 			sourceTree = "<group>";
 		};
+		012508082135B2D40065FDF0 /* CostumTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */,
+			);
+			path = CostumTableViewCell;
+			sourceTree = "<group>";
+		};
 		0183A589212CA9EE006036FA /* Klassen */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,13 +127,14 @@
 		5B41E9B1212C5F5300525804 /* ELRDRG */ = {
 			isa = PBXGroup;
 			children = (
+				012508082135B2D40065FDF0 /* CostumTableViewCell */,
 				5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */,
-				5B41E9B6212C5F5300525804 /* Main.storyboard */,
 				5B41E9C7212C64F300525804 /* Models */,
 				5B6D7743212C888400DDFA2B /* ViewController */,
 				5B41E9B2212C5F5300525804 /* AppDelegate.swift */,
 				5B7AE74021319660007552C3 /* Protocols */,
 				5B41E9BE212C5F5400525804 /* LaunchScreen.storyboard */,
+				5B41E9B6212C5F5300525804 /* Main.storyboard */,
 				5B41E9C1212C5F5400525804 /* Info.plist */,
 				5B41E9BC212C5F5400525804 /* Assets.xcassets */,
 				5B41E9B9212C5F5300525804 /* ELRDRG.xcdatamodeld */,
@@ -161,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				5B7AE74121319693007552C3 /* LoginProtocol.swift */,
+				012508062135AED40065FDF0 /* DataProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -252,8 +266,10 @@
 				5B6D774B2130501E00DDFA2B /* Unit.swift in Sources */,
 				5B6D774721304FF400DDFA2B /* Victim.swift in Sources */,
 				5B6D7742212C86B400DDFA2B /* Mission.swift in Sources */,
+				012508072135AED40065FDF0 /* DataProtocol.swift in Sources */,
 				5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */,
 				5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */,
+				0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */,
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */,
 				0183A588212CA9E7006036FA /* DataHandler.swift in Sources */,
