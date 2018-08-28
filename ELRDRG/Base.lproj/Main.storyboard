@@ -511,10 +511,10 @@
             </objects>
             <point key="canvasLocation" x="-781.0546875" y="1534.375"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="iBl-dv-lQL">
             <objects>
-                <tabBarController id="Su3-8x-rfw" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="Su3-8x-rfw" customClass="TabBarVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8OX-MN-7xp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

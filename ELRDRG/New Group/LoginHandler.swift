@@ -97,6 +97,13 @@ public struct LoginHandler {
         return []
     }
     
+    public func setCurrentMissionUnique(unique: String)
+    {
+        let user = getLoggedInUser()
+        user?.currentMissionUnique = unique
+        saveData()
+    }
+    
     private func addUser(lastname: String, firstname:String, password:String, isAdmin:Bool){
         //create new entity in memory
         let uuid: String = NSUUID().uuidString
@@ -113,6 +120,11 @@ public struct LoginHandler {
         
         
         
+        saveData()
+    }
+    
+    private func saveData()
+    {
         //save to database
         do
         {

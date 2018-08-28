@@ -12,30 +12,6 @@ import CoreData
 class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDelegate, UITableViewDataSource {
     
     var missions : [Mission] = []
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return missions.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = allowedMissions.dequeueReusableCell(withIdentifier: "MissionCostumTableViewCell") as! MissionCostumTableViewCell
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        cell.Date.text = formatter.string(from: missions[indexPath.row].start!)
-        cell.ID.text = String(indexPath.row + 1)
-        cell.Reason.text = missions[indexPath.row].reason
-        return cell
-    }
-    
-    
-    func updatedMissionList(missionList: [Mission]) {
-        missions = missionList
-        allowedMissions.reloadData()
-    }
-    
-
-    
     var Login: LoginHandler = LoginHandler()
     let data: DataHandler = DataHandler()
     
@@ -69,6 +45,35 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         
         
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return missions.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
+        let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
+        self.present(nc, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = allowedMissions.dequeueReusableCell(withIdentifier: "MissionCostumTableViewCell") as! MissionCostumTableViewCell
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        cell.Date.text = formatter.string(from: missions[indexPath.row].start!)
+        cell.ID.text = String(indexPath.row + 1)
+        cell.Reason.text = missions[indexPath.row].reason
+        return cell
+    }
+    
+    
+    func updatedMissionList(missionList: [Mission]) {
+        missions = missionList
+        allowedMissions.reloadData()
+    }
+    
     
     
     
@@ -106,6 +111,8 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         allowedMissions.dataSource = self
         allowedMissions.reloadData()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
 
     }
     
@@ -142,6 +149,12 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             if let user = Login.getLoggedInUser(){
                 adaptUIForLoggedInUser(userLoggedIn: true)
                 loadAllAllowedMissions(loggedInUser: user)
+                if let mission = data.getMissionFromUnique(unique: user.currentMissionUnique!)
+                {
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
+                    vc.mission = mission
+                    self.present(vc, animated: true, completion: nil)
+                }
             }
             else {
                 adaptUIForLoggedInUser(userLoggedIn: false)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		012508072135AED40065FDF0 /* DataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508062135AED40065FDF0 /* DataProtocol.swift */; };
 		0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */; };
+		0125080C2135DE630065FDF0 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125080B2135DE630065FDF0 /* TabBarVC.swift */; };
 		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		012508062135AED40065FDF0 /* DataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProtocol.swift; sourceTree = "<group>"; };
 		012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCostumTableViewCell.swift; sourceTree = "<group>"; };
+		0125080B2135DE630065FDF0 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			children = (
 				5B41E9B4212C5F5300525804 /* StartVC.swift */,
 				5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */,
+				0125080B2135DE630065FDF0 /* TabBarVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */,
 				0183A588212CA9E7006036FA /* DataHandler.swift in Sources */,
+				0125080C2135DE630065FDF0 /* TabBarVC.swift in Sources */,
 				5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

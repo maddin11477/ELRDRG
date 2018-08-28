@@ -30,12 +30,22 @@ class DataHandler: NSObject {
     
     public func addMission(reason : String?)
     {
+        //Neues Objekt initalisieren
         let mission = Mission(context: AppDelegate.viewContext)
+        //IDentifier setzen
+        mission.unique = UUID().uuidString
+        //Besitzer des Objektes festlegen
         mission.user = login.getLoggedInUser()
+        //Erstellzeitpunkt festhalten
         mission.start = Date()
+        //Einsatzbenennung für GUI
         mission.reason = reason
+        //Objekt wird in CoreData gespeichert
         saveData()
+        //Objekt benachrichtigt über ein Update der verfügbaren Missions
         delegate?.updatedMissionList(missionList: getAllMissions())
+        //Ausgabe für Konsole
+        print("Einsatz angelegt: " + mission.reason! + " Unique: " + mission.unique!)
     }
     
     public func getAllBaseUnits() -> [BaseUnit]
@@ -67,6 +77,23 @@ class DataHandler: NSObject {
             print(error)
         }
         return []
+    }
+    
+    public func getMissionFromUnique(unique : String) -> Mission?
+    {
+        let userRequest: NSFetchRequest<Mission> = Mission.fetchRequest()
+        userRequest.predicate = NSPredicate(format: "unique == %@", unique)
+        do
+        {
+            let missions = try AppDelegate.viewContext.fetch(userRequest)
+            
+            return missions[0]
+        }
+        catch
+        {
+            print(error)
+            return nil
+        }
     }
     
     
