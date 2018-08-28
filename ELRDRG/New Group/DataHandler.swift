@@ -64,6 +64,13 @@ class DataHandler: NSObject {
         return []
     }
     
+    public func setEndDate()
+    {
+        let mission = getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        mission.end = Date()
+        saveData()
+    }
+    
     public func getAllMissions() -> [Mission]
     {
         let missionRequest : NSFetchRequest<Mission> = Mission.fetchRequest()
@@ -86,8 +93,15 @@ class DataHandler: NSObject {
         do
         {
             let missions = try AppDelegate.viewContext.fetch(userRequest)
+            if(missions.count > 0)
+            {
+                return missions[0]
+            }
+            else
+            {
+                return nil
+            }
             
-            return missions[0]
         }
         catch
         {

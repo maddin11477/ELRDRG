@@ -97,10 +97,19 @@ public struct LoginHandler {
         return []
     }
     
-    public func setCurrentMissionUnique(unique: String)
+    public func setCurrentMissionUnique(unique: String?)
     {
         let user = getLoggedInUser()
-        user?.currentMissionUnique = unique
+        if let _ = unique
+        {
+            user?.currentMissionUnique = unique
+        }
+        else
+        {
+            user?.currentMissionUnique = nil
+        }
+        
+       
         saveData()
     }
     

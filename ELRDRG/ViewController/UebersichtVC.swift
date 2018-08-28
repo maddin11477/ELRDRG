@@ -1,5 +1,5 @@
 //
-//  TabBarVC.swift
+//  UebersichtVC.swift
 //  ELRDRG
 //
 //  Created by Jonas Wehner on 28.08.18.
@@ -8,9 +8,15 @@
 
 import UIKit
 
-class TabBarVC: UITabBarController {
-    
-   
+class UebersichtVC: UIViewController {
+    let login : LoginHandler = LoginHandler()
+    let data : DataHandler = DataHandler()
+    @IBAction func endMission_Click(_ sender: Any)
+    {
+        data.setEndDate()
+        login.setCurrentMissionUnique(unique: nil)
+        self.dismiss(animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

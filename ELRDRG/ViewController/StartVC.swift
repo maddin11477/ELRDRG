@@ -38,8 +38,10 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             
         })
         
-        alertController.addAction(createAction)
+        let abortaction = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
         
+        alertController.addAction(createAction)
+        alertController.addAction(abortaction)
         self.present(alertController, animated: true, completion: nil)
         
         
@@ -149,10 +151,10 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             if let user = Login.getLoggedInUser(){
                 adaptUIForLoggedInUser(userLoggedIn: true)
                 loadAllAllowedMissions(loggedInUser: user)
-                if let mission = data.getMissionFromUnique(unique: user.currentMissionUnique!)
+                if(user.currentMissionUnique != nil)
                 {
                     let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
-                    vc.mission = mission
+                    
                     self.present(vc, animated: true, completion: nil)
                 }
             }
