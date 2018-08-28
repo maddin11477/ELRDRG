@@ -75,6 +75,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		012508032135A5CC0065FDF0 /* NotImplemented */ = {
+			isa = PBXGroup;
+			children = (
+				5B6D77502130505F00DDFA2B /* TextDocumentation.swift */,
+				5B6D774E2130503C00DDFA2B /* Documentation.swift */,
+				5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */,
+				5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */,
+			);
+			path = NotImplemented;
+			sourceTree = "<group>";
+		};
 		0183A589212CA9EE006036FA /* Klassen */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,16 +133,13 @@
 		5B41E9C7212C64F300525804 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				012508032135A5CC0065FDF0 /* NotImplemented */,
 				5B41E9CF212C6CA700525804 /* User.swift */,
 				5B6D7741212C86B400DDFA2B /* Mission.swift */,
 				5B6D774621304FF400DDFA2B /* Victim.swift */,
 				5B6D77482130501100DDFA2B /* Section.swift */,
 				5B6D774A2130501E00DDFA2B /* Unit.swift */,
 				5B6D774C2130502C00DDFA2B /* Injury.swift */,
-				5B6D774E2130503C00DDFA2B /* Documentation.swift */,
-				5B6D77502130505F00DDFA2B /* TextDocumentation.swift */,
-				5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */,
-				5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */,
 				5B6D77562130508E00DDFA2B /* BaseInjury.swift */,
 				5B6D77582130509900DDFA2B /* BaseHospital.swift */,
 				5B6D775A213050A300DDFA2B /* BaseUnit.swift */,
