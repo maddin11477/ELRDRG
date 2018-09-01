@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="18A371a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="18A377a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AudioDocumentation" representedClassName=".AudioDocumentation" syncable="YES" codeGenerationType="category">
         <attribute name="storagePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,6 +24,10 @@
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="documentations" inverseEntity="Mission" syncable="YES"/>
         <relationship name="photoDocumentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PhotoDocumentation" inverseName="documentation" inverseEntity="PhotoDocumentation" syncable="YES"/>
         <relationship name="textDocumentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TextDocumentation" inverseName="documentation" inverseEntity="TextDocumentation" syncable="YES"/>
+    </entity>
+    <entity name="Hospital" representedClassName="Hospital" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="victim" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="hospital" inverseEntity="Victim" syncable="YES"/>
     </entity>
     <entity name="Injury" representedClassName=".Injury" syncable="YES" codeGenerationType="category">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -84,9 +88,11 @@
         <attribute name="category" optional="YES" attributeType="Integer 16" minValueString="1" maxValueString="5" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isDone" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="fahrzeug" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Unit" inverseName="patient" inverseEntity="Unit" syncable="YES"/>
+        <relationship name="hospital" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hospital" inverseName="victim" inverseEntity="Hospital" syncable="YES"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="victims" inverseEntity="Mission" syncable="YES"/>
         <relationship name="verletzung" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Injury" inverseName="patient" inverseEntity="Injury" syncable="YES"/>
     </entity>
@@ -104,6 +110,7 @@
         <element name="TextDocumentation" positionX="-972" positionY="-135" width="128" height="73"/>
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
         <element name="User" positionX="-452" positionY="-805" width="128" height="180"/>
-        <element name="Victim" positionX="-396" positionY="-367" width="128" height="178"/>
+        <element name="Victim" positionX="-396" positionY="-367" width="128" height="208"/>
+        <element name="Hospital" positionX="-765" positionY="-720" width="128" height="73"/>
     </elements>
 </model>

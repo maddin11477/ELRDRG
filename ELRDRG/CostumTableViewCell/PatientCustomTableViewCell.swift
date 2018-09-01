@@ -1,0 +1,40 @@
+//
+//  PatientCustomTableViewCell.swift
+//  ELRDRG
+//
+//  Created by Jonas Wehner on 01.09.18.
+//  Copyright © 2018 Martin Mangold. All rights reserved.
+//
+
+import UIKit
+
+class PatientCustomTableViewCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var ID: UILabel!
+    
+    @IBOutlet weak var firstName: UILabel!
+    
+    @IBOutlet weak var lastName: UILabel!
+    
+    @IBOutlet weak var birthDate: UILabel!
+    
+    @IBOutlet weak var category: UILabel!
+    
+    @IBOutlet weak var hospital: UILabel!
+    
+    @IBOutlet weak var unit: UILabel!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}

@@ -153,9 +153,13 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
                 loadAllAllowedMissions(loggedInUser: user)
                 if(user.currentMissionUnique != nil)
                 {
-                    let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
                     
-                    self.present(vc, animated: true, completion: nil)
+                    if(data.getMissionFromUnique(unique: user.currentMissionUnique!) != nil)
+                    {
+                        let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                    
                 }
             }
             else {

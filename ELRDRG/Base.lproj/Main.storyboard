@@ -142,7 +142,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9m-tS-59S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538" y="-1108"/>
+            <point key="canvasLocation" x="537.890625" y="-1108.59375"/>
         </scene>
         <!--StartVC-->
         <scene sceneID="tne-QT-ifu">
@@ -592,7 +592,7 @@
         <!--Patienten-->
         <scene sceneID="SZQ-vX-HD2">
             <objects>
-                <viewController title="Patienten" id="B2m-QH-cxj" sceneMemberID="viewController">
+                <viewController title="Patienten" id="B2m-QH-cxj" customClass="PatientenVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IIT-UL-Wsv">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -601,15 +601,30 @@
                                 <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
                                 <items>
                                     <navigationItem title="Patienten" id="ZVu-cr-hkM">
+                                        <barButtonItem key="leftBarButtonItem" title="Sortiere nach Kategorie" style="plain" id="heg-fI-DA5">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="SortByCategory_Button_Click:" destination="B2m-QH-cxj" id="Dhv-0G-Cff"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="+ KAT 1" id="bOd-mE-81k">
                                                 <color key="tintColor" red="0.81200428300000005" green="0.001243418715" blue="0.01787413639" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <connections>
+                                                    <action selector="AddKat1_click:" destination="B2m-QH-cxj" id="g7f-5N-167"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem title="+ KAT 2" id="Fp5-CQ-8OZ">
-                                                <color key="tintColor" red="1" green="0.71359275430000002" blue="0.065285501029999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="AddKat2_click:" destination="B2m-QH-cxj" id="f6i-Hs-3O2"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem title="+ KAT 1" id="GaD-6Y-lnK">
                                                 <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="AddKat3_click:" destination="B2m-QH-cxj" id="HE8-ac-BRQ"/>
+                                                </connections>
                                             </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
@@ -619,7 +634,7 @@
                                 <rect key="frame" x="0.0" y="64" width="1024" height="655"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="FHv-ao-hih">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PatientCustomTableViewCell" rowHeight="70" id="FHv-ao-hih" customClass="PatientCustomTableViewCell" customModule="ELRDRG" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="1024" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FHv-ao-hih" id="lUX-Vk-mVs">
@@ -716,6 +731,15 @@
                                                 <constraint firstItem="3zr-4K-Oev" firstAttribute="top" secondItem="lUX-Vk-mVs" secondAttribute="topMargin" id="yJu-mj-NIn"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ID" destination="4Uo-D3-Qyh" id="E8f-pu-CQz"/>
+                                            <outlet property="birthDate" destination="3zr-4K-Oev" id="kVu-RH-w9n"/>
+                                            <outlet property="category" destination="QGU-MX-RJa" id="Njl-Cs-nEc"/>
+                                            <outlet property="firstName" destination="CPy-TA-rE1" id="A8a-xF-Cbv"/>
+                                            <outlet property="hospital" destination="rwf-Fc-DjP" id="Ram-Mr-SJW"/>
+                                            <outlet property="lastName" destination="hXg-NW-sUW" id="XgT-XD-wNG"/>
+                                            <outlet property="unit" destination="88N-cN-Yyb" id="186-Nu-dR5"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -733,16 +757,32 @@
                         <viewLayoutGuide key="safeArea" id="ZFW-qP-5a8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Patienten" id="T4V-A6-y4f"/>
+                    <connections>
+                        <outlet property="patientTable" destination="XLO-jh-S7P" id="kCL-FQ-7uY"/>
+                        <outlet property="sortButton" destination="heg-fI-DA5" id="K9g-Ns-WER"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1aZ-QH-WlD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="460" y="1525"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Cpd-zK-68m">
+            <objects>
+                <viewController id="jR3-dO-5Nf" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WTC-MP-dPE">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gJb-Jq-jxR"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WRX-wS-x8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="469" y="2431"/>
+        </scene>
     </scenes>
     <resources>
-        <namedColor name="UIBackcolor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="UIBackcolor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

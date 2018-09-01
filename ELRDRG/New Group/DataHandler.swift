@@ -71,6 +71,8 @@ class DataHandler: NSObject {
         saveData()
     }
     
+    
+    
     public func getAllMissions() -> [Mission]
     {
         let missionRequest : NSFetchRequest<Mission> = Mission.fetchRequest()
@@ -86,28 +88,64 @@ class DataHandler: NSObject {
         return []
     }
     
+    public func deleteVictim(victim : Victim)
+    {
+        let mission = getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        mission.removeFromVictims(victim)
+        saveData()
+    }
+    
     public func getMissionFromUnique(unique : String) -> Mission?
     {
         let userRequest: NSFetchRequest<Mission> = Mission.fetchRequest()
         userRequest.predicate = NSPredicate(format: "unique == %@", unique)
-        do
-        {
-            let missions = try AppDelegate.viewContext.fetch(userRequest)
-            if(missions.count > 0)
+        
+            
+            
+            
+            do
             {
-                return missions[0]
+                let missions = try AppDelegate.viewContext.fetch(userRequest)
+                
+                if(missions.count > 0)
+                {
+                    return missions[0]
+                }
+                else
+                {
+                    return nil
+                }
+                
             }
-            else
+            catch
             {
+                print(error)
                 return nil
             }
             
-        }
-        catch
-        {
-            print(error)
-            return nil
-        }
+        
+    
+    }
+    
+    public func getVictims() -> [Victim]
+    {
+        let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
+        return mission.victims?.allObjects as! [Victim]
+    }
+    
+    public func ceateVictim (age : Int16, category: Int16, firstName : String?, lastName : String?, id : Int16)
+    {
+        let pat : Victim = Victim(context: AppDelegate.viewContext)
+        pat.age = age
+        pat.id = id
+        pat.category = category
+        pat.firstName = firstName
+        pat.lastName = lastName
+        print("uuid current mission: " + (login.getLoggedInUser()?.currentMissionUnique ?? "nil"))
+        
+        let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
+        mission.addToVictims(pat)
+        saveData()
     }
     
     
