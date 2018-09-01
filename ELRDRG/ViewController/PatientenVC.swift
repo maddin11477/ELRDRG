@@ -19,6 +19,13 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var sortButton: UIBarButtonItem!
     
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let detailController = self.storyboard?.instantiateViewController(withIdentifier: "PatientenDetailView") as! PatientenDetailVC
+        self.present(detailController, animated: true, completion: nil)
+    }
+    
     @IBAction func AddKat3_click(_ sender: Any)
     {
         data.ceateVictim(age: -1, category: 3, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
