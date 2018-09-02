@@ -604,6 +604,30 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j3w-Ep-6AT" id="D4R-zo-Red">
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qn3-E4-dDJ">
+                                                    <rect key="frame" x="188" y="11" width="616" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:13 20.08.18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl8-Gd-c5M">
+                                                    <rect key="frame" x="15" y="11" width="110.5" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EId-zK-80C">
+                                                    <rect key="frame" x="945" y="11" width="33" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Pl8-Gd-c5M" firstAttribute="top" secondItem="D4R-zo-Red" secondAttribute="topMargin" id="akS-Ca-Rd7"/>
+                                                <constraint firstItem="Pl8-Gd-c5M" firstAttribute="bottom" secondItem="D4R-zo-Red" secondAttribute="bottomMargin" id="bHP-Jf-wyc"/>
+                                                <constraint firstItem="Pl8-Gd-c5M" firstAttribute="leading" secondItem="D4R-zo-Red" secondAttribute="leadingMargin" id="oBr-Po-bFk"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -621,7 +645,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krP-u6-QRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="473" y="1534"/>
+            <point key="canvasLocation" x="472.85156249999994" y="1533.59375"/>
         </scene>
         <!--Tabelle-->
         <scene sceneID="xWr-tJ-X3y">
@@ -1475,12 +1499,6 @@
         <image name="humanbody02.png" width="591" height="1536"/>
         <namedColor name="UIBackcolor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="UIButtonTextcolor">
-            <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="UIButtonTextcolor">
-            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="UIButtonTextcolor">
             <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
