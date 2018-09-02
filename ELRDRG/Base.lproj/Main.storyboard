@@ -603,37 +603,55 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="j3w-Ep-6AT">
-                                        <rect key="frame" x="0.0" y="28" width="1024" height="55"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DocumentationTableViewCell" rowHeight="112" id="j3w-Ep-6AT" customClass="DocumentationTableViewCell" customModule="ELRDRG" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j3w-Ep-6AT" id="D4R-zo-Red">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="54.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j3w-Ep-6AT" id="D4R-zo-Red" customClass="DocumentationTableViewCell" customModule="ELRDRG" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="111.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qn3-E4-dDJ">
-                                                    <rect key="frame" x="188" y="11" width="616" height="33"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:13 20.08.18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl8-Gd-c5M">
-                                                    <rect key="frame" x="15" y="11" width="110.5" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EId-zK-80C">
-                                                    <rect key="frame" x="945" y="11" width="33" height="33"/>
+                                                    <rect key="frame" x="919" y="11" width="90" height="90"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="13:13 20.08.18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pl8-Gd-c5M">
+                                                    <rect key="frame" x="119" y="39" width="110.5" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Bgo-pu-9Rq">
+                                                    <rect key="frame" x="285" y="11" width="583" height="90"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gub-ng-9w5">
+                                                    <rect key="frame" x="24" y="39" width="38.5" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="38.5" id="Q2c-UI-iJl"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Pl8-Gd-c5M" firstAttribute="top" secondItem="D4R-zo-Red" secondAttribute="topMargin" id="akS-Ca-Rd7"/>
-                                                <constraint firstItem="Pl8-Gd-c5M" firstAttribute="bottom" secondItem="D4R-zo-Red" secondAttribute="bottomMargin" id="bHP-Jf-wyc"/>
-                                                <constraint firstItem="Pl8-Gd-c5M" firstAttribute="leading" secondItem="D4R-zo-Red" secondAttribute="leadingMargin" id="oBr-Po-bFk"/>
+                                                <constraint firstItem="gub-ng-9w5" firstAttribute="top" secondItem="D4R-zo-Red" secondAttribute="topMargin" constant="28" id="3Wx-Jc-q3i"/>
+                                                <constraint firstItem="gub-ng-9w5" firstAttribute="leading" secondItem="D4R-zo-Red" secondAttribute="leadingMargin" constant="10" id="4IQ-Gv-Rbf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gub-ng-9w5" secondAttribute="bottom" constant="28" id="QO7-dd-l6I"/>
+                                                <constraint firstItem="gub-ng-9w5" firstAttribute="leading" secondItem="D4R-zo-Red" secondAttribute="leadingMargin" id="rPz-Ja-dvz"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="Content" destination="Bgo-pu-9Rq" id="Fgb-le-h8l"/>
+                                            <outlet property="CreationDate" destination="Pl8-Gd-c5M" id="nql-hV-qSv"/>
+                                            <outlet property="ID" destination="gub-ng-9w5" id="KZc-sn-Ucj"/>
+                                            <outlet property="Thumbnail" destination="EId-zK-80C" id="VoQ-ZI-T3B"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -647,6 +665,9 @@
                         <viewLayoutGuide key="safeArea" id="6tn-6t-jp6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tagebuch" id="Ic3-yn-FE8"/>
+                    <connections>
+                        <outlet property="documentationList" destination="9jJ-tn-xhA" id="xRT-Wx-79N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krP-u6-QRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

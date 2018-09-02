@@ -14,18 +14,54 @@ public struct DocumentationHandler {
     var login: LoginHandler = LoginHandler()
     var data: DataHandler = DataHandler()
     
+    var delegate : DocumentationProtocol?
+    
     public func SaveTextDocumentation(textcontent: String, savedate: Date){
         //get current mission
         let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
-        
+        let content = TextDocumentation(context: AppDelegate.viewContext)
+        content.content = textcontent
         let docuEntry = Documentation(context: AppDelegate.viewContext)
-        docuEntry.textDocumentation?.content = textcontent
+        docuEntry.id = getLastDocuID() + 1
         docuEntry.created = savedate
-        
+        docuEntry.textDocumentation = content
         mission.addToDocumentations(docuEntry)
         
         data.saveData()
         print("Dokueintrag \(textcontent) erfolgreich gespeichert: \(savedate)")
+    }
+    
+    public func getAllDocumentations() -> [Documentation]{
+        
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let result = mission.documentations?.allObjects as! [Documentation]
+        print("\(result.count) Einträge gefunden...")
+        if result.count > 0{
+            return result
+        }else{
+            return []
+        }
+    }
+    
+    private func getLastDocuID() -> Int16 {
+        //TODO: Hier muss noch gefiltert werden, damit auch eine ID pro Lage generiert wird...
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let request: NSFetchRequest<Documentation> = Documentation.fetchRequest()
+        request.predicate = NSPredicate(format: "mission == %@", mission)
+        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+        request.fetchLimit = 1
+        do
+        {
+            let entries = try AppDelegate.viewContext.fetch(request)
+            print("ID \(entries[0].id)")
+            return entries[0].id
+            
+        }
+        catch
+        {
+            print(error)
+        }
+        return 0
     }
     
 }
