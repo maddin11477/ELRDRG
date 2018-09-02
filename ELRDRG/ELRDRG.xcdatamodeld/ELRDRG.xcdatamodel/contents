@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="18A377a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AudioDocumentation" representedClassName=".AudioDocumentation" syncable="YES" codeGenerationType="category">
         <attribute name="storagePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,6 +20,7 @@
     </entity>
     <entity name="Documentation" representedClassName=".Documentation" syncable="YES" codeGenerationType="category">
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="audioDocumentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AudioDocumentation" inverseName="documentation" inverseEntity="AudioDocumentation" syncable="YES"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="documentations" inverseEntity="Mission" syncable="YES"/>
         <relationship name="photoDocumentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PhotoDocumentation" inverseName="documentation" inverseEntity="PhotoDocumentation" syncable="YES"/>
@@ -102,7 +103,8 @@
         <element name="BaseHospital" positionX="-632" positionY="-864" width="128" height="73"/>
         <element name="BaseInjury" positionX="-936" positionY="-874" width="128" height="73"/>
         <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="88"/>
-        <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
+        <element name="Documentation" positionX="-711" positionY="-355" width="128" height="133"/>
+        <element name="Hospital" positionX="-765" positionY="-720" width="128" height="73"/>
         <element name="Injury" positionX="-380" positionY="-151" width="128" height="88"/>
         <element name="Mission" positionX="-425" positionY="-613" width="128" height="180"/>
         <element name="PhotoDocumentation" positionX="-614" positionY="-133" width="128" height="88"/>
@@ -112,6 +114,5 @@
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
         <element name="User" positionX="-452" positionY="-805" width="128" height="180"/>
         <element name="Victim" positionX="-396" positionY="-367" width="128" height="223"/>
-        <element name="Hospital" positionX="-765" positionY="-720" width="128" height="73"/>
     </elements>
 </model>
