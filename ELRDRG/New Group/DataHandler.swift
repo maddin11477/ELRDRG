@@ -149,7 +149,7 @@ class DataHandler: NSObject {
     }
     
     
-    private func saveData()
+    public func saveData()
     {
         //save to database
         do

@@ -23,6 +23,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         let detailController = self.storyboard?.instantiateViewController(withIdentifier: "PatientenDetailView") as! PatientenDetailVC
+        detailController.victim = victimList[indexPath.row]
         self.present(detailController, animated: true, completion: nil)
     }
     
@@ -112,10 +113,27 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         {
             cell.category.backgroundColor = .green
         }
+        else if(victimList[indexPath.row].category == 4)
+        {
+            cell.category.backgroundColor = UIColor.white
+            cell.category.text = ""
+        }
+        else if(victimList[indexPath.row].category == 5)
+        {
+            cell.category.backgroundColor = UIColor.black
+            cell.category.text = ""
+        }
+        if(victimList[indexPath.row].age == -1)
+        {
+            cell.birthDate.text = ""
+        }
         
         
         return cell
     }
+    
+    
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete)
