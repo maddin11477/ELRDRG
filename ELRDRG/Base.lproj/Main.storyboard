@@ -570,7 +570,7 @@
         <!--Tagebuch-->
         <scene sceneID="uok-iT-XSo">
             <objects>
-                <viewController title="Tagebuch" id="1vE-18-XfZ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DocumentationList" title="Tagebuch" id="1vE-18-XfZ" customClass="DocumentationVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H0d-Qx-RZa">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -584,6 +584,11 @@
                                     <navigationItem title="Tagebuch" id="bQA-Oj-LxE">
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="G2D-Rv-1oe">
                                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <segue destination="Eda-3j-gok" kind="popoverPresentation" popoverAnchorBarButtonItem="G2D-Rv-1oe" id="OVL-Lh-xWq">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -646,6 +651,149 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krP-u6-QRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="472.85156249999994" y="1533.59375"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JeU-mZ-APr">
+            <objects>
+                <viewController id="Eda-3j-gok" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LSv-j8-bEI">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="100"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GrC-be-slK" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                <rect key="frame" x="16" y="25" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="FdX-bJ-Wyy"/>
+                                    <constraint firstAttribute="height" constant="50" id="Mjx-qx-gw0"/>
+                                </constraints>
+                                <state key="normal" title="T"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="UIButtonTextcolor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="aLZ-hb-35r" kind="presentation" id="qSS-Ev-6IC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grU-TF-buA" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                <rect key="frame" x="100" y="25" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9ou-BW-Kuc"/>
+                                    <constraint firstAttribute="height" constant="50" id="LMw-SU-1NV"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="VEH-6h-aLh"/>
+                                    <constraint firstAttribute="width" constant="50" id="kxE-nZ-bvQ"/>
+                                </constraints>
+                                <state key="normal" title="P"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="UIButtonTextcolor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c68-rB-3oR" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                <rect key="frame" x="184" y="25" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="XQq-h8-EUU"/>
+                                    <constraint firstAttribute="height" constant="50" id="zG3-kW-Zt6"/>
+                                </constraints>
+                                <state key="normal" title="A"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="UIButtonTextcolor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GrC-be-slK" firstAttribute="centerY" secondItem="LSv-j8-bEI" secondAttribute="centerY" id="9Hs-4O-OSt"/>
+                            <constraint firstItem="Cjm-B2-6mT" firstAttribute="trailing" secondItem="c68-rB-3oR" secondAttribute="trailing" constant="16" id="Ah8-LP-SOW"/>
+                            <constraint firstItem="c68-rB-3oR" firstAttribute="centerY" secondItem="LSv-j8-bEI" secondAttribute="centerY" id="CWY-3J-6HD"/>
+                            <constraint firstItem="grU-TF-buA" firstAttribute="leading" secondItem="GrC-be-slK" secondAttribute="trailing" constant="34" id="Dkx-YY-PTC"/>
+                            <constraint firstItem="grU-TF-buA" firstAttribute="centerY" secondItem="LSv-j8-bEI" secondAttribute="centerY" id="FBw-EG-WN1"/>
+                            <constraint firstItem="c68-rB-3oR" firstAttribute="leading" secondItem="grU-TF-buA" secondAttribute="trailing" constant="34" id="I5g-uP-1kQ"/>
+                            <constraint firstItem="GrC-be-slK" firstAttribute="leading" secondItem="Cjm-B2-6mT" secondAttribute="leading" constant="16" id="cBF-ht-WZI"/>
+                            <constraint firstItem="grU-TF-buA" firstAttribute="centerX" secondItem="LSv-j8-bEI" secondAttribute="centerX" id="lS6-bl-Da7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Cjm-B2-6mT"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="100"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gdv-ja-NOY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="473" y="2041"/>
+        </scene>
+        <!--Documentation Detail TextVC-->
+        <scene sceneID="2yz-th-YqI">
+            <objects>
+                <viewController modalPresentationStyle="pageSheet" id="aLZ-hb-35r" customClass="DocumentationDetailTextVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Hr-Kp-JIy">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3z-mZ-9Ud">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <items>
+                                    <barButtonItem title="Abbrechen" id="rC0-S2-RaM">
+                                        <connections>
+                                            <action selector="Cancel:" destination="aLZ-hb-35r" id="xwe-tR-4v5"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="1XH-6R-X43"/>
+                                    <barButtonItem title="Speichern" id="SZr-NQ-Jgg">
+                                        <connections>
+                                            <action selector="Save:" destination="aLZ-hb-35r" id="6iS-wH-QT5"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HOk-oj-9W1">
+                                <rect key="frame" x="20" y="44" width="728" height="355"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="centerX" secondItem="3Hr-Kp-JIy" secondAttribute="centerX" id="K1e-Qc-QlI"/>
+                            <constraint firstItem="ogL-72-BVR" firstAttribute="trailing" secondItem="HOk-oj-9W1" secondAttribute="trailing" constant="20" id="OTz-HY-zbl"/>
+                            <constraint firstItem="ogL-72-BVR" firstAttribute="bottom" secondItem="HOk-oj-9W1" secondAttribute="bottom" constant="349" id="UkH-wm-lib"/>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="leading" secondItem="ogL-72-BVR" secondAttribute="leading" constant="20" id="Zu7-y3-giZ"/>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="top" secondItem="A3z-mZ-9Ud" secondAttribute="bottom" id="jj7-Uw-wn4"/>
+                            <constraint firstItem="A3z-mZ-9Ud" firstAttribute="top" secondItem="ogL-72-BVR" secondAttribute="top" id="mJk-Z0-81T"/>
+                            <constraint firstItem="A3z-mZ-9Ud" firstAttribute="leading" secondItem="ogL-72-BVR" secondAttribute="leading" id="uRg-ql-FKn"/>
+                            <constraint firstItem="A3z-mZ-9Ud" firstAttribute="trailing" secondItem="ogL-72-BVR" secondAttribute="trailing" id="ytT-RW-bfO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ogL-72-BVR"/>
+                    </view>
+                    <connections>
+                        <outlet property="TextContent" destination="HOk-oj-9W1" id="mOE-2C-pos"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cSt-7s-Aj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="485.74218749999994" y="2509.375"/>
         </scene>
         <!--Tabelle-->
         <scene sceneID="xWr-tJ-X3y">
@@ -1501,10 +1649,19 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="UIButtonTextcolor">
+            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UIButtonTextcolor">
+            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UIButtonTextcolor">
+            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UIButtonTextcolor">
             <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Av8-sq-WcI"/>
+        <segue reference="jEN-ZV-dPF"/>
     </inferredMetricsTieBreakers>
 </document>

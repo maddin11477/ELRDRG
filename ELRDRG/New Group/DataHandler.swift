@@ -105,9 +105,6 @@ class DataHandler: NSObject {
     {
         let userRequest: NSFetchRequest<Mission> = Mission.fetchRequest()
         userRequest.predicate = NSPredicate(format: "unique == %@", unique)
-        
-            
-            
             
             do
             {
