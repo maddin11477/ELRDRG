@@ -10,4 +10,7 @@ import Foundation
 
 protocol  missionProtocol {
     func updatedMissionList(missionList : [Mission])
+    
 }
+
+
