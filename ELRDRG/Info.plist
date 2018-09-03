@@ -36,10 +36,17 @@
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
+		<string>Privacy - Location Always and When In Use Usage Description</string>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Benötigt GPS um die Karte zu zentrieren</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Benötigt GPS um die Karte zu zentrieren</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Benötigt GPS um die Karte zu zentrieren</string>
 </dict>
 </plist>

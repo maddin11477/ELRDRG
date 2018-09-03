@@ -476,6 +476,74 @@
             </objects>
             <point key="canvasLocation" x="1145.5078125" y="-258.59375"/>
         </scene>
+        <!--Item-->
+        <scene sceneID="Q1y-Fp-8Wa">
+            <objects>
+                <viewController id="J7N-O0-X3S" customClass="MapVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3jK-GQ-Pvn">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IdB-aV-fEP">
+                                <rect key="frame" x="20" y="153" width="1004" height="566"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cjG-ba-cDv">
+                                <rect key="frame" x="427.5" y="20" width="170" height="29"/>
+                                <segments>
+                                    <segment title="Karte"/>
+                                    <segment title="Satellit"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="SegementControllChanged:" destination="J7N-O0-X3S" eventType="valueChanged" id="d50-Q6-LkX"/>
+                                </connections>
+                            </segmentedControl>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYk-2k-mzw">
+                                <rect key="frame" x="307" y="77" width="213" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Längengrad:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nj6-UN-2qv">
+                                <rect key="frame" x="167" y="82" width="97" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Breitengradgrad:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tg2-x7-loc">
+                                <rect key="frame" x="167" y="118" width="130" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BGU-rA-TWk">
+                                <rect key="frame" x="307" y="115" width="213" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cjG-ba-cDv" firstAttribute="top" secondItem="v8M-XH-5ub" secondAttribute="top" id="0Sp-Nc-Zt0"/>
+                            <constraint firstItem="cjG-ba-cDv" firstAttribute="centerX" secondItem="3jK-GQ-Pvn" secondAttribute="centerX" id="MoI-1W-ESL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v8M-XH-5ub"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="IiB-Wh-J5p"/>
+                    <connections>
+                        <outlet property="mapView" destination="IdB-aV-fEP" id="lNo-S6-2Vm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XDu-bf-4QG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983.78906249999989" y="558.59375"/>
+        </scene>
         <!--Organisation-->
         <scene sceneID="xvH-dV-xLo">
             <objects>
@@ -984,6 +1052,7 @@
                         <segue destination="vla-lT-8gt" kind="relationship" relationship="viewControllers" id="ioT-Gh-4hu"/>
                         <segue destination="1vE-18-XfZ" kind="relationship" relationship="viewControllers" id="lGQ-f3-7aL"/>
                         <segue destination="B2m-QH-cxj" kind="relationship" relationship="viewControllers" id="qzk-kX-pN2"/>
+                        <segue destination="J7N-O0-X3S" kind="relationship" relationship="viewControllers" id="pbB-1c-YGF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vx1-bM-LvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
