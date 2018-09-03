@@ -27,9 +27,12 @@ class DocumentationDetailTextVC: UIViewController {
     
     @IBAction func Save(_ sender: UIBarButtonItem) {
         DocuHandler.SaveTextDocumentation(textcontent: TextContent.text, savedate: Date())
+        
+       dismiss(animated: true, completion: nil)
     }
     
     @IBAction func Cancel(_ sender: UIBarButtonItem) {
+        
         dismiss(animated: true, completion: nil)
     }
     

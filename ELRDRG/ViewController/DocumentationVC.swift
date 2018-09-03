@@ -33,24 +33,34 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     //protocol for delegation
     func updatedMDocumentationList(docuList: [Documentation]) {
-        print("DocuVC sollte jetzt eigentlich neue Daten anzeigen...")
+        
         documentations = docuList
+        documentations.sort(by: {$0.id > $1.id})
         documentationList.reloadData()
+        self.presentedViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        
     }
     
     override func viewDidAppear(_ animated: Bool)
     {
         documentations = docuHandler.getAllDocumentations()
+        
         documentationList.reloadData()
         print("DocuVC sollte jetzt eigentlich \(documentations.count) Daten anzeigen...")
+        
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        docuHandler.delegate = self
+        DocumentationHandler.delegate = self
+        //docuHandler.delegate = self
         documentations = docuHandler.getAllDocumentations()
         documentationList.delegate = self
         documentationList.dataSource = self
+        documentationList.allowsSelection = false
         documentationList.reloadData()
+        
     }
 }

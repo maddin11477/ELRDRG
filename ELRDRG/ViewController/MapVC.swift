@@ -45,6 +45,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
+            mapView.showsUserLocation = true
+            mapView.showsTraffic = true
+            mapView.showsPointsOfInterest = true
         }
     }
     

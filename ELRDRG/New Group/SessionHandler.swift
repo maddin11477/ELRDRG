@@ -19,10 +19,13 @@ class SessionHandler: NSObject {
     //true = App wurde bereits gestartet
     public func isAppAlreadyLaunchedOnce()->Bool{
         let defaults = UserDefaults.standard
-        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
+        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce")
+        {
             //print("App already launched") //Debug
             return true
-        }else{
+        }
+        else
+        {
             defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
             //print("App launched first time") //Debug
             return false
@@ -30,14 +33,16 @@ class SessionHandler: NSObject {
     }
     
     //Meldet den ausgewählten Nutzer an, UUID des Benutzers wird gespeichert
-    public func loggInUser(userUUID: String){
+    public func loggInUser(userUUID: String)
+    {
         let defaults = UserDefaults.standard
         defaults.set(userUUID, forKey: "loggedInUser")
         //print("user logged in: \(String(describing: userUUID))") //Debug
     }
     
     //Meldet den aktuellen Nutzer ab, beim Neustart der App ist eine Anmeldung erforderlich
-    public func loggOffUser(){
+    public func loggOffUser()
+    {
         let defaults = UserDefaults.standard
         defaults.set(nil, forKey: "loggedInUser")
     }

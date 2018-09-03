@@ -11,7 +11,7 @@ import UIKit
 class DocumentationTableViewCell: UITableViewCell {
     @IBOutlet weak var ID: UILabel!
     @IBOutlet weak var CreationDate: UILabel!
-    @IBOutlet weak var Content: UITextView!
+    @IBOutlet weak var Content: UILabel!
     @IBOutlet weak var Thumbnail: UIImageView!
     
     

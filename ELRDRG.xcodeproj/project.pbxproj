@@ -20,6 +20,7 @@
 		018042C6213BFAD1008B1784 /* StammdatenDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042C5213BFAD1008B1784 /* StammdatenDetailVC.swift */; };
 		018042C8213BFEF8008B1784 /* StammdatenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042C7213BFEF8008B1784 /* StammdatenProtocol.swift */; };
 		018042CC213C0217008B1784 /* CreateUnitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042CB213C0217008B1784 /* CreateUnitVC.swift */; };
+		018042CE213DC841008B1784 /* ChooseDokuTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */; };
 		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
@@ -67,6 +68,7 @@
 		018042C5213BFAD1008B1784 /* StammdatenDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenDetailVC.swift; sourceTree = "<group>"; };
 		018042C7213BFEF8008B1784 /* StammdatenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenProtocol.swift; sourceTree = "<group>"; };
 		018042CB213C0217008B1784 /* CreateUnitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUnitVC.swift; sourceTree = "<group>"; };
+		018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDokuTypeVC.swift; sourceTree = "<group>"; };
 		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				5B4A6005213C641300844F85 /* DocumentationVC.swift */,
 				5B4A600A213C6A2800844F85 /* DocumentationDetailTextVC.swift */,
 				5B4A6014213DAAE800844F85 /* MapVC.swift */,
+				018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			files = (
 				5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */,
 				5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */,
+				018042CE213DC841008B1784 /* ChooseDokuTypeVC.swift in Sources */,
 				018042C8213BFEF8008B1784 /* StammdatenProtocol.swift in Sources */,
 				5B6D77512130505F00DDFA2B /* Attachment.swift in Sources */,
 				5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */,
