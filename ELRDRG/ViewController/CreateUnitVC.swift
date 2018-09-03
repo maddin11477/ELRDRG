@@ -10,7 +10,8 @@ import UIKit
 
 class CreateUnitVC: UIViewController {
 
-   
+    public var delegate : StammdatenDetailVCDelegate?
+    
     @IBAction func dismiss(_ sender: Any)
     {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -20,7 +21,7 @@ class CreateUnitVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 

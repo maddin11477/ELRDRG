@@ -9,6 +9,8 @@
 import UIKit
 
 class StammdatenDetailVC: UIViewController , StammdatenDetailVCDelegate{
+    
+    
     func createdHospital(hospital: BaseHospital) {
         //dosomething
         print(String(hospital.name!))
@@ -58,6 +60,9 @@ class StammdatenDetailVC: UIViewController , StammdatenDetailVCDelegate{
     @IBAction func add_click(_ sender: Any)
     {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CreateUnitVC") as! CreateUnitVC
+        vc.delegate = self
+       
+        
         self.present(vc, animated: true, completion: nil)
     }
     
