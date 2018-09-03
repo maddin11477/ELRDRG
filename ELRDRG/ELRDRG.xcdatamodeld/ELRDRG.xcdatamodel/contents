@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Attachment" representedClassName="Attachment" syncable="YES" codeGenerationType="category">
         <attribute name="storagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="documentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Documentation" inverseName="attachments" inverseEntity="Documentation" syncable="YES"/>
     </entity>
@@ -89,6 +90,7 @@
         <relationship name="verletzung" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Injury" inverseName="patient" inverseEntity="Injury" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Attachment" positionX="-1026" positionY="-250" width="128" height="103"/>
         <element name="BaseHospital" positionX="-632" positionY="-864" width="128" height="73"/>
         <element name="BaseInjury" positionX="-936" positionY="-874" width="128" height="73"/>
         <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="88"/>
@@ -101,6 +103,5 @@
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
         <element name="User" positionX="-452" positionY="-805" width="128" height="180"/>
         <element name="Victim" positionX="-396" positionY="-367" width="128" height="223"/>
-        <element name="Attachment" positionX="-1026" positionY="-250" width="128" height="88"/>
     </elements>
 </model>

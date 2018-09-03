@@ -9,7 +9,13 @@
 import Foundation
 import CoreData
 
-public struct DocumentationHandler {
+public enum DocumentationType: Int16{
+    case Audio = 1
+    case Photo = 2
+    case Video = 3
+}
+
+public class DocumentationHandler {
 
     var login: LoginHandler = LoginHandler()
     var data: DataHandler = DataHandler()
