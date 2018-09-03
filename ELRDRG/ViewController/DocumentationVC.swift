@@ -27,10 +27,7 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         formatter.dateFormat = "HH:mm dd.MM.yyyy"
         cell.CreationDate.text = formatter.string(from: documentations[indexPath.row].created!)
         cell.ID.text = String(documentations[indexPath.row].id)
-        cell.Content.text = documentations[indexPath.row].textDocumentation?.content
-        print("ID \(cell.ID.text)")
-        print("Date \(cell.CreationDate.text)")
-        print("Content \(cell.Content.text)")
+        cell.Content.text = documentations[indexPath.row].content
         return cell
     }
     

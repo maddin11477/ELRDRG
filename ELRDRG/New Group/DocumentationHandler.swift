@@ -19,12 +19,10 @@ public struct DocumentationHandler {
     public func SaveTextDocumentation(textcontent: String, savedate: Date){
         //get current mission
         let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
-        let content = TextDocumentation(context: AppDelegate.viewContext)
-        content.content = textcontent
         let docuEntry = Documentation(context: AppDelegate.viewContext)
         docuEntry.id = getLastDocuID() + 1
         docuEntry.created = savedate
-        docuEntry.textDocumentation = content
+        docuEntry.content = textcontent
         mission.addToDocumentations(docuEntry)
         
         data.saveData()

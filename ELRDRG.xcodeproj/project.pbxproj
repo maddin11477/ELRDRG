@@ -34,15 +34,14 @@
 		5B4A600D213C6EA900844F85 /* DocumentationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A600C213C6EA900844F85 /* DocumentationHandler.swift */; };
 		5B4A600F213C73E100844F85 /* DocumentationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A600E213C73E100844F85 /* DocumentationTableViewCell.swift */; };
 		5B4A6011213C7A4C00844F85 /* DocumentationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A6010213C7A4C00844F85 /* DocumentationProtocol.swift */; };
+		5B4A6013213D82C800844F85 /* SessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A6012213D82C800844F85 /* SessionHandler.swift */; };
 		5B6D7742212C86B400DDFA2B /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D7741212C86B400DDFA2B /* Mission.swift */; };
 		5B6D774721304FF400DDFA2B /* Victim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774621304FF400DDFA2B /* Victim.swift */; };
 		5B6D77492130501100DDFA2B /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77482130501100DDFA2B /* Section.swift */; };
 		5B6D774B2130501E00DDFA2B /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774A2130501E00DDFA2B /* Unit.swift */; };
 		5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774C2130502C00DDFA2B /* Injury.swift */; };
 		5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D774E2130503C00DDFA2B /* Documentation.swift */; };
-		5B6D77512130505F00DDFA2B /* TextDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77502130505F00DDFA2B /* TextDocumentation.swift */; };
-		5B6D77532130506E00DDFA2B /* AudioDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */; };
-		5B6D77552130507C00DDFA2B /* PhotoDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */; };
+		5B6D77512130505F00DDFA2B /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77502130505F00DDFA2B /* Attachment.swift */; };
 		5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77562130508E00DDFA2B /* BaseInjury.swift */; };
 		5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D77582130509900DDFA2B /* BaseHospital.swift */; };
 		5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D775A213050A300DDFA2B /* BaseUnit.swift */; };
@@ -83,15 +82,14 @@
 		5B4A600C213C6EA900844F85 /* DocumentationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationHandler.swift; sourceTree = "<group>"; };
 		5B4A600E213C73E100844F85 /* DocumentationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationTableViewCell.swift; sourceTree = "<group>"; };
 		5B4A6010213C7A4C00844F85 /* DocumentationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationProtocol.swift; sourceTree = "<group>"; };
+		5B4A6012213D82C800844F85 /* SessionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHandler.swift; sourceTree = "<group>"; };
 		5B6D7741212C86B400DDFA2B /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
 		5B6D774621304FF400DDFA2B /* Victim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Victim.swift; sourceTree = "<group>"; };
 		5B6D77482130501100DDFA2B /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		5B6D774A2130501E00DDFA2B /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		5B6D774C2130502C00DDFA2B /* Injury.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injury.swift; sourceTree = "<group>"; };
 		5B6D774E2130503C00DDFA2B /* Documentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Documentation.swift; sourceTree = "<group>"; };
-		5B6D77502130505F00DDFA2B /* TextDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocumentation.swift; sourceTree = "<group>"; };
-		5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDocumentation.swift; sourceTree = "<group>"; };
-		5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDocumentation.swift; sourceTree = "<group>"; };
+		5B6D77502130505F00DDFA2B /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		5B6D77562130508E00DDFA2B /* BaseInjury.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInjury.swift; sourceTree = "<group>"; };
 		5B6D77582130509900DDFA2B /* BaseHospital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHospital.swift; sourceTree = "<group>"; };
 		5B6D775A213050A300DDFA2B /* BaseUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUnit.swift; sourceTree = "<group>"; };
@@ -116,10 +114,8 @@
 		012508032135A5CC0065FDF0 /* NotImplemented */ = {
 			isa = PBXGroup;
 			children = (
-				5B6D77502130505F00DDFA2B /* TextDocumentation.swift */,
+				5B6D77502130505F00DDFA2B /* Attachment.swift */,
 				5B6D774E2130503C00DDFA2B /* Documentation.swift */,
-				5B6D77522130506E00DDFA2B /* AudioDocumentation.swift */,
-				5B6D77542130507C00DDFA2B /* PhotoDocumentation.swift */,
 			);
 			path = NotImplemented;
 			sourceTree = "<group>";
@@ -149,6 +145,7 @@
 				0183A587212CA9E7006036FA /* DataHandler.swift */,
 				5B6D775C213052AD00DDFA2B /* LoginHandler.swift */,
 				5B4A600C213C6EA900844F85 /* DocumentationHandler.swift */,
+				5B4A6012213D82C800844F85 /* SessionHandler.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
@@ -323,8 +320,7 @@
 				5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */,
 				5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */,
 				018042C8213BFEF8008B1784 /* StammdatenProtocol.swift in Sources */,
-				5B6D77552130507C00DDFA2B /* PhotoDocumentation.swift in Sources */,
-				5B6D77512130505F00DDFA2B /* TextDocumentation.swift in Sources */,
+				5B6D77512130505F00DDFA2B /* Attachment.swift in Sources */,
 				5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */,
 				018042C6213BFAD1008B1784 /* StammdatenDetailVC.swift in Sources */,
 				5B41E9BB212C5F5300525804 /* ELRDRG.xcdatamodeld in Sources */,
@@ -334,10 +330,10 @@
 				0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
 				5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */,
+				5B4A6013213D82C800844F85 /* SessionHandler.swift in Sources */,
 				5B4A6009213C654800844F85 /* RoundButton.swift in Sources */,
 				5B4A600B213C6A2800844F85 /* DocumentationDetailTextVC.swift in Sources */,
 				5B4A6011213C7A4C00844F85 /* DocumentationProtocol.swift in Sources */,
-				5B6D77532130506E00DDFA2B /* AudioDocumentation.swift in Sources */,
 				5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */,
 				018042B7213A7179008B1784 /* PatientenVC.swift in Sources */,
 				018042C2213AA1ED008B1784 /* PatientenDetailVC.swift in Sources */,

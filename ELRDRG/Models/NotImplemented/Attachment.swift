@@ -9,6 +9,6 @@
 import UIKit
 import CoreData
 
-public class TextDocumentation: NSManagedObject {
+public class Attachment: NSManagedObject {
 
 }

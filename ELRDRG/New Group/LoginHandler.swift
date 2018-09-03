@@ -11,6 +11,8 @@ import CoreData
 
 public struct LoginHandler {
     
+    //move to session handler
+    //Replace with optimized function
     public func isAppAlreadyLaunchedOnce()->Bool{
         let defaults = UserDefaults.standard
         if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
@@ -28,17 +30,23 @@ public struct LoginHandler {
         print ("Added Adminuser...let's continue")
     }
     
+    //move to session handler
+    //Replace with optimized function
     public func loggInUser(user: User){
         let defaults = UserDefaults.standard
         defaults.set(user.unique, forKey: "loggedInUser")
         print("user logged in: \(String(describing: user.unique))")
     }
     
+    //moved to session handler
+    //Replace with optimized function
     public func loggOffUser(){
         let defaults = UserDefaults.standard
         defaults.set(nil, forKey: "loggedInUser")
     }
     
+    //moved to session handler
+    //Replace with optimized function
     public func getLoggedInUser() -> User? {
         let defaults = UserDefaults.standard
         if let uuid = defaults.string(forKey: "loggedInUser"){
@@ -51,6 +59,8 @@ public struct LoginHandler {
         }
     }
     
+    //moved to session handler
+    //Replace with optimized function
     public func getLoggedInUserName() -> String {
         let defaults = UserDefaults.standard
         var combinedusername = ""
