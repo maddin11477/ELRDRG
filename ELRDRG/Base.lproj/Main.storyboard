@@ -962,7 +962,7 @@
                                     <constraint firstAttribute="height" constant="50" id="yDS-cs-gxi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
-                                <state key="normal" title="P">
+                                <state key="normal" title="A">
                                     <color key="titleColor" name="UIButtonTextcolor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -976,6 +976,9 @@
                                         <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="YM0-8q-luW" kind="presentation" id="qMv-qt-Ihi"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c68-rB-3oR" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
                                 <rect key="frame" x="183" y="25" width="50" height="50"/>
@@ -983,7 +986,7 @@
                                     <constraint firstAttribute="width" constant="50" id="FMj-nD-NTj"/>
                                     <constraint firstAttribute="height" constant="50" id="gTz-Et-GgR"/>
                                 </constraints>
-                                <state key="normal" title="A">
+                                <state key="normal" title="P">
                                     <color key="titleColor" red="0.0" green="0.56078431370000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -1080,7 +1083,70 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSt-7s-Aj3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="485.74218749999994" y="2509.375"/>
+            <point key="canvasLocation" x="423" y="2509"/>
+        </scene>
+        <!--Documentation Detail AudiVC-->
+        <scene sceneID="PPi-we-kMi">
+            <objects>
+                <viewController title="Documentation Detail AudiVC" modalPresentationStyle="pageSheet" id="YM0-8q-luW" customClass="DocumentationDetailAudioVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LOd-ei-jx2">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3b-iL-2VW">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Abbrechen" id="NLA-Es-tup">
+                                        <connections>
+                                            <action selector="cancelAudioRecorder:" destination="YM0-8q-luW" id="cTG-Bb-Nf2"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="qX7-DV-VHU"/>
+                                    <barButtonItem title="Speichern" id="M6k-JS-mf9">
+                                        <connections>
+                                            <action selector="saveAudioRecord:" destination="YM0-8q-luW" id="baf-Df-aJz"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="zusätzliche Beschreibung" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7jn-VS-Sed">
+                                <rect key="frame" x="20" y="130" width="728" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSA-ii-CxB" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                <rect key="frame" x="20" y="62" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Rec"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="UIButtonTextcolor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="recordButtonPressed:" destination="YM0-8q-luW" eventType="touchUpInside" id="z0y-w0-wq1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="51g-lQ-pgh"/>
+                    </view>
+                    <connections>
+                        <outlet property="recordButton" destination="CSA-ii-CxB" id="bOq-jt-tlG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9mK-zb-9DX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="494.53124999999994" y="3213.28125"/>
         </scene>
         <!--Tabelle-->
         <scene sceneID="xWr-tJ-X3y">
@@ -1938,6 +2004,9 @@
         </namedColor>
         <namedColor name="UIButtonTextcolor">
             <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UIButtonTextcolor">
+            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
