@@ -34,6 +34,23 @@ class BaseDataHandler: NSObject {
         
     }
     
+    public func deleteBaseUnit(baseUnit : BaseUnit)
+    {
+       
+        AppDelegate.viewContext.delete(baseUnit)
+        
+        saveData()
+      
+        
+    }
+    
+    public func deleteBaseHospital(basehospital : BaseHospital)
+    {
+        AppDelegate.viewContext.delete(basehospital)
+        saveData()
+    }
+   
+    
     public func BaseUnit_To_UnitTypeString(id : Int16) -> String
     {
         var value = " "
@@ -66,6 +83,30 @@ class BaseDataHandler: NSObject {
             let baseCars = try AppDelegate.viewContext.fetch(userRequest)
             
             return baseCars
+        }
+        catch
+        {
+            print(error)
+        }
+        return []
+    }
+    
+    
+    public func addBaseHospital(name : String, city : String)
+    {
+        let hospital = BaseHospital(context: AppDelegate.viewContext)
+        hospital.name = name
+        hospital.city = city
+        saveData()
+    }
+    
+    public func getAllHospitals() -> [BaseHospital]
+    {
+        let userRequest : NSFetchRequest<BaseHospital> = BaseHospital.fetchRequest()
+        do
+        {
+           let basehospitals = try AppDelegate.viewContext.fetch(userRequest)
+            return basehospitals
         }
         catch
         {

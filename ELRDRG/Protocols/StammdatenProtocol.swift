@@ -8,7 +8,7 @@
 
 import Foundation
 protocol StammdatenProtocol {
-    func createdHospital(hospital : BaseHospital)
+    func createdHospital()
     func createdUnit()
     func createdUser(user : User)
     func createdDiagnose(diagnose : BaseInjury)
