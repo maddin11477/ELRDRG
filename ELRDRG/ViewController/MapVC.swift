@@ -13,6 +13,7 @@ import CoreLocation
 class MapVC: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
+    let selfPin = MKPointAnnotation()
     
     @IBAction func SegementControllChanged(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
@@ -24,6 +25,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
             mapView.mapType = .hybrid
         }
     }
+    
+    @IBOutlet weak var longitude: UILabel!
+    @IBOutlet weak var latitude: UILabel!
+    @IBOutlet weak var selectedLongitude: UILabel!
+    @IBOutlet weak var selectedLatitude: UILabel!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -37,7 +43,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
         
-        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+        longPressGesture.minimumPressDuration = 1.0
+        mapView.addGestureRecognizer(longPressGesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,10 +61,15 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        //print("locations = \(locValue.latitude) \(locValue.longitude)")
+        longitude.text = String(locValue.longitude)
+        latitude.text = String(locValue.latitude)
         self.locationManager.stopUpdatingLocation()
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
         self.mapView.setRegion(region, animated: true)
+        
+        selfPin.coordinate = locations[0].coordinate
+        mapView.addAnnotation(selfPin)
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,15 +77,22 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func handleLongPress (gesture: UILongPressGestureRecognizer) {
+        if gesture.state == UIGestureRecognizerState.began {
+            let touchPoint: CGPoint = gesture.location(in: mapView)
+            let newCoordinate: CLLocationCoordinate2D = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            selectedLongitude.text = String(Double(round(1000000*newCoordinate.longitude)/1000000))
+            selectedLatitude.text = String(Double(round(1000000*newCoordinate.latitude)/1000000))
+        }
     }
-    */
+    
+    func addAnnotationOnLocation(pointedCoordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = pointedCoordinate
+        print("\(annotation.coordinate.latitude) + \(annotation.coordinate.latitude)")
+        annotation.title = "Loading..."
+        mapView.addAnnotation(annotation)
+    }
+    
 
 }
