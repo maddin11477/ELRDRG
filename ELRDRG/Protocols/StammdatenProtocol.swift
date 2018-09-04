@@ -7,9 +7,9 @@
 //
 
 import Foundation
-protocol StammdatenDetailVCDelegate {
+protocol StammdatenProtocol {
     func createdHospital(hospital : BaseHospital)
-    func createdUnit(unit : BaseUnit)
+    func createdUnit()
     func createdUser(user : User)
     func createdDiagnose(diagnose : BaseInjury)
 }

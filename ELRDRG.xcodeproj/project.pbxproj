@@ -21,6 +21,13 @@
 		018042C8213BFEF8008B1784 /* StammdatenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042C7213BFEF8008B1784 /* StammdatenProtocol.swift */; };
 		018042CC213C0217008B1784 /* CreateUnitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042CB213C0217008B1784 /* CreateUnitVC.swift */; };
 		018042CE213DC841008B1784 /* ChooseDokuTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */; };
+		018042D8213ED95C008B1784 /* BaseDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042D7213ED95C008B1784 /* BaseDataHandler.swift */; };
+		018042DF213EF964008B1784 /* NEF.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042D9213EF963008B1784 /* NEF.png */; };
+		018042E0213EF964008B1784 /* RTW.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042DA213EF963008B1784 /* RTW.png */; };
+		018042E1213EF964008B1784 /* ITH.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042DB213EF963008B1784 /* ITH.png */; };
+		018042E3213EF964008B1784 /* KTW.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042DD213EF964008B1784 /* KTW.png */; };
+		018042E4213EF964008B1784 /* RTH.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042DE213EF964008B1784 /* RTH.png */; };
+		018042E6213F002F008B1784 /* UnitCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */; };
 		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
@@ -69,6 +76,13 @@
 		018042C7213BFEF8008B1784 /* StammdatenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenProtocol.swift; sourceTree = "<group>"; };
 		018042CB213C0217008B1784 /* CreateUnitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUnitVC.swift; sourceTree = "<group>"; };
 		018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDokuTypeVC.swift; sourceTree = "<group>"; };
+		018042D7213ED95C008B1784 /* BaseDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataHandler.swift; sourceTree = "<group>"; };
+		018042D9213EF963008B1784 /* NEF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NEF.png; sourceTree = "<group>"; };
+		018042DA213EF963008B1784 /* RTW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RTW.png; sourceTree = "<group>"; };
+		018042DB213EF963008B1784 /* ITH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ITH.png; sourceTree = "<group>"; };
+		018042DD213EF964008B1784 /* KTW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KTW.png; sourceTree = "<group>"; };
+		018042DE213EF964008B1784 /* RTH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RTH.png; sourceTree = "<group>"; };
+		018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +144,7 @@
 				012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */,
 				018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */,
 				5B4A600E213C73E100844F85 /* DocumentationTableViewCell.swift */,
+				018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */,
 			);
 			path = CostumTableViewCell;
 			sourceTree = "<group>";
@@ -137,6 +152,11 @@
 		018042BA213A9A3D008B1784 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				018042DE213EF964008B1784 /* RTH.png */,
+				018042DB213EF963008B1784 /* ITH.png */,
+				018042DA213EF963008B1784 /* RTW.png */,
+				018042DD213EF964008B1784 /* KTW.png */,
+				018042D9213EF963008B1784 /* NEF.png */,
 				018042BD213A9B98008B1784 /* humanbody02.png */,
 				018042BB213A9A60008B1784 /* humonbody01.png */,
 			);
@@ -150,6 +170,7 @@
 				5B6D775C213052AD00DDFA2B /* LoginHandler.swift */,
 				5B4A600C213C6EA900844F85 /* DocumentationHandler.swift */,
 				5B4A6012213D82C800844F85 /* SessionHandler.swift */,
+				018042D7213ED95C008B1784 /* BaseDataHandler.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
@@ -309,10 +330,15 @@
 			files = (
 				5B41E9C0212C5F5400525804 /* LaunchScreen.storyboard in Resources */,
 				018042BC213A9A60008B1784 /* humonbody01.png in Resources */,
+				018042E0213EF964008B1784 /* RTW.png in Resources */,
 				5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */,
 				018042BE213A9B98008B1784 /* humanbody02.png in Resources */,
 				5B41E9BD212C5F5400525804 /* Assets.xcassets in Resources */,
+				018042E3213EF964008B1784 /* KTW.png in Resources */,
+				018042DF213EF964008B1784 /* NEF.png in Resources */,
 				5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */,
+				018042E1213EF964008B1784 /* ITH.png in Resources */,
+				018042E4213EF964008B1784 /* RTH.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +360,7 @@
 				5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */,
 				5B4A6006213C641300844F85 /* DocumentationVC.swift in Sources */,
 				5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */,
+				018042D8213ED95C008B1784 /* BaseDataHandler.swift in Sources */,
 				0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */,
 				5B4A6015213DAAE800844F85 /* MapVC.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
@@ -341,6 +368,7 @@
 				5B4A6013213D82C800844F85 /* SessionHandler.swift in Sources */,
 				5B4A6009213C654800844F85 /* RoundButton.swift in Sources */,
 				5B4A600B213C6A2800844F85 /* DocumentationDetailTextVC.swift in Sources */,
+				018042E6213F002F008B1784 /* UnitCostumTableViewCell.swift in Sources */,
 				5B4A6011213C7A4C00844F85 /* DocumentationProtocol.swift in Sources */,
 				5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */,
 				018042B7213A7179008B1784 /* PatientenVC.swift in Sources */,
