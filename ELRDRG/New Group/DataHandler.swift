@@ -21,18 +21,7 @@ class DataHandler: NSObject {
     
     var delegate : missionProtocol?
     
-    public func addBaseUnit(callsign : String, type : String, crewCount : Int16)
-    {
-        print("Adding Fahrzeug: " + callsign)
-        let unit = BaseUnit(context: AppDelegate.viewContext)
-       // let unit = Unit(context: AppDelegate.viewContext)
-        unit.funkrufName = callsign
-        unit.type = type
-        unit.crewCount = crewCount
-        saveData()
-        
-        
-    }
+    
     
     public func addMission(reason : String?)
     {
@@ -54,21 +43,7 @@ class DataHandler: NSObject {
         print("Einsatz angelegt: " + mission.reason! + " Unique: " + mission.unique!)
     }
     
-    public func getAllBaseUnits() -> [BaseUnit]
-    {
-        let userRequest: NSFetchRequest<BaseUnit> = BaseUnit.fetchRequest()
-        do
-        {
-            let baseCars = try AppDelegate.viewContext.fetch(userRequest)
-            
-            return baseCars
-        }
-        catch
-        {
-            print(error)
-        }
-        return []
-    }
+   
     
     public func setEndDate()
     {
