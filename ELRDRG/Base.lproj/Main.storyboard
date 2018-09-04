@@ -1043,19 +1043,30 @@
                                 </items>
                             </toolbar>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HOk-oj-9W1">
-                                <rect key="frame" x="20" y="44" width="728" height="355"/>
+                                <rect key="frame" x="20" y="96" width="728" height="303"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eintrag Einsatztagebuch um" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuK-Zb-9IL">
+                                <rect key="frame" x="20" y="44" width="548" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7xs-ir-LHS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="HOk-oj-9W1" firstAttribute="centerX" secondItem="3Hr-Kp-JIy" secondAttribute="centerX" id="K1e-Qc-QlI"/>
-                            <constraint firstItem="ogL-72-BVR" firstAttribute="trailing" secondItem="HOk-oj-9W1" secondAttribute="trailing" constant="20" id="OTz-HY-zbl"/>
-                            <constraint firstItem="ogL-72-BVR" firstAttribute="bottom" secondItem="HOk-oj-9W1" secondAttribute="bottom" constant="349" id="UkH-wm-lib"/>
-                            <constraint firstItem="HOk-oj-9W1" firstAttribute="leading" secondItem="ogL-72-BVR" secondAttribute="leading" constant="20" id="Zu7-y3-giZ"/>
-                            <constraint firstItem="HOk-oj-9W1" firstAttribute="top" secondItem="A3z-mZ-9Ud" secondAttribute="bottom" id="jj7-Uw-wn4"/>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="leading" secondItem="3Hr-Kp-JIy" secondAttribute="leadingMargin" id="54P-iK-Aid"/>
+                            <constraint firstItem="ogL-72-BVR" firstAttribute="trailing" secondItem="FuK-Zb-9IL" secondAttribute="trailing" constant="200" id="Dkz-YX-ALI"/>
+                            <constraint firstItem="FuK-Zb-9IL" firstAttribute="top" secondItem="A3z-mZ-9Ud" secondAttribute="bottom" id="IQd-DC-Grr"/>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="leading" secondItem="FuK-Zb-9IL" secondAttribute="leading" id="Uhg-1K-i3K"/>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="top" secondItem="FuK-Zb-9IL" secondAttribute="bottom" constant="8" symbolic="YES" id="bMt-JT-n0O"/>
+                            <constraint firstItem="HOk-oj-9W1" firstAttribute="centerX" secondItem="A3z-mZ-9Ud" secondAttribute="centerX" id="fNO-hY-KC8"/>
+                            <constraint firstItem="ogL-72-BVR" firstAttribute="bottom" secondItem="HOk-oj-9W1" secondAttribute="bottom" constant="349" id="kfE-rn-UQD"/>
                             <constraint firstItem="A3z-mZ-9Ud" firstAttribute="top" secondItem="ogL-72-BVR" secondAttribute="top" id="mJk-Z0-81T"/>
                             <constraint firstItem="A3z-mZ-9Ud" firstAttribute="leading" secondItem="ogL-72-BVR" secondAttribute="leading" id="uRg-ql-FKn"/>
                             <constraint firstItem="A3z-mZ-9Ud" firstAttribute="trailing" secondItem="ogL-72-BVR" secondAttribute="trailing" id="ytT-RW-bfO"/>
@@ -1064,6 +1075,7 @@
                     </view>
                     <connections>
                         <outlet property="TextContent" destination="HOk-oj-9W1" id="mOE-2C-pos"/>
+                        <outlet property="labelCaption" destination="FuK-Zb-9IL" id="dWd-sV-RAg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSt-7s-Aj3" userLabel="First Responder" sceneMemberID="firstResponder"/>

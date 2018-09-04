@@ -12,9 +12,14 @@ class DocumentationDetailTextVC: UIViewController {
 
     var DocuHandler: DocumentationHandler = DocumentationHandler()
     
+    @IBOutlet weak var labelCaption: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        let dateString = formatter.string(from: currentDateTime)
+        labelCaption.text = "Eintrag Einsatztagebuch um \(dateString)"
         // Do any additional setup after loading the view.
     }
 
