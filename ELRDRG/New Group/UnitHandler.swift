@@ -1,19 +1,18 @@
 //
-//  BaseDataHandler.swift
+//  UnitHandler.swift
 //  ELRDRG
 //
-//  Created by Jonas Wehner on 04.09.18.
+//  Created by Jonas Wehner on 06.09.18.
 //  Copyright © 2018 Martin Mangold. All rights reserved.
 //
-import CoreData
-import UIKit
 
-class BaseDataHandler: NSObject {
- //Handelt Stammdaten
+import UIKit
+import CoreData
+
+class UnitHandler: NSObject {
+
+      var delegate : UnitProtocol?
     
-    
-    var delegate : StammdatenProtocol?
-    //UNit enum
     enum UnitType: Int16 {
         case RTW = 0
         case KTW = 1
@@ -36,21 +35,13 @@ class BaseDataHandler: NSObject {
     
     public func deleteBaseUnit(baseUnit : BaseUnit)
     {
-       
+        
         AppDelegate.viewContext.delete(baseUnit)
         
         saveData()
-      
+        
         
     }
-    
-    public func deleteBaseHospital(basehospital : BaseHospital)
-    {
-        AppDelegate.viewContext.delete(basehospital)
-        saveData()
-    }
-   
-    
     public func BaseUnit_To_UnitTypeString(id : Int16) -> String
     {
         var value = " "
@@ -91,30 +82,6 @@ class BaseDataHandler: NSObject {
         return []
     }
     
-    
-    public func addBaseHospital(name : String, city : String)
-    {
-        let hospital = BaseHospital(context: AppDelegate.viewContext)
-        hospital.name = name
-        hospital.city = city
-        saveData()
-    }
-    
-    public func getAllHospitals() -> [BaseHospital]
-    {
-        let userRequest : NSFetchRequest<BaseHospital> = BaseHospital.fetchRequest()
-        do
-        {
-           let basehospitals = try AppDelegate.viewContext.fetch(userRequest)
-            return basehospitals
-        }
-        catch
-        {
-            print(error)
-        }
-        return []
-    }
-    
     public func saveData()
     {
         //save to database
@@ -127,5 +94,4 @@ class BaseDataHandler: NSObject {
             print(error)
         }
     }
-    
 }

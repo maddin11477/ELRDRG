@@ -11,7 +11,9 @@ import UIKit
 class CreateUnitVC: UIViewController {
 
     
-    public var basedata : BaseDataHandler?
+    var unitdata : UnitHandler?
+    var hospitalData : HospitalHandler?
+    var injuryData : InjuryHandler?
     
     @IBOutlet weak var txtCrewCount: UITextField!
     
@@ -27,7 +29,7 @@ class CreateUnitVC: UIViewController {
     
     @IBAction func UITypePicker_Changed(_ sender: UISegmentedControl)
     {
-        let data  = BaseDataHandler()
+        let data  = UnitHandler()
         UnitPictureBox.image = UIImage(named: data.BaseUnit_To_UnitTypeString(id: Int16(UnitTypePicker.selectedSegmentIndex)))
     }
     
@@ -39,10 +41,9 @@ class CreateUnitVC: UIViewController {
     
     @IBAction func AddUnit_Click(_ sender: UIBarButtonItem)
     {
-       
-        basedata!.addBaseUnit(callsign: txtCallSign.text!, type: BaseDataHandler.UnitType(rawValue: Int16(UnitTypePicker.selectedSegmentIndex))!, crewCount: Int16(CrewCountStepper.value))
-        basedata!.saveData()
-        basedata!.delegate?.createdUnit()
+        self.unitdata!.addBaseUnit(callsign: txtCallSign.text!, type: UnitHandler.UnitType(rawValue: Int16(UnitTypePicker.selectedSegmentIndex))!, crewCount: Int16(CrewCountStepper.value))
+        self.unitdata!.saveData()
+        self.unitdata!.delegate?.createdUnit()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

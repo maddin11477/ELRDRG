@@ -17,6 +17,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     @IBOutlet weak var patientTable: UITableView!
     @IBOutlet weak var sortButton: UIBarButtonItem!
+    @IBOutlet weak var SortSegment: UISegmentedControl!
     
     
     
@@ -47,13 +48,14 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    @IBAction func SortByCategory_Button_Click(_ sender: Any)
+    
+    
+    @IBAction func SortSegmend_ValChanged(_ sender: Any)
     {
-       
-        if(sortById == true)
+        if(SortSegment.selectedSegmentIndex == 0)
         {
             
-            sortButton.title? = "Sortiere nach Nummer"
+            //sortButton.title? = "Sortiere nach Nummer"
             sortById = false
             sort()
         }
@@ -61,10 +63,17 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         {
             
             sortById = true
-            sortButton.title? = "Sortiere nach Kategorie"
+            //sortButton.title? = "Sortiere nach Kategorie"
             sort()
         }
         patientTable.reloadData()
+    }
+    
+    
+    @IBAction func SortByCategory_Button_Click(_ sender: Any)
+    {
+       
+       
     }
     
    

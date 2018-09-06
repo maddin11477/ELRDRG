@@ -11,11 +11,7 @@ import CoreData
 
 class DataHandler: NSObject {
    
-    public enum StammdatenTyp{
-        case Fahrzeuge
-        case Kliniken
-        case Diagnosen
-    }
+    
     
     let login : LoginHandler = LoginHandler()
     
