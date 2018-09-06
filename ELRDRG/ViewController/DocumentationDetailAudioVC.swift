@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
-
+    //VC for Audio Memos
     @IBOutlet weak var recordButton: RoundButton!
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!

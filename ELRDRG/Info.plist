@@ -48,5 +48,11 @@
 	<string>Benötigt GPS um die Karte zu zentrieren</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Benötigt GPS um die Karte zu zentrieren</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Benötige Zugriff auf Kamera</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Benötige Zugriff auf Kamera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Benötige Zugriff auf Kamera</string>
 </dict>
 </plist>
