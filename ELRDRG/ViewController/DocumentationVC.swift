@@ -28,7 +28,17 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         cell.CreationDate.text = formatter.string(from: documentations[indexPath.row].created!)
         cell.ID.text = String(documentations[indexPath.row].id)
         cell.Content.text = documentations[indexPath.row].content
+        
+        //wie komm ich an die verlinkten zellen??
+        
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let details = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailPhotoVC") as! DocumentationDetailPhotoVC
+        details.documentation = documentations[indexPath.row]
+        self.present(details, animated: true, completion: nil)
     }
     
     //protocol for delegation

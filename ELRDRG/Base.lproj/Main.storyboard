@@ -1204,6 +1204,9 @@
                                         <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="TVl-qP-vBA" kind="presentation" id="HfT-rJ-4ze"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1289,10 +1292,10 @@
             </objects>
             <point key="canvasLocation" x="423" y="2509"/>
         </scene>
-        <!--Documentation Detail AudiVC-->
+        <!--Documentation Detail AudioVC-->
         <scene sceneID="PPi-we-kMi">
             <objects>
-                <viewController title="Documentation Detail AudiVC" modalPresentationStyle="pageSheet" id="YM0-8q-luW" customClass="DocumentationDetailAudioVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Documentation Detail AudioVC" modalPresentationStyle="pageSheet" id="YM0-8q-luW" customClass="DocumentationDetailAudioVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LOd-ei-jx2">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1351,6 +1354,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mK-zb-9DX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="494.53124999999994" y="3213.28125"/>
+        </scene>
+        <!--DocumentationDetailPhotoVC-->
+        <scene sceneID="QRQ-zc-fOp">
+            <objects>
+                <viewController title="DocumentationDetailPhotoVC" modalPresentationStyle="pageSheet" id="TVl-qP-vBA" customClass="DocumentationDetailPhotoVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qed-Le-c1F">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3z-JO-Kft">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <items>
+                                    <barButtonItem title="Abbrechen" id="Aga-nO-lh1">
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="TVl-qP-vBA" id="3d6-rz-BuL"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="uQE-Sr-rpN"/>
+                                    <barButtonItem title="Speichern" id="gmd-vw-5Mj">
+                                        <connections>
+                                            <action selector="saveButtonPressed:" destination="TVl-qP-vBA" id="KgA-TO-KQh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovk-f3-qhG" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                <rect key="frame" x="361" y="75" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cam"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="UIButtonTextcolor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="takePhotoButtonPressed:" destination="TVl-qP-vBA" eventType="touchUpInside" id="uRp-mP-ln4"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Beschreibung hinzufügen..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u5F-AZ-UhI">
+                                <rect key="frame" x="20" y="125" width="728" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52x-Ll-uRo" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                <rect key="frame" x="419" y="75" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sel"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" name="UIButtonTextcolor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="takePhotoButtonPressed:" destination="TVl-qP-vBA" eventType="touchUpInside" id="n85-0C-Pxj"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yJY-fK-Xm0">
+                                <rect key="frame" x="204" y="163" width="360" height="334"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="b3z-JO-Kft" firstAttribute="leading" secondItem="eal-ve-CY8" secondAttribute="leading" id="B3s-cW-tdp"/>
+                            <constraint firstItem="b3z-JO-Kft" firstAttribute="trailing" secondItem="eal-ve-CY8" secondAttribute="trailing" id="YnD-kQ-qMa"/>
+                            <constraint firstItem="b3z-JO-Kft" firstAttribute="top" secondItem="eal-ve-CY8" secondAttribute="top" id="w18-ZR-JXa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eal-ve-CY8"/>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="u5F-AZ-UhI" id="T3I-qG-Xq9"/>
+                        <outlet property="imageView" destination="yJY-fK-Xm0" id="UML-Yz-2ey"/>
+                        <outlet property="takePhotoButton" destination="Ovk-f3-qhG" id="9O6-Ld-vRg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mN9-fl-yJQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="426.5625" y="3940.625"/>
         </scene>
         <!--Tabelle-->
         <scene sceneID="xWr-tJ-X3y">
@@ -2210,7 +2305,13 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="UIButtonTextcolor">
+            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UIButtonTextcolor">
             <color red="0.0" green="0.4779999852180481" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UIButtonTextcolor">
+            <color red="0.0" green="0.47799998519999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

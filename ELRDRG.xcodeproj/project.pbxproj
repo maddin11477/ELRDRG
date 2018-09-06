@@ -64,6 +64,7 @@
 		5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7AE74121319693007552C3 /* LoginProtocol.swift */; };
 		5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8D21315CC100DA1073 /* Shift.swift */; };
 		5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */; };
+		5BB940E32141A121007DDCCC /* DocumentationDetailPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +127,7 @@
 		5B7AE74121319693007552C3 /* LoginProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProtocol.swift; sourceTree = "<group>"; };
 		5B84BB8D21315CC100DA1073 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
+		5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationDetailPhotoVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +144,6 @@
 		012508032135A5CC0065FDF0 /* NotImplemented */ = {
 			isa = PBXGroup;
 			children = (
-				5B6D77502130505F00DDFA2B /* Attachment.swift */,
 				5B6D774E2130503C00DDFA2B /* Documentation.swift */,
 			);
 			path = NotImplemented;
@@ -232,6 +233,7 @@
 			children = (
 				012508032135A5CC0065FDF0 /* NotImplemented */,
 				5B41E9CF212C6CA700525804 /* User.swift */,
+				5B6D77502130505F00DDFA2B /* Attachment.swift */,
 				5B6D7741212C86B400DDFA2B /* Mission.swift */,
 				5B6D774621304FF400DDFA2B /* Victim.swift */,
 				5B6D77482130501100DDFA2B /* Section.swift */,
@@ -270,6 +272,7 @@
 				5B4A6014213DAAE800844F85 /* MapVC.swift */,
 				018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */,
 				5B4A6016213EFCBF00844F85 /* DocumentationDetailAudioVC.swift */,
+				5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				018042C2213AA1ED008B1784 /* PatientenDetailVC.swift in Sources */,
 				018042B9213A7866008B1784 /* PatientCustomTableViewCell.swift in Sources */,
 				5B6D774B2130501E00DDFA2B /* Unit.swift in Sources */,
+				5BB940E32141A121007DDCCC /* DocumentationDetailPhotoVC.swift in Sources */,
 				5B6D774721304FF400DDFA2B /* Victim.swift in Sources */,
 				5B6D7742212C86B400DDFA2B /* Mission.swift in Sources */,
 				012508072135AED40065FDF0 /* missionProtocol.swift in Sources */,
@@ -554,7 +558,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BQXP47B3R7;
+				DEVELOPMENT_TEAM = M2V8GU344Q;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -572,7 +576,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BQXP47B3R7;
+				DEVELOPMENT_TEAM = M2V8GU344Q;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

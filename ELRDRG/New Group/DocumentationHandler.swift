@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 public enum DocumentationType: Int16{
     case Audio = 1
@@ -21,21 +22,6 @@ public class DocumentationHandler {
     var data: DataHandler = DataHandler()
     
     static var delegate : DocumentationProtocol?
-    
-    public func SaveTextDocumentation(textcontent: String, savedate : Date){
-        //get current mission
-        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
-        let docuEntry = Documentation(context: AppDelegate.viewContext)
-        docuEntry.id = getLastDocuID() + 1
-        
-        docuEntry.created = savedate
-        docuEntry.content = textcontent
-        mission.addToDocumentations(docuEntry)
-        
-        data.saveData()
-        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
-        print("Dokueintrag \(textcontent) erfolgreich gespeichert: \(savedate)")
-    }
     
     public func getAllDocumentations() -> [Documentation]{
         
@@ -77,4 +63,57 @@ public class DocumentationHandler {
         return 0
     }
     
+    //Dateien in der Datenbank speichern
+    public func SaveTextDocumentation(textcontent: String, savedate : Date){
+        //get current mission
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let docuEntry = Documentation(context: AppDelegate.viewContext)
+        docuEntry.id = getLastDocuID() + 1
+        
+        docuEntry.created = savedate
+        docuEntry.content = textcontent
+        mission.addToDocumentations(docuEntry)
+        
+        data.saveData()
+        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+        print("Dokueintrag \(textcontent) erfolgreich gespeichert: \(savedate)")
+    }
+    
+    public func SavePhotoDocumentation(picture: UIImage, description: String, saveDate: Date){
+        let uuidOfPhoto = NSUUID().uuidString
+        let storagePath = saveImageToDocumentDirectory(image: picture, uuid: uuidOfPhoto)
+        
+        //get current mission
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let docuEntry = Documentation(context: AppDelegate.viewContext)
+        let attachment = Attachment(context: docuEntry.managedObjectContext!)
+        
+        docuEntry.id = getLastDocuID() + 1
+        docuEntry.content = description
+        docuEntry.created = saveDate
+        attachment.storagePath = storagePath
+        attachment.type = DocumentationType.Photo.rawValue
+        attachment.uniqueName = uuidOfPhoto
+        docuEntry.addToAttachments(attachment)
+        
+        mission.addToDocumentations(docuEntry)
+        data.saveData()
+        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+        print("Dokueintrag \(description) erfolgreich gespeichert: \(saveDate)")
+    }
+    
+    //Bild lokal speichern
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func saveImageToDocumentDirectory(image: UIImage, uuid: String)->URL{
+        
+        let path = getDocumentsDirectory().appendingPathComponent(("\(uuid).jpg"))
+        print("Saving foto to: \(path)")
+        let imageData = UIImageJPEGRepresentation(image, 0.5)
+        FileManager.default.createFile(atPath: path.absoluteString, contents: imageData, attributes: nil)
+        return path
+    }
 }
