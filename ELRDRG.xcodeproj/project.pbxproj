@@ -33,6 +33,7 @@
 		018042E6213F002F008B1784 /* UnitCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */; };
 		018042E8213F1812008B1784 /* HosiptalCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042E7213F1812008B1784 /* HosiptalCostumTableViewCell.swift */; };
 		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
+		5B3D51FB2141971500045BD4 /* _.gitignore_ in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D51FA2141971500045BD4 /* _.gitignore_ */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
 		5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B41E9B6212C5F5300525804 /* Main.storyboard */; };
@@ -93,6 +94,7 @@
 		018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitCostumTableViewCell.swift; sourceTree = "<group>"; };
 		018042E7213F1812008B1784 /* HosiptalCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HosiptalCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
+		5B3D51FA2141971500045BD4 /* _.gitignore_ */ = {isa = PBXFileReference; lastKnownFileType = text; path = _.gitignore_; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B41E9B4212C5F5300525804 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		5B41E9A6212C5F5300525804 = {
 			isa = PBXGroup;
 			children = (
+				5B3D51FA2141971500045BD4 /* _.gitignore_ */,
 				5B41E9B1212C5F5300525804 /* ELRDRG */,
 				5B41E9B0212C5F5300525804 /* Products */,
 			);
@@ -355,6 +358,7 @@
 				018042DF213EF964008B1784 /* NEF.png in Resources */,
 				5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */,
 				018042E1213EF964008B1784 /* ITH.png in Resources */,
+				5B3D51FB2141971500045BD4 /* _.gitignore_ in Resources */,
 				018042E4213EF964008B1784 /* RTH.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
