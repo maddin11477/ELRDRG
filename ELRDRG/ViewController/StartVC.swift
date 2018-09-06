@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDelegate, UITableViewDataSource {
-    
+    //Dies ist eine Teständerung
     var missions : [Mission] = []
     var Login: LoginHandler = LoginHandler()
     let data: DataHandler = DataHandler()
