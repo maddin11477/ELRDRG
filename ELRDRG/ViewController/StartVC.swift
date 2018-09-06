@@ -165,7 +165,6 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             }
             else {
                 adaptUIForLoggedInUser(userLoggedIn: false)
-                
             }
         }
         else
