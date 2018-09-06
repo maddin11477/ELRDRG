@@ -8,11 +8,25 @@
 
 import UIKit
 
-class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewDataSource, UITableViewDelegate{
+class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, InjuryProtocol, UITableViewDataSource, UITableViewDelegate{
+    func createdInjury() {
+        injuries = injuryData.getAllBaseInjury()
+        print(injuries.count)
+        table.reloadData()
+    }
     
-    let baseData = BaseDataHandler()
+    
+    enum StammdatenTyp{
+        case Fahrzeuge
+        case Kliniken
+        case Diagnosen
+    }
+    
+    let unitData = UnitHandler()
+    let injuryData = InjuryHandler()
+    let hospitalData = HospitalHandler()
    
-    public var type : DataHandler.StammdatenTyp = DataHandler.StammdatenTyp.Diagnosen
+    public var type : StammdatenTyp = StammdatenTyp.Diagnosen
    
     
     
@@ -36,6 +50,7 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
         }
         else
         {
+            print(injuries.count)
             return injuries.count
         }
         
@@ -48,10 +63,10 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: "UnitCostumTableViewCell") as! UnitCostumTableViewCell
             cell.CallSign.text = units[row].funkrufName
             cell.CrewCount.text = String(units[row].crewCount)
-            cell.UnitType.text = baseData.BaseUnit_To_UnitTypeString(id: units[row].type)
+            cell.UnitType.text = unitData.BaseUnit_To_UnitTypeString(id: units[row].type)
             
             
-            cell.PictureBox.image = UIImage(named: baseData.BaseUnit_To_UnitTypeString(id: units[row].type))
+            cell.PictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: units[row].type))
             return cell
             
         }
@@ -64,10 +79,14 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
         }
         else
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "InuryCostumTableViewCell") as! InjuryCostumTableViewCell
-            cell.Name.text = injuries[row].diagnosis
-            cell.Location.text = injuries[row].category
-            return cell
+            
+                let cell = tableView.dequeueReusableCell(withIdentifier: "InjuryCostumTableViewCell") as! InjuryCostumTableViewCell
+                cell.Name.text = injuries[row].diagnosis
+                cell.Location.text = injuries[row].loaction
+                return cell
+            
+            
+            
         }
        
     }
@@ -76,8 +95,8 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
     
     func createdHospital() {
         //dosomething
-        
-        hospitals = baseData.getAllHospitals()
+       
+        hospitals = hospitalData.getAllHospitals()
         
         table.reloadData()
     }
@@ -86,7 +105,7 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
         //dosomething
         print("created")
       
-        units = baseData.getAllBaseUnits()
+        units = unitData.getAllBaseUnits()
         table.reloadData()
     }
     
@@ -95,7 +114,8 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
     }
     
     func createdDiagnose(diagnose: BaseInjury) {
-        print(String(diagnose.diagnosis!))
+        
+       
     }
     
     @IBOutlet weak var NavBar: UINavigationBar!
@@ -112,19 +132,25 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
        
         if(type == .Diagnosen)
         {
+            injuryData.delegate = self
+            injuries = injuryData.getAllBaseInjury()
             navBarItem.title = "Diagnosen"
         }
         else if(type == .Fahrzeuge)
         {
-            units = baseData.getAllBaseUnits()
+            unitData.delegate = self
+            units = unitData.getAllBaseUnits()
             navBarItem.title = "Fahrzeuge"
         }
         else if(type == .Kliniken)
         {
-            hospitals = baseData.getAllHospitals()
+            hospitalData.delegate = self
+            hospitals = hospitalData.getAllHospitals()
             navBarItem.title = "Kliniken"
         }
-        baseData.delegate = self
+        
+        
+        
         table.dataSource = self
         table.delegate = self
         table.reloadData()
@@ -138,7 +164,9 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
         if(type == .Fahrzeuge)
         {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "CreateUnitVC") as! CreateUnitVC
-            vc.basedata = baseData
+           // vc.hospitalData = hospitalData
+           // vc.injuryData = injuryData
+            vc.unitdata = unitData
            
             self.present(vc, animated: true, completion: nil)
         }
@@ -146,9 +174,18 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
         {
             handleHospitalAddAction()
         }
+        else if(type == .Diagnosen)
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "CreateInjuryVC") as! CreateInjuryVC
+            vc.injuryData = injuryData
+            self.present(vc, animated: true, completion: nil)
+           
+        }
      
        
     }
+    
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete)
@@ -158,8 +195,8 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
               
                 let alert : UIAlertController = UIAlertController(title: "Löschen", message: ("Sind Sie sicher, dass Sie  " + units[indexPath.row].funkrufName! + " Löschen möchten?"), preferredStyle: UIAlertControllerStyle.alert)
                 let alertaction : UIAlertAction = UIAlertAction(title: "Löschen", style: .destructive, handler: { alert -> Void in
-                    self.baseData.deleteBaseUnit(baseUnit: self.units[indexPath.row])
-                    self.units = self.baseData.getAllBaseUnits()
+                    self.unitData.deleteBaseUnit(baseUnit: self.units[indexPath.row])
+                    self.units = self.unitData.getAllBaseUnits()
                     self.table.reloadData()
                    
                     
@@ -173,8 +210,23 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
             {
                 let alert : UIAlertController = UIAlertController(title: "Löschen", message: ("Sind Sie sicher, dass Sie  " + hospitals[indexPath.row].name! + " Löschen möchten?"), preferredStyle: UIAlertControllerStyle.alert)
                 let alertaction : UIAlertAction = UIAlertAction(title: "Löschen", style: .destructive, handler: { alert -> Void in
-                    self.baseData.deleteBaseHospital(basehospital: self.hospitals[indexPath.row])
-                    self.hospitals = self.baseData.getAllHospitals()
+                    self.hospitalData.deleteBaseHospital(basehospital: self.hospitals[indexPath.row])
+                    self.hospitals = self.hospitalData.getAllHospitals()
+                    self.table.reloadData()
+                    
+                    
+                })
+                let abortaction : UIAlertAction = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+                alert.addAction(alertaction)
+                alert.addAction(abortaction)
+                self.present(alert, animated: true, completion: nil)
+            }
+            else if(type == .Kliniken)
+            {
+                let alert : UIAlertController = UIAlertController(title: "Löschen", message: ("Sind Sie sicher, dass Sie  " + injuries[indexPath.row].diagnosis! + " Löschen möchten?"), preferredStyle: UIAlertControllerStyle.alert)
+                let alertaction : UIAlertAction = UIAlertAction(title: "Löschen", style: .destructive, handler: { alert -> Void in
+                    self.injuryData.deleteBaseInjury(baseInjury:  self.injuries[indexPath.row])
+                    self.injuries = self.injuryData.getAllBaseInjury()
                     self.table.reloadData()
                     
                     
@@ -207,8 +259,8 @@ class StammdatenDetailVC: UIViewController , StammdatenProtocol, UITableViewData
             let hospitalCity = (alertController.textFields![1] as UITextField).text
             if((alertController.textFields![0] as UITextField).text != "" && (alertController.textFields![1] as UITextField).text != "")
             {
-                self.baseData.addBaseHospital(name: hospitalName!, city: hospitalCity!)
-                self.baseData.delegate?.createdHospital()
+                self.hospitalData.addBaseHospital(name: hospitalName!, city: hospitalCity!)
+                self.hospitalData.delegate?.createdHospital()
             }
            
             
