@@ -10,33 +10,71 @@ import UIKit
 
 protocol unitSelectedProtocol {
     func didSelectUnit(unit : BaseUnit)
+    func didSelectHospital(hospital : BaseHospital)
 }
 
 class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let hospitalData = HospitalHandler()
      let unitData = UnitHandler()
     var units : [BaseUnit] = []
+    var hospitals : [BaseHospital] = []
     public var delegate : unitSelectedProtocol?
+    public var type : availableTypes = .unitselector
+    enum availableTypes {
+        case unitselector
+        case hospitalselector
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //do something
-       
-        return units.count
+        if(type == .hospitalselector)
+        {
+            return hospitals.count
+        }
+        else
+        {
+            return units.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //do something
         let cell = table.dequeueReusableCell(withIdentifier: "selectUnitCell") as! UnitSelectCostumTableViewCell
-        let unit = units[indexPath.row]
-        cell.Callsign.text = unit.funkrufName
-        
-        cell.crewCount.text = ""
-       
-        cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
-        cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
+        if(type == .unitselector)
+        {
+            let unit = units[indexPath.row]
+            cell.Callsign.text = unit.funkrufName
+            
+            cell.crewCount.text = ""
+            
+            cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
+            cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
+        }
+        else
+        {
+            let hospital = hospitals[indexPath.row]
+            cell.Callsign.text = hospital.name
+            cell.type.text = hospital.city
+            cell.crewCount.text = ""
+            cell.pictureBox.image = UIImage(named: "hospital.png")
+        }
+        //do something
+     
+      
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate!.didSelectUnit(unit: units[indexPath.row])
+        if(type == .unitselector)
+        {
+            self.delegate!.didSelectUnit(unit: units[indexPath.row])
+        }
+        else
+        {
+            self.delegate!.didSelectHospital(hospital: hospitals[indexPath.row])
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -52,7 +90,7 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         super.viewDidLoad()
         
         units = unitData.getAllBaseUnits()
-        
+        hospitals = hospitalData.getAllHospitals()
         table.delegate = self
         table.dataSource = self
         

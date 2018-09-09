@@ -19,7 +19,35 @@ class UebersichtVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let data = DataHandler()
+        let victims = data.getVictims()
+        var countDone : Int = 0
+        var countNotDone : Int = 0
+        for vic in victims {
+            if(vic.isDone == nil)
+            {
+                countNotDone = countNotDone + 1
+            }
+            else
+            {
+                countDone = countDone + 1
+            }
+        }
+        if let tabItems = tabBarController?.tabBar.items {
+            // In this case we want to modify the badge number of the third tab:
+            let tabItem = tabItems[3]
+            if(countNotDone > 0)
+            {
+                 tabItem.badgeValue = String(countNotDone)
+                 tabItem.badgeColor = UIColor.red
+            }
+            else
+            {
+                tabItem.badgeValue = "Erledigt"
+                tabItem.badgeColor = UIColor.green
+            }
+           
+        }
         // Do any additional setup after loading the view.
     }
 

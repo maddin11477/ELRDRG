@@ -25,6 +25,14 @@ class PatientCustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var unit: UILabel!
     
+    @IBOutlet weak var child: UILabel!
+    
+    @IBOutlet weak var sht: UILabel!
+    
+    @IBOutlet weak var heatinjury: UILabel!
+    
+    @IBOutlet weak var helicopter: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

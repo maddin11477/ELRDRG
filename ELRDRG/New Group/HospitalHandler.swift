@@ -19,6 +19,13 @@ class HospitalHandler: NSObject {
         saveData()
     }
     
+    public func BaseHospital_to_Hospital(baseHospital : BaseHospital) -> Hospital
+    {
+        let hospital = Hospital(context: AppDelegate.viewContext)
+        hospital.name = baseHospital.name
+        hospital.city = baseHospital.city
+        return hospital
+    }
     
     
     
