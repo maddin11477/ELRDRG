@@ -8,11 +8,21 @@
 
 import UIKit
 
-class PatientenDetailVC: UIViewController {
-
+class PatientenDetailVC: UIViewController, unitSelectedProtocol {
+    func didSelectUnit(unit: BaseUnit) {
+        
+        victim.fahrzeug = unitData.baseUnit_To_Unit(baseUnit: unit)
+        victim.fahrzeug?.patient = victim
+        data.saveData()
+        txtTransportUnit.text = victim.fahrzeug?.callsign ?? ""
+    }
+    
+    let unitData : UnitHandler = UnitHandler()
     let data : DataHandler = DataHandler()
     let login : LoginHandler = LoginHandler()
     public var victim : Victim = Victim()
+    
+    
     
     @IBOutlet weak var txtID: UITextField!
     @IBOutlet weak var txtFirstName: UITextField!
@@ -24,8 +34,23 @@ class PatientenDetailVC: UIViewController {
     @IBOutlet weak var txtTransportUnit: UITextField!
     @IBOutlet weak var txtTransportDestination: UITextField!
     
+    @IBOutlet weak var lblTransportTime: UILabel!
+    
+    
     @IBOutlet weak var ageStepper: UIStepper!
     @IBOutlet weak var idStepper: UIStepper!
+    
+    @IBAction func startTransport_Click(_ sender: Any)
+    {
+        victim.isDone = Date()
+        data.saveData()
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "hh:mm / dd.MM.yyyy"
+        lblTransportTime.text = formatter.string(from: victim.isDone!)
+        
+    }
+    
+    
     
     
     @IBAction func txtFirstName_editingDidEnd(_ sender: Any)
@@ -52,7 +77,9 @@ class PatientenDetailVC: UIViewController {
     
     @IBAction func chooseTransportUnit_Click(_ sender: Any)
     {
-        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "selectUnitVC") as! SelectUnitVC
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func category_changed(_ sender: Any)
@@ -104,6 +131,12 @@ class PatientenDetailVC: UIViewController {
         idStepper.value = Double(victim.id)
         ageStepper.value = Double(victim.age)
         genderPicker.selectedSegmentIndex = Int(victim.gender)
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "hh:mm / dd.MM.yyyy"
+        if let date = victim.isDone
+        {
+            lblTransportTime.text = formatter.string(from: date)
+        }
         
         
         

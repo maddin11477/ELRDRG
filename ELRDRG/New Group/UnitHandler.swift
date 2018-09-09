@@ -33,6 +33,15 @@ class UnitHandler: NSObject {
         
     }
     
+    public func baseUnit_To_Unit(baseUnit : BaseUnit) -> Unit
+    {
+        let unit = Unit(context: AppDelegate.viewContext)
+        unit.callsign = baseUnit.funkrufName
+        unit.crewCount = baseUnit.crewCount
+        unit.type = baseUnit.type
+        return unit
+    }
+    
     public func deleteBaseUnit(baseUnit : BaseUnit)
     {
         
