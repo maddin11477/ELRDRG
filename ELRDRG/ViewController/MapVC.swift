@@ -62,8 +62,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         //print("locations = \(locValue.latitude) \(locValue.longitude)")
-        longitude.text = String(locValue.longitude)
-        latitude.text = String(locValue.latitude)
+        longitude.text = String(Double(round(1000000*locValue.longitude)/1000000))
+        latitude.text = String(Double(round(1000000*locValue.latitude)/1000000))
         self.locationManager.stopUpdatingLocation()
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
         self.mapView.setRegion(region, animated: true)
