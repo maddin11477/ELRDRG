@@ -20,7 +20,7 @@ class UnitHandler: NSObject {
         case RTH = 3
         case HVO = 4
     }
-    public func addBaseUnit(callsign : String, type : UnitType, crewCount : Int16)
+    public func addBaseUnit(callsign : String, type : UnitType, crewCount : Int16) -> BaseUnit
     {
         print("Adding Fahrzeug: " + callsign)
         let unit = BaseUnit(context: AppDelegate.viewContext)
@@ -29,7 +29,7 @@ class UnitHandler: NSObject {
         unit.type = type.rawValue
         unit.crewCount = crewCount
         saveData()
-        
+        return unit
         
     }
     

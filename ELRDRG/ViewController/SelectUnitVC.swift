@@ -13,7 +13,12 @@ protocol unitSelectedProtocol {
     func didSelectHospital(hospital : BaseHospital)
 }
 
-class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UnitExtention {
+    func createdUnit(unit: BaseUnit) {
+        self.delegate?.didSelectUnit(unit: unit)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     let hospitalData = HospitalHandler()
      let unitData = UnitHandler()
     var units : [BaseUnit] = []
@@ -37,6 +42,53 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             return units.count
         }
         
+    }
+    @IBAction func AddCostum(_ sender: Any)
+    {
+        if(type == .unitselector)
+        {
+           
+           let vc = self.storyboard?.instantiateViewController(withIdentifier: "CreateUnitVC") as! CreateUnitVC
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+           
+        }
+        else
+        {
+            handleHospitalAddAction()
+        }
+    }
+    
+    func handleHospitalAddAction()
+    {
+        let alertController = UIAlertController(title: "Klinik", message: "Stammdaten Krankenhaus erstellen", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Krankenhaus"
+        }
+        alertController.addTextField {(textField : UITextField!) -> Void in
+            textField.placeholder = "Stadt"
+        }
+        let saveAction = UIAlertAction(title: "Erstellen", style: .default, handler: { alert -> Void in
+            let hospitalName = (alertController.textFields![0] as UITextField).text
+            let hospitalCity = (alertController.textFields![1] as UITextField).text
+            if((alertController.textFields![0] as UITextField).text != "" && (alertController.textFields![1] as UITextField).text != "")
+            {
+               
+                let hospital = self.hospitalData.addBaseHospital(name: hospitalName!, city: hospitalCity!)
+                self.delegate!.didSelectHospital(hospital: hospital)
+                self.dismiss(animated: true, completion: nil)
+            
+                
+            }
+            
+            
+        })
+        
+        let abortaction = UIAlertAction(title: "Abbrechen", style: .destructive, handler: nil)
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(abortaction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

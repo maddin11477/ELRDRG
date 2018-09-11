@@ -30,12 +30,13 @@ class HospitalHandler: NSObject {
     
     
     
-    public func addBaseHospital(name : String, city : String)
+    public func addBaseHospital(name : String, city : String) -> BaseHospital
     {
         let hospital = BaseHospital(context: AppDelegate.viewContext)
         hospital.name = name
         hospital.city = city
         saveData()
+        return hospital
     }
     
     public func getAllHospitals() -> [BaseHospital]

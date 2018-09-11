@@ -7,7 +7,10 @@
 //
 
 import UIKit
-
+public protocol UnitExtention
+{
+    func createdUnit(unit : BaseUnit)
+}
 class CreateUnitVC: UIViewController {
 
     
@@ -26,6 +29,7 @@ class CreateUnitVC: UIViewController {
     @IBOutlet weak var UnitTypePicker: UISegmentedControl!
   
     
+    public var delegate : UnitExtention?
     
     @IBAction func UITypePicker_Changed(_ sender: UISegmentedControl)
     {
@@ -41,9 +45,22 @@ class CreateUnitVC: UIViewController {
     
     @IBAction func AddUnit_Click(_ sender: UIBarButtonItem)
     {
-        self.unitdata!.addBaseUnit(callsign: txtCallSign.text!, type: UnitHandler.UnitType(rawValue: Int16(UnitTypePicker.selectedSegmentIndex))!, crewCount: Int16(CrewCountStepper.value))
+        if(self.unitdata == nil)
+        {
+            unitdata = UnitHandler()
+        }
+        let unit = self.unitdata!.addBaseUnit(callsign: txtCallSign.text!, type: UnitHandler.UnitType(rawValue: Int16(UnitTypePicker.selectedSegmentIndex))!, crewCount: Int16(CrewCountStepper.value))
         self.unitdata!.saveData()
-        self.unitdata!.delegate?.createdUnit()
+        if let del = self.unitdata?.delegate
+        {
+            del.createdUnit()
+        }
+        if let localDel = self.delegate
+        {
+            localDel.createdUnit(unit : unit)
+        }
+        
+        //self.delegate!.createdUnit(unit: unit)
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDelegate, UITableViewDataSource {
+class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate{
     @IBOutlet weak var helicopterSwitch: UISwitch!
     
     @IBOutlet weak var shtSwitch: UISwitch!
@@ -16,6 +16,12 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     @IBOutlet weak var childSwitch: UISwitch!
     
     @IBOutlet weak var heatInjurySwitch: UISwitch!
+    
+    private var birthdatePicker : UIDatePicker?
+    
+    @IBOutlet weak var txtBirthdate: UITextField!
+    
+    @IBOutlet weak var txtTransportzielBottomConstrain: NSLayoutConstraint!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(tableView == transportUnitTable)
@@ -181,7 +187,45 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func ageStepper_Click(_ sender: Any)
     {
+        let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian)!
         victim.age = Int16(ageStepper.value)
+        if let date = victim.birthdate
+        {
+        let calender = Calendar.current
+        var datecomponents = DateComponents()
+        var year = calender.component(.year, from: date)
+        let month = calender.component(.month, from: date)
+        let day = calender.component(.day, from: date)
+        let now = Date()
+        let currentYear = Calendar.current.component(.year, from: now)
+        year = currentYear - Int(ageStepper.value)
+         print(Int(ageStepper.value))
+         print(year)
+        datecomponents.year = year
+        datecomponents.day = day
+        datecomponents.month = month
+        
+        
+        
+        let newDate = gregorianCalendar.date(from: datecomponents) ?? Date()
+            victim.birthdate = newDate
+            data.saveData()
+            let formatter : DateFormatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            txtBirthdate.text = formatter.string(from: newDate)
+        }
+        if(victim.age < 18)
+        {
+            childSwitch.isOn = true
+            victim.child = true
+            data.saveData()
+        }
+        else
+        {
+            childSwitch.isOn = false
+            victim.child = false
+            data.saveData()
+        }
         txtAge.text = String(victim.age)
     }
     
@@ -197,12 +241,34 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func closeViewController_Click(_ sender: Any)
     {
+        if(victim.hospital == nil && (txtTransportDestination.text?.count ?? 0) > 1)
+        {
+            let hospital = Hospital(context: AppDelegate.viewContext)
+            hospital.name = txtTransportDestination.text!
+            hospital.city = "unknown"
+            victim.hospital = hospital
+            data.saveData()
+        }
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+        
     }
     
+    func calculateAge(date : Date) -> Int
+    {
+        let now = Date()
+        let calendar : NSCalendar = NSCalendar.current as NSCalendar
+        let ageComponents = calendar.components(.year, from: victim.birthdate!, to: now as Date, options: [])
+        let age = ageComponents.year!
+        return age
+    }
+    
+  
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
         transportUnitTable.delegate = self
         transportUnitTable.dataSource = self
         
@@ -211,7 +277,18 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         txtAge.text = String(victim.age)
         txtLastName.text = victim.lastName
         txtFirstName.text = victim.firstName
+        if let birthdate = victim.birthdate
+        {
+            let formatter : DateFormatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            txtBirthdate.text = formatter.string(from: birthdate)
+           let age = calculateAge(date: victim.birthdate!)
+            txtAge.text = String(age)
+            ageStepper.value = Double(age)
+            
+        }
        
+        
         transportUnitTable.reloadData()
         categoryPicker.selectedSegmentIndex = Int(victim.category - 1 )
         txtTransportDestination.text = victim.hospital?.name
@@ -230,9 +307,27 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         shtSwitch.isOn = victim.sht
         helicopterSwitch.isOn = victim.helicopter
         
+        birthdatePicker = UIDatePicker()
+        txtBirthdate.inputView = birthdatePicker
+        birthdatePicker?.datePickerMode = .date
+        birthdatePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        
         
     }
     
+    @objc func datePickerValueChanged()
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        txtBirthdate.text = formatter.string(from: (self.birthdatePicker?.date)!)
+        victim.birthdate = self.birthdatePicker?.date
+        ageStepper.value = Double(calculateAge(date: victim.birthdate!))
+        victim.age = Int16(ageStepper.value)
+        data.saveData()
+        txtAge.text = String(Int(ageStepper.value))
+        self.view.endEditing(true)
+    }
+  
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
