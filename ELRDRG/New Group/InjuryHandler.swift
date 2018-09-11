@@ -13,6 +13,12 @@ class InjuryHandler: NSObject {
     
     //ENUM und Array auf gleichem Stand halten !!!!
     public static let locationArray = ["Arm", "Oberschenkel", "Unterschenkel", "Hand", "Abdomen", "Thorax","Kopf"]
+    
+    enum side : Int16
+    {
+        case left = 0
+        case right = 1
+    }
     enum locations: Int16
     {
         

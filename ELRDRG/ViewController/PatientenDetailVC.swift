@@ -41,6 +41,14 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         }
     }
     
+    @IBAction func addInjury_click(_ sender: Any)
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectInjury")
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        /* if(tableView == transportUnitTable)
         {
@@ -139,6 +147,13 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         data.saveData()
     }
     
+    @IBAction func AddInjury_Click(_ sender: Any)
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectInjury")
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
+    
     @IBAction func txtFirstName_editingDidEnd(_ sender: Any)
     {
         victim.firstName = txtFirstName.text
@@ -151,10 +166,6 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         data.saveData()
     }
     
-    @IBAction func addInjury_click(_ sender: UIBarButtonItem)
-    {
-        
-    }
     
     @IBAction func chooseTrransportDestination(_ sender: Any)
     {

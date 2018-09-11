@@ -41,6 +41,8 @@
 		019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */; };
 		01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F42145217A0059618E /* SelectUnitVC.swift */; };
 		01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */; };
+		01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F821484A060059618E /* SelectInjuryVC.swift */; };
+		01ED51FB21484E310059618E /* SelectInjuryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51FA21484E310059618E /* SelectInjuryTableVC.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
 		5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B41E9B6212C5F5300525804 /* Main.storyboard */; };
@@ -110,6 +112,8 @@
 		019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInjuryVC.swift; sourceTree = "<group>"; };
 		01ED51F42145217A0059618E /* SelectUnitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUnitVC.swift; sourceTree = "<group>"; };
 		01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitSelectCostumTableViewCell.swift; sourceTree = "<group>"; };
+		01ED51F821484A060059618E /* SelectInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjuryVC.swift; sourceTree = "<group>"; };
+		01ED51FA21484E310059618E /* SelectInjuryTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjuryTableVC.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B41E9B4212C5F5300525804 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
@@ -294,6 +298,8 @@
 				018042CD213DC841008B1784 /* ChooseDokuTypeVC.swift */,
 				5B4A6016213EFCBF00844F85 /* DocumentationDetailAudioVC.swift */,
 				5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */,
+				01ED51F821484A060059618E /* SelectInjuryVC.swift */,
+				01ED51FA21484E310059618E /* SelectInjuryTableVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -436,6 +442,8 @@
 				5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */,
 				01225AEA213F1B6A00033225 /* InjuryCostumTableViewCell.swift in Sources */,
 				0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */,
+				01ED51FB21484E310059618E /* SelectInjuryTableVC.swift in Sources */,
+				01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */,
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				5B4A600D213C6EA900844F85 /* DocumentationHandler.swift in Sources */,
 				5B4A600F213C73E100844F85 /* DocumentationTableViewCell.swift in Sources */,
