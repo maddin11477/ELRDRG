@@ -108,6 +108,8 @@ public class DocumentationHandler {
         return paths[0]
     }
     
+    
+    
     func saveImageToDocumentDirectory(image: UIImage, uuid: String)->URL{
         
         let path = getDocumentsDirectory().appendingPathComponent(("\(uuid).jpg"))
