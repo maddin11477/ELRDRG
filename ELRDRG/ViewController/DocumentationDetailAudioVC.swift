@@ -11,13 +11,17 @@ import AVFoundation
 
 class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
     //VC for Audio Memos
+    @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var recordButton: RoundButton!
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var storageLocation: String = ""
+    var audioName: String = ""
+    let docuHandler: DocumentationHandler = DocumentationHandler()
     
     @IBAction func saveAudioRecord(_ sender: UIBarButtonItem) {
         print("Audio gespeichert unter: \(storageLocation)")
+        docuHandler.SaveAudioDocumentation(audioName: audioName, description: descriptionTextField.text!, saveDate: Date())
         dismiss(animated: true, completion: nil)
     }
     @IBAction func cancelAudioRecorder(_ sender: UIBarButtonItem) {
@@ -60,6 +64,7 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
     
     func startRecording() {
         let uuidOfAudio = NSUUID().uuidString
+        audioName = uuidOfAudio
         let audioFilename = getDocumentsDirectory().appendingPathComponent("\(uuidOfAudio).m4a")
         storageLocation = audioFilename.absoluteString
         print("Speichert unter: \(audioFilename)")

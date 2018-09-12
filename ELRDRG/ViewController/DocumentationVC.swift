@@ -21,6 +21,7 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //let cell = DocumentationTableViewCell()
         let cell = documentationList.dequeueReusableCell(withIdentifier: "DocumentationTableViewCell") as! DocumentationTableViewCell
 
         let formatter = DateFormatter()
@@ -28,6 +29,29 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         cell.CreationDate.text = formatter.string(from: documentations[indexPath.row].created!)
         cell.ID.text = String(documentations[indexPath.row].id)
         cell.Content.text = documentations[indexPath.row].content
+        
+        //Hier die Anhänge der Doku bearbeiten
+        let attachments = documentations[indexPath.row].attachments?.allObjects as! [Attachment]
+        print("Anhänge:\(attachments.count)")
+        if(attachments.count > 0){
+            //Achtung:
+            //Aktuell wird nur ein Anhang pro Docueintrag unterstützt
+            //1...n muss hier noch implmentiert werden.
+            let attachment = attachments[0]
+            switch attachment.type {
+                case DocumentationType.Photo.rawValue:
+                    print("Photo gefunden")
+                    if let image = docuHandler.getImage(pictureName: attachment.uniqueName!){
+                        cell.Thumbnail.image = image
+                        cell.Thumbnail.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleBottomMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue) | UInt8(UIViewAutoresizing.flexibleRightMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleLeftMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleTopMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleWidth.rawValue)))
+                        cell.Thumbnail.contentMode = UIViewContentMode.scaleAspectFit
+                    }
+                case DocumentationType.Audio.rawValue:
+                    cell.Thumbnail.image = nil
+                default:
+                    print("Nur Text")
+            }
+        }
         
         //wie komm ich an die verlinkten zellen??
         
@@ -39,6 +63,14 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let details = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailPhotoVC") as! DocumentationDetailPhotoVC
         details.documentation = documentations[indexPath.row]
         self.present(details, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete)
+        {
+            let id: Int = Int(documentations[indexPath.row].id)
+            docuHandler.deleteDocuEntry(id: id)
+        }
     }
     
     //protocol for delegation

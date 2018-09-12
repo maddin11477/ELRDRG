@@ -1415,6 +1415,7 @@
                         <viewLayoutGuide key="safeArea" id="51g-lQ-pgh"/>
                     </view>
                     <connections>
+                        <outlet property="descriptionTextField" destination="7jn-VS-Sed" id="6dn-86-STS"/>
                         <outlet property="recordButton" destination="CSA-ii-CxB" id="bOq-jt-tlG"/>
                     </connections>
                 </viewController>

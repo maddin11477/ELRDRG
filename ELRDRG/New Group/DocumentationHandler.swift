@@ -22,6 +22,7 @@ public class DocumentationHandler {
     var data: DataHandler = DataHandler()
     
     static var delegate : DocumentationProtocol?
+
     
     public func getAllDocumentations() -> [Documentation]{
         
@@ -79,6 +80,24 @@ public class DocumentationHandler {
         print("Dokueintrag \(textcontent) erfolgreich gespeichert: \(savedate)")
     }
     
+    public func SaveAudioDocumentation(audioName: String, description: String, saveDate: Date){
+        //get current mission
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let docuEntry = Documentation(context: AppDelegate.viewContext)
+        let attachment = Attachment(context: docuEntry.managedObjectContext!)
+        
+        docuEntry.id = getLastDocuID() + 1
+        docuEntry.content = description
+        docuEntry.created = saveDate
+        attachment.type = DocumentationType.Audio.rawValue
+        attachment.uniqueName = audioName
+        docuEntry.addToAttachments(attachment)
+        
+        mission.addToDocumentations(docuEntry)
+        data.saveData()
+        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+    }
+    
     public func SavePhotoDocumentation(picture: UIImage, description: String, saveDate: Date){
         let uuidOfPhoto = NSUUID().uuidString
         let storagePath = saveImageToDocumentDirectory(image: picture, uuid: uuidOfPhoto)
@@ -91,7 +110,6 @@ public class DocumentationHandler {
         docuEntry.id = getLastDocuID() + 1
         docuEntry.content = description
         docuEntry.created = saveDate
-        attachment.storagePath = storagePath
         attachment.type = DocumentationType.Photo.rawValue
         attachment.uniqueName = uuidOfPhoto
         docuEntry.addToAttachments(attachment)
@@ -99,8 +117,33 @@ public class DocumentationHandler {
         mission.addToDocumentations(docuEntry)
         data.saveData()
         DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
-        print("Dokueintrag \(description) erfolgreich gespeichert: \(saveDate)")
     }
+    
+    public func deleteDocuEntry(id: Int){
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let result = mission.documentations?.allObjects as! [Documentation]
+        for o in result{
+            if o.id == id{
+                mission.removeFromDocumentations(o)
+                
+                
+                
+                
+                //TODO:Schauen wie man wirklich löscht... dateien auch löschen!!!
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+        }
+        data.saveData()
+        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+    }
+    
     
     //Bild lokal speichern
     func getDocumentsDirectory() -> URL {
@@ -112,10 +155,30 @@ public class DocumentationHandler {
     
     func saveImageToDocumentDirectory(image: UIImage, uuid: String)->URL{
         
-        let path = getDocumentsDirectory().appendingPathComponent(("\(uuid).jpg"))
-        print("Saving foto to: \(path)")
-        let imageData = UIImageJPEGRepresentation(image, 0.5)
-        FileManager.default.createFile(atPath: path.absoluteString, contents: imageData, attributes: nil)
-        return path
+        let storagePath = getDocumentsDirectory().appendingPathComponent(("\(uuid).jpg"))
+        
+        if let data = UIImageJPEGRepresentation(image, 0.5),
+            !FileManager.default.fileExists(atPath: storagePath.path) {
+            do {
+                // writes the image data to disk
+                try data.write(to: storagePath)
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+        
+        return storagePath
     }
+    
+    //Foto wieder laden
+    func getImage(pictureName: String) -> UIImage? {
+        let picturePath = getDocumentsDirectory().appendingPathComponent(("\(pictureName).jpg"))
+        if FileManager.default.fileExists(atPath: picturePath.path){
+            let image = UIImage(contentsOfFile: picturePath.path)
+            return image!
+        } else {
+            return nil
+        }
+    }
+    
 }
