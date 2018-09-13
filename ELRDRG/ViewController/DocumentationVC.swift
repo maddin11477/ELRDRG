@@ -60,9 +60,31 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let details = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailPhotoVC") as! DocumentationDetailPhotoVC
-        details.documentation = documentations[indexPath.row]
-        self.present(details, animated: true, completion: nil)
+        print("Zeile \(indexPath.row) ausgewählt")
+        let docuEntry = documentations[indexPath.row]
+        let attachments = docuEntry.attachments?.allObjects as! [Attachment]
+        if(attachments.count > 0){
+            let attachment = attachments[0]
+            switch attachment.type {
+            case DocumentationType.Photo.rawValue:
+                //Foto doku öffnen
+                print("Photo gefunden")
+
+            case DocumentationType.Audio.rawValue:
+                //audio Doku öffnen
+                print("Audio gefunden")
+                let details = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailAudioVC") as! DocumentationDetailAudioVC
+                details.audioDocumentation = documentations[indexPath.row]
+                self.present(details, animated: true, completion: nil)
+            default:
+                print("Nur Text")
+            }
+        }
+        else {
+            //nur Text Doku...
+            print("Text gefunden")
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

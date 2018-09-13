@@ -75,6 +75,7 @@
 		5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8D21315CC100DA1073 /* Shift.swift */; };
 		5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */; };
 		5BB940E32141A121007DDCCC /* DocumentationDetailPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */; };
+		5BF467F0214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF467EF214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,6 +149,7 @@
 		5B84BB8D21315CC100DA1073 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
 		5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationDetailPhotoVC.swift; sourceTree = "<group>"; };
+		5BF467EF214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationAudioTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */,
 				018042E7213F1812008B1784 /* HosiptalCostumTableViewCell.swift */,
 				01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */,
+				5BF467EF214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift */,
 			);
 			path = CostumTableViewCell;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */,
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				5B4A600D213C6EA900844F85 /* DocumentationHandler.swift in Sources */,
+				5BF467F0214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift in Sources */,
 				5B4A600F213C73E100844F85 /* DocumentationTableViewCell.swift in Sources */,
 				019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */,
 				018042CC213C0217008B1784 /* CreateUnitVC.swift in Sources */,
