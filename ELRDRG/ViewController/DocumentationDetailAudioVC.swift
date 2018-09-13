@@ -45,9 +45,9 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(audioDocumentation != nil){
+        if(audioDocumentation == nil){
             //neue Aufnahme
-            
+            print("Neue Aufnahme")
             recordingSession = AVAudioSession.sharedInstance()
             
             do {
@@ -69,8 +69,9 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
         } else {
             //änderung der bestehenden aufnahme...
             let attachment = audioDocumentation?.attachments?.allObjects[0] as! Attachment
-            let audioFilename = getDocumentsDirectory().appendingPathComponent("\(attachment.uniqueName).m4a")
-            print("Try to load: \(audioFilename)")
+            print("Try to load: \(attachment.uniqueName!).mp4")
+            let audioFilename = getDocumentsDirectory().appendingPathComponent("\(attachment.uniqueName!).m4a")
+            
             activateAudioPlayer(withFile: audioFilename)
         }
     }

@@ -1445,10 +1445,10 @@
             </objects>
             <point key="canvasLocation" x="423" y="2509"/>
         </scene>
-        <!--Documentation Detail AudioVC-->
+        <!--DocumentationDetailAudioVC-->
         <scene sceneID="PPi-we-kMi">
             <objects>
-                <viewController title="Documentation Detail AudioVC" modalPresentationStyle="pageSheet" id="YM0-8q-luW" customClass="DocumentationDetailAudioVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DocumentationDetailAudioVC" title="DocumentationDetailAudioVC" modalPresentationStyle="pageSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YM0-8q-luW" customClass="DocumentationDetailAudioVC" customModule="ELRDRG" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LOd-ei-jx2">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

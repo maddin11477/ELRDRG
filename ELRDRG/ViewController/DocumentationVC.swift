@@ -123,7 +123,6 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         documentations = docuHandler.getAllDocumentations()
         documentationList.delegate = self
         documentationList.dataSource = self
-        documentationList.allowsSelection = false
         documentationList.reloadData()
         
     }
