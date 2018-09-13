@@ -11,7 +11,7 @@ import AVFoundation
 import AVKit
 
 
-class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
+class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     //VC for Audio Memos
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var recordButton: RoundButton!
@@ -71,7 +71,8 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
             let attachment = audioDocumentation?.attachments?.allObjects[0] as! Attachment
             print("Try to load: \(attachment.uniqueName!).mp4")
             let audioFilename = getDocumentsDirectory().appendingPathComponent("\(attachment.uniqueName!).m4a")
-            
+            descriptionTextField.text = audioDocumentation?.content!
+            recordButton.isHidden = true
             activateAudioPlayer(withFile: audioFilename)
         }
     }
@@ -129,12 +130,15 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        playButton.setTitle("Play", for: .normal)
+    }
     
     func activateAudioPlayer(withFile: URL){
         print("Audiofile \(withFile.absoluteString)")
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: withFile)
+            audioPlayer.delegate = self
             audioControlSlider.maximumValue = Float(audioPlayer.duration)
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSliderPosition), userInfo: nil, repeats: true)
             playButton.isHidden = false
