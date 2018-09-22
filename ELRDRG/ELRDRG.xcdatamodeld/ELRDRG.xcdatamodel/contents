@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="18A384a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES" codeGenerationType="category">
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,8 +32,9 @@
         <relationship name="victim" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="hospital" inverseEntity="Victim" syncable="YES"/>
     </entity>
     <entity name="Injury" representedClassName=".Injury" syncable="YES" codeGenerationType="category">
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="diagnosis" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Victim" inverseName="verletzung" inverseEntity="Victim" syncable="YES"/>
     </entity>
     <entity name="Mission" representedClassName=".Mission" syncable="YES" codeGenerationType="category">
@@ -102,7 +103,7 @@
         <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="88"/>
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
         <element name="Hospital" positionX="-765" positionY="-720" width="128" height="90"/>
-        <element name="Injury" positionX="-369" positionY="-9" width="128" height="90"/>
+        <element name="Injury" positionX="-369" positionY="-9" width="128" height="105"/>
         <element name="Mission" positionX="-425" positionY="-613" width="128" height="180"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="88"/>
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>

@@ -221,7 +221,7 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
                 alert.addAction(abortaction)
                 self.present(alert, animated: true, completion: nil)
             }
-            else if(type == .Kliniken)
+            else if(type == .Diagnosen)
             {
                 let alert : UIAlertController = UIAlertController(title: "Löschen", message: ("Sind Sie sicher, dass Sie  " + injuries[indexPath.row].diagnosis! + " Löschen möchten?"), preferredStyle: UIAlertControllerStyle.alert)
                 let alertaction : UIAlertAction = UIAlertAction(title: "Löschen", style: .destructive, handler: { alert -> Void in

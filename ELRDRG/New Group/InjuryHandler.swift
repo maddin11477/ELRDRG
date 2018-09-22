@@ -9,10 +9,30 @@
 import UIKit
 import CoreData
 class InjuryHandler: NSObject {
-      var delegate : InjuryProtocol?
+      public var delegate : InjuryProtocol?
     
     //ENUM und Array auf gleichem Stand halten !!!!
     public static let locationArray = ["Arm", "Oberschenkel", "Unterschenkel", "Hand", "Abdomen", "Thorax","Kopf"]
+    
+    public func sideToString(side : side?) -> String
+    {
+        if let bodyside = side
+        {
+            if(bodyside == .left)
+            {
+                return "links"
+            }
+            else if(bodyside == .right)
+            {
+                return "rechts"
+            }
+        }
+        
+            return ""
+        
+       
+        
+    }
     
     enum side : Int16
     {
@@ -30,6 +50,15 @@ class InjuryHandler: NSObject {
         case Thorax = 5
         case Kopf = 6
         
+    }
+    
+    public func convertToInjury( baseInjury : BaseInjury) -> Injury
+    {
+        let injury = Injury(context: AppDelegate.viewContext)
+        injury.category = baseInjury.category
+        injury.diagnosis = baseInjury.diagnosis
+        injury.location = baseInjury.loaction
+        return injury
     }
     
     
@@ -56,6 +85,12 @@ class InjuryHandler: NSObject {
         saveData()
         
         
+    }
+    
+    public func deleteInjury(injury : Injury)
+    {
+        AppDelegate.viewContext.delete(injury)
+        saveData()
     }
     
     public func getAllBaseInjury() -> [BaseInjury]

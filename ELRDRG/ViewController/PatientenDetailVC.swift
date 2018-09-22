@@ -8,7 +8,17 @@
 
 import UIKit
 
-class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate{
+class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDelegate, UITableViewDataSource , UIPickerViewDelegate, InjurySelectionProtocol{
+    func selectedInjury(injury: Injury) {
+        
+        
+        injury.patient = victim
+        victim.addToVerletzung(injury)
+        injuryData.saveData()
+        injuryTable.reloadData()
+        print("reloading")
+    }
+    
     @IBOutlet weak var helicopterSwitch: UISwitch!
     
     @IBOutlet weak var shtSwitch: UISwitch!
@@ -19,6 +29,8 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     private var birthdatePicker : UIDatePicker?
     
+    private var toolBar : UIToolbar?
+    
     @IBOutlet weak var txtBirthdate: UITextField!
     
     @IBOutlet weak var txtTransportzielBottomConstrain: NSLayoutConstraint!
@@ -28,10 +40,23 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         {
             return victim.fahrzeug?.allObjects.count ?? 0
         }
+        else if(tableView == injuryTable)
+        {
+            let i =  victim.verletzung?.allObjects.count ?? 0
+            print(i)
+            return i
+        }
+        print(tableView)
         return 0
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(tableView == injuryTable)
+        {
+            injuryData.deleteInjury(injury: (victim.verletzung?.allObjects as! [Injury])[indexPath.row])
+            injuryTable.reloadData()
+            return
+        }
         if(editingStyle == .delete)
         {
             let unit = (victim.fahrzeug?.allObjects as! [Unit])[indexPath.row]
@@ -43,22 +68,20 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func addInjury_click(_ sender: Any)
     {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectInjury")
-        self.present(vc!, animated: true, completion: nil)
+        let tabbarcontroller = self.storyboard?.instantiateViewController(withIdentifier: "SelectInjury") as! InjuryTC
+        
+        let vc = tabbarcontroller.viewControllers![1] as! SelectInjuryTableVC
+        vc.delegate = self
+        //InjuryHandler.injuryDelegate = self
+        self.present(tabbarcontroller, animated: true, completion: nil)
     }
     
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       /* if(tableView == transportUnitTable)
+     
+        if(tableView == transportUnitTable)
         {
-           
-            
-        }
-        else
-        {
-            return nil
-        }*/
         let cell = transportUnitTable.dequeueReusableCell(withIdentifier: "cell") as! UnitSelectCostumTableViewCell
         let units = victim.fahrzeug?.allObjects as! [Unit]
         let unit = units[indexPath.row]
@@ -67,6 +90,14 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
         cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
         return cell
+        }
+        else
+        {
+            let cell = injuryTable.dequeueReusableCell(withIdentifier: "smallinjurycell") as! smallinjurycell
+            let verletzung = (victim.verletzung?.allObjects[indexPath.row]) as! Injury
+            cell.injurytext.text = (verletzung.diagnosis ?? " ") + " " + (verletzung.location?.description ?? " ")
+            return cell
+        }
     }
     
     
@@ -92,6 +123,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     }
     let hospitalData : HospitalHandler = HospitalHandler()
     let unitData : UnitHandler = UnitHandler()
+    let injuryData : InjuryHandler = InjuryHandler()
     let data : DataHandler = DataHandler()
     let login : LoginHandler = LoginHandler()
     public var victim : Victim = Victim()
@@ -282,10 +314,16 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
        
         transportUnitTable.delegate = self
         transportUnitTable.dataSource = self
+        injuryTable.delegate = self
         
+        injuryTable.dataSource = self
         // Do any additional setup after loading the view.
         txtID.text = String(victim.id)
         txtAge.text = String(victim.age)
+        if(victim.age == -1)
+        {
+            txtAge.text = ""
+        }
         txtLastName.text = victim.lastName
         txtFirstName.text = victim.firstName
         if let birthdate = victim.birthdate
@@ -318,12 +356,36 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         shtSwitch.isOn = victim.sht
         helicopterSwitch.isOn = victim.helicopter
         
+        
+        toolBar = UIToolbar()
+        toolBar!.barStyle = UIBarStyle.default
+        toolBar!.isTranslucent = false
+        //toolBar!.tintColor = UIColor(red: 52, green: 120, blue: 246, alpha: 1)
+        toolBar!.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Fertig", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.doneButtonAction))
+        
+       
+        toolBar!.setItems([doneButton], animated: false)
+        toolBar!.isUserInteractionEnabled = true
+        
         birthdatePicker = UIDatePicker()
+        if let date = victim.birthdate
+        {
+            birthdatePicker?.date = date
+        }
+        
         txtBirthdate.inputView = birthdatePicker
+        txtBirthdate.inputAccessoryView = toolBar
         birthdatePicker?.datePickerMode = .date
         birthdatePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         
         
+    }
+    
+    @objc func doneButtonAction()
+    {
+        view.endEditing(true)
     }
     
     @objc func datePickerValueChanged()
@@ -336,7 +398,8 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         victim.age = Int16(ageStepper.value)
         data.saveData()
         txtAge.text = String(Int(ageStepper.value))
-        self.view.endEditing(true)
+        
+        //self.view.endEditing(true)
     }
   
 

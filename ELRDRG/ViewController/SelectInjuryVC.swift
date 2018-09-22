@@ -38,6 +38,31 @@ class SelectInjuryVC: UIViewController {
         self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func leftHand_Click(_ sender: Any)
+    {
+        if let del = self.delegate
+        {
+            del.didSelectBodyPartWithSideOption(bodyPart: .Hand, side: .left)
+        }
+        let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
+        //vc.message = "Kopf"
+        vc.bodyPart = .Hand
+        vc.bodySide = .left
+        self.tabBarController?.selectedIndex = 1
+    }
+    
+    @IBAction func rightHand_Click(_ sender: Any)
+    {
+        if let del = self.delegate
+        {
+            del.didSelectBodyPartWithSideOption(bodyPart: .Hand, side: .right)
+        }
+        let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
+        //vc.message = "Kopf"
+        vc.bodyPart = .Hand
+        vc.bodySide = .right
+        self.tabBarController?.selectedIndex = 1
+    }
     
     @IBAction func rightArm_click(_ sender: Any)
     {
@@ -48,6 +73,7 @@ class SelectInjuryVC: UIViewController {
         let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
         //vc.message = "Kopf"
         vc.bodyPart = .Arm
+        vc.bodySide = .right
         self.tabBarController?.selectedIndex = 1
     }
     
@@ -83,6 +109,7 @@ class SelectInjuryVC: UIViewController {
         let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
         //vc.message = "Kopf"
         vc.bodyPart = .Arm
+        vc.bodySide = .left
         self.tabBarController?.selectedIndex = 1
     }
     
@@ -95,6 +122,7 @@ class SelectInjuryVC: UIViewController {
         let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
         //vc.message = "Kopf"
         vc.bodyPart = .Oberschenkel
+        vc.bodySide = .left
         self.tabBarController?.selectedIndex = 1
     }
     
@@ -107,6 +135,7 @@ class SelectInjuryVC: UIViewController {
         let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
        // vc.message = "Kopf"
         vc.bodyPart = .Oberschenkel
+        vc.bodySide = .right
         self.tabBarController?.selectedIndex = 1
     }
     
@@ -119,6 +148,7 @@ class SelectInjuryVC: UIViewController {
         let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
         //vc.message = "Kopf"
         vc.bodyPart = .Unterschenkel
+        vc.bodySide = .right
         self.tabBarController?.selectedIndex = 1
     }
     
@@ -132,6 +162,7 @@ class SelectInjuryVC: UIViewController {
         let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
         //vc.message = "Kopf"
         vc.bodyPart = .Unterschenkel
+        vc.bodySide = .left
         self.tabBarController?.selectedIndex = 1
     }
     

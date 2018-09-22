@@ -14,6 +14,8 @@
 		0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */; };
 		0125080C2135DE630065FDF0 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125080B2135DE630065FDF0 /* TabBarVC.swift */; };
 		0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125080D2135E9B80065FDF0 /* UebersichtVC.swift */; };
+		0139E48F21516747001970FE /* smallinjurycell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E48E21516747001970FE /* smallinjurycell.swift */; };
+		0139E49121541391001970FE /* InjuryTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E49021541391001970FE /* InjuryTC.swift */; };
 		018042B7213A7179008B1784 /* PatientenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B6213A7179008B1784 /* PatientenVC.swift */; };
 		018042B9213A7866008B1784 /* PatientCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */; };
 		018042BC213A9A60008B1784 /* humonbody01.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042BB213A9A60008B1784 /* humonbody01.png */; };
@@ -86,6 +88,8 @@
 		012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0125080B2135DE630065FDF0 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		0125080D2135E9B80065FDF0 /* UebersichtVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UebersichtVC.swift; sourceTree = "<group>"; };
+		0139E48E21516747001970FE /* smallinjurycell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallinjurycell.swift; sourceTree = "<group>"; };
+		0139E49021541391001970FE /* InjuryTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryTC.swift; sourceTree = "<group>"; };
 		018042B6213A7179008B1784 /* PatientenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientenVC.swift; sourceTree = "<group>"; };
 		018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCustomTableViewCell.swift; sourceTree = "<group>"; };
 		018042BB213A9A60008B1784 /* humonbody01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humonbody01.png; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				018042E7213F1812008B1784 /* HosiptalCostumTableViewCell.swift */,
 				01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */,
 				5BF467EF214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift */,
+				0139E48E21516747001970FE /* smallinjurycell.swift */,
 			);
 			path = CostumTableViewCell;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				5BB940E22141A121007DDCCC /* DocumentationDetailPhotoVC.swift */,
 				01ED51F821484A060059618E /* SelectInjuryVC.swift */,
 				01ED51FA21484E310059618E /* SelectInjuryTableVC.swift */,
+				0139E49021541391001970FE /* InjuryTC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -411,11 +417,13 @@
 				018042C8213BFEF8008B1784 /* StammdatenProtocol.swift in Sources */,
 				5B6D77512130505F00DDFA2B /* Attachment.swift in Sources */,
 				019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */,
+				0139E49121541391001970FE /* InjuryTC.swift in Sources */,
 				5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */,
 				018042C6213BFAD1008B1784 /* StammdatenDetailVC.swift in Sources */,
 				5B41E9BB212C5F5300525804 /* ELRDRG.xcdatamodeld in Sources */,
 				019081CB2141A65900AB7620 /* InjuryProtocol.swift in Sources */,
 				5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */,
+				0139E48F21516747001970FE /* smallinjurycell.swift in Sources */,
 				5B4A6006213C641300844F85 /* DocumentationVC.swift in Sources */,
 				5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */,
 				0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */,
@@ -608,7 +616,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = MM.ELRDRG;
+				PRODUCT_BUNDLE_IDENTIFIER = ELRDBayernRG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -626,7 +634,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = MM.ELRDRG;
+				PRODUCT_BUNDLE_IDENTIFIER = ELRDBayernRG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

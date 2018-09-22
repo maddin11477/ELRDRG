@@ -20,6 +20,18 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Benötige Zugriff auf Kamera</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Benötige Zugriff auf Kamera</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Benötigt GPS um die Karte zu zentrieren</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Benötigt GPS um die Karte zu zentrieren</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Benötigt GPS um die Karte zu zentrieren</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Benötige Zugriff auf Kamera</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -42,17 +54,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Benötigt GPS um die Karte zu zentrieren</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Benötigt GPS um die Karte zu zentrieren</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Benötigt GPS um die Karte zu zentrieren</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Benötige Zugriff auf Kamera</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Benötige Zugriff auf Kamera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Benötige Zugriff auf Kamera</string>
 </dict>
 </plist>

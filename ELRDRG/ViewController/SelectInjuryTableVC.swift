@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol InjurySelectionProtocol {
+    func selectedInjury(injury : Injury)
+}
+
 class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return injuries.count
     }
+    public var text : String = ""
+    public var delegate : InjurySelectionProtocol?
    
     
     @IBAction func dismiss_click(_ sender: Any)
@@ -27,12 +33,28 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+       if(self.delegate != nil)
+       {
+        let injurydata = InjuryHandler()
+        let injury = injurydata.convertToInjury(baseInjury: injuries[indexPath.row])
+        injury.location = injury.location! + " " + injurydata.sideToString(side: bodySide)
+            self.delegate!.selectedInjury(injury: injury)
+            self.tabBarController!.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let injuryHanlder = InjuryHandler()
         injuries = []
         let injuryList = injuryHanlder.getAllBaseInjury()
+        if(searchText.count < 1)
+        {
+            injuries = injuryList
+        }
         for injurie in injuryList {
-            if(injurie.diagnosis!.contains(searchText) || injurie.loaction!.contains(searchText))
+            if(injurie.diagnosis!.uppercased().contains(searchText.uppercased()) || injurie.loaction!.uppercased().contains(searchText.uppercased()))
             {
                 injuries.append(injurie)
             }
@@ -61,9 +83,18 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        Searchbar.text = InjuryHandler.locationArray[Int(bodyPart!.rawValue)]
+    override func viewDidAppear(_ animated: Bool)
+    {
+        
+        print("Bodypart")
+        print(text)
+        if let part = bodyPart
+        {
+            Searchbar.text = InjuryHandler.locationArray[Int(part.rawValue)]
+            
+        }
         filter()
+        
         table.delegate = self
         table.dataSource = self
         Searchbar.delegate = self
@@ -72,16 +103,25 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func filter()
     {
+        
          injuries = []
         let injuryHanlder = InjuryHandler()
         let injuryList = injuryHanlder.getAllBaseInjury()
-        for injury in injuryList
+        if let part = bodyPart
         {
-            if(injury.loaction == InjuryHandler.locationArray[Int(bodyPart!.rawValue)])
+            for injury in injuryList
             {
-                injuries.append(injury)
+                if(injury.loaction == InjuryHandler.locationArray[Int(part.rawValue)])
+                {
+                    injuries.append(injury)
+                }
             }
         }
+        else
+        {
+            injuries = injuryList
+        }
+       
     }
 
     override func didReceiveMemoryWarning() {
