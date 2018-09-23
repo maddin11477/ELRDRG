@@ -8,7 +8,12 @@
 
 import UIKit
 
-class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, InjuryProtocol, UITableViewDataSource, UITableViewDelegate{
+class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, InjuryProtocol, UITableViewDataSource, UITableViewDelegate, SectionProtocol{
+    func createdBaseSection() {
+        sections = sectionData.getAllSections()
+        table.reloadData()
+    }
+    
     func createdInjury() {
         injuries = injuryData.getAllBaseInjury()
         print(injuries.count)
@@ -20,11 +25,13 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
         case Fahrzeuge
         case Kliniken
         case Diagnosen
+        case Abschnitte
     }
     
     let unitData = UnitHandler()
     let injuryData = InjuryHandler()
     let hospitalData = HospitalHandler()
+    let sectionData = SectionHandler()
    
     public var type : StammdatenTyp = StammdatenTyp.Diagnosen
    
@@ -37,6 +44,7 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
     var units : [BaseUnit] = []
     var hospitals : [BaseHospital] = []
     var injuries : [BaseInjury] = []
+    var sections : [BaseSection] = []
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,11 +56,16 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
         {
             return hospitals.count
         }
+        else if(type == .Abschnitte)
+        {
+            return sections.count
+        }
         else
         {
             print(injuries.count)
             return injuries.count
         }
+        
         
     }
     
@@ -75,6 +88,13 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
             let cell = tableView.dequeueReusableCell(withIdentifier: "HospitalCostumTableViewCell") as! HosiptalCostumTableViewCell
             cell.Name.text = hospitals[row].name
             cell.City.text = hospitals[row].city
+            return cell
+        }
+        else if(type == .Abschnitte)
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell") as! SectionTableViewCell
+            cell.Name.text = sections[indexPath.row].identifier!
+            cell.zusatz.text = ""
             return cell
         }
         else
@@ -148,7 +168,12 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
             hospitals = hospitalData.getAllHospitals()
             navBarItem.title = "Kliniken"
         }
-        
+        else if(type == .Abschnitte)
+        {
+            sectionData.delegate = self
+            sections = sectionData.getAllSections()
+            navBarItem.title = "Einsatzabschnitte"
+        }
         
         
         table.dataSource = self
@@ -180,6 +205,10 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
             vc.injuryData = injuryData
             self.present(vc, animated: true, completion: nil)
            
+        }
+        else if(type == .Abschnitte)
+        {
+            handleSectionAddAction()
         }
      
        
@@ -236,6 +265,21 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
                 alert.addAction(abortaction)
                 self.present(alert, animated: true, completion: nil)
             }
+            else if(type == .Abschnitte)
+            {
+                let alert : UIAlertController = UIAlertController(title: "Löschen", message: ("Sind Sie sicher, dass Sie  " + sections[indexPath.row].identifier! + " Löschen möchten?"), preferredStyle: UIAlertControllerStyle.alert)
+                let alertaction : UIAlertAction = UIAlertAction(title: "Löschen", style: .destructive, handler: { alert -> Void in
+                    self.sectionData.deleteBaseSection(basesection: self.sections[indexPath.row])
+                    self.sections = self.sectionData.getAllSections()
+                    self.table.reloadData()
+                    
+                    
+                })
+                let abortaction : UIAlertAction = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+                alert.addAction(alertaction)
+                alert.addAction(abortaction)
+                self.present(alert, animated: true, completion: nil)
+            }
             
             
            
@@ -263,6 +307,32 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
                 self.hospitalData.delegate?.createdHospital()
             }
            
+            
+        })
+        
+        let abortaction = UIAlertAction(title: "Abbrechen", style: .destructive, handler: nil)
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(abortaction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func handleSectionAddAction()
+    {
+        let alertController = UIAlertController(title: "Einsatzabschnitt", message: "Stammdaten Einsatzabschnitt erstellen", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Name Einsatzabschnitt"
+        }
+       
+        let saveAction = UIAlertAction(title: "Erstellen", style: .default, handler: { alert -> Void in
+            let sectionIdentifier = (alertController.textFields![0] as UITextField).text
+            
+            if((alertController.textFields![0] as UITextField).text != "")
+            {
+                self.sectionData.addBaseSection(identifier: sectionIdentifier!)
+                self.sectionData.delegate?.createdBaseSection()
+            }
+            
             
         })
         

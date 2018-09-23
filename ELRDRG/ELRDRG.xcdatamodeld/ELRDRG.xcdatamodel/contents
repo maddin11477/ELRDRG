@@ -14,6 +14,9 @@
         <attribute name="diagnosis" attributeType="String" syncable="YES"/>
         <attribute name="loaction" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="BaseSection" representedClassName="BaseSection" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="BaseUnit" representedClassName=".BaseUnit" syncable="YES" codeGenerationType="category">
         <attribute name="crewCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="funkrufName" optional="YES" attributeType="String" syncable="YES"/>
@@ -100,6 +103,7 @@
         <element name="Attachment" positionX="-1026" positionY="-250" width="128" height="88"/>
         <element name="BaseHospital" positionX="-632" positionY="-864" width="128" height="73"/>
         <element name="BaseInjury" positionX="-936" positionY="-874" width="128" height="88"/>
+        <element name="BaseSection" positionX="-819" positionY="-720" width="128" height="60"/>
         <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="88"/>
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
         <element name="Hospital" positionX="-765" positionY="-720" width="128" height="90"/>

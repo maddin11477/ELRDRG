@@ -11,7 +11,7 @@ import UIKit
 class SettingsVC: UITableViewController {
     
     let sections = ["Stammdaten", "Administration", "Syncoptions"]
-    let settings_sec1 = ["Fahrzeuge", "Kliniken", "Diagnosen"]
+    let settings_sec1 = ["Fahrzeuge", "Kliniken", "Diagnosen", "Abschnitte"]
     
     @IBOutlet var table: UITableView!
     
@@ -33,6 +33,10 @@ class SettingsVC: UITableViewController {
             else if(indexPath.row == 2)
             {
                 vc.type = .Diagnosen
+            }
+            else if(indexPath.row == 3)
+            {
+                vc.type = .Abschnitte
             }
             self.navigationController?.pushViewController(vc, animated: true)
            // self.present(vc, animated: true, completion: nil)
