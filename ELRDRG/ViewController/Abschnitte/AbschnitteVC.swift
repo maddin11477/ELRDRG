@@ -13,15 +13,18 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sectionData.getSections().count
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let view = AbschnitteCollectionView.dequeueReusableCell(withReuseIdentifier: "AbschnittCVC", for: indexPath) as! AbschnittCVC
-        view.Abschnittname.title = sectionData.getSections()[indexPath.row].identifier ?? "unbekannt"
-        view.section_ = sectionData.getSections()[indexPath.row]
+        view.Abschnittname.title = sections[indexPath.row].identifier ?? "unbekannt"
+        view.section_ = sections[indexPath.row]
+        
         view.table.delegate = view
         view.table.dataSource = view
+        view.table.reloadData()
+        print("reloaded")
         return view
     }
     
@@ -143,13 +146,16 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     var units : [Unit] = []
     var baseUnits : [BaseUnit] = []
     var baseSections : [BaseSection] = []
+    var sections : [Section] = []
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        
+        AbschnitteCollectionView.delegate = self
+        AbschnitteCollectionView.dataSource = self
+        SourceTable.dataSource = self
+        SourceTable.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -167,17 +173,36 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         return [dragItem]
     }
     
+
     
     override func viewDidAppear(_ animated: Bool) {
         let data = DataHandler()
         let unitData = UnitHandler()
         let sectionData = SectionHandler()
+        
+        
+        units = []
+        sections = []
+        baseUnits = []
+        baseSections = []
         //sectionData.addSection(identifier: "Schaden")
-        AbschnitteCollectionView.delegate = self
-        AbschnitteCollectionView.dataSource = self
+        
         baseUnits = unitData.getAllBaseUnits()
         baseSections = sectionData.getAllSections()
         victims = data.getVictims()
+        
+        
+        sections = sectionData.getSections()
+        for sec in sections
+        {
+            let unitArray = sec.units?.allObjects as! [Unit]
+            for u in unitArray
+            {
+                sec.removeFromUnits(u)
+            }
+            
+        }
+        data.saveData()
         for patient in victims {
             if let cars : [Unit] = patient.fahrzeug?.allObjects as? [Unit]
             {
@@ -186,22 +211,31 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                     if(car.section == nil)
                     {
                          units.append(car)
+                        
+                        sections[0].addToUnits(car)
                     }
+                    
                    
                 }
                 
             }
         }
         // sectionData.getSections()[0].addToUnits(unitData.baseUnit_To_Unit(baseUnit: baseUnits[0]))
-        SourceTable.dataSource = self
-        SourceTable.delegate = self
+        
         SourceTable.reloadData()
+    
         // SourceTable.dragDelegate = self
         // SourceTable.dropDelegate = self
+        //let indexPath = IndexPath(item: 0, section: 0)
+        //indexPath.section = 0
+        
         AbschnitteCollectionView.reloadData()
         AbschnitteCollectionView.dragInteractionEnabled = true
         
         SourceTable.dragInteractionEnabled = true
+        
+        print("Anzahl fzg:")
+        print(sections[0].units?.allObjects.count)
     }
 
     override func didReceiveMemoryWarning() {

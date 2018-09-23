@@ -1083,8 +1083,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="400" id="NZy-9P-x89"/>
                                                     </constraints>
-                                                    <color key="separatorColor" red="0.81200428300000005" green="0.001243418715" blue="0.01787413639" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sectionUnitFullTableViewCell" rowHeight="149" id="uKv-Nn-omz" customClass="sectionUnitFullTableViewCell" customModule="ELRDRG" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28" width="596" height="149"/>
@@ -1262,10 +1262,10 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uj3-7P-t5G">
-                                                                        <rect key="frame" x="0.0" y="53" width="596" height="40"/>
+                                                                        <rect key="frame" x="0.0" y="53" width="596" height="48"/>
                                                                         <color key="backgroundColor" name="UIBackcolor"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="40" id="SDv-dI-VWQ"/>
+                                                                            <constraint firstAttribute="height" constant="48" id="SDv-dI-VWQ"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>

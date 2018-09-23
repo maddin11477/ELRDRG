@@ -60,6 +60,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         if(editingStyle == .delete)
         {
             let unit = (victim.fahrzeug?.allObjects as! [Unit])[indexPath.row]
+            unit.patient = nil
             victim.removeFromFahrzeug(unit)
             data.saveData()
             transportUnitTable.reloadData()
@@ -111,6 +112,30 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     }
     
     func didSelectUnit(unit: BaseUnit) {
+        var isAvailable : Bool = false
+        let data = SectionHandler()
+        for section in data.getSections() {
+            if let units = section.units?.allObjects as? [Unit]
+            {
+                for availableUnit in units
+                {
+                    if(availableUnit.callsign == unit.funkrufName && availableUnit.type == unit.type)
+                    {
+                        availableUnit.patient = victim
+                        victim.addToFahrzeug(availableUnit)
+                        isAvailable = true
+                        
+                    }
+                }
+            }
+            
+        }
+        if(isAvailable == true)
+        {
+            data.saveData()
+            transportUnitTable.reloadData()
+            return
+        }
         let fahrzeug = unitData.baseUnit_To_Unit(baseUnit: unit)
         victim.addToFahrzeug(fahrzeug)
        // unitData.baseUnit_To_Unit(baseUnit: unit)

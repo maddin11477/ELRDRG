@@ -53,6 +53,16 @@ class SectionHandler: NSObject {
         
     }
     
+    public func deleteBaseInjury(baseInjury : BaseInjury)
+    {
+        
+        AppDelegate.viewContext.delete(baseInjury)
+        
+        saveData()
+        
+        
+    }
+    
     public func getSections() -> [Section]
     {
         let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!

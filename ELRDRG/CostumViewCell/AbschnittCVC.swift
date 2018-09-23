@@ -11,8 +11,8 @@ import UIKit
 class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let anzahl =  (section_?.units?.allObjects.count) ?? 0
-        print("Anzahl EInheiten in Abschnitt")
-        print(anzahl)
+        print("Anzahl fzg in Cell")
+        print(section_?.units?.allObjects.count)
         return anzahl
     }
     
