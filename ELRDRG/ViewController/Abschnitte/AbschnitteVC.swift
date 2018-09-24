@@ -96,6 +96,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
         print("reload after delegate")
         SourceTable.reloadData()
+        AbschnitteCollectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -150,6 +151,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         view.section_ = sections[indexPath.row]
         view.table.dropDelegate = view
         view.dropDelegate = self
+        view.table.dragDelegate = view
+        
         view.table.delegate = view
         view.table.dataSource = view
         view.table.reloadData()

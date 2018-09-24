@@ -10,7 +10,36 @@ import UIKit
 protocol SectionDropProtocol {
     func dropedUnitInSection()
 }
-class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate {
+class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return dragItem(at: indexPath)
+    }
+    
+    private func dragItem(at indexpath : IndexPath) -> [UIDragItem]
+    {
+        
+        let string = NSAttributedString(string: (section_?.units?.allObjects as! [Unit])[indexpath.row].callsign!)
+        
+                let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+               let car = (section_?.units?.allObjects as! [Unit])[indexpath.row]
+                
+                    dragItem.localObject = car
+                
+                return [dragItem]
+            
+        
+        
+        
+        return []
+    }
+    
+    func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        return dragItem(at: indexPath)
+    }
+    
+    
     
     var anzahlRTW = 0
     var anzahlKTW = 0
