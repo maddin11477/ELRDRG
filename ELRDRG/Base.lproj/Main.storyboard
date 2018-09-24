@@ -1094,7 +1094,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7L-Fv-WNj">
-                                                                        <rect key="frame" x="0.0" y="53" width="596" height="96"/>
+                                                                        <rect key="frame" x="8" y="53" width="580" height="96"/>
                                                                         <color key="backgroundColor" name="UIBackcolor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
@@ -1208,13 +1208,13 @@
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstItem="psH-aC-WcX" firstAttribute="top" secondItem="VA0-IC-IWc" secondAttribute="bottom" constant="6" id="2uK-1V-cRa"/>
-                                                                    <constraint firstItem="c7L-Fv-WNj" firstAttribute="leading" secondItem="F6w-LQ-Dmf" secondAttribute="leading" id="5Kd-WU-mbb"/>
+                                                                    <constraint firstItem="c7L-Fv-WNj" firstAttribute="leading" secondItem="F6w-LQ-Dmf" secondAttribute="leading" constant="8" id="5Kd-WU-mbb"/>
                                                                     <constraint firstItem="wTX-Ok-7WH" firstAttribute="top" secondItem="F6w-LQ-Dmf" secondAttribute="topMargin" id="5gS-SZ-KFY"/>
                                                                     <constraint firstItem="O7T-g4-nY5" firstAttribute="leading" secondItem="F6w-LQ-Dmf" secondAttribute="leadingMargin" id="6ZN-72-yDb"/>
                                                                     <constraint firstAttribute="trailing" secondItem="gGQ-56-K55" secondAttribute="trailing" constant="8" id="AiG-42-ng3"/>
                                                                     <constraint firstItem="osA-Dm-yyR" firstAttribute="top" secondItem="nwj-UZ-GEg" secondAttribute="bottom" constant="11" id="CQk-UW-BZ1"/>
                                                                     <constraint firstItem="scH-jD-ndh" firstAttribute="top" secondItem="O7T-g4-nY5" secondAttribute="bottom" constant="27" id="CWy-Kv-kRe"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="c7L-Fv-WNj" secondAttribute="trailing" id="Fer-be-BUD"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="c7L-Fv-WNj" secondAttribute="trailing" constant="8" id="Fer-be-BUD"/>
                                                                     <constraint firstItem="IlY-Ed-Tr3" firstAttribute="top" secondItem="dgo-CJ-8y2" secondAttribute="bottom" constant="17" id="GxX-hI-zyw"/>
                                                                     <constraint firstItem="XXB-Nx-LzV" firstAttribute="top" secondItem="O7T-g4-nY5" secondAttribute="bottom" constant="27" id="HA3-hn-qcS"/>
                                                                     <constraint firstItem="nwj-UZ-GEg" firstAttribute="leading" secondItem="scH-jD-ndh" secondAttribute="trailing" constant="8" id="I2g-sz-Fbz"/>
@@ -1463,7 +1463,7 @@
                                                 </tableView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPw-Hs-uIt">
                                                     <rect key="frame" x="0.0" y="44" width="596" height="30"/>
-                                                    <color key="backgroundColor" red="0.78039747479999999" green="0.78038263320000001" blue="0.78039270640000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" red="0.3490221798" green="0.34901499749999998" blue="0.34901988509999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="WB5-Dl-9Ci"/>
                                                     </constraints>
@@ -1478,6 +1478,7 @@
                                                         <constraint firstAttribute="height" constant="20.5" id="uez-PG-ewL"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="UIBackcolor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RTW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etp-cL-pZ5">
@@ -1487,7 +1488,7 @@
                                                         <constraint firstAttribute="width" constant="70" id="qLW-rg-bHS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="UIBackcolor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFO-fE-a3X">
@@ -1497,7 +1498,7 @@
                                                         <constraint firstAttribute="width" constant="70" id="zXQ-Dg-4Yp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="UIBackcolor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RTH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gic-3h-iYh">
@@ -1507,7 +1508,7 @@
                                                         <constraint firstAttribute="height" constant="20.5" id="OZh-86-09t"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="UIBackcolor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

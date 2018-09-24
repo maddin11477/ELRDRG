@@ -66,15 +66,28 @@ class SectionHandler: NSObject {
     public func getSections() -> [Section]
     {
         let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
-         return mission.sections?.allObjects as! [Section]
+         var array =  mission.sections?.allObjects as! [Section]
+        array.sort(by: { $0.id < $1.id})
         
+        return array
     }
+    
+  
     
     public func addSection(identifier : String)
     {
          let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
         let section = Section(context: AppDelegate.viewContext)
         section.identifier = identifier
+        var highest = 0
+        for sec in mission.sections?.allObjects as! [Section]
+        {
+            if sec.id > highest
+            {
+                highest = Int(sec.id)
+            }
+        }
+        section.id = Int16(highest + 1)
         mission.addToSections(section)
         saveData()
     }

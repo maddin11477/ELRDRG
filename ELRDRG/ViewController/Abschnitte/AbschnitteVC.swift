@@ -8,7 +8,135 @@
 
 import UIKit
 
-class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate{
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        print("section.identifier")
+        for item in coordinator.items
+        {
+            
+            if let sectionCell = item.dragItem.localObject as? SectionTableViewCell
+            {
+                
+                
+                let secData = SectionHandler()
+                secData.addSection(identifier: sectionCell.Name.text ?? "unbekannt")
+                
+                dropedUnitInSection()
+                AbschnitteCollectionView.reloadData()
+            }
+            
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: NSAttributedString.self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        return UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+    }
+    
+    func dropedUnitInSection() {
+        
+        units = []
+        sections = []
+        baseUnits = []
+        baseSections = []
+        //Filter der jeweiligen Tabellen
+        //Laden der Daten
+        let data = DataHandler()
+        let unitData = UnitHandler()
+        let sectionData = SectionHandler()
+        baseUnits = unitData.getAllBaseUnits()
+        baseSections = sectionData.getAllSections()
+        victims = data.getVictims()
+        sections = sectionData.getSections()
+        
+        
+        for patient in victims {
+            if let cars : [Unit] = patient.fahrzeug?.allObjects as? [Unit]
+            {
+                for car in cars
+                {
+                    
+                    
+                    if(car.section == nil)
+                    {
+                        units.append(car)
+                        
+                        
+                    }
+                    
+                    
+                }
+                
+            }
+        }
+        
+        
+        
+        for sec in sections {
+            
+            for car in sec.units?.allObjects as! [Unit]
+            {
+                for u in baseUnits
+                {
+                    
+                    if(u.funkrufName == car.callsign)
+                    {
+                        
+                        if let index = baseUnits.index(of: u)
+                        {
+                            baseUnits.remove(at: index)
+                        }
+                    }
+                }
+            }
+        }
+        print("reload after delegate")
+        SourceTable.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return dragItem(at: indexPath)
+    }
+    
+    private func dragItem(at indexpath : IndexPath) -> [UIDragItem]
+    {
+        if(SegmentControl.selectedSegmentIndex == 0)
+        {
+            if let string = (SourceTable.cellForRow(at: indexpath) as? SmallUnitTableViewCell)?.funkRufName.attributedText
+            {
+                let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+                if let car = (SourceTable.cellForRow(at: indexpath) as? SmallUnitTableViewCell)?.unit
+                {
+                    dragItem.localObject = car
+                }
+                return [dragItem]
+            }
+        }
+        else if(SegmentControl.selectedSegmentIndex == 2)
+        {
+            if let string = (SourceTable.cellForRow(at: indexpath) as? SectionTableViewCell)?.Name.attributedText
+            {
+                let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+                if let abschnitt = (SourceTable.cellForRow(at: indexpath) as? SectionTableViewCell)
+                {
+                    dragItem.localObject = abschnitt
+                    
+                }
+                return [dragItem]
+            }
+        }
+        
+        return []
+    }
+    
+    func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        return dragItem(at: indexPath)
+    }
+    
     
     
     
@@ -20,7 +148,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let view = AbschnitteCollectionView.dequeueReusableCell(withReuseIdentifier: "AbschnittCVC", for: indexPath) as! AbschnittCVC
         view.Abschnittname.title = sections[indexPath.row].identifier ?? "unbekannt"
         view.section_ = sections[indexPath.row]
-        
+        view.table.dropDelegate = view
+        view.dropDelegate = self
         view.table.delegate = view
         view.table.dataSource = view
         view.table.reloadData()
@@ -30,14 +159,27 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if(section == 0)
+        if(SegmentControl.selectedSegmentIndex == 0)
         {
-            return "Fahrzeuge ohne Patient"
+            if(section == 0)
+            {
+                return "Fahrzeuge ohne Patient"
+            }
+            else
+            {
+                return "Fahrzeuge mit Patient"
+            }
+        }
+        else if(SegmentControl.selectedSegmentIndex == 1)
+        {
+            return "Patienten"
         }
         else
         {
-            return "Fahrzeuge mit Patient"
+            return "Einsatzabschnitte"
         }
+        
+       
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,6 +230,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 cell.funkRufName.text = baseUnits[indexPath.row].funkrufName
                 cell.crewCount.text = String(baseUnits[indexPath.row].crewCount)
                 let handler = UnitHandler()
+                cell.unit = handler.baseUnit_To_Unit(baseUnit: baseUnits[indexPath.row])
                 cell.unitType.text = handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type)
                 cell.unitTypeImage.image = UIImage(named: handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type))
                 return cell
@@ -97,6 +240,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 cell.funkRufName.text = units[indexPath.row].callsign
                 cell.crewCount.text = String(units[indexPath.row].crewCount)
                 let handler = UnitHandler()
+                cell.unit = units[indexPath.row]
                 cell.unitType.text = handler.BaseUnit_To_UnitTypeString(id: units[indexPath.row].type)
                 cell.unitTypeImage.image = UIImage(named: handler.BaseUnit_To_UnitTypeString(id: units[indexPath.row].type))
                 return cell
@@ -161,97 +305,35 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     
     
-    func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
-       
-        let abschnitt = baseSections[indexPath.row]
-        
-        let itemProvider = NSItemProvider(object: abschnitt.identifier! as NSItemProviderWriting)
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragItem.localObject = abschnitt
-        
-        
-        return [dragItem]
-    }
+  
     
 
     
     override func viewDidAppear(_ animated: Bool) {
-        let data = DataHandler()
-        let unitData = UnitHandler()
-        let sectionData = SectionHandler()
+     
         
         
-        units = []
-        sections = []
-        baseUnits = []
-        baseSections = []
-        //sectionData.addSection(identifier: "Schaden")
-        
-        baseUnits = unitData.getAllBaseUnits()
-        baseSections = sectionData.getAllSections()
-        victims = data.getVictims()
         
         
-        sections = sectionData.getSections()
-        for sec in sections
-        {
-            let unitArray = sec.units?.allObjects as! [Unit]
-            for u in unitArray
-            {
-                sec.removeFromUnits(u)
-            }
-            
-        }
-        data.saveData()
-        for patient in victims {
-            if let cars : [Unit] = patient.fahrzeug?.allObjects as? [Unit]
-            {
-                for car in cars
-                {
-                    if(car.section == nil)
-                    {
-                         units.append(car)
-                        
-                        sections[0].addToUnits(car)
-                    }
-                    
-                   
-                }
-                
-            }
-        }
-        // sectionData.getSections()[0].addToUnits(unitData.baseUnit_To_Unit(baseUnit: baseUnits[0]))
+        
+        dropedUnitInSection()
+        AbschnitteCollectionView.dropDelegate = self
         
         SourceTable.reloadData()
     
-        // SourceTable.dragDelegate = self
-        // SourceTable.dropDelegate = self
-        //let indexPath = IndexPath(item: 0, section: 0)
-        //indexPath.section = 0
+        SourceTable.dragDelegate = self
+        
         
         AbschnitteCollectionView.reloadData()
         AbschnitteCollectionView.dragInteractionEnabled = true
         
         SourceTable.dragInteractionEnabled = true
         
-        print("Anzahl fzg:")
-        print(sections[0].units?.allObjects.count)
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+   
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }

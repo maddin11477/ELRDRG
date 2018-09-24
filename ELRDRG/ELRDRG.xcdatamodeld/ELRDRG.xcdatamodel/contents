@@ -52,6 +52,7 @@
         <relationship name="victims" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="mission" inverseEntity="Victim" syncable="YES"/>
     </entity>
     <entity name="Section" representedClassName=".Section" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="sections" inverseEntity="Mission" syncable="YES"/>
         <relationship name="units" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Unit" inverseName="section" inverseEntity="Unit" syncable="YES"/>
@@ -109,7 +110,7 @@
         <element name="Hospital" positionX="-765" positionY="-720" width="128" height="90"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="105"/>
         <element name="Mission" positionX="-425" positionY="-613" width="128" height="180"/>
-        <element name="Section" positionX="-119" positionY="-349" width="128" height="88"/>
+        <element name="Section" positionX="-119" positionY="-349" width="128" height="105"/>
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="120"/>
         <element name="User" positionX="-452" positionY="-805" width="128" height="180"/>

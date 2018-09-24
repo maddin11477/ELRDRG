@@ -18,6 +18,8 @@ class SmallUnitTableViewCell: UITableViewCell {
     
     @IBOutlet weak var unitTypeImage: UIImageView!
     
+    public var unit : Unit!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
