@@ -35,6 +35,9 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         return []
     }
     
+    
+    
+    
     func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
         return dragItem(at: indexPath)
     }
@@ -46,6 +49,20 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     var anzahlRTH = 0
     var anzahlNEF = 0
     var anzahlSonstige = 0
+    
+    
+    @IBAction func deleteSection_Click(_ sender: Any)
+    {
+        let lecdata = SectionHandler()
+        for car in section_?.units?.allObjects as! [Unit] {
+            car.section = nil
+        }
+        lecdata.deleteSection(sec: section_!)
+        self.dropDelegate.dropedUnitInSection()
+        
+        
+    }
+    
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         //let destinationPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
@@ -81,6 +98,11 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
          anzahlRTH = 0
          anzahlNEF = 0
          anzahlSonstige = 0
+    
+        self.layer.shadowColor = UIColor.black.cgColor
+       
+        self.layer.shadowOffset = CGSize.zero
+        self.layer.shadowRadius = 10
         return anzahl
     }
     

@@ -50,6 +50,8 @@
 		019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081C82141A62F00AB7620 /* HospitalProtocol.swift */; };
 		019081CB2141A65900AB7620 /* InjuryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CA2141A65900AB7620 /* InjuryProtocol.swift */; };
 		019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */; };
+		01C4F47B215AA94B008B5B82 /* StammdatenImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */; };
+		01C4F47D215E5F40008B5B82 /* CategorySegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47C215E5F40008B5B82 /* CategorySegment.swift */; };
 		01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F42145217A0059618E /* SelectUnitVC.swift */; };
 		01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */; };
 		01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F821484A060059618E /* SelectInjuryVC.swift */; };
@@ -133,6 +135,8 @@
 		019081C82141A62F00AB7620 /* HospitalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalProtocol.swift; sourceTree = "<group>"; };
 		019081CA2141A65900AB7620 /* InjuryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryProtocol.swift; sourceTree = "<group>"; };
 		019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInjuryVC.swift; sourceTree = "<group>"; };
+		01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenImport.swift; sourceTree = "<group>"; };
+		01C4F47C215E5F40008B5B82 /* CategorySegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySegment.swift; sourceTree = "<group>"; };
 		01ED51F42145217A0059618E /* SelectUnitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUnitVC.swift; sourceTree = "<group>"; };
 		01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitSelectCostumTableViewCell.swift; sourceTree = "<group>"; };
 		01ED51F821484A060059618E /* SelectInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjuryVC.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				019081C22141A46E00AB7620 /* UnitHandler.swift */,
 				019081C42141A47B00AB7620 /* HospitalHandler.swift */,
 				0139E4A12156D983001970FE /* SectionHandler.swift */,
+				01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
@@ -330,6 +335,7 @@
 			children = (
 				5B4A6007213C652800844F85 /* Helper */,
 				018042BA213A9A3D008B1784 /* Images */,
+				01C4F47C215E5F40008B5B82 /* CategorySegment.swift */,
 				0139E4A321570607001970FE /* CostumViewCellsAbschnitte */,
 				012508082135B2D40065FDF0 /* CostumViewCell */,
 				5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */,
@@ -505,6 +511,7 @@
 				5B4A6006213C641300844F85 /* DocumentationVC.swift in Sources */,
 				5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */,
 				0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */,
+				01C4F47B215AA94B008B5B82 /* StammdatenImport.swift in Sources */,
 				5B4A6015213DAAE800844F85 /* MapVC.swift in Sources */,
 				019081C32141A46E00AB7620 /* UnitHandler.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
@@ -542,6 +549,7 @@
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				5B4A600D213C6EA900844F85 /* DocumentationHandler.swift in Sources */,
 				5BF467F0214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift in Sources */,
+				01C4F47D215E5F40008B5B82 /* CategorySegment.swift in Sources */,
 				5B4A600F213C73E100844F85 /* DocumentationTableViewCell.swift in Sources */,
 				019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */,
 				018042CC213C0217008B1784 /* CreateUnitVC.swift in Sources */,

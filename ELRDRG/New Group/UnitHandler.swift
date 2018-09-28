@@ -18,7 +18,16 @@ class UnitHandler: NSObject {
         case KTW = 1
         case NEF = 2
         case RTH = 3
-        case HVO = 4
+        
+        case Sonstiges = 4
+        case Krad = 5
+        case kdow = 6
+        
+        case MTW = 7
+        case LKW = 8
+        case KTWkats = 9
+        case wasserwacht = 10
+        case elw = 11
     }
     public func addBaseUnit(callsign : String, type : UnitType, crewCount : Int16) -> BaseUnit
     {
@@ -68,7 +77,7 @@ class UnitHandler: NSObject {
             value = "RTH"
             break;
         case 4:
-            value = "HVO"
+            value = "Sonstiges"
         default:
             value = ""
         }

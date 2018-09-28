@@ -30,7 +30,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
-        return session.canLoadObjects(ofClass: NSAttributedString.self)
+       
+        return session.canLoadObjects(ofClass: NSURL.self)
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
@@ -107,7 +108,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     {
         if(SegmentControl.selectedSegmentIndex == 0)
         {
-            if let string = (SourceTable.cellForRow(at: indexpath) as? SmallUnitTableViewCell)?.funkRufName.attributedText
+            
+            if let  string = (SourceTable.cellForRow(at: indexpath) as? SmallUnitTableViewCell)?.funkRufName.attributedText
             {
                 let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
                 if let car = (SourceTable.cellForRow(at: indexpath) as? SmallUnitTableViewCell)?.unit
@@ -116,11 +118,15 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 }
                 return [dragItem]
             }
+            
+        }
+        else if(SegmentControl.selectedSegmentIndex == 1)
+        {
+            
         }
         else if(SegmentControl.selectedSegmentIndex == 2)
         {
-            if let string = (SourceTable.cellForRow(at: indexpath) as? SectionTableViewCell)?.Name.attributedText
-            {
+                let string = NSURL(fileURLWithPath: "testfileNotImportantWhatIsWrittenHere")
                 let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
                 if let abschnitt = (SourceTable.cellForRow(at: indexpath) as? SectionTableViewCell)
                 {
@@ -128,7 +134,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                     
                 }
                 return [dragItem]
-            }
+            
         }
         
         return []
@@ -166,11 +172,11 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
             if(section == 0)
             {
-                return "Fahrzeuge ohne Patient"
+                return "Stammdaten"
             }
             else
             {
-                return "Fahrzeuge mit Patient"
+                return "Einsatzmittel bereits im Einsatz"
             }
         }
         else if(SegmentControl.selectedSegmentIndex == 1)

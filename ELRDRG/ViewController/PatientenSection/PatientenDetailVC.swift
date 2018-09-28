@@ -109,6 +109,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         victim.hospital = hospitalData.BaseHospital_to_Hospital(baseHospital: hospital)
         victim.hospital?.addToVictim(victim)
         txtTransportDestination.text = (victim.hospital?.name)! + " / " + (victim.hospital?.city!)!
+        hospitalImage.isHidden = false
     }
     
     func didSelectUnit(unit: BaseUnit) {
@@ -160,13 +161,15 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtAge: UITextField!
     @IBOutlet weak var genderPicker: UISegmentedControl!
-    @IBOutlet weak var categoryPicker: UISegmentedControl!
+    @IBOutlet weak var categoryPicker: CategorySegmentedControl!
     @IBOutlet weak var injuryTable: UITableView!
   
-    @IBOutlet weak var txtTransportDestination: UITextField!
+    
+    @IBOutlet weak var txtTransportDestination: UILabel!
     
     @IBOutlet weak var lblTransportTime: UILabel!
     
+    @IBOutlet weak var hospitalImage: UIImageView!
     
     @IBOutlet weak var ageStepper: UIStepper!
     @IBOutlet weak var idStepper: UIStepper!
@@ -217,12 +220,21 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         data.saveData()
     }
     
+    
+    
     @IBAction func txtLastName_editingDidEnd(_ sender: Any)
     {
         victim.lastName = txtLastName.text
         data.saveData()
     }
     
+    @IBAction func deleteDestination_Click(_ sender: Any)
+    {
+        victim.hospital = nil
+        hospitalImage.isHidden = true
+        data.saveData()
+        txtTransportDestination.text = ""
+    }
     
     @IBAction func chooseTrransportDestination(_ sender: Any)
     {
@@ -242,8 +254,21 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func category_changed(_ sender: Any)
     {
-        victim.category = Int16(categoryPicker.selectedSegmentIndex + 1)
-        data.saveData()
+        
+        let control = sender as! CategorySegmentedControl
+        
+        if(control.selectedSegmentIndex != UISegmentedControlNoSegment && control.selectedSegmentIndex > -1)
+        {
+            
+            victim.category = Int16(control.selectedSegmentIndex + 1)
+            control.changeSelectedIndex(to: control.selectedSegmentIndex)
+            data.saveData()
+        }
+        
+      
+        
+        
+       
     }
     
     
@@ -309,14 +334,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func closeViewController_Click(_ sender: Any)
     {
-        if(victim.hospital == nil && (txtTransportDestination.text?.count ?? 0) > 1)
-        {
-            let hospital = Hospital(context: AppDelegate.viewContext)
-            hospital.name = txtTransportDestination.text!
-            hospital.city = "unknown"
-            victim.hospital = hospital
-            data.saveData()
-        }
+        
         self.presentingViewController?.dismiss(animated: true, completion: nil)
         
     }
@@ -336,7 +354,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        
         transportUnitTable.delegate = self
         transportUnitTable.dataSource = self
         injuryTable.delegate = self
@@ -364,8 +382,19 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
        
         
         transportUnitTable.reloadData()
-        categoryPicker.selectedSegmentIndex = Int(victim.category - 1 )
-        txtTransportDestination.text = victim.hospital?.name
+        //categoryPicker.selectedSegmentIndex = Int(victim.category - 1 )
+        
+        categoryPicker.changeSelectedIndex(to: Int(victim.category - 1))
+        if let hospital = victim.hospital
+        {
+            txtTransportDestination.text = hospital.name! + " / " + hospital.city!
+            hospitalImage.isHidden = false
+        }
+        else
+        {
+            hospitalImage.isHidden = true
+        }
+       
         idStepper.value = Double(victim.id)
         ageStepper.value = Double(victim.age)
         genderPicker.selectedSegmentIndex = Int(victim.gender)
@@ -427,6 +456,8 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         //self.view.endEditing(true)
     }
   
+    
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

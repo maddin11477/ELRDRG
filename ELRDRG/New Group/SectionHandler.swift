@@ -53,10 +53,10 @@ class SectionHandler: NSObject {
         
     }
     
-    public func deleteBaseInjury(baseInjury : BaseInjury)
+    public func deleteSection(sec : Section)
     {
         
-        AppDelegate.viewContext.delete(baseInjury)
+        AppDelegate.viewContext.delete(sec)
         
         saveData()
         
