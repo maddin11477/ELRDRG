@@ -166,8 +166,25 @@ class SelectInjuryVC: UIViewController {
         self.tabBarController?.selectedIndex = 1
     }
     
+    
+    @IBAction func Spine_Click(_ sender: Any)
+    {
+        if let del = self.delegate
+        {
+            del.didSelectBodyPart(bodyPart: .Spine)
+            
+        }
+        let vc = self.tabBarController!.viewControllers![1] as! SelectInjuryTableVC
+        vc.bodyPart = .Spine
+        vc.bodySide = nil
+        self.tabBarController?.selectedIndex = 1
+    }
+    @IBOutlet weak var spineLBL: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        spineLBL.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
 
         // Do any additional setup after loading the view.
     }

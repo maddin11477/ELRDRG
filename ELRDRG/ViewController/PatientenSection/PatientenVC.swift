@@ -116,8 +116,9 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         {
             detailController.victim = doneList[indexPath.row]
         }
-        
-        self.present(detailController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailController, animated: true)
+        //self.navigationController?.present(detailController, animated: true, completion: nil)
+        //self.present(detailController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

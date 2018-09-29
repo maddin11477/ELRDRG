@@ -12,7 +12,7 @@ class InjuryHandler: NSObject {
       public var delegate : InjuryProtocol?
     
     //ENUM und Array auf gleichem Stand halten !!!!
-    public static let locationArray = ["Arm", "Oberschenkel", "Unterschenkel", "Hand", "Abdomen", "Thorax","Kopf"]
+    public static let locationArray = ["Arm", "Oberschenkel", "Unterschenkel", "Hand", "Abdomen", "Thorax","Kopf", "Wirbelsäule"]
     
     public func sideToString(side : side?) -> String
     {
@@ -49,6 +49,7 @@ class InjuryHandler: NSObject {
         case Abdomen = 4
         case Thorax = 5
         case Kopf = 6
+        case Spine = 7
         
     }
     

@@ -52,7 +52,7 @@ class CategorySegmentedControl: UISegmentedControl {
     
         if(currentIndex != -1)
         {
-            sortedViews[currentIndex].layer.borderWidth = 1
+            sortedViews[currentIndex].layer.borderWidth = 0
            
             
             

@@ -432,6 +432,8 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         txtBirthdate.inputView = birthdatePicker
         txtBirthdate.inputAccessoryView = toolBar
         birthdatePicker?.datePickerMode = .date
+        let loc = Locale(identifier: "Ger")
+        birthdatePicker?.locale = loc
         birthdatePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         
         
