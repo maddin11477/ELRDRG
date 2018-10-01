@@ -52,8 +52,6 @@
 		019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */; };
 		01C4F47B215AA94B008B5B82 /* StammdatenImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */; };
 		01C4F47D215E5F40008B5B82 /* CategorySegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47C215E5F40008B5B82 /* CategorySegment.swift */; };
-		01C4F47F215F749D008B5B82 /* 761550-200.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C4F47E215F749C008B5B82 /* 761550-200.png */; };
-		01C4F481215F74F5008B5B82 /* kisspng-human-vertebral-column-atlas-cervical-vertebrae-spine-5ae924252eef08.6024992315252285811923.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 01C4F480215F74F4008B5B82 /* kisspng-human-vertebral-column-atlas-cervical-vertebrae-spine-5ae924252eef08.6024992315252285811923.jpg */; };
 		01C4F483215F92F8008B5B82 /* spine-png-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C4F482215F92F7008B5B82 /* spine-png-4.png */; };
 		01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F42145217A0059618E /* SelectUnitVC.swift */; };
 		01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */; };
@@ -140,8 +138,6 @@
 		019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInjuryVC.swift; sourceTree = "<group>"; };
 		01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenImport.swift; sourceTree = "<group>"; };
 		01C4F47C215E5F40008B5B82 /* CategorySegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySegment.swift; sourceTree = "<group>"; };
-		01C4F47E215F749C008B5B82 /* 761550-200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "761550-200.png"; sourceTree = "<group>"; };
-		01C4F480215F74F4008B5B82 /* kisspng-human-vertebral-column-atlas-cervical-vertebrae-spine-5ae924252eef08.6024992315252285811923.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kisspng-human-vertebral-column-atlas-cervical-vertebrae-spine-5ae924252eef08.6024992315252285811923.jpg"; sourceTree = "<group>"; };
 		01C4F482215F92F7008B5B82 /* spine-png-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spine-png-4.png"; sourceTree = "<group>"; };
 		01ED51F42145217A0059618E /* SelectUnitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUnitVC.swift; sourceTree = "<group>"; };
 		01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitSelectCostumTableViewCell.swift; sourceTree = "<group>"; };
@@ -291,8 +287,6 @@
 			isa = PBXGroup;
 			children = (
 				01C4F482215F92F7008B5B82 /* spine-png-4.png */,
-				01C4F480215F74F4008B5B82 /* kisspng-human-vertebral-column-atlas-cervical-vertebrae-spine-5ae924252eef08.6024992315252285811923.jpg */,
-				01C4F47E215F749C008B5B82 /* 761550-200.png */,
 				01225AE7213F1B4700033225 /* icon-injury.png */,
 				01225AE5213F19A300033225 /* hospital.png */,
 				018042DE213EF964008B1784 /* RTH.png */,
@@ -323,6 +317,17 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		01C4F4842162684A008B5B82 /* CostumUIElements */ = {
+			isa = PBXGroup;
+			children = (
+				5B4A6007213C652800844F85 /* Helper */,
+				012508082135B2D40065FDF0 /* CostumViewCell */,
+				01C4F47C215E5F40008B5B82 /* CategorySegment.swift */,
+				0139E4A321570607001970FE /* CostumViewCellsAbschnitte */,
+			);
+			path = CostumUIElements;
+			sourceTree = "<group>";
+		};
 		5B41E9A6212C5F5300525804 = {
 			isa = PBXGroup;
 			children = (
@@ -342,11 +347,8 @@
 		5B41E9B1212C5F5300525804 /* ELRDRG */ = {
 			isa = PBXGroup;
 			children = (
-				5B4A6007213C652800844F85 /* Helper */,
+				01C4F4842162684A008B5B82 /* CostumUIElements */,
 				018042BA213A9A3D008B1784 /* Images */,
-				01C4F47C215E5F40008B5B82 /* CategorySegment.swift */,
-				0139E4A321570607001970FE /* CostumViewCellsAbschnitte */,
-				012508082135B2D40065FDF0 /* CostumViewCell */,
 				5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */,
 				5B41E9C7212C64F300525804 /* Models */,
 				5B6D7743212C888400DDFA2B /* ViewController */,
@@ -480,7 +482,6 @@
 				018042E0213EF964008B1784 /* RTW.png in Resources */,
 				5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */,
 				01C4F483215F92F8008B5B82 /* spine-png-4.png in Resources */,
-				01C4F47F215F749D008B5B82 /* 761550-200.png in Resources */,
 				018042BE213A9B98008B1784 /* humanbody02.png in Resources */,
 				5B41E9BD212C5F5400525804 /* Assets.xcassets in Resources */,
 				01225AE8213F1B4700033225 /* icon-injury.png in Resources */,
@@ -489,7 +490,6 @@
 				018042DF213EF964008B1784 /* NEF.png in Resources */,
 				5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */,
 				018042E1213EF964008B1784 /* ITH.png in Resources */,
-				01C4F481215F74F5008B5B82 /* kisspng-human-vertebral-column-atlas-cervical-vertebrae-spine-5ae924252eef08.6024992315252285811923.jpg in Resources */,
 				018042E4213EF964008B1784 /* RTH.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

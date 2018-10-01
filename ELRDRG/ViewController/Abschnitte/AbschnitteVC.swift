@@ -95,6 +95,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 }
             }
         }
+        filterByType()
         print("reload after delegate")
         SourceTable.reloadData()
         AbschnitteCollectionView.reloadData()
@@ -236,13 +237,16 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             let cell = tableView.dequeueReusableCell(withIdentifier: "SmallUnitTableViewCell") as! SmallUnitTableViewCell
             if(indexPath.section == 0)
             {
-                cell.funkRufName.text = baseUnits[indexPath.row].funkrufName
-                cell.crewCount.text = String(baseUnits[indexPath.row].crewCount)
-                let handler = UnitHandler()
-                cell.unit = handler.baseUnit_To_Unit(baseUnit: baseUnits[indexPath.row])
-                cell.unitType.text = handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type)
-                cell.unitTypeImage.image = UIImage(named: handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type))
-                return cell
+                
+                    cell.funkRufName.text = baseUnits[indexPath.row].funkrufName
+                    cell.crewCount.text = String(baseUnits[indexPath.row].crewCount)
+                    let handler = UnitHandler()
+                    cell.unit = handler.baseUnit_To_Unit(baseUnit: baseUnits[indexPath.row])
+                    cell.unitType.text = handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type)
+                    cell.unitTypeImage.image = UIImage(named: handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type))
+                    return cell
+                
+                
             }
             else
             {
@@ -278,6 +282,32 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
     }
     
+    func filterByType()
+    {
+        
+        var tempUnitList : [Unit] = []
+        var tempBaseUnitList : [BaseUnit] = []
+        
+        for unit in units {
+            if(filterSegmentControl.selectedSegmentIndex == unit.type || filterSegmentControl.selectedSegmentIndex == 5 || (filterSegmentControl.selectedSegmentIndex == 4 && unit.type > 3))
+            {
+                tempUnitList.append(unit)
+                
+            }
+        }
+        
+        for unit in baseUnits
+        {
+            if(filterSegmentControl.selectedSegmentIndex == unit.type || filterSegmentControl.selectedSegmentIndex == 5 || (filterSegmentControl.selectedSegmentIndex == 4 && unit.type > 3))
+            {
+                tempBaseUnitList.append(unit)
+                
+            }
+        }
+        baseUnits = tempBaseUnitList
+        units = tempUnitList
+    }
+    
   
    
     
@@ -287,9 +317,26 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     @IBOutlet weak var Searchbar: UISearchBar!
     @IBOutlet weak var SourceTable: UITableView!
     let sectionData : SectionHandler = SectionHandler()
+    @IBOutlet weak var filterSegmentControlHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var filterSegmentControl: UISegmentedControl!
+    
+    @IBAction func filterSegmentControl_ValueChanged(_ sender: Any) {
+        dropedUnitInSection()
+    }
     
     @IBAction func SegmentValueChanged(_ sender: Any)
     {
+        if(SegmentControl.selectedSegmentIndex == 0)
+        {
+            filterSegmentControlHeight.constant = 28
+            filterSegmentControl.tintColor = UIColor.red
+        }
+        else
+        {
+            filterSegmentControl.tintColor = UIColor.white
+            filterSegmentControlHeight.constant = 0
+        }
         SourceTable.reloadData()
     }
     
@@ -309,6 +356,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         AbschnitteCollectionView.dataSource = self
         SourceTable.dataSource = self
         SourceTable.delegate = self
+        filterSegmentControl.selectedSegmentIndex = 5
+        filterSegmentControl.tintColor = UIColor.red
         // Do any additional setup after loading the view.
     }
     

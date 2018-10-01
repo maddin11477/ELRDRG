@@ -47,6 +47,7 @@ class CategorySegmentedControl: UISegmentedControl {
     }
     
     func changeSelectedIndex(to newIndex: Int) {
+        
         self.selectedSegmentIndex = UISegmentedControlNoSegment
         sortedViews = self.subviews.sorted(by:{$0.frame.origin.x < $1.frame.origin.x})
     
@@ -84,6 +85,15 @@ class CategorySegmentedControl: UISegmentedControl {
             
         }
         currentIndex = newIndex
+        if(newIndex == -2)
+        {
+            currentIndex = 3
+        }
+        else if(newIndex != -2 && newIndex < 0)
+        {
+            return
+        }
+        
         
         sortedViews[currentIndex].layer.borderWidth = 3
         

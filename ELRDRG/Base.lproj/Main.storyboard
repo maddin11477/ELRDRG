@@ -1048,11 +1048,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wo6-Qu-9eq">
-                                <rect key="frame" x="0.0" y="64" width="606" height="655"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wo6-Qu-9eq">
+                                <rect key="frame" x="0.0" y="64" width="482" height="655"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einsatzabschnittverwaltung" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooP-k4-LXw">
-                                        <rect key="frame" x="149" y="312.5" width="309" height="31.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Einsatzabschnittverwaltung" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooP-k4-LXw">
+                                        <rect key="frame" x="87" y="312.5" width="309" height="31.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1065,7 +1065,7 @@
                                 </constraints>
                             </view>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="jjS-so-r3e">
-                                <rect key="frame" x="606" y="93" width="418" height="56"/>
+                                <rect key="frame" x="606" y="92" width="418" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="418" id="vR0-1e-r5o"/>
                                     <constraint firstAttribute="height" constant="56" id="x3U-Tj-Ob8"/>
@@ -1582,11 +1582,10 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBX-MX-phg">
-                                <rect key="frame" x="606" y="149" width="418" height="570"/>
+                                <rect key="frame" x="606" y="136" width="418" height="583"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="418" id="XM5-UX-n4e"/>
-                                    <constraint firstAttribute="height" constant="570" id="uDO-wb-rL8"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SmallUnitTableViewCell" rowHeight="49" id="HoF-mc-t7r" customClass="SmallUnitTableViewCell" customModule="ELRDRG" customModuleProvider="target">
@@ -1783,7 +1782,7 @@
                                 </items>
                             </navigationBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GOk-rO-Qmh">
-                                <rect key="frame" x="606" y="64" width="418" height="30"/>
+                                <rect key="frame" x="606" y="64" width="418" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="418" id="A1R-bl-S8J"/>
                                 </constraints>
@@ -1796,12 +1795,31 @@
                                     <action selector="SegmentValueChanged:" destination="vla-lT-8gt" eventType="valueChanged" id="B5f-ch-4qz"/>
                                 </connections>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" highlighted="YES" contentHorizontalAlignment="right" contentVerticalAlignment="top" segmentControlStyle="bordered" translatesAutoresizingMaskIntoConstraints="NO" id="CUD-K7-Zcx">
+                                <rect key="frame" x="606" y="100" width="418" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="6vI-IS-33c"/>
+                                    <constraint firstAttribute="width" constant="418" id="cIZ-Ws-9dx"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="RTW"/>
+                                    <segment title="KTW"/>
+                                    <segment title="NEF"/>
+                                    <segment title="RTH"/>
+                                    <segment title="Sonstiges"/>
+                                    <segment title="Alle"/>
+                                </segments>
+                                <connections>
+                                    <action selector="filterSegmentControl_ValueChanged:" destination="vla-lT-8gt" eventType="valueChanged" id="EQd-gh-0fG"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" name="UIBackcolor"/>
                         <constraints>
                             <constraint firstItem="iBX-MX-phg" firstAttribute="bottom" secondItem="EjF-1p-zPj" secondAttribute="bottom" id="4VE-tp-hXd"/>
                             <constraint firstItem="401-IW-Unz" firstAttribute="bottom" secondItem="EjF-1p-zPj" secondAttribute="bottom" id="6ZK-kU-OYH"/>
                             <constraint firstItem="401-IW-Unz" firstAttribute="leading" secondItem="EjF-1p-zPj" secondAttribute="leading" id="7UW-KM-m58"/>
+                            <constraint firstItem="iBX-MX-phg" firstAttribute="top" secondItem="CUD-K7-Zcx" secondAttribute="bottom" constant="8" id="7pb-rM-Fk8"/>
                             <constraint firstItem="jjS-so-r3e" firstAttribute="trailing" secondItem="EjF-1p-zPj" secondAttribute="trailing" id="Cuw-lR-bkp"/>
                             <constraint firstItem="GOk-rO-Qmh" firstAttribute="top" secondItem="b4M-ZM-7id" secondAttribute="bottom" id="F2S-nS-rW9"/>
                             <constraint firstItem="jjS-so-r3e" firstAttribute="leading" secondItem="401-IW-Unz" secondAttribute="trailing" id="K2B-Zp-fom"/>
@@ -1809,16 +1827,23 @@
                             <constraint firstItem="iBX-MX-phg" firstAttribute="trailing" secondItem="EjF-1p-zPj" secondAttribute="trailing" id="RXh-wc-Wx8"/>
                             <constraint firstItem="b4M-ZM-7id" firstAttribute="trailing" secondItem="EjF-1p-zPj" secondAttribute="trailing" id="SQ9-a0-bmK"/>
                             <constraint firstItem="401-IW-Unz" firstAttribute="top" secondItem="b4M-ZM-7id" secondAttribute="bottom" id="ShA-vu-dUE"/>
+                            <constraint firstItem="CUD-K7-Zcx" firstAttribute="trailing" secondItem="EjF-1p-zPj" secondAttribute="trailing" id="bQ7-1l-p20"/>
                             <constraint firstItem="b4M-ZM-7id" firstAttribute="leading" secondItem="EjF-1p-zPj" secondAttribute="leading" id="byu-YU-fa5"/>
                             <constraint firstItem="wo6-Qu-9eq" firstAttribute="bottom" secondItem="EjF-1p-zPj" secondAttribute="bottom" id="eiZ-hQ-gaa"/>
+                            <constraint firstItem="CUD-K7-Zcx" firstAttribute="top" secondItem="GOk-rO-Qmh" secondAttribute="bottom" constant="8" id="fAQ-nM-Fyw"/>
                             <constraint firstItem="wo6-Qu-9eq" firstAttribute="top" secondItem="b4M-ZM-7id" secondAttribute="bottom" id="hkj-Nf-P18"/>
-                            <constraint firstItem="iBX-MX-phg" firstAttribute="top" secondItem="jjS-so-r3e" secondAttribute="bottom" id="iIS-go-zYI"/>
+                            <constraint firstItem="CUD-K7-Zcx" firstAttribute="top" secondItem="jjS-so-r3e" secondAttribute="bottom" id="iOi-Uf-hff"/>
                             <constraint firstItem="wo6-Qu-9eq" firstAttribute="leading" secondItem="EjF-1p-zPj" secondAttribute="leading" id="iQJ-lK-YA5"/>
                             <constraint firstItem="jjS-so-r3e" firstAttribute="leading" secondItem="wo6-Qu-9eq" secondAttribute="trailing" id="mW2-7B-w09"/>
                             <constraint firstItem="b4M-ZM-7id" firstAttribute="top" secondItem="EjF-1p-zPj" secondAttribute="top" id="nrh-qX-5D9"/>
                             <constraint firstItem="jjS-so-r3e" firstAttribute="top" secondItem="GOk-rO-Qmh" secondAttribute="bottom" id="pLn-a1-AMe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EjF-1p-zPj"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="jjS-so-r3e"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Organisation" id="Hk8-kj-5O0"/>
                     <connections>
@@ -1826,6 +1851,8 @@
                         <outlet property="Searchbar" destination="jjS-so-r3e" id="62i-ZC-ijI"/>
                         <outlet property="SegmentControl" destination="GOk-rO-Qmh" id="9oe-2V-HBO"/>
                         <outlet property="SourceTable" destination="iBX-MX-phg" id="2b7-ut-2uS"/>
+                        <outlet property="filterSegmentControl" destination="CUD-K7-Zcx" id="h6C-q6-ic1"/>
+                        <outlet property="filterSegmentControlHeight" destination="6vI-IS-33c" id="RWO-uc-V3b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5d-y4-tsn" userLabel="First Responder" sceneMemberID="firstResponder"/>
