@@ -24,6 +24,9 @@ class StammdatenImport: UITableViewCell {
     let wasserwacht = ["WW BNEST 91/1", "WW WÜHSN 94/1"]
     let elw = ["KAT NES 13/2"]
     
+    
+    
+    
     func generateUnitObjects()
     {
         //RTWs erstellen
@@ -54,7 +57,7 @@ class StammdatenImport: UITableViewCell {
         for _car in RTHs {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
-            car.crewCount = 2
+            car.crewCount = 3
             car.type = 3
         }
         
@@ -67,14 +70,14 @@ class StammdatenImport: UITableViewCell {
         }
         
         //Krad erstellen
-        for _car in RTHs {
+        for _car in Krad {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
-            car.crewCount = 2
+            car.crewCount = 1
             car.type = 5
         }
         
-        //RTH erstellen
+        //Kdows erstellen
         for _car in Kdows {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
@@ -82,15 +85,15 @@ class StammdatenImport: UITableViewCell {
             car.type = 6
         }
         
-        //RTH erstellen
+        //MTW erstellen
         for _car in MTW {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
-            car.crewCount = 2
+            car.crewCount = 9
             car.type = 7
         }
         
-        //RTH erstellen
+        //LKW erstellen
         for _car in LKW {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
@@ -98,7 +101,7 @@ class StammdatenImport: UITableViewCell {
             car.type = 8
         }
         
-        //RTH erstellen
+        //KTW erstellen
         for _car in KTWKATS {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
@@ -106,24 +109,143 @@ class StammdatenImport: UITableViewCell {
             car.type = 9
         }
         
+        
         for _car in wasserwacht {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
-            car.crewCount = 2
+            car.crewCount = 9
             car.type = 10
         }
         
         for _car in elw {
             let car = BaseUnit(context: AppDelegate.viewContext)
             car.funkrufName = _car
-            car.crewCount = 2
+            car.crewCount = 4
             car.type = 11
         }
         
-        
+        saveData()
         
         
     }
+    
+   
+    let armArray = ["Oberarm#", "Oberarm# offen", "Oberarm Amputation", "Schulterluxation", "Ellenbogenluxation"]
+    let oberschenkel = ["Oberschenkel#", "Oberschenkel# offen", "Oberschenkel Amputation", "Becken#", "Becken# offen"]
+    let Unterschenkel = ["Unterschenkel#" + "Unterschenkel# offen", "Unterschenkel Amputation", "Patella#", "Patellaluxation", "OSG#", "OSG# offen", "Fuß Amputation"]
+    let hand = ["Handgelenk#", "Handgelenk# offen", "Hand#", "Hand# offen", "Hand Amputation"]
+    let abdomen = ["stumpfes Abdominaltrauma", "Abdominaltrauma offen", "penetrierendes Abdominaltrauma", "Abwehrspannung Abdomen", "Prellmarke Abdomen"]
+    let thorax = ["stumpfes Thoraxtrauma", "penetrierendes Thoraxtrauma", "Thoraxtrauma offen", "Sternumprellung", "Sternum#", "Rippen#", "Rippenserien#", "Pneumothorax", "Spannungspneumothorax", "Spannungspneumothorax entlastet", "Hämatothorax"]
+    let kopf = ["Comotio", "SHT I", "SHT I offen", "SHT II", "SHT II offen", "SHT III", "SHT III offen", "Mittelgesichts#", "wach ansprechbar", "Bewusstlos", "spontanatmend", "intubiert beatmet"]
+    let wirbelsäule = ["HWS Distorsion", "HWS Trauma", "HWS Trauma mit Sensibilitätsstörungen", "BWS Trauma", "BWS Trauma mit Sensibilitätsstörungen", "LWS Trauma", "LWS Trauma mit Sensibilitätsstörungen", "Querschnittsymptomatik"]
+    
+    
+    func createDiagnoses()
+    {
+        for value in armArray {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 0
+            diag.diagnosis = value
+            diag.loaction = "Arm"
+        }
+        
+        for value in oberschenkel
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 1
+            diag.diagnosis = value
+            diag.loaction = "Oberschenkel"
+        }
+        
+        for value in Unterschenkel
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 2
+            diag.diagnosis = value
+            diag.loaction = "Unterschenkel"
+        }
+        
+        for value in hand
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 3
+            diag.diagnosis = value
+            diag.loaction = "Hand"
+        }
+        
+        for value in abdomen
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 4
+            diag.diagnosis = value
+            diag.loaction = "Abdomen"
+        }
+        
+        for value in thorax
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 5
+            diag.diagnosis = value
+            diag.loaction = "Thorax"
+        }
+        
+        for value in kopf
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 6
+            diag.diagnosis = value
+            diag.loaction = "Kopf"
+        }
+        
+        for value in wirbelsäule
+        {
+            let diag = BaseInjury(context: AppDelegate.viewContext)
+            diag.category = 7
+            diag.diagnosis = value
+            diag.loaction = "Wirbelsäule"
+        }
+        
+        saveData()
+        
+    }
+    
+    
+    public func generateHospitals()
+    {
+        var i : Int = 0
+        for value in hospitalname
+        {
+            let hos = BaseHospital(context: AppDelegate.viewContext)
+            hos.city = KLinikOrt[i]
+            hos.lat = lat[i]
+            hos.lng = lng[i]
+            hos.name = value
+            i = i + 1
+        }
+        saveData()
+    }
+    
+    let hospitalname = ["Campus Rhön", "St. Elisabeth", "Klinikum Meiningen", "Leopoldina", "St. Josef", "Franz von Prümmer Klinik", "KHS Hammelburg", "KHS Hassfurt", "KHS Ebern", "Klinikum Fulda", "Klinikum Suhl", "Uni Würzburg", "Zentralklinik Bad Berka", "Klinikum Coburg", "BGU Klinik"]
+    let KLinikOrt = ["Bad Neustadt", "Bad Kissingen", "Meiningen", "Schweinfurt", "Schweinfurt", "Bad Brückenau", "Hammelburg", "Hassfurt", "Ebern", "Fulda", "Suhl", "Würzburg", "Bad Berka", "Coburg", "Frankfurt"]
+    let lng = [50.323636, 50.189797, 50.557849, 50.051994, 50.051994, 50.307681, 50.119965, 50.040304, 50.097157, 50.548481, 50.60252, 49.806359, 50.889507, 50.246963, 50.144988]
+    let lat = [10.23298, 10.083099, 10.397545, 10.24366, 10.24366, 9.785157, 9.898004, 10.514484, 10.798534, 9.706519, 10.70957, 9.95758, 11.266051, 10.973357, 8.709632]
+    
+    
+    
+    private func saveData()
+    {
+        //save to database
+        do
+        {
+            try AppDelegate.viewContext.save()
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

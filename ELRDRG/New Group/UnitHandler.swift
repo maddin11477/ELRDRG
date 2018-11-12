@@ -78,8 +78,22 @@ class UnitHandler: NSObject {
             break;
         case 4:
             value = "Sonstiges"
+        case 5:
+            value = "Krad"
+        case 6:
+            value = "Kdow"
+        case 7:
+            value = "MTW"
+        case 8:
+            value = "LKW"
+        case 9:
+            value = "Kat-KTW"
+        case 10:
+            value = "Wasserwacht"
+        case 11:
+            value = "ELW"
         default:
-            value = ""
+            value = "sonstiges"
         }
         return value
     }

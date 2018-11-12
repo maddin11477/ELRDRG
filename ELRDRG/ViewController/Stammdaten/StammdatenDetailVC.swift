@@ -178,6 +178,56 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
         
         table.dataSource = self
         table.delegate = self
+        
+        if(units.count == 0 && self.type == StammdatenTyp.Fahrzeuge)
+        {
+            let alert : UIAlertController = UIAlertController(title: "Stammdaten", message: ("Rhön-Grabfeld Stammdaten importieren?"), preferredStyle: UIAlertControllerStyle.alert)
+            let alertaction : UIAlertAction = UIAlertAction(title: "Ja", style: .destructive, handler: { alert -> Void in
+                let stammdatenManager = StammdatenImport()
+                stammdatenManager.generateUnitObjects()
+                
+                self.createdUnit()
+                
+                
+            })
+            let abortaction : UIAlertAction = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+            alert.addAction(alertaction)
+            alert.addAction(abortaction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if(injuries.count == 0 && self.type == StammdatenTyp.Diagnosen)
+        {
+            let alert : UIAlertController = UIAlertController(title: "Stammdaten", message: ("Rhön-Grabfeld Stammdaten importieren?"), preferredStyle: UIAlertControllerStyle.alert)
+            let alertaction : UIAlertAction = UIAlertAction(title: "Ja", style: .destructive, handler: { alert -> Void in
+                let stammdatenManager = StammdatenImport()
+                stammdatenManager.createDiagnoses()
+                self.createdInjury()
+                
+                
+                
+            })
+            let abortaction : UIAlertAction = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+            alert.addAction(alertaction)
+            alert.addAction(abortaction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if(hospitals.count == 0 && self.type == StammdatenTyp.Kliniken)
+        {
+            let alert : UIAlertController = UIAlertController(title: "Stammdaten", message: ("Rhön-Grabfeld Stammdaten importieren?"), preferredStyle: UIAlertControllerStyle.alert)
+            let alertaction : UIAlertAction = UIAlertAction(title: "Ja", style: .destructive, handler: { alert -> Void in
+                let stammdatenManager = StammdatenImport()
+                stammdatenManager.generateHospitals()
+                self.createdHospital()
+                
+                
+                
+            })
+            let abortaction : UIAlertAction = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+            alert.addAction(alertaction)
+            alert.addAction(abortaction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
         table.reloadData()
         // Do any additional setup after loading the view.
     }
