@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0119234021DE4E780050201B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0119233F21DE4E780050201B /* FontAwesome.ttf */; };
 		01225AE6213F19A300033225 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = 01225AE5213F19A300033225 /* hospital.png */; };
 		01225AE8213F1B4700033225 /* icon-injury.png in Resources */ = {isa = PBXBuildFile; fileRef = 01225AE7213F1B4700033225 /* icon-injury.png */; };
 		01225AEA213F1B6A00033225 /* InjuryCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */; };
@@ -95,6 +96,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0119233F21DE4E780050201B /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		01225AE5213F19A300033225 /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		01225AE7213F1B4700033225 /* icon-injury.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-injury.png"; sourceTree = "<group>"; };
 		01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryCostumTableViewCell.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		012508082135B2D40065FDF0 /* CostumViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				01C4F47C215E5F40008B5B82 /* CategorySegment.swift */,
 				012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */,
 				018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */,
 				5B4A600E213C73E100844F85 /* DocumentationTableViewCell.swift */,
@@ -326,9 +329,9 @@
 		01C4F4842162684A008B5B82 /* CostumUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				0119233F21DE4E780050201B /* FontAwesome.ttf */,
 				5B4A6007213C652800844F85 /* Helper */,
 				012508082135B2D40065FDF0 /* CostumViewCell */,
-				01C4F47C215E5F40008B5B82 /* CategorySegment.swift */,
 				0139E4A321570607001970FE /* CostumViewCellsAbschnitte */,
 			);
 			path = CostumUIElements;
@@ -499,6 +502,7 @@
 				5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */,
 				018042E1213EF964008B1784 /* ITH.png in Resources */,
 				018042E4213EF964008B1784 /* RTH.png in Resources */,
+				0119234021DE4E780050201B /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
