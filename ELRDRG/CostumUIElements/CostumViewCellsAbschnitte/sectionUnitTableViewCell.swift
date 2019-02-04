@@ -8,14 +8,63 @@
 
 import UIKit
 
-class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
+protocol VictimDropDelegate {
+    func droppedVictim()
+}
+
+class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        for item in coordinator.items
+        {
+            
+            if let patient = item.dragItem.localObject as? Victim
+            {
+                if(unit_?.patient != nil)
+                {
+                    
+                    let alert = UIAlertController(title: "Achtung", message: "Dem Fahrzeug wurde bereits ein Patient zugewiesen!" , preferredStyle: UIAlertControllerStyle.alert)
+                    let action = UIAlertAction(title: "OK", style: .default, handler: { action in
+                    })
+                    alert.addAction(action)
+                     UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+                else if((patient.fahrzeug?.allObjects as! [Unit]).count > 0)
+                {
+                    let messageString = "Der Patient wurde bereits dem " + ((patient.fahrzeug?.allObjects as! [Unit])[0].callsign ?? "unbekannt") + " zugeordnet."
+                    let alert = UIAlertController(title: "Achtung", message: messageString, preferredStyle: UIAlertControllerStyle.alert)
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+                else
+                {
+                    unit_?.patient = patient
+                    
+                    let secData = SectionHandler()
+                    secData.saveData()
+                    self.delegate?.droppedVictim()
+                    table.reloadData()
+                }
+                
+            }
+            
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        return true
+    }
+    
     
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var number = 0
+        var number = 1
         if(unit_?.patient != nil)
         {
             number = 2
@@ -25,6 +74,8 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             }
         }
         tableHeight.constant = CGFloat(number * 49)
+        
+        
         return number
         
     }
@@ -67,7 +118,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
         table.dataSource = self
         table.delegate = self
        
-        
+        table.dropDelegate = self
         
         table.reloadData()
     }
@@ -75,7 +126,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     
     @IBOutlet weak var table: UITableView!
     
-    public var delegate : UnitSectionDelegate? = nil
+    public var delegate : VictimDropDelegate?
     
     public var unit_ : Unit?
 

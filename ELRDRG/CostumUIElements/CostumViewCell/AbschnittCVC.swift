@@ -10,7 +10,11 @@ import UIKit
 protocol SectionDropProtocol {
     func dropedUnitInSection()
 }
-class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate {
+class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate, VictimDropDelegate {
+    func droppedVictim() {
+        table.reloadData()
+    }
+    
     func handeledPatientDragDropAction() {
         table.reloadData()
     }
@@ -163,13 +167,16 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         
         let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
         cell.unit_ = unit
+        cell.delegate = self
         cell.setProperties()
+        
         return cell
         
     }
     
+   
     
-    
+    @IBOutlet weak var tableHeight: NSLayoutConstraint!
     public var section_ : Section?
    public var dropDelegate : SectionDropProtocol!
     @IBOutlet weak var table: UITableView!
