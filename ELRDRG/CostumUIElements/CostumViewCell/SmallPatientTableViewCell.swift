@@ -19,6 +19,7 @@ class SmallPatientTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lastName: UILabel!
     
+    public var patient : Victim?
     
     override func awakeFromNib() {
         super.awakeFromNib()

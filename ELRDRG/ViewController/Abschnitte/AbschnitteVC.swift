@@ -24,6 +24,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 dropedUnitInSection()
                 AbschnitteCollectionView.reloadData()
             }
+          
             
         }
         
@@ -123,6 +124,14 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
         else if(SegmentControl.selectedSegmentIndex == 1)
         {
+            let string = NSURL(fileURLWithPath: "PatientItem")
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+            if let patient = (SourceTable.cellForRow(at: indexpath) as? SmallPatientTableViewCell)?.patient!
+            {
+                dragItem.localObject = patient
+            }
+            return [dragItem]
+            
             
         }
         else if(SegmentControl.selectedSegmentIndex == 2)
@@ -269,6 +278,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             cell.lastName.text = victim.lastName
             cell.PatID.text = "Pat-ID: " + String(victim.id)
             cell.category.text = String(victim.category)
+            cell.patient = victim
             return cell
         }
         else

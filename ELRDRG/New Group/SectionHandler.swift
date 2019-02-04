@@ -11,10 +11,17 @@ import CoreData
 
 protocol SectionProtocol {
     func createdBaseSection()
+    
+}
+
+protocol UnitSectionDelegate {
+    func handeledPatientDragDropAction()
+    
 }
 class SectionHandler: NSObject {
     
     public var delegate : SectionProtocol?
+    public static var SectionUnitDelegate : UnitSectionDelegate?
     let login = LoginHandler()
     
     public func deleteBaseSection(basesection : BaseSection)
@@ -22,6 +29,8 @@ class SectionHandler: NSObject {
         AppDelegate.viewContext.delete(basesection)
         saveData()
     }
+    
+    
     
     
     public func getMissionFromUnique(unique : String) -> Mission?

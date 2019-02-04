@@ -10,7 +10,11 @@ import UIKit
 protocol SectionDropProtocol {
     func dropedUnitInSection()
 }
-class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate {
+class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate {
+    func handeledPatientDragDropAction() {
+        table.reloadData()
+    }
+    
     
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -32,7 +36,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         
         
         
-        return []
+        
     }
     
     
@@ -79,6 +83,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
                     self.dropDelegate.dropedUnitInSection()
                     table.reloadData()
                 }
+            
             
         }
     }
@@ -153,48 +158,13 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         lblRTH.text = "RTH: " + String(anzahlRTH)
         lblRTW.text = "RTW: " + String(anzahlRTW)
         lblNEF.text = "NEF: " + String(anzahlNEF)
-        if let patient = unit.patient
-        {
-            if let destination = patient.hospital
-            {
-                let cell = table.dequeueReusableCell(withIdentifier: "sectionUnitFullTableViewCell") as! sectionUnitFullTableViewCell
-                cell.callSign.text = unit.callsign
-                cell.crewCount.text = String(unit.crewCount)
-                cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
-                cell.typeImage.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
-                cell.id.text = String(patient.id)
-                cell.lastname.text = patient.lastName
-                cell.firstName.text = patient.firstName
-                cell.category.text = String(patient.category)
-                cell.destinationCity.text = destination.city
-                cell.destinationName.text = destination.name
-                return cell
-                
-                
-            }
-            let cell = table.dequeueReusableCell(withIdentifier: "sectionUnitHalfTableViewCell") as! sectionUnitHalfTableViewCell
-            cell.callSign.text = unit.callsign
-            cell.crewCount.text = String(unit.crewCount)
-            cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
-            cell.typeImage.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
-            cell.id.text = String(patient.id)
-            cell.lastName.text = patient.lastName
-            cell.firstName.text = patient.firstName
-            cell.category.text = String(patient.category)
-           
-            return cell
-        }
-        else
-        {
-            let cell = table.dequeueReusableCell(withIdentifier: "sectionUnitTableViewCell") as! sectionUnitTableViewCell
-            cell.callSign.text = unit.callsign
-            cell.crewCount.text = String(unit.crewCount)
-            cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
-            cell.typeImage.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
-          
-           
-            return cell
-        }
+        
+     
+        
+        let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
+        cell.unit_ = unit
+        cell.setProperties()
+        return cell
         
     }
     

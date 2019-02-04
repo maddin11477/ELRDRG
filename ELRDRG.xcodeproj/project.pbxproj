@@ -26,6 +26,7 @@
 		0139E4A521570736001970FE /* sectionUnitFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */; };
 		0139E4A72157084C001970FE /* sectionUnitHalfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */; };
 		0139E4A9215708D7001970FE /* sectionUnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */; };
+		014FCAF022089C17004C0A33 /* SmallhospitalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */; };
 		018042B7213A7179008B1784 /* PatientenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B6213A7179008B1784 /* PatientenVC.swift */; };
 		018042B9213A7866008B1784 /* PatientCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */; };
 		018042BC213A9A60008B1784 /* humonbody01.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042BB213A9A60008B1784 /* humonbody01.png */; };
@@ -115,6 +116,7 @@
 		0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitFullTableViewCell.swift; sourceTree = "<group>"; };
 		0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitHalfTableViewCell.swift; sourceTree = "<group>"; };
 		0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitTableViewCell.swift; sourceTree = "<group>"; };
+		014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallhospitalTableViewCell.swift; sourceTree = "<group>"; };
 		018042B6213A7179008B1784 /* PatientenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientenVC.swift; sourceTree = "<group>"; };
 		018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCustomTableViewCell.swift; sourceTree = "<group>"; };
 		018042BB213A9A60008B1784 /* humonbody01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humonbody01.png; sourceTree = "<group>"; };
@@ -220,8 +222,8 @@
 				0139E48E21516747001970FE /* smallinjurycell.swift */,
 				0139E4972156C87B001970FE /* AbschnittCVC.swift */,
 				0139E49B2156D16A001970FE /* SmallPatientTableViewCell.swift */,
-				0139E49D2156D1E5001970FE /* SmallUnitTableViewCell.swift */,
 				0139E49F2156D7A3001970FE /* SectionTableViewCell.swift */,
+				014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */,
 			);
 			path = CostumViewCell;
 			sourceTree = "<group>";
@@ -283,6 +285,7 @@
 		0139E4A321570607001970FE /* CostumViewCellsAbschnitte */ = {
 			isa = PBXGroup;
 			children = (
+				0139E49D2156D1E5001970FE /* SmallUnitTableViewCell.swift */,
 				0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */,
 				0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */,
 				0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */,
@@ -555,6 +558,7 @@
 				0139E49E2156D1E5001970FE /* SmallUnitTableViewCell.swift in Sources */,
 				0139E4982156C87B001970FE /* AbschnittCVC.swift in Sources */,
 				5BB940E32141A121007DDCCC /* DocumentationDetailPhotoVC.swift in Sources */,
+				014FCAF022089C17004C0A33 /* SmallhospitalTableViewCell.swift in Sources */,
 				0139E4A521570736001970FE /* sectionUnitFullTableViewCell.swift in Sources */,
 				5B6D774721304FF400DDFA2B /* Victim.swift in Sources */,
 				0139E4A72157084C001970FE /* sectionUnitHalfTableViewCell.swift in Sources */,
