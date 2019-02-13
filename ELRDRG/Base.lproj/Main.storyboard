@@ -1878,17 +1878,17 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="647" id="odV-T7-HLp"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="sliderValueCHanged:" destination="fCi-VI-gBb" eventType="valueChanged" id="mxh-Qw-O1E"/>
+                                                    </connections>
                                                 </slider>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dm-wo-Nrj" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
-                                                    <rect key="frame" x="915" y="8" width="80" height="80"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="aOL-jf-AVy"/>
-                                                        <constraint firstAttribute="height" constant="80" id="cpT-nW-PCM"/>
-                                                    </constraints>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Dm-wo-Nrj" customClass="RoundButton" customModule="ELRDRG" customModuleProvider="target">
+                                                    <rect key="frame" x="927" y="27" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="35"/>
+                                                            <real key="value" value="25"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                             <real key="value" value="1"/>
@@ -1903,7 +1903,6 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="2Dm-wo-Nrj" firstAttribute="top" secondItem="NTk-9v-vRV" secondAttribute="top" constant="8" id="28X-nR-b1d"/>
                                                 <constraint firstItem="pFH-Uv-1j0" firstAttribute="top" secondItem="NTk-9v-vRV" secondAttribute="top" constant="8" id="6eK-fc-jc3"/>
                                                 <constraint firstAttribute="bottom" secondItem="gCP-7K-WU7" secondAttribute="bottom" constant="74.5" id="Asy-pQ-1gY"/>
                                                 <constraint firstItem="ANO-AZ-qID" firstAttribute="leading" secondItem="NTk-9v-vRV" secondAttribute="leadingMargin" constant="216" id="BdD-aB-ela"/>
@@ -1912,8 +1911,6 @@
                                                 <constraint firstItem="ANO-AZ-qID" firstAttribute="leading" secondItem="pFH-Uv-1j0" secondAttribute="leading" id="Hgh-OD-w6u"/>
                                                 <constraint firstAttribute="bottom" secondItem="Hbq-mh-uGm" secondAttribute="bottom" constant="74.5" id="SYW-El-qV0"/>
                                                 <constraint firstItem="Hbq-mh-uGm" firstAttribute="leading" secondItem="gCP-7K-WU7" secondAttribute="trailing" constant="8" id="UvW-sQ-2QX"/>
-                                                <constraint firstItem="2Dm-wo-Nrj" firstAttribute="leading" secondItem="ANO-AZ-qID" secondAttribute="trailing" constant="37" id="WSQ-31-4Ao"/>
-                                                <constraint firstAttribute="trailing" secondItem="2Dm-wo-Nrj" secondAttribute="trailing" constant="29" id="eH0-3t-ocI"/>
                                                 <constraint firstAttribute="bottom" secondItem="gCP-7K-WU7" secondAttribute="bottom" constant="74" id="fal-U9-pgy"/>
                                                 <constraint firstItem="ANO-AZ-qID" firstAttribute="top" secondItem="pFH-Uv-1j0" secondAttribute="bottom" constant="8" symbolic="YES" id="tcO-dN-Em5"/>
                                                 <constraint firstItem="gCP-7K-WU7" firstAttribute="leading" secondItem="NTk-9v-vRV" secondAttribute="leading" constant="8" id="zW3-Hd-laF"/>
@@ -1945,7 +1942,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krP-u6-QRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1103" y="1707"/>
+            <point key="canvasLocation" x="-1103.3203125" y="1706.25"/>
         </scene>
         <!--Choose Doku TypeVC-->
         <scene sceneID="JeU-mZ-APr">

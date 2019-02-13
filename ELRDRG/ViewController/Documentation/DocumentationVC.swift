@@ -77,6 +77,9 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentationAudioTableViewCell") as! DocumentationAudioTableViewCell
                 cell.idLabel.text = String(documentations[indexPath.row].id)
                 cell.dateLabel.text = formatter.string(from: documentations[indexPath.row].created!)
+                cell.controlButton.titleLabel?.text = "Play"
+                cell.descriptionLabel.text = documentations[indexPath.row].content
+                cell.audiopath = attachment.uniqueName! + ".m4a"
                 return cell
 
             default:
