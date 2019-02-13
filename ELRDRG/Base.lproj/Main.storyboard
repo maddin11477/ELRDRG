@@ -1841,7 +1841,7 @@
                                             <outlet property="Thumbnail" destination="Nfl-E2-gj4" id="Bb9-5T-oyF"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="106" id="fCi-VI-gBb" customClass="DocumentationAudioTableViewCell" customModule="ELRDRG" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DocumentationAudioTableViewCell" rowHeight="106" id="fCi-VI-gBb" customClass="DocumentationAudioTableViewCell" customModule="ELRDRG" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="134" width="1024" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fCi-VI-gBb" id="NTk-9v-vRV">

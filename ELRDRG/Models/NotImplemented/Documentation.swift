@@ -12,3 +12,15 @@ import CoreData
 public class Documentation: NSManagedObject {
 
 }
+
+public class AudioDocumentation : Documentation {
+    
+}
+
+public class TextDocumentation : Documentation {
+    
+}
+
+public class PictureDocumentation : Documentation {
+    
+}
