@@ -21,6 +21,10 @@ class SmallPatientTableViewCell: UITableViewCell {
     
     public var patient : Victim?
     
+    
+    @IBOutlet weak var destination: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

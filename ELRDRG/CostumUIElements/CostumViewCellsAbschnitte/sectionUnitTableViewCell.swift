@@ -70,7 +70,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             number = 2
             if(unit_!.patient?.hospital != nil)
             {
-                number = 3
+                //number = 3
             }
         }
         tableHeight.constant = CGFloat(number * 49)
@@ -99,7 +99,28 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             cell.lastName.text = victim?.lastName
             cell.PatID.text = "Pat-ID: " + String(victim!.id)
             cell.category.text = String(victim!.category)
+            if(victim!.category == 1)
+            {
+                cell.category.backgroundColor = UIColor.red
+            }
+            else if(victim!.category == 2)
+            {
+                cell.category.backgroundColor = UIColor.orange
+            }
+            else if(victim!.category == 3)
+            {
+                cell.category.backgroundColor = UIColor.green
+            }
+            else if(victim!.category == 4)
+            {
+                cell.category.backgroundColor = UIColor.blue
+            }
+            else
+            {
+                cell.category.backgroundColor = UIColor.white
+            }
             cell.patient = victim
+            cell.destination.text = victim?.hospital?.name ?? ""
             return cell
         }
         else

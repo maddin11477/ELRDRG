@@ -126,6 +126,53 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         self.dropDelegate.dropedUnitInSection()
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let unit = (section_!.units!.allObjects as! [Unit])[indexPath.row]
+        var actions : [UITableViewRowAction] = []
+        let delete = UITableViewRowAction(style: .destructive, title: "Fzg entfernen") { (action, indexPath) in
+            let unit = self.section_?.units?.allObjects[(indexPath.row)] as! Unit
+            unit.section = nil
+            self.section_!.removeFromUnits(unit)
+            
+            let handler = SectionHandler()
+            handler.saveData()
+            self.table.reloadData()
+            self.dropDelegate.dropedUnitInSection()
+        }
+        actions.append(delete)
+        if(unit.patient != nil)
+        {
+            let removePatient = UITableViewRowAction(style: .normal, title: "Patient entfernen") { (action, indexPath) in
+                let unit_ = (self.section_!.units!.allObjects as! [Unit])[indexPath.row]
+                unit_.patient = nil
+                let handler = SectionHandler()
+                handler.saveData()
+                self.table.reloadData()
+                self.dropDelegate.dropedUnitInSection()
+            }
+            removePatient.backgroundColor = UIColor.blue
+            
+            actions.append(removePatient)
+            if(unit.patient?.hospital != nil)
+            {
+                let removeHospital = UITableViewRowAction(style: .destructive, title: "Ziel entfernen") { (action, indexPath) in
+                    // delete item at indexPath
+                     let unit_ = (self.section_!.units!.allObjects as! [Unit])[indexPath.row]
+                    unit_.patient?.hospital = nil
+                    let handler = SectionHandler()
+                    handler.saveData()
+                    self.table.reloadData()
+                    self.dropDelegate.dropedUnitInSection()
+
+                }
+                removeHospital.backgroundColor = UIColor.lightGray
+                actions.append(removeHospital)
+            }
+        }
+        return actions
+        
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let unitData = UnitHandler()
         /*
