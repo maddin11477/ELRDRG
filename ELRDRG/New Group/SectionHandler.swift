@@ -29,6 +29,7 @@ class SectionHandler: NSObject {
         AppDelegate.viewContext.delete(basesection)
         saveData()
     }
+  
     
     
     

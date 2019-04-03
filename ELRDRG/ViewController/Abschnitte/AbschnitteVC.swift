@@ -8,7 +8,21 @@
 
 import UIKit
 
-class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate{
+class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate, OrganisationAddedTempObjectProtocoll{
+    func createdUnit() {
+        //
+        self.SourceTable.reloadData()
+    }
+    
+    func createdSection() {
+        print("createdSection")
+        self.SourceTable.reloadData()
+    }
+    
+   
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         print("section.identifier")
         for item in coordinator.items
@@ -51,6 +65,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let unitData = UnitHandler()
         let sectionData = SectionHandler()
         baseUnits = unitData.getAllBaseUnits()
+        baseUnits =  baseUnits.sorted(by: { $0.funkrufName!.lowercased() < $1.funkrufName!.lowercased() })
         baseSections = sectionData.getAllSections()
         victims = data.getVictims()
         sections = sectionData.getSections()
@@ -232,6 +247,17 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
     }
     
+    @IBAction func AddObject(_ sender: Any) {
+        let addView = self.storyboard?.instantiateViewController(withIdentifier: "CreateTempObjectViewController") as! CreateTempObjectViewController
+        addView.delegate = self
+        addView.modalPresentationStyle = .popover
+        addView.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
+        self.present(addView, animated: true, completion: nil)
+    }
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(SegmentControl.selectedSegmentIndex == 0)
         {
@@ -254,6 +280,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         else
         {
             let data = SectionHandler()
+            baseSections = data.getAllSections()
             return data.getAllSections().count
         }
     }
@@ -298,6 +325,26 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             cell.PatID.text = "Pat-ID: " + String(victim.id)
             cell.category.text = String(victim.category)
             cell.patient = victim
+            if(victim.category == 1)
+            {
+                cell.category.backgroundColor = UIColor.red
+            }
+            else if(victim.category == 2)
+            {
+                cell.category.backgroundColor = UIColor.orange
+            }
+            else if(victim.category == 3)
+            {
+                cell.category.backgroundColor = UIColor.green
+            }
+            else if(victim.category == 4)
+            {
+                cell.category.backgroundColor = UIColor.blue
+            }
+            else
+            {
+                cell.category.backgroundColor = UIColor.white
+            }
             return cell
         }
         else

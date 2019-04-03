@@ -64,16 +64,16 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var number = 1
+        var height = 37
+        var number : Int = 1
         if(unit_?.patient != nil)
         {
+            height = 67
             number = 2
-            if(unit_!.patient?.hospital != nil)
-            {
-                //number = 3
-            }
+            
         }
-        tableHeight.constant = CGFloat(number * 49)
+        
+        tableHeight.constant = CGFloat(height)
         
         
         return number

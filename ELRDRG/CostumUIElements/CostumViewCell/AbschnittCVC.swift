@@ -28,11 +28,10 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     private func dragItem(at indexpath : IndexPath) -> [UIDragItem]
     {
         
-        let string = NSAttributedString(string: (section_?.units?.allObjects as! [Unit])[indexpath.row].callsign!)
+        let string = NSAttributedString(string: (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexpath.row].callsign!)
         
                 let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
-               let car = (section_?.units?.allObjects as! [Unit])[indexpath.row]
-                
+               let car  = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexpath.row]
                     dragItem.localObject = car
                 
                 return [dragItem]
@@ -107,7 +106,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
          anzahlRTH = 0
          anzahlNEF = 0
          anzahlSonstige = 0
-    
+        
         self.layer.shadowColor = UIColor.black.cgColor
        
         self.layer.shadowOffset = CGSize.zero
@@ -130,7 +129,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         let unit = (section_!.units!.allObjects as! [Unit])[indexPath.row]
         var actions : [UITableViewRowAction] = []
         let delete = UITableViewRowAction(style: .destructive, title: "Fzg entfernen") { (action, indexPath) in
-            let unit = self.section_?.units?.allObjects[(indexPath.row)] as! Unit
+            let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
             unit.section = nil
             self.section_!.removeFromUnits(unit)
             
@@ -143,7 +142,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         if(unit.patient != nil)
         {
             let removePatient = UITableViewRowAction(style: .normal, title: "Patient entfernen") { (action, indexPath) in
-                let unit_ = (self.section_!.units!.allObjects as! [Unit])[indexPath.row]
+                let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
                 unit_.patient = nil
                 let handler = SectionHandler()
                 handler.saveData()
@@ -157,7 +156,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
             {
                 let removeHospital = UITableViewRowAction(style: .destructive, title: "Ziel entfernen") { (action, indexPath) in
                     // delete item at indexPath
-                     let unit_ = (self.section_!.units!.allObjects as! [Unit])[indexPath.row]
+                     let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
                     unit_.patient?.hospital = nil
                     let handler = SectionHandler()
                     handler.saveData()
@@ -182,7 +181,8 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         case RTH = 3
         case HVO = 4
          */
-        let unit = (section_!.units!.allObjects as! [Unit])[indexPath.row]
+        let unit = (section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
+        
         if(unit.type == 0)
         {
             //RTW
