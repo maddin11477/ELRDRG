@@ -1,507 +1,9 @@
-//
-//  Export.swift
-//  ELRDRG
-//
-//  Created by Jonas Wehner on 11.04.19.
-//  Copyright © 2019 Martin Mangold. All rights reserved.
-//
-
-import UIKit
-struct exportStruct {
-    public var html : String
-    public var url : URL
-}
-
-class Export: NSObject {
-    func createTemplate()
-    {
-    let html = "<b>Welcome <i>World!</i></b> <p><h1><font color='red'>This  is PDF file In swift 5.0</font></h1></p>"
-    let frmt = UIMarkupTextPrintFormatter(markupText: html)
-    
-    //  set print format
-    
-    let render = UIPrintPageRenderer()
-    render.addPrintFormatter(frmt, startingAtPageAt: 0)
-    
-    //  Create Paper Size for print
-    
-    let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
-    let printable = page.insetBy(dx: 0, dy: 0)
-    
-    render.setValue(NSValue(cgRect: page), forKey: "paperRect")
-    render.setValue(NSValue(cgRect: printable), forKey: "printableRect")
-    
-    // 4. Create PDF context and draw
-    
-    let filedata = NSMutableData()
-    UIGraphicsBeginPDFContextToData(filedata, CGRect.zero, nil)
-    
-    for i in 1...render.numberOfPages {
-    
-    UIGraphicsBeginPDFPage();
-    let bounds = UIGraphicsGetPDFContextBounds()
-    render.drawPage(at: i - 1, in: bounds)
-    }
-    
-    UIGraphicsEndPDFContext();
-    
-    // 5. Save PDF file you can also save this file by using another button
-    
-    
-    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-    
-    filedata.write(toFile: "\(documentsPath)/myfile.pdf", atomically: true)
-    
-    }
-    
-    public func createExportPDF(mission : Mission) -> exportStruct
-    {
-        var htmlString = ""
-        htmlString = htmlString + createHeader(mission: mission)
-        htmlString = htmlString + createPatientRegion(mission: mission)
-        htmlString = htmlString + createSectionRegion(mission: mission)
-        htmlString = htmlString + generateDocu(mission: mission)
-        //print(htmlString)
-        let url = PDFCreator.generatePDFfromHTML(html: htmlString)
-        let pdfstrukt = exportStruct(html: htmlString, url: url)
-        print(htmlString)
-        return pdfstrukt
-        
-        //print(htmlString)
-    }
-    
-    
-    
-    func createHeader(mission : Mission) -> String
-    {
-        let landkreis = "Rhön-Grabfeld"
-        let scene = mission.reason!
-        let user = (mission.user!.firstName ?? "") + " " + (mission.user!.lastName ?? "")
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        let sDate = formatter.string(from: mission.start!)
-        var kat1 : Int = 0
-        var kat2 : Int = 0
-        var kat3 : Int = 0
-        var kat_unknown : Int = 0
-        
-        for vic in mission.victims?.allObjects as! [Victim] {
-            if(vic.category == 1)
-            {
-                kat1 = kat1 + 1
-            }
-            else if(vic.category == 2)
-            {
-                kat2 = kat2 + 1
-            }
-            else if(vic.category == 3)
-            {
-              kat3 = kat3 + 1
-            }
-            else
-            {
-                kat_unknown = kat_unknown + 1
-            }
-            
-        }
-        
-        //let einsatzname : String = mission.reason ?? "unknown"
-        let css = getCSSDATA()
-        let header = """
-        <!doctype html>
-        <html><head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="ELRD EXPORT" content="width=device-width, initial-scale=1">
-        <title>ELRD Einsatz \(mission.reason ?? "")</title>
-            
-            
-        
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <style type="text/css">
-            .typeColumn {
-        }
-        
-        \(css)
-        </style>
-        </head>
-        <style>
-            @media print {
-                .pagebreak {
-                   clear: both;
-                page-break-after: always;
-                }
-            }
-        </style>
-        <body>
-        <div style="background-color: lightgray;  align-content: center; margin: 0 auto; width: 80%; margin-top: 30px;">
-                <div align="center" style="margin: 0 auto; align-content: center;">
-                
-                <p><a class="text-center" style="font-weight: 600; font-size: 30px; vertical-align: center; height: 50px; ">ELRD -</a><a style="font-size: 30px;">\(landkreis)</a></p>
-                    </div>
-            </div>
-            <div style="width: 80%; margin: 0 auto; align-content: center;   padding-top: 20px;">
-                <table style="border-collapse: collapse; border-color: black; border-width: 1; width: 100%;" border="0">
-                    <thead>
-                        <tr>
-                            <td align="right" style="padding-right: 40px; width: 50%;">
-                                Einsatz:
-                            </td>
-                            <td style="width: 50%;">
-                                \(scene)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" style="padding-right: 40px;">
-                                ELRD:
-                            </td>
-                            <td>
-                                \(user)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" style="padding-right: 40px;">
-                                Datum:
-                            </td>
-                            <td>
-                                \(sDate)
-                            </td>
-                        </tr>
-                    </thead>
-                    
-                </table>
-                <table style="margin-top: 40px; margin-bottom: 30px; width: 100%;" border="1">
-                    <thead>
-                        <tr>
-                            <td align="center" style="width: 25%">
-                                SK1
-                            </td>
-                            <td align="center" style="width: 25%;">
-                                SK2
-                            </td>
-                        
-                            <td align="center" style="width: 25%">
-                                SK3
-                            </td>
-                            <td align="center" style="width: 25%">
-                                ?
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 25%; background-color: red;">
-                                \(String(kat1))
-                            </td>
-                            <td align="center" style="width: 25%; background-color: orange;">
-                                \(String(kat2))
-                            </td>
-                        
-                            <td align="center" style="width: 25%; background-color: greenyellow;">
-                                \(String(kat3))
-                            </td>
-                            <td align="center" style="width: 25%">
-                                \(String(kat_unknown))
-                            </td>
-                        </tr>
-                    
-                    </thead>
-                </table>
-        <div class='pagebreak'></div>
-        """
-        
-        return header
-
-    }
-    
-    func createPatientRegion(mission : Mission) -> String
-    {
-        var html = """
-            <div style="background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-top: 30px;">
-            
-            <a>   Patienten</a><p class="fas fa-clipboard-list" style="margin-bottom: 0px; float: right; margin: 6px;"></p>
-            </div>
-            """
-        var i = 0
-        for patient in mission.victims?.allObjects as! [Victim] {
-            if(i == 4)
-            {
-                i = 0
-                html = html + "<div class='pagebreak'></div>"
-            }
-            html = html + generateVictim(victim: patient)
-            i = i+1
-        }
-        html = html + "<div class='pagebreak'></div>"
-        return html
-    }
-    
-    func createSectionRegion(mission : Mission) -> String
-    {
-        var sSections = ""
-        var i = 0
-        for section in mission.sections?.allObjects as! [Section] {
-            sSections = sSections + "<br>" + generateSection(section: section)
-            i = i + 1
-            if(i == 3)
-            {
-                sSections = sSections + "<div class='pagebreak'></div>"
-                i = 0
-            }
-            
-        }
-        let html = """
-            <br>
-            
-            <div style="background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-bottom: 30px;">
-            
-            <a>   Abschnitte</a><p class="fas fa-th-large" style="margin-bottom: 0px; float: right; margin: 6px;"></p>
-            </div>
-            \(sSections)
-            
-            """
-        return html
-    }
-    
-    func generateUnit(unit : Unit) -> String
-    {
-        
-        let id = unit.patient?.id ?? -1
-        var sID = ""
-        let name = (unit.patient?.firstName ?? "") + " " + (unit.patient?.lastName ?? "")
-        if(id != -1)
-        {
-            sID = String(id)
-        }
-        var html = """
-        <tr>
-        <td style="width: 50%;" align="center" >
-        \(unit.callsign!)
-        </td>
-        <td style="width: 50%;" align="center">
-        """
-        if(unit.patient != nil)
-        {
-           html = html +
-            """
-            Patient \(sID) (\(name))</td> </tr>
-            """
-        }
-        
-        return html
-    }
-    
-    func generateDocu(mission : Mission) -> String
-    {
-        var html = ""
-        let handler = DocumentationHandler()
-        for entry in mission.documentations?.allObjects as! [Documentation] {
-            let testid = "hallo" //String(entry.id)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy hh:mm"
-            let sDate = formatter.string(from: entry.created!) + " Uhr"
-            let content = entry.content ?? ""
-            
-           var img_html = ""
-            for attachement in entry.attachments?.allObjects as! [Attachment]
-            {
-                if(attachement.type == DocumentationType.Photo.rawValue)
-                {
-                    let image = handler.getImage(pictureName: attachement.uniqueName!)
-                    let data : NSData = UIImageJPEGRepresentation(image!, 1.0)! as NSData
-                    
-                    let base64img : String = data.base64EncodedString(options: .lineLength64Characters)
-                    img_html = "<img src=\"data:image/jpeg;base64," + base64img + "\" style=\"width: 100%;\">"
-                    print(img_html)
-                  
-                }
-                
-            }
-            html = html  + """
-            
-            <div style='background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-bottom: 30px; margin-top: 30px;'>
-            <a>   Dokumentation</a><p class='fas fa-th-large" style="margin-bottom: 0px; float: right; margin: 6px;'></p>
-            <table style='border-collapse: collapse; border-color: black; border-width: 1; width: 100%; margin-top: 20px;'  border='1'>
-            <thead>
-            <tr>
-                <td style=\"padding: 5px; width: 200px\">
-                    Nr: \(testid) <br>Zeit: <br>\(sDate)
-                </td>
-                <td style='padding: 5px;'>
-                    \(content)
-                </td>
-                
-            </tr>
-            <tr>
-                <td tyle="width: 100%;" colspan="2">
-                    \(img_html)
-                </td>
-            </tr>
-                </thead>
-            </table>
-             
-            </div>
-            <div class='pagebreak'></div>
-            """
-            
-        }
-        return html
-    }
-        
-         
-        
-        
-    
-    
-    func generateSection(section : Section) -> String
-    {
-        var fahrzeuge = ""
-        for unit in section.units?.allObjects as! [Unit] {
-            fahrzeuge = fahrzeuge + "\n" + generateUnit(unit: unit)
-        }
-        let html = """
-        <div style="width: 100%; margin-bottom: 30px;">
-        <div style="background-color: orange; border: 1px solid black; border-bottom: 0px solid black;">
-        <a style="padding-left: 3px;">\(section.identifier ?? "unknown")</a><p class="fas fa-clone" style="float: right; margin: 3px; margin-right: 8px;"> </p>
-        </div>
-        <table style="width: 100%; margin-bottom: 30px;" border="1">
-        <thead>
-        
-        <tr>
-        <td style="width: 50%;" align="center" >
-        <a class="fas fa-ambulance" style="font-size: 20px; margin-top: 5px;"></a>
-        <a class="fas fa-helicopter" style="font-size: 20px; margin-top: 5px;"></a>
-        
-        </td>
-        <td style="width: 50%;" align="center">
-        <a class="fas fa-id-badge" style="font-size: 20px; margin-top: 5px;"></a>
-        
-        </td>
-        </tr>
-        \(fahrzeuge)
-        </thead>
-        </table>
-        </div>
-        """
-        return html
-    }
-    
-    func generateVictim(victim : Victim) -> String
-    {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        var sDate = ""
-        var sVerletzungen = ""
-        if(victim.heatInjury)
-        {
-            sVerletzungen = sVerletzungen + "Verbrennungen<br>"
-        }
-        if(victim.sht)
-        {
-            sVerletzungen = sVerletzungen + "SHT<br>"
-        }
-        for injury in victim.verletzung?.allObjects as! [Injury] {
-            sVerletzungen = sVerletzungen + "<br>" + (injury.diagnosis ?? "") + (injury.location ?? "")
-        }
-        
-        
-        if(victim.birthdate != nil)
-        {
-            sDate = formatter.string(from: victim.birthdate!)
-        }
-        
-        var sUnits = ""
-        for unit in victim.fahrzeug?.allObjects as! [Unit] {
-            sUnits = sUnits + ((unit.callsign) ?? "") + "\n"
-        }
-        
-        let html = """
-        <div style="margin-top: 30px; margin-bottom: 30px;">
-            <table border="1" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <td align="right" style="padding-right: 10px; vertical-align: middle; display: table-cell; margin-top: 13px; background-color: red">
-                             Patient \(String(victim.id))
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="25%;" align="right" style="padding-right: 10px;">
-                            Name:
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            \(victim.firstName ?? "")
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            \(victim.lastName ?? "")
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="25%;" align="right" style="padding-right: 10px;">
-                            Geb. Datum:
-                        </td>
-                        <td style="width: 37.5%" align="center" >
-                            \(sDate)
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="25%;" align="right" style="padding-right: 10px;">
-                            SK:
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            \(String(victim.category))
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="25%;" align="right" style="padding-right: 10px; vertical-align: top;">
-                            Verletzungsmuster:
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            \(sVerletzungen)
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td width="25%;" align="right" style="padding-right: 10px;">
-                            <a class="fas fa-ambulance" style="font-size: 1.3rem"></a>
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            \(sUnits)
-                        </td>
-                        <td style="width: 37.5%; padding: 0px; " align="center" >
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="25%;" align="right" style="padding-right: 10px;">
-                            <a class="fas fa-hospital" style="font-size: 1.3rem"></a>
-                        </td>
-                        <td style="width: 37.5%" align="center">
-                            Leopoldina Schweinfurt
-                        </td>
-                        <td style="width: 37.5%; padding: 0px; " align="center" >
-                            <a>angemeldet: </a><a> 20:30 </a><a class="fas fa-clock"></a>  <a class="fas fa-check-square" style="color: green;"></a>
-                        </td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        """
-        return html
-    }
-    
-
-    
-    
-    func getCSSDATA() -> String
-    {
-        var css =
-"""
-
+/*!
+ * Bootstrap v4.0.0 (https://getbootstrap.com)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -542,7 +44,7 @@ class Export: NSObject {
 html {
   font-family: sans-serif;
   line-height: 1.15;
-    height: 100%;
+	height: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
@@ -645,18 +147,18 @@ small {
 
 @media (max-width: 322px)
 {
-    .table-thread
-    {
-        font-size: 19px;
-    }
+	.table-thread
+	{
+		font-size: 19px;
+	}	
 }
 
 @media (max-width: 456px)
 {
-    .table-thread
-    {
-        font-size: 12px;
-    }
+	.table-thread
+	{
+		font-size: 12px;
+	}
 }
 /* The switch - the box around the slider */
 .switch {
@@ -811,7 +313,7 @@ a:hover {
 }
 
 AppStoreButton:hover {
-    background-color: darkgreen
+	background-color: darkgreen
 }
 
 a:not([href]):not([tabindex]) {
@@ -883,7 +385,7 @@ label {
   position: relative;
   padding-left: 0px;
   margin-bottom: 0px;
-    padding: 0px;
+	padding: 0px;
   cursor: pointer;
   font-size: 32px;
   -webkit-user-select: none;
@@ -895,7 +397,7 @@ label {
 /* Hide the browser's default checkbox */
 .container input {
   position: absolute;
-    display: table;
+	display: table;
   opacity: 0;
   cursor: pointer;
   height: 0;
@@ -909,9 +411,9 @@ label {
   top: 0;
   left: 0;
   margin-top: 0px;
-    margin-bottom: 0px;
-    width: 100%;
-    height: 40px;
+	margin-bottom: 0px;
+	width: 100%;
+	height: 40px;
   background-color: #eee;
 }
 
@@ -1107,34 +609,34 @@ h6, .h6 {
 }
 
 @media (max-width : 320px ){
-    .lead {
-        font-size: 0.8rem;
-        
-    }
-    
-    
+	.lead {
+		font-size: 0.8rem;
+		
+	}
+	
+	
 }
 
 @media(max-width: 320px)
 {
-    .btn-primary {
+	.btn-primary {
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
   font-size: 10px;
-    
+	
 }
 }
 
 .lead{
-    color: #7A7A7A;
+	color: #7A7A7A;
 }
 
 @media (min-width: 456px)
 {
-    .lead {
+	.lead {
   font-size: 1.0rem;
-    
+	
   font-weight: 300;
 }
 }
@@ -1160,14 +662,14 @@ h6, .h6 {
 
 
 @media (max-width: 456px){
-    .display-4{
-        font-size: 1.5rem;
-    }
+	.display-4{
+		font-size: 1.5rem;
+	}
 }
 
 @media(min-width: 457px)
 {
-    .display-4 {
+	.display-4 {
   font-size: 2.5rem;
   font-weight: 300;
   line-height: 1.2;
@@ -1230,7 +732,9 @@ mark,
   color: #6c757d;
 }
 
-
+.blockquote-footer::before {
+  content: "\2014 \00A0";
+}
 
 .img-fluid {
   max-width: 100%;
@@ -1350,7 +854,7 @@ pre code {
 
 .cell
 {
-    font-weight: 400;
+	font-weight: 400;
 }
 
 .row {
@@ -2706,11 +2210,11 @@ pre code {
   display: block;
   width: 95%;
   overflow-x: auto;
-    align-content: center;
-    margin: 0 auto;
+	align-content: center;
+	margin: 0 auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-    
+	
 }
 
 .table-responsive > .table-bordered {
@@ -3266,18 +2770,18 @@ fieldset:disabled a.btn {
 
 @media (min-width: 456px)
 {
-    .btn-primary {
+	.btn-primary {
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
-    
+	
 }
 }
 
 .alarmierung
 {
-    height: 100px;
-    align-content: center;
+	height: 100px;
+	align-content: center;
 }
 
 
@@ -3286,23 +2790,23 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #0069d9;
   border-color: #0062cc;
-    
+	
 }
 .typeColumnSitzkreis
 {
-    background-color: red;
+	background-color: red;
 }
 
 .typeColumnUebung{
-    background-color: blue;
+	background-color: blue;
 }
 .typeColumnAtemschutz
 {
-    background-color: black;
+	background-color: black;
 }
 .typeColumnVerein
 {
-    background-color: yellow;
+	background-color: yellow;
 }
 .btn-primary:focus, .btn-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
@@ -3861,7 +3365,7 @@ fieldset:disabled a.btn {
 
 @media (min-width: 456px)
 {
-    .btn-lg, .btn-group-lg > .btn {
+	.btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -3870,7 +3374,7 @@ fieldset:disabled a.btn {
 }
 
 @media (max-width : 320px ){
-        .btn-lg, .btn-group-lg > .btn {
+		.btn-lg, .btn-group-lg > .btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.50rem;
   line-height: 1.5;
@@ -5735,21 +5239,21 @@ tbody.collapse.show {
 
 .jumbotron {
   padding: 2rem 1rem;
-    
+	
   margin-bottom: 2rem;
   background-color: #FFFFFF;
   border-radius: 0.3rem;
   image-orientation: center;
  
   
-    
-        
-    
-    
-        
-    
-    
-    
+	
+		
+	
+	
+		
+	
+	
+	
 
 }
 
@@ -9782,7 +9286,7 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .table td,
   .table th {
-     
+	 
     background-color: #fff !important;
   }
   .table-bordered th,
@@ -9791,9 +9295,3 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
-
-"""
-        return css
-    }
-    
-}

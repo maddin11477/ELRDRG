@@ -56,6 +56,7 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         
         Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
         let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
+        nc.modalPresentationStyle = .fullScreen
         self.present(nc, animated: true, completion: nil)
     }
     
@@ -157,6 +158,7 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
                     if(data.getMissionFromUnique(unique: user.currentMissionUnique!) != nil)
                     {
                         let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
+                        vc.modalPresentationStyle = .fullScreen
                         self.present(vc, animated: true, completion: nil)
                     }
                     

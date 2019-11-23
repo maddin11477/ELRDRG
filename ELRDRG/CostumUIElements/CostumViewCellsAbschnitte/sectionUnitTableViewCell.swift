@@ -55,11 +55,25 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        return true
+        if let patient = session.items[0].localObject as? Victim
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+       
     }
     
     
+    
+    
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
+    
+    
+    
+    
     
     
     
@@ -73,7 +87,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             
         }
         
-        tableHeight.constant = CGFloat(height)
+        tableHeight.constant = CGFloat(height + 5)
         
         
         return number
@@ -86,8 +100,8 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             let unitData = UnitHandler()
             let cell = table.dequeueReusableCell(withIdentifier: "SmallUnitTableViewCell") as! SmallUnitTableViewCell
             cell.funkRufName.text = unit_!.callsign
-            cell.crewCount.text = String(describing: unit_!.crewCount)
-            cell.unitType.text = unitData.BaseUnit_To_UnitTypeString(id: unit_!.type)
+            
+           
             cell.unitTypeImage.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit_!.type))
             return cell
         }
@@ -95,9 +109,9 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
         {
             let cell = table.dequeueReusableCell(withIdentifier: "SmallPatientTableViewCell") as! SmallPatientTableViewCell
             let victim = unit_?.patient
-            cell.firstName.text = victim?.firstName
-            cell.lastName.text = victim?.lastName
-            cell.PatID.text = "Pat-ID: " + String(victim!.id)
+            cell.firstName.text = "  " + (victim!.firstName ?? "") + " " + (victim!.lastName ?? "")
+            
+            cell.PatID.text = "Pat: " + String(victim!.id)
             cell.category.text = String(victim!.category)
             if(victim!.category == 1)
             {
@@ -117,10 +131,20 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             }
             else
             {
-                cell.category.backgroundColor = UIColor.white
+                cell.category.backgroundColor = UIColor.black
+                
+                
             }
             cell.patient = victim
-            cell.destination.text = victim?.hospital?.name ?? ""
+            if(victim!.hospital != nil)
+            {
+                cell.destination.text = "  " + (victim!.hospital!.name ?? "")
+            }
+            else
+            {
+                cell.destination.text = ""
+            }
+            
             return cell
         }
         else

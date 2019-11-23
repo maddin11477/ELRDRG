@@ -80,6 +80,13 @@ public class DocumentationHandler {
         print("Dokueintrag \(textcontent) erfolgreich gespeichert: \(savedate)")
     }
     
+    public func UpdatedDocumentations()
+    {
+        data.saveData()
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+    }
+    
     public func SaveAudioDocumentation(audioName: String, description: String, saveDate: Date){
         //get current mission
         let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
@@ -94,6 +101,7 @@ public class DocumentationHandler {
         docuEntry.addToAttachments(attachment)
         
         mission.addToDocumentations(docuEntry)
+        
         data.saveData()
         DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
     }
@@ -117,6 +125,23 @@ public class DocumentationHandler {
         mission.addToDocumentations(docuEntry)
         data.saveData()
         DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+    }
+    
+    public func updatePhotoDocumentation(docu : Documentation, text : String?, picture : UIImage)
+    {
+        let uuidOfPhoto = NSUUID().uuidString
+        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        let _ = saveImageToDocumentDirectory(image: picture, uuid: uuidOfPhoto)
+        let attachment = (docu.attachments?.allObjects as! [Attachment])[0]
+        attachment.uniqueName = uuidOfPhoto
+        //docu.content = text ?? docu.content
+        if(text != nil)
+        {
+            docu.content = text!
+        }
+        data.saveData()
+        DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
+        
     }
     
     public func deleteDocuEntry(id: Int){
@@ -179,6 +204,13 @@ public class DocumentationHandler {
         } else {
             return nil
         }
+    }
+    
+    func getImagePath(pictureName: String) -> String
+    {
+        let picturePath = getDocumentsDirectory().appendingPathComponent(("\(pictureName).jpg"))
+        //let storagePath = getDocumentsDirectory().appendingPathComponent(("\(uuid).jpg"))
+        return picturePath.path
     }
     
 }

@@ -13,7 +13,7 @@ protocol unitSelectedProtocol {
     func didSelectHospital(hospital : BaseHospital)
 }
 
-class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UnitExtention {
+class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UnitExtention, UISearchBarDelegate {
     func createdUnit(unit: BaseUnit) {
         self.delegate?.didSelectUnit(unit: unit)
         self.dismiss(animated: true, completion: nil)
@@ -25,9 +25,50 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var hospitals : [BaseHospital] = []
     public var delegate : unitSelectedProtocol?
     public var type : availableTypes = .unitselector
+    private var searchText : String = ""
     enum availableTypes {
         case unitselector
         case hospitalselector
+    }
+    
+    
+    
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+       
+        
+        if(type == .unitselector)
+        {
+            units = unitData.getAllBaseUnits()
+            var newUnitList : [BaseUnit] = []
+            for unit in self.units
+            {
+                if(unit.funkrufName!.uppercased().contains(searchText.uppercased()))
+                {
+                    newUnitList.append(unit)
+                }
+            }
+            
+            units = newUnitList
+        }
+        else if(type == .hospitalselector)
+        {
+            hospitals = hospitalData.getAllHospitals()
+            var newHospitalList : [BaseHospital] = []
+            for hospital in hospitals
+            {
+                let text : String = (hospital.city ?? "") + " " + (hospital.name ?? "")
+                if(text.uppercased().contains(searchText.uppercased()))
+                {
+                    newHospitalList.append(hospital)
+                }
+            }
+            hospitals = newHospitalList
+        }
+        table.reloadData()
     }
     
     
@@ -143,6 +184,8 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         units = unitData.getAllBaseUnits()
         hospitals = hospitalData.getAllHospitals()
+        searchBar.delegate = self
+        
         table.delegate = self
         table.dataSource = self
         

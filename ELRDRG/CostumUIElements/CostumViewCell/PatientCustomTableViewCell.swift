@@ -33,10 +33,19 @@ class PatientCustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var helicopter: UILabel!
     
+    public var alreadyLoaded : Bool = false
+    public var background_View : UIView = UIView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        layoutMargins.left = 10
+        layoutMargins.top = 10
+        layoutMarginsDidChange()
+        
+    
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

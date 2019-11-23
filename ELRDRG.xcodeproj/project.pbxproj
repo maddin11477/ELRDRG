@@ -17,6 +17,8 @@
 		0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */; };
 		0125080C2135DE630065FDF0 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125080B2135DE630065FDF0 /* TabBarVC.swift */; };
 		0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125080D2135E9B80065FDF0 /* UebersichtVC.swift */; };
+		012FE86F23897CBE005D24FD /* ShowUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FE86E23897CBE005D24FD /* ShowUserViewController.swift */; };
+		012FE87123897D4D005D24FD /* UserAttributeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FE87023897D4D005D24FD /* UserAttributeTableViewCell.swift */; };
 		0139E48F21516747001970FE /* smallinjurycell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E48E21516747001970FE /* smallinjurycell.swift */; };
 		0139E49121541391001970FE /* InjuryTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E49021541391001970FE /* InjuryTC.swift */; };
 		0139E4982156C87B001970FE /* AbschnittCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4972156C87B001970FE /* AbschnittCVC.swift */; };
@@ -28,6 +30,10 @@
 		0139E4A521570736001970FE /* sectionUnitFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */; };
 		0139E4A72157084C001970FE /* sectionUnitHalfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */; };
 		0139E4A9215708D7001970FE /* sectionUnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */; };
+		0142010023804B3F00C2834C /* Iuk.png in Resources */ = {isa = PBXBuildFile; fileRef = 014200FD23804B3E00C2834C /* Iuk.png */; };
+		0142010123804B3F00C2834C /* BRK_KV_LOGO.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 014200FE23804B3E00C2834C /* BRK_KV_LOGO.jpg */; };
+		0142010223804B3F00C2834C /* Logo_final_CMYK.png in Resources */ = {isa = PBXBuildFile; fileRef = 014200FF23804B3F00C2834C /* Logo_final_CMYK.png */; };
+		014201052380617100C2834C /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014201042380617100C2834C /* AddUserViewController.swift */; };
 		014DA89D225F9B1600C42F5C /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014DA89C225F9B1600C42F5C /* Export.swift */; };
 		014FCAF022089C17004C0A33 /* SmallhospitalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */; };
 		01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01650BAC2249871400886510 /* CreateTempObjectViewController.swift */; };
@@ -56,15 +62,21 @@
 		019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081C82141A62F00AB7620 /* HospitalProtocol.swift */; };
 		019081CB2141A65900AB7620 /* InjuryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CA2141A65900AB7620 /* InjuryProtocol.swift */; };
 		019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */; };
+		01A20266233D62C200F70498 /* bootstrap-4.0.0 ELRD.css in Resources */ = {isa = PBXBuildFile; fileRef = 01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */; settings = {ASSET_TAGS = (HTML, ); }; };
 		01C4F47B215AA94B008B5B82 /* StammdatenImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */; };
 		01C4F47D215E5F40008B5B82 /* CategorySegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47C215E5F40008B5B82 /* CategorySegment.swift */; };
 		01C4F483215F92F8008B5B82 /* spine-png-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C4F482215F92F7008B5B82 /* spine-png-4.png */; };
 		01C4F48721628CFA008B5B82 /* Kat-KTW.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C4F48521628CF9008B5B82 /* Kat-KTW.png */; };
 		01C4F48821628CFA008B5B82 /* MTW.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C4F48621628CFA008B5B82 /* MTW.png */; };
+		01E4208E2340204A00A6C41E /* Gasaustritt.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 01E4208D2340204900A6C41E /* Gasaustritt.PNG */; };
 		01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F42145217A0059618E /* SelectUnitVC.swift */; };
 		01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */; };
 		01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51F821484A060059618E /* SelectInjuryVC.swift */; };
 		01ED51FB21484E310059618E /* SelectInjuryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ED51FA21484E310059618E /* SelectInjuryTableVC.swift */; };
+		01FA9167234D0E4400D7BB27 /* BenutzerListeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA9166234D0E4400D7BB27 /* BenutzerListeViewController.swift */; };
+		01FA9169234D0F5000D7BB27 /* BenutzerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA9168234D0F5000D7BB27 /* BenutzerTableViewCell.swift */; };
+		01FB07BA22B7E4E9002D6359 /* PDCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB07B922B7E4E9002D6359 /* PDCreator.swift */; };
+		01FB07BC22CA51A1002D6359 /* ExportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB07BB22CA51A1002D6359 /* ExportVC.swift */; };
 		5B41E9B3212C5F5300525804 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B2212C5F5300525804 /* AppDelegate.swift */; };
 		5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B41E9B4212C5F5300525804 /* StartVC.swift */; };
 		5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B41E9B6212C5F5300525804 /* Main.storyboard */; };
@@ -111,6 +123,8 @@
 		012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0125080B2135DE630065FDF0 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		0125080D2135E9B80065FDF0 /* UebersichtVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UebersichtVC.swift; sourceTree = "<group>"; };
+		012FE86E23897CBE005D24FD /* ShowUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowUserViewController.swift; sourceTree = "<group>"; };
+		012FE87023897D4D005D24FD /* UserAttributeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttributeTableViewCell.swift; sourceTree = "<group>"; };
 		0139E48E21516747001970FE /* smallinjurycell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallinjurycell.swift; sourceTree = "<group>"; };
 		0139E49021541391001970FE /* InjuryTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryTC.swift; sourceTree = "<group>"; };
 		0139E4972156C87B001970FE /* AbschnittCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbschnittCVC.swift; sourceTree = "<group>"; };
@@ -122,6 +136,10 @@
 		0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitFullTableViewCell.swift; sourceTree = "<group>"; };
 		0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitHalfTableViewCell.swift; sourceTree = "<group>"; };
 		0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitTableViewCell.swift; sourceTree = "<group>"; };
+		014200FD23804B3E00C2834C /* Iuk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Iuk.png; sourceTree = "<group>"; };
+		014200FE23804B3E00C2834C /* BRK_KV_LOGO.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BRK_KV_LOGO.jpg; sourceTree = "<group>"; };
+		014200FF23804B3F00C2834C /* Logo_final_CMYK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_final_CMYK.png; sourceTree = "<group>"; };
+		014201042380617100C2834C /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		014DA89C225F9B1600C42F5C /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallhospitalTableViewCell.swift; sourceTree = "<group>"; };
 		01650BAC2249871400886510 /* CreateTempObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTempObjectViewController.swift; sourceTree = "<group>"; };
@@ -150,15 +168,21 @@
 		019081C82141A62F00AB7620 /* HospitalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalProtocol.swift; sourceTree = "<group>"; };
 		019081CA2141A65900AB7620 /* InjuryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryProtocol.swift; sourceTree = "<group>"; };
 		019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInjuryVC.swift; sourceTree = "<group>"; };
+		01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-4.0.0 ELRD.css"; sourceTree = "<group>"; };
 		01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenImport.swift; sourceTree = "<group>"; };
 		01C4F47C215E5F40008B5B82 /* CategorySegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySegment.swift; sourceTree = "<group>"; };
 		01C4F482215F92F7008B5B82 /* spine-png-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spine-png-4.png"; sourceTree = "<group>"; };
 		01C4F48521628CF9008B5B82 /* Kat-KTW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Kat-KTW.png"; sourceTree = "<group>"; };
 		01C4F48621628CFA008B5B82 /* MTW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MTW.png; sourceTree = "<group>"; };
+		01E4208D2340204900A6C41E /* Gasaustritt.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gasaustritt.PNG; sourceTree = "<group>"; };
 		01ED51F42145217A0059618E /* SelectUnitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUnitVC.swift; sourceTree = "<group>"; };
 		01ED51F6214526B60059618E /* UnitSelectCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitSelectCostumTableViewCell.swift; sourceTree = "<group>"; };
 		01ED51F821484A060059618E /* SelectInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjuryVC.swift; sourceTree = "<group>"; };
 		01ED51FA21484E310059618E /* SelectInjuryTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInjuryTableVC.swift; sourceTree = "<group>"; };
+		01FA9166234D0E4400D7BB27 /* BenutzerListeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenutzerListeViewController.swift; sourceTree = "<group>"; };
+		01FA9168234D0F5000D7BB27 /* BenutzerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenutzerTableViewCell.swift; sourceTree = "<group>"; };
+		01FB07B922B7E4E9002D6359 /* PDCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDCreator.swift; sourceTree = "<group>"; };
+		01FB07BB22CA51A1002D6359 /* ExportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVC.swift; sourceTree = "<group>"; };
 		5B41E9AF212C5F5300525804 /* ELRDRG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ELRDRG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B41E9B2212C5F5300525804 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B41E9B4212C5F5300525804 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
@@ -266,6 +290,7 @@
 				5B4A600A213C6A2800844F85 /* DocumentationDetailTextVC.swift */,
 				5B4A6005213C641300844F85 /* DocumentationVC.swift */,
 				5B4A6016213EFCBF00844F85 /* DocumentationDetailAudioVC.swift */,
+				01FB07BB22CA51A1002D6359 /* ExportVC.swift */,
 			);
 			path = Documentation;
 			sourceTree = "<group>";
@@ -277,6 +302,8 @@
 				018042CB213C0217008B1784 /* CreateUnitVC.swift */,
 				019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */,
 				018042C3213BF5C1008B1784 /* SettingsVC.swift */,
+				01FA9166234D0E4400D7BB27 /* BenutzerListeViewController.swift */,
+				01FA9168234D0F5000D7BB27 /* BenutzerTableViewCell.swift */,
 			);
 			path = Stammdaten;
 			sourceTree = "<group>";
@@ -301,9 +328,22 @@
 			path = CostumViewCellsAbschnitte;
 			sourceTree = "<group>";
 		};
+		014201032380615600C2834C /* User */ = {
+			isa = PBXGroup;
+			children = (
+				014201042380617100C2834C /* AddUserViewController.swift */,
+				012FE86E23897CBE005D24FD /* ShowUserViewController.swift */,
+				012FE87023897D4D005D24FD /* UserAttributeTableViewCell.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		018042BA213A9A3D008B1784 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				014200FE23804B3E00C2834C /* BRK_KV_LOGO.jpg */,
+				014200FD23804B3E00C2834C /* Iuk.png */,
+				014200FF23804B3F00C2834C /* Logo_final_CMYK.png */,
 				01C4F48621628CFA008B5B82 /* MTW.png */,
 				01C4F48521628CF9008B5B82 /* Kat-KTW.png */,
 				01C4F482215F92F7008B5B82 /* spine-png-4.png */,
@@ -333,9 +373,18 @@
 				0139E4A12156D983001970FE /* SectionHandler.swift */,
 				01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */,
 				014DA89C225F9B1600C42F5C /* Export.swift */,
+				01FB07B922B7E4E9002D6359 /* PDCreator.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		01A20264233D62A100F70498 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				01E4208D2340204900A6C41E /* Gasaustritt.PNG */,
+			);
+			path = HTML;
 			sourceTree = "<group>";
 		};
 		01C4F4842162684A008B5B82 /* CostumUIElements */ = {
@@ -351,6 +400,7 @@
 		5B41E9A6212C5F5300525804 = {
 			isa = PBXGroup;
 			children = (
+				01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */,
 				5B41E9B1212C5F5300525804 /* ELRDRG */,
 				5B41E9B0212C5F5300525804 /* Products */,
 			);
@@ -367,6 +417,7 @@
 		5B41E9B1212C5F5300525804 /* ELRDRG */ = {
 			isa = PBXGroup;
 			children = (
+				01A20264233D62A100F70498 /* HTML */,
 				01C4F4842162684A008B5B82 /* CostumUIElements */,
 				018042BA213A9A3D008B1784 /* Images */,
 				5B6D775E21305AB500DDFA2B /* ColorPicker.xcassets */,
@@ -418,6 +469,7 @@
 		5B6D7743212C888400DDFA2B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				014201032380615600C2834C /* User */,
 				0139E4952156C719001970FE /* Stammdaten */,
 				0139E4942156C6CF001970FE /* Documentation */,
 				0139E4932156C65E001970FE /* Login */,
@@ -469,6 +521,9 @@
 		5B41E9A7212C5F5300525804 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					HTML,
+				);
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Martin Mangold";
@@ -504,18 +559,23 @@
 				01C4F48821628CFA008B5B82 /* MTW.png in Resources */,
 				5B41E9C0212C5F5400525804 /* LaunchScreen.storyboard in Resources */,
 				018042BC213A9A60008B1784 /* humonbody01.png in Resources */,
+				0142010223804B3F00C2834C /* Logo_final_CMYK.png in Resources */,
 				018042E0213EF964008B1784 /* RTW.png in Resources */,
 				5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */,
 				01C4F483215F92F8008B5B82 /* spine-png-4.png in Resources */,
 				018042BE213A9B98008B1784 /* humanbody02.png in Resources */,
 				01C4F48721628CFA008B5B82 /* Kat-KTW.png in Resources */,
 				5B41E9BD212C5F5400525804 /* Assets.xcassets in Resources */,
+				01A20266233D62C200F70498 /* bootstrap-4.0.0 ELRD.css in Resources */,
 				01225AE8213F1B4700033225 /* icon-injury.png in Resources */,
 				010042CD2266562600E0360D /* fa-brands-400.ttf in Resources */,
 				01225AE6213F19A300033225 /* hospital.png in Resources */,
+				0142010123804B3F00C2834C /* BRK_KV_LOGO.jpg in Resources */,
 				018042E3213EF964008B1784 /* KTW.png in Resources */,
 				018042DF213EF964008B1784 /* NEF.png in Resources */,
+				0142010023804B3F00C2834C /* Iuk.png in Resources */,
 				5B41E9B8212C5F5300525804 /* Main.storyboard in Resources */,
+				01E4208E2340204A00A6C41E /* Gasaustritt.PNG in Resources */,
 				010042CF2266562C00E0360D /* fa-solid-900.ttf in Resources */,
 				018042E1213EF964008B1784 /* ITH.png in Resources */,
 				018042E4213EF964008B1784 /* RTH.png in Resources */,
@@ -532,6 +592,7 @@
 			files = (
 				5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */,
 				019081C72141A5F600AB7620 /* UnitProtocol.swift in Sources */,
+				012FE86F23897CBE005D24FD /* ShowUserViewController.swift in Sources */,
 				0139E4A22156D983001970FE /* SectionHandler.swift in Sources */,
 				01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */,
 				5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */,
@@ -541,6 +602,7 @@
 				5B6D77512130505F00DDFA2B /* Attachment.swift in Sources */,
 				019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */,
 				0139E49121541391001970FE /* InjuryTC.swift in Sources */,
+				014201052380617100C2834C /* AddUserViewController.swift in Sources */,
 				5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */,
 				018042C6213BFAD1008B1784 /* StammdatenDetailVC.swift in Sources */,
 				5B41E9BB212C5F5300525804 /* ELRDRG.xcdatamodeld in Sources */,
@@ -551,6 +613,7 @@
 				0139E4A02156D7A3001970FE /* SectionTableViewCell.swift in Sources */,
 				0139E48F21516747001970FE /* smallinjurycell.swift in Sources */,
 				5B4A6006213C641300844F85 /* DocumentationVC.swift in Sources */,
+				012FE87123897D4D005D24FD /* UserAttributeTableViewCell.swift in Sources */,
 				5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */,
 				0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */,
 				01C4F47B215AA94B008B5B82 /* StammdatenImport.swift in Sources */,
@@ -582,11 +645,15 @@
 				012508072135AED40065FDF0 /* missionProtocol.swift in Sources */,
 				5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */,
 				01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */,
+				01FA9167234D0E4400D7BB27 /* BenutzerListeViewController.swift in Sources */,
 				5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */,
 				0139E49C2156D16A001970FE /* SmallPatientTableViewCell.swift in Sources */,
+				01FB07BA22B7E4E9002D6359 /* PDCreator.swift in Sources */,
+				01FA9169234D0F5000D7BB27 /* BenutzerTableViewCell.swift in Sources */,
 				01225AEA213F1B6A00033225 /* InjuryCostumTableViewCell.swift in Sources */,
 				0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */,
 				01ED51FB21484E310059618E /* SelectInjuryTableVC.swift in Sources */,
+				01FB07BC22CA51A1002D6359 /* ExportVC.swift in Sources */,
 				0139E49A2156C9E2001970FE /* AbschnitteVC.swift in Sources */,
 				01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */,
 				01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */,
@@ -746,6 +813,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -764,6 +832,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

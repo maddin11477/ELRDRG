@@ -18,6 +18,35 @@ class DocumentationDetailPhotoVC: UIViewController, UIImagePickerControllerDeleg
         
         if(documentation != nil){
             print("Debug: \(String(describing: documentation!.content))")
+            descriptionTextField.text = documentation!.content ?? ""
+            for attachment in documentation!.attachments?.allObjects as! [Attachment]
+            {
+            switch attachment.type {
+            case DocumentationType.Photo.rawValue:
+                print("Photo gefunden")
+                if let image = docuHandler.getImage(pictureName: attachment.uniqueName!){
+                    imageView.image = image
+                    
+                    imageView.contentMode = UIViewContentMode.scaleAspectFit
+                }
+                else
+                {
+                    imageView.image = nil
+                }
+                //case DocumentationType.Audio.rawValue:
+            // cell.Thumbnail.image = nil
+            default:
+                print("Nur Text")
+                
+            
+            }
+        
+            }
+        
+        
+        
+        
+        
         }
         // Do any additional setup after loading the view.
     }
@@ -34,8 +63,19 @@ class DocumentationDetailPhotoVC: UIViewController, UIImagePickerControllerDeleg
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         //close UI but save data before
-        docuHandler.SavePhotoDocumentation(picture: imageView.image!, description: descriptionTextField.text!, saveDate: Date())
-        print("Picture saved")
+        if(documentation != nil)
+        {
+         //documentation!.removeFromAttachments((documentation?.attachments?.allObjects as! [Attachment])[0])
+         docuHandler.updatePhotoDocumentation(docu: documentation!, text: descriptionTextField.text, picture: imageView.image!)
+         
+        }
+        else
+        {
+           
+            docuHandler.SavePhotoDocumentation(picture: imageView.image!, description: descriptionTextField.text!, saveDate: Date())
+            print("Picture saved")
+        }
+        
         //close ui
         dismiss(animated: true, completion: nil)
     }
@@ -47,7 +87,7 @@ class DocumentationDetailPhotoVC: UIViewController, UIImagePickerControllerDeleg
     @IBAction func takePhotoButtonPressed(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        if(sender.currentTitle=="Cam"){
+        if(sender.currentTitle==""){
             if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
                 imagePicker.sourceType = UIImagePickerControllerSourceType.camera
                 imagePicker.allowsEditing = true

@@ -72,6 +72,47 @@ class DataHandler: NSObject {
         saveData()
     }
     
+    public func createUser(password : String, firstname : String, lastname : String, isAdmin : Bool)-> Int
+    {
+        //0 == already exists, 1 == true, -1 == wrong input values
+        if(password != "" && firstname != "" && lastname != "")
+        {
+            let loginHandler = LoginHandler()
+            
+            let userList = loginHandler.getAllUsers()
+            var alreadyExists : Bool = false
+            for  user : User in userList {
+                if(user.firstName == firstname || user.lastName == lastname)
+                {
+                    alreadyExists = true
+                }
+            }
+            if(alreadyExists)
+            {
+                return 0
+            }
+            
+            let user = User(context: AppDelegate.viewContext)
+                   user.firstName = firstname
+                   user.lastName = lastname
+                   user.isAdmin = isAdmin
+                   user.password = password
+                    user.unique = UUID().uuidString
+                   
+                   
+                   
+                   saveData()
+            return 1
+        }
+        else
+        {
+            return -1
+        }
+        
+    }
+    
+  
+    
     public func getMissionFromUnique(unique : String) -> Mission?
     {
         let userRequest: NSFetchRequest<Mission> = Mission.fetchRequest()

@@ -16,10 +16,17 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     var victimList : [Victim] = []
     
     @IBOutlet weak var patientTable: UITableView!
-    @IBOutlet weak var sortButton: UIBarButtonItem!
+    //@IBOutlet weak var sortButton: UIBarButtonItem!
     @IBOutlet weak var SortSegment: UISegmentedControl!
     
-  
+    @IBOutlet weak var txt_Schadenskonto_SK1: UILabel!
+    @IBOutlet weak var txt_Schadenskonto_SK2: UILabel!
+    @IBOutlet weak var txt_Schadenskonto_SK3: UILabel!
+    
+    @IBOutlet weak var txt_Schadenskonto_SKUngesichtet: UILabel!
+    
+    @IBOutlet weak var txt_Schadenskonto_tot: UILabel!
+    
     @IBAction func AddKat3_click(_ sender: Any)
     {
         data.ceateVictim(age: -1, category: 3, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
@@ -30,6 +37,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     func sort()
     {
+        victimList = data.getVictims()
         if(sortById == true)
         {
          victimList.sort(by: { $0.id < $1.id})
@@ -90,6 +98,41 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        var sk1 : Int = 0
+        var sk2 : Int = 0
+        var sk3 : Int = 0
+        var skungesichtet : Int = 0
+        var sktot : Int = 0
+        for vic in victimList
+        {
+            if(vic.category == 1)
+            {
+                sk1 = sk1 + 1
+            }
+            else if(vic.category == 2)
+            {
+                sk2 = sk2 + 1
+            }
+            else if(vic.category == 3)
+            {
+                sk3 = sk3 + 1
+            }
+            else if(vic.category == 4)
+            {
+                skungesichtet = skungesichtet + 1
+            }
+            else if(vic.category == 5)
+            {
+                sktot = sktot + 1
+            }
+        }
+        
+        
+        txt_Schadenskonto_SK1.text = "x " + String(sk1)
+        txt_Schadenskonto_SK2.text = "x " + String(sk2)
+        txt_Schadenskonto_SK3.text = "x " + String(sk3)
+        txt_Schadenskonto_SKUngesichtet.text = "x " + String(skungesichtet)
+        txt_Schadenskonto_tot.text = "x " + String(sktot)
         return 2
     }
     
@@ -136,9 +179,11 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         sort()
        
        
-    
+        
         var countDone : Int = 0
         var countNotDone : Int = 0
+       
+        
         for vic in victimList {
             if(vic.isDone == nil)
             {
@@ -200,11 +245,12 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         else
         {
             pat = doneList[indexPath.row]
+            
         }
         //labels befüllen
         cell.ID.text = String(pat.id)
         cell.category.text = String(pat.category)
-        cell.birthDate.text = String(pat.age) + " j."
+        cell.birthDate.text =  String(pat.age) + " j."
         cell.firstName.text = pat.firstName
         cell.lastName.text = pat.lastName
         cell.hospital.text = pat.hospital?.name
@@ -238,9 +284,15 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
        
         var text = ""
-        for car in pat.fahrzeug?.allObjects as! [Unit]
+        var unitList = pat.fahrzeug?.allObjects as! [Unit]
+        for car in unitList
         {
-            text = text + car.callsign! + ", "
+            text = text + car.callsign!
+            if(car != unitList[unitList.count - 1])
+            {
+                text = text + ","
+            }
+            
         }
         
         cell.unit.text = text
@@ -272,6 +324,48 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         {
             cell.birthDate.text = ""
         }
+        
+        
+        
+       
+        
+        
+        //Spacing
+        cell.contentView.backgroundColor = UIColor.clear
+        
+        var whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 60))
+        whiteRoundedView.backgroundColor = .white
+      
+       
+        
+        
+        if(indexPath.section == 1)
+        {
+            whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
+           // whiteRoundedView.backgroundColor = .lightGray
+        }
+        else if(indexPath.section == 0)
+        {
+             whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
+            //whiteRoundedView.backgroundColor = .white
+        
+        }
+        whiteRoundedView.layer.masksToBounds = false
+        whiteRoundedView.layer.cornerRadius = 2.0
+        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: -1)
+        whiteRoundedView.layer.shadowOpacity = 0.2
+        
+        cell.ID.text = String(pat.id)
+        
+        
+        
+            if(!cell.alreadyLoaded)
+            {
+                cell.contentView.addSubview(whiteRoundedView)
+                cell.contentView.sendSubview(toBack: whiteRoundedView)
+            }
+        
+        cell.alreadyLoaded = true
         
         
         return cell

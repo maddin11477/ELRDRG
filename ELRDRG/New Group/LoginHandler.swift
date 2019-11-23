@@ -97,7 +97,8 @@ public struct LoginHandler {
         do
         {
             let users = try AppDelegate.viewContext.fetch(userRequest)
-            
+            print("User anzahl:")
+            print(users.count)
             return users
         }
         catch

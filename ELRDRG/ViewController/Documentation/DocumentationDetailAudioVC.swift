@@ -30,9 +30,16 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
     @IBAction func saveAudioRecord(_ sender: UIBarButtonItem) {
         print("Audio gespeichert unter: \(storageLocation)")
         docuHandler.SaveAudioDocumentation(audioName: audioName, description: descriptionTextField.text!, saveDate: Date())
+        audioPlayer.stop()
         dismiss(animated: true, completion: nil)
     }
     @IBAction func cancelAudioRecorder(_ sender: UIBarButtonItem) {
+        if(audioPlayer != nil)
+        {
+            audioPlayer.stop()
+            //audioPlayer = nil
+        }
+       
         dismiss(animated: true, completion: nil)
     }
     @IBAction func recordButtonPressed(_ sender: UIButton) {
@@ -49,7 +56,7 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
             //neue Aufnahme
             print("Neue Aufnahme")
             recordingSession = AVAudioSession.sharedInstance()
-            
+           
             do {
                 try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
                 try recordingSession.setActive(true)
@@ -57,8 +64,33 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
                     DispatchQueue.main.async {
                         if allowed {
                             print("Darf aufnehmen")
+                            self.recordButton.isEnabled = true
+                            self.recordButton.setTitleColor(UIColor.red, for: .normal)
+                            self.recordButton.setTitle("", for: .normal)
+                            self.recordButton.borderColor = UIColor.red
+                            
                         } else {
                             print("Keine Erlaubnis für Audio")
+                            self.recordButton.isEnabled = false
+                            self.recordButton.setTitleColor(UIColor.lightGray, for: .normal)
+                            self.recordButton.borderColor = UIColor.lightGray
+                            self.recordButton.setTitle("", for: .normal)
+                            let alertView = UIAlertController(title: "Keine Berechtigung", message: "Diese APP hat keine Berechtigung, um auf ihr Mikrofon zugreifen zu können", preferredStyle: .alert)
+                            let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                            alertView.addAction(alertAction)
+                            
+                            //Directing to Settings
+                            
+                            
+                            
+                            var settingsAction = UIAlertAction(title: "Einstellungen", style: .default) { (_) -> Void in
+                                let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
+                                UIApplication.shared.open(settingsUrl as! URL, options: [:], completionHandler: nil)
+                                }
+                            alertView.addAction(settingsAction)
+                            
+                            
+                            self.present(alertView, animated: true, completion: nil)
                         }
                     }
                 }
@@ -72,8 +104,21 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
             print("Try to load: \(attachment.uniqueName!).mp4")
             let audioFilename = getDocumentsDirectory().appendingPathComponent("\(attachment.uniqueName!).m4a")
             descriptionTextField.text = audioDocumentation?.content!
-            recordButton.isHidden = true
+            recordButton.setTitleColor(UIColor.lightGray, for: .normal)
+            //recordButton.setTitle("", for: .normal)
+           // recordButton.layer.borderColor = UIColor.lightGray.cgColor
+            recordButton.borderColor = UIColor.lightGray
+            
+            recordButton.isEnabled = false
+            
+            
             activateAudioPlayer(withFile: audioFilename)
+            //controlButton.titleLabel?.text = ""
+            playButton.setTitle("", for: .normal)
+            playButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
+            playButton.layer.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0).cgColor
+            
+            
         }
     }
 
@@ -100,7 +145,10 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
             audioRecorder.delegate = self
             audioRecorder.record()
             
-            recordButton.setTitle("Stop", for: .normal)
+            recordButton.setTitle("", for: .normal)
+            recordButton.setTitleColor(UIColor.red, for: .normal)
+            //recordButton.layer.borderColor = UIColor.red.cgColor
+            recordButton.borderColor = UIColor.red
         } catch {
             finishRecording(success: false)
         }
@@ -115,12 +163,17 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
         audioRecorder.stop()
         activateAudioPlayer(withFile: audioRecorder.url.absoluteURL)
         audioRecorder = nil
-        
+        //recordButton.isHidden = true
+        recordButton.setTitleColor(UIColor.lightGray, for: .normal)
+        recordButton.layer.borderColor = UIColor.lightGray.cgColor
         if success {
-            recordButton.setTitle("Start", for: .normal)
+            playButton.setTitle("", for: .normal)
+            playButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
+            playButton.layer.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0).cgColor
         } else {
-            recordButton.setTitle("Start", for: .normal)
-            // recording failed :(
+            playButton.setTitle("", for: .normal)
+            playButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
+            playButton.layer.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0).cgColor
         }
     }
     
@@ -128,10 +181,15 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
         if !flag {
             finishRecording(success: false)
         }
+        recordButton.borderColor = UIColor.lightGray
+        recordButton.layer.borderColor = UIColor.lightGray.cgColor
+        
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        playButton.setTitle("Play", for: .normal)
+        playButton.setTitle("", for: .normal)
+        playButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
+        playButton.layer.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0).cgColor
     }
     
     func activateAudioPlayer(withFile: URL){
@@ -143,6 +201,8 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSliderPosition), userInfo: nil, repeats: true)
             playButton.isHidden = false
             audioControlSlider.isHidden = false
+            //recordButton.setTitle("", for: .normal)
+            //recordButton.layer.borderColor = UIColor.red.cgColor
         } catch {
             print("Could not load audiofile")
         }
@@ -158,16 +218,25 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
     @IBAction func playButtonPressed(_ sender: UIButton) {
         if(audioPlayer.isPlaying == true){
             audioPlayer.pause()
-            playButton.setTitle("Play", for: .normal)
+            playButton.setTitle("", for: .normal)
+            playButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
+            playButton.layer.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0).cgColor
+
         } else {
             audioPlayer.prepareToPlay()
             audioPlayer.play()
-            playButton.setTitle("Pause", for: .normal)
+            playButton.setTitle("", for: .normal)
+            playButton.layer.borderColor = UIColor.red.cgColor
+            playButton.setTitleColor(UIColor.red, for: .normal)
         }
     }
     
     @objc func updateSliderPosition() {
-        audioControlSlider.value = Float(audioPlayer.currentTime)
+        if(audioPlayer != nil)
+        {
+            audioControlSlider.value = Float(audioPlayer.currentTime)
+        }
+        
     }
 
 }

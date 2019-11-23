@@ -14,7 +14,7 @@ class DocumentationTableViewCell: UITableViewCell {
     @IBOutlet weak var Content: UILabel!
     @IBOutlet weak var Thumbnail: UIImageView!
     
-    
+    public var alreadyLoaded : Bool = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

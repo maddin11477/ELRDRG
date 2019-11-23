@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>10</string>
 	<key>Fonts provided by application in your</key>
 	<array>
 		<string>FontAwesome.ttf</string>
@@ -38,6 +38,12 @@
 	<string>Benötigt Zugriff um Sprachaufnahmen für Einsatzdokumention hinzufügen zu können</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Benötigt Zugriff um Fotos der Doku hinzuzufügen zu können</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fa-solid-900.ttf</string>
+		<string>fa-brands-400.ttf</string>
+		<string>fa-regular-400.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -59,11 +65,20 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>fa-solid-900.ttf</string>
-		<string>fa-brands-400.ttf</string>
-		<string>fa-regular-400.ttf</string>
-	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>192.168.2.8</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

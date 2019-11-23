@@ -22,6 +22,68 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = DocumentationTableViewCell()
+        let currentDocumentation : Documentation = documentations[indexPath.row]
+        let attachments = currentDocumentation.attachments?.allObjects as! [Attachment]
+        var attachment : Attachment
+       
+        var attachmentType : Int16 = -1
+        if(attachments.count > 0)
+        {
+            attachment = attachments[0]
+            attachmentType = attachment.type
+           
+        }
+        
+        
+        if(attachmentType == DocumentationType.Audio.rawValue)
+        {
+            let cell = documentationList.dequeueReusableCell(withIdentifier: "DocumentationAudioTableViewCell") as! DocumentationAudioTableViewCell
+            cell.idLabel.text = String(documentations[indexPath.row].id)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm dd.MM.yyyy"
+            cell.dateLabel.text = formatter.string(from: documentations[indexPath.row].created!)
+            cell.descriptionLabel.text = documentations[indexPath.row].content ?? ""
+            cell.controlButton.setTitle("", for: .normal)
+            cell.controlButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
+            cell.controlButton.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0)
+            
+            //Spacing
+            //Spacing
+            cell.contentView.backgroundColor = UIColor.clear
+            cell.backgroundColor = UIColor.clear
+            var whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 90))
+            whiteRoundedView.backgroundColor = .white
+            
+            
+            
+            
+            
+            whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
+            // whiteRoundedView.backgroundColor = .lightGray
+            
+            
+            whiteRoundedView.layer.masksToBounds = false
+            whiteRoundedView.layer.cornerRadius = 2.0
+            whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: -1)
+            whiteRoundedView.layer.shadowOpacity = 0.2
+            
+            
+            
+            
+            if(!cell.alreadyLoaded)
+            {
+                cell.contentView.addSubview(whiteRoundedView)
+                cell.contentView.sendSubview(toBack: whiteRoundedView)
+            }
+            
+            cell.alreadyLoaded = true
+            
+            return cell
+        }
+        else
+        {
+            
+        
         let cell = documentationList.dequeueReusableCell(withIdentifier: "DocumentationTableViewCell") as! DocumentationTableViewCell
 
         let formatter = DateFormatter()
@@ -29,6 +91,42 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         cell.CreationDate.text = formatter.string(from: documentations[indexPath.row].created!)
         cell.ID.text = String(documentations[indexPath.row].id)
         cell.Content.text = documentations[indexPath.row].content
+        
+        //Spacing
+        cell.contentView.backgroundColor = UIColor.clear
+        cell.backgroundColor = UIColor.clear
+        var whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 90))
+        whiteRoundedView.backgroundColor = .white
+        
+        
+        
+        
+      
+            whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
+            // whiteRoundedView.backgroundColor = .lightGray
+        
+        
+        whiteRoundedView.layer.masksToBounds = false
+        whiteRoundedView.layer.cornerRadius = 2.0
+        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: -1)
+        whiteRoundedView.layer.shadowOpacity = 0.2
+        
+       
+        
+        
+        if(!cell.alreadyLoaded)
+        {
+            cell.contentView.addSubview(whiteRoundedView)
+            cell.contentView.sendSubview(toBack: whiteRoundedView)
+        }
+        
+        cell.alreadyLoaded = true
+        
+        
+        
+        
+        
+        
         
         //Hier die Anhänge der Doku bearbeiten
         let attachments = documentations[indexPath.row].attachments?.allObjects as! [Attachment]
@@ -46,17 +144,27 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         cell.Thumbnail.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleBottomMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue) | UInt8(UIViewAutoresizing.flexibleRightMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleLeftMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleTopMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleWidth.rawValue)))
                         cell.Thumbnail.contentMode = UIViewContentMode.scaleAspectFit
                     }
-                case DocumentationType.Audio.rawValue:
-                    cell.Thumbnail.image = nil
+                    else
+                    {
+                        cell.Thumbnail.image = nil
+                    }
+                //case DocumentationType.Audio.rawValue:
+                   // cell.Thumbnail.image = nil
                 default:
                     print("Nur Text")
+                    cell.Thumbnail.image = nil
             }
         }
+        else
+        {
+            cell.Thumbnail.image = nil
+            }
         
         //wie komm ich an die verlinkten zellen??
         
         
         return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -68,7 +176,11 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch attachment.type {
             case DocumentationType.Photo.rawValue:
                 //Foto doku öffnen
+                
                 print("Photo gefunden")
+                let details = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailPhotoVC") as! DocumentationDetailPhotoVC
+                details.documentation = docuEntry
+                self.present(details, animated: true, completion: nil)
 
             case DocumentationType.Audio.rawValue:
                 //audio Doku öffnen
@@ -81,6 +193,9 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         else {
+            let details = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailTextVC") as! DocumentationDetailTextVC
+            details.documentation = documentations[indexPath.row]
+            self.present(details, animated: true, completion: nil)
             //nur Text Doku...
             print("Text gefunden")
         }

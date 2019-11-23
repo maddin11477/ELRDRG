@@ -14,9 +14,17 @@ protocol InjurySelectionProtocol {
 
 class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return injuries.count
+        if(search_Text != "")
+        {
+            return injuries.count + 1
+        }
+        else{
+            return injuries.count
+        }
+        
     }
     public var text : String = ""
+    public var search_Text : String = ""
     public var delegate : InjurySelectionProtocol?
    
     
@@ -27,9 +35,20 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: "InjuryCell") as! InjuryCostumTableViewCell
-        cell.Location.text = injuries[indexPath.row].loaction
-        cell.Name.text = injuries[indexPath.row].diagnosis
+         let cell = table.dequeueReusableCell(withIdentifier: "InjuryCell") as! InjuryCostumTableViewCell
+        
+        if(indexPath.row == 0)
+        {
+            cell.Location.text = "  **"
+            cell.Name.text = search_Text
+        }
+        else
+        {
+            cell.Location.text = injuries[indexPath.row-1].loaction
+            cell.Name.text = injuries[indexPath.row-1].diagnosis
+        }
+       
+       
         return cell
     }
     
@@ -37,15 +56,50 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
     {
        if(self.delegate != nil)
        {
-        let injurydata = InjuryHandler()
-        let injury = injurydata.convertToInjury(baseInjury: injuries[indexPath.row])
-        injury.location = injury.location! + " " + injurydata.sideToString(side: bodySide)
-            self.delegate!.selectedInjury(injury: injury)
-            self.tabBarController!.dismiss(animated: true, completion: nil)
+        var row : Int = -1
+        if(search_Text != "")
+        {
+            row = indexPath.row - 1
+            
+        }
+        else
+        {
+            row = indexPath.row - 1
+        }
+        
+        let injury : Injury
+        
+        if(search_Text != "" && indexPath.row == 0)
+        {
+            injury = Injury(context: AppDelegate.viewContext)
+            injury.diagnosis = search_Text
+            injury.location = ""
+            
+            
+        }
+        else
+        {
+           
+            let injurydata = InjuryHandler()
+            
+            injury = injurydata.convertToInjury(baseInjury: injuries[row])
+            injury.location = injury.location! + " " + injurydata.sideToString(side: bodySide)
+        }
+        
+        
+        
+        
+        
+        
+        self.delegate!.selectedInjury(injury: injury)
+        
+        
+        self.tabBarController!.dismiss(animated: true, completion: nil)
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.search_Text = searchText
         let injuryHanlder = InjuryHandler()
         injuries = []
         let injuryList = injuryHanlder.getAllBaseInjury()
@@ -53,6 +107,7 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
         {
             injuries = injuryList
         }
+        
         for injurie in injuryList {
             if(injurie.diagnosis!.uppercased().contains(searchText.uppercased()) || injurie.loaction!.uppercased().contains(searchText.uppercased()))
             {

@@ -9,10 +9,28 @@
 import UIKit
 protocol SectionDropProtocol {
     func dropedUnitInSection()
+    func droppedPatientInUnit()
 }
-class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate, VictimDropDelegate {
+class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate, VictimDropDelegate, UIDropInteractionDelegate {
+   
+    @IBOutlet weak var navBar: UINavigationBar!
+    
+    func costumEnableDropping(on view : UIView, DropInteractionDelegate: UIDropInteractionDelegate)
+    {
+        let dropInteraction = UIDropInteraction(delegate: DropInteractionDelegate)
+        view.addInteraction(dropInteraction)
+    }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        //self.contentView = UIEdgeInsetsMake(10, 10, 10, 10)
+        costumEnableDropping(on: self.contentView, DropInteractionDelegate: self)
+        
+    }
     func droppedVictim() {
         table.reloadData()
+        self.dropDelegate!.droppedPatientInUnit()
     }
     
     func handeledPatientDragDropAction() {
@@ -92,11 +110,26 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        return session.canLoadObjects(ofClass: NSAttributedString.self)
+        if let unit = session.items[0].localObject as? Unit
+        {
+            return true
+           
+        }
+        else {
+            return false
+        }
+       // return session.canLoadObjects(ofClass: NSAttributedString.self)
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        if let unit = session.items[0].localObject as? Unit
+        {
+            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+           
+        }
+        else {
+            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -126,7 +159,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let unit = (section_!.units!.allObjects as! [Unit])[indexPath.row]
+        let unit = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
         var actions : [UITableViewRowAction] = []
         let delete = UITableViewRowAction(style: .destructive, title: "Fzg entfernen") { (action, indexPath) in
             let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
@@ -143,6 +176,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         {
             let removePatient = UITableViewRowAction(style: .normal, title: "Patient entfernen") { (action, indexPath) in
                 let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
+                unit_.patient?.fahrzeug = nil
                 unit_.patient = nil
                 let handler = SectionHandler()
                 handler.saveData()

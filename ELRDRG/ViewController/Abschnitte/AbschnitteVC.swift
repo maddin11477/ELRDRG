@@ -9,6 +9,8 @@
 import UIKit
 
 class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate, OrganisationAddedTempObjectProtocoll{
+    
+    
     func createdUnit() {
         //
         self.SourceTable.reloadData()
@@ -19,7 +21,33 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         self.SourceTable.reloadData()
     }
     
-   
+    func droppedPatientInUnit() {
+        self.SourceTable.reloadData()
+    }
+    
+    var editViewsVisible : Bool = false
+    @IBAction func Show_Hide_EditViews(_ sender: Any) {
+        let btn : UIButton = sender as! UIButton
+        if(editViewsVisible)
+        {
+            btn.setTitle("", for: .normal)
+            EditViewsWidthConstraints.constant = 0
+        }
+        else
+        {
+            btn.setTitle("", for: .normal)
+            EditViewsWidthConstraints.constant = 418
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+        
+        editViewsVisible = !editViewsVisible
+        
+    }
+    
+    @IBOutlet weak var EditViewsWidthConstraints: NSLayoutConstraint!
     
     
     
@@ -41,16 +69,41 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
           
             
         }
-        
+        SourceTable.reloadData()
+        print("reload")
+
     }
     
-    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
-       
-        return session.canLoadObjects(ofClass: NSURL.self)
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool
+    {
+       /* if let sectionCell = session.items[0].localObject as? SectionTableViewCell
+       {
+            return true
+        }
+       else
+       {
+        return false
+        }*/
+        return true
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        return UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        
+        
+        print("test")
+        if let sectionCell = session.items[0].localObject as? SectionTableViewCell
+        {
+            return UICollectionViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
+         }
+        else
+        {
+         return  UICollectionViewDropProposal(operation: .forbidden, intent: .unspecified)
+         }
+        
+        
+        
+        
+       
     }
     
     func dropedUnitInSection() {
@@ -201,8 +254,10 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
        
         //view.tableHeight.constant = CGFloat(count)
         
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 1
+        //view.layer.borderColor = UIColor.black.cgColor
+        //view.layer.borderWidth = 1
+        
+        
         view.table.delegate = view
         view.table.dataSource = view
         view.table.reloadData()
@@ -210,11 +265,19 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         return view
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(100)
+    }
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if(SegmentControl.selectedSegmentIndex == 0)
         {
-            if(section == 0)
+            if(section == 1)
             {
                 return "Stammdaten"
             }
@@ -263,19 +326,35 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
             if(section == 0)
             {
-                return baseUnits.count
+                return units.count
             }
             else
             {
-                return units.count
+                return baseUnits.count
+                
             }
             
            
         }
         else if(SegmentControl.selectedSegmentIndex == 1)
         {
+            print("segment1")
             let data = DataHandler()
-            return data.getVictims().count
+            let victimlist = data.getVictims()
+            var i : Int = 0//victimlist.count
+            print(i)
+            victims = []
+            for victim in victimlist {
+                
+                if(victim.fahrzeug?.allObjects.count == 0)
+                {
+                    
+                    victims.append(victim)
+                    i = i + 1
+                    print(i)
+                }
+            }
+            return i
         }
         else
         {
@@ -290,7 +369,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
             //Fahrzeuge
             let cell = tableView.dequeueReusableCell(withIdentifier: "SmallUnitTableViewCell") as! SmallUnitTableViewCell
-            if(indexPath.section == 0)
+            if(indexPath.section == 1)
             {
                 
                     cell.funkRufName.text = baseUnits[indexPath.row].funkrufName
@@ -299,6 +378,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                     cell.unit = handler.baseUnit_To_Unit(baseUnit: baseUnits[indexPath.row])
                     cell.unitType.text = handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type)
                     cell.unitTypeImage.image = UIImage(named: handler.BaseUnit_To_UnitTypeString(id: baseUnits[indexPath.row].type))
+                    cell.backgroundColor = UIColor.white
                     return cell
                 
                 
@@ -309,6 +389,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 cell.crewCount.text = String(units[indexPath.row].crewCount)
                 let handler = UnitHandler()
                 cell.unit = units[indexPath.row]
+                cell.backgroundColor = UIColor(hue: 0.2917, saturation: 0.35, brightness: 0.92, alpha: 1.0)
+                    
                 cell.unitType.text = handler.BaseUnit_To_UnitTypeString(id: units[indexPath.row].type)
                 cell.unitTypeImage.image = UIImage(named: handler.BaseUnit_To_UnitTypeString(id: units[indexPath.row].type))
                 return cell
@@ -319,6 +401,13 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
             //Patienten
             let cell = tableView.dequeueReusableCell(withIdentifier: "SmallPatientTableViewCell") as! SmallPatientTableViewCell
+           /* var victimlist : [Victim] = []
+            for pat in victims {
+                if(pat.fahrzeug == nil)
+                {
+                    victimlist.append(pat)
+                }
+            }*/
             let victim = victims[indexPath.row]
             cell.firstName.text = victim.firstName
             cell.lastName.text = victim.lastName
@@ -433,8 +522,10 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         SourceTable.dataSource = self
         SourceTable.delegate = self
         filterSegmentControl.selectedSegmentIndex = 5
-        filterSegmentControl.tintColor = UIColor.red
+        filterSegmentControl.tintColor = UIColor.black
         // Do any additional setup after loading the view.
+        
+        AbschnitteCollectionView.contentInset = UIEdgeInsetsMake(20, 10, 10, 10)
     }
     
     

@@ -15,47 +15,99 @@ class CategorySegmentedControl: UISegmentedControl {
     
     
     private func configure() {
-        sortedViews = self.subviews.sorted(by:{$0.frame.origin.x < $1.frame.origin.x})
-        
-        
-        
-        while currentIndex < self.sortedViews.count {
-            if(currentIndex == 0)
-            {
-                sortedViews[currentIndex].backgroundColor = UIColor.red.withAlphaComponent(0.2)
-            }
-            else if(currentIndex == 1)
-            {
-                sortedViews[currentIndex].backgroundColor = UIColor.orange.withAlphaComponent(0.2)
-            }
-            else if(currentIndex == 2)
-            {
-                sortedViews[currentIndex].backgroundColor = UIColor.green.withAlphaComponent(0.2)
-            }
-            else if(currentIndex == 3)
-            {
-                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            }
-            else if(currentIndex == 4)
-            {
-                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.2)
-            }
-            currentIndex = currentIndex + 1
+        for view in self.subviews {
+            view.backgroundColor = UIColor.clear
+        }
+       // sortedViews = self.subviews.sorted(by:{$0.frame.origin.x < $1.frame.origin.x})
+        currentIndex = 0
+        for view in self.subviews
+        {
+                      if(currentIndex == 0)
+                       {
+                           view.backgroundColor = UIColor.red.withAlphaComponent(0.2)
+                       }
+                       else if(currentIndex == 1)
+                       {
+                           view.backgroundColor = UIColor.orange.withAlphaComponent(0.2)
+                       }
+                       else if(currentIndex == 2)
+                       {
+                           view.backgroundColor = UIColor.green.withAlphaComponent(0.2)
+                       }
+                       else if(currentIndex == 3)
+                       {
+                           view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+                       }
+                       else if(currentIndex == 4)
+                       {
+                           view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+                       }
+                       currentIndex = currentIndex + 1
         }
         currentIndex = -1
+        
+      
         
     }
     
     func changeSelectedIndex(to newIndex: Int) {
         
         self.selectedSegmentIndex = UISegmentedControlNoSegment
-        sortedViews = self.subviews.sorted(by:{$0.frame.origin.x < $1.frame.origin.x})
-    
+        self.alpha = 1.0
+        sortedViews = self.subviews//.sorted(by:{$0.frame.origin.x < $1.frame.origin.x})
+        var index : Int = 0
+        for subview in sortedViews {
+            
+            if(index == newIndex)
+            {
+                if(index == 0)
+                {
+                    if #available(iOS 13.0, *) {
+                        self.selectedSegmentTintColor = UIColor.red.withAlphaComponent(1)
+                    } else {
+                        subview.tintColor = UIColor.red.withAlphaComponent(1)
+                    }
+                    subview.backgroundColor = UIColor.red.withAlphaComponent(1)
+                    
+                }
+                else if(index == 1)
+                {
+                    if #available(iOS 13.0, *) {
+                       self.selectedSegmentTintColor = UIColor.orange.withAlphaComponent(1)
+                   }
+                    subview.backgroundColor = UIColor.orange.withAlphaComponent(1)
+                }
+                else if(index == 2)
+                {
+                    if #available(iOS 13.0, *) {
+                        self.selectedSegmentTintColor = UIColor.green.withAlphaComponent(1)
+                                      }
+                    subview.backgroundColor = UIColor.green.withAlphaComponent(1)
+                }
+                else if(index == 3)
+                {
+                    if #available(iOS 13.0, *) {
+                                          self.selectedSegmentTintColor = UIColor.white.withAlphaComponent(1)
+                                      }
+                    subview.backgroundColor = UIColor.white.withAlphaComponent(1)
+                }
+                else if(index == 4)
+                {
+                    if #available(iOS 13.0, *) {
+                                          self.selectedSegmentTintColor = UIColor.white.withAlphaComponent(1)
+                                      }
+                    subview.backgroundColor = UIColor.white.withAlphaComponent(1)
+                }
+            }
+            else
+            {
+                subview.backgroundColor = subview.backgroundColor?.withAlphaComponent(0.2)
+            }
+            index = index + 1
+        }
         if(currentIndex != -1)
         {
             sortedViews[currentIndex].layer.borderWidth = 0
-           
-            
             
             if(currentIndex == 0)
             {
@@ -84,6 +136,7 @@ class CategorySegmentedControl: UISegmentedControl {
             }
             
         }
+         
         currentIndex = newIndex
         if(newIndex == -2)
         {
@@ -94,8 +147,8 @@ class CategorySegmentedControl: UISegmentedControl {
             return
         }
         
-        
-        sortedViews[currentIndex].layer.borderWidth = 3
+       
+        sortedViews[currentIndex].layer.borderWidth = 0
         
         if(currentIndex != 4)
         {
@@ -113,12 +166,17 @@ class CategorySegmentedControl: UISegmentedControl {
         
         if(currentIndex == 3 || currentIndex == 4)
         {
-            sortedViews[currentIndex].backgroundColor = UIColor.blue
+            sortedViews[currentIndex].backgroundColor = UIColor.blue.withAlphaComponent(1)
+            if #available(iOS 13.0, *) {
+                self.selectedSegmentTintColor = UIColor.blue.withAlphaComponent(1)
+            }
+            
         }
         else
         {
             sortedViews[currentIndex].backgroundColor = sortedViews[currentIndex].backgroundColor?.withAlphaComponent(1)
         }
+ 
         
     }
 }
