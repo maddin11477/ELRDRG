@@ -53,11 +53,29 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
-        let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarVC
-        nc.modalPresentationStyle = .fullScreen
-        self.present(nc, animated: true, completion: nil)
+		if(indexPath.row < missions.count)
+		{
+			Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
+			if let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarVC
+			{
+				nc.modalPresentationStyle = .fullScreen
+				self.present(nc, animated: true, completion: nil)
+			}
+
+		}
+		else
+		{
+			let alertController = UIAlertController(title: "Index aus of Range! ", message: "Index: " +  String(indexPath.row), preferredStyle: .alert)
+			let alertaction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
+			alertController.addAction(alertaction)
+			self.present(alertController, animated: false, completion: nil)
+
+		}
+
+
+			//
+
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

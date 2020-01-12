@@ -8,12 +8,29 @@
 
 import UIKit
 
-class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, PatientTableViewLongPressRecognized {
+    var controller : UIViewController?
+    func started(victimController: UIViewController) {
+       
+        controller = victimController
+        self.present(controller!, animated: false, completion: nil)
+    }
+    
+    func stop() {
+        if let patientController = controller as? PatientPopOverVC
+        {
+            patientController.close()
+        }
+    }
+    
 
     let data : DataHandler = DataHandler()
     let login : LoginHandler = LoginHandler()
     var sortById : Bool = true
     var victimList : [Victim] = []
+    
+    
+    
     
     @IBOutlet weak var patientTable: UITableView!
     //@IBOutlet weak var sortButton: UIBarButtonItem!
@@ -247,6 +264,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             pat = doneList[indexPath.row]
             
         }
+        cell.victim = pat
         //labels befüllen
         cell.ID.text = String(pat.id)
         cell.category.text = String(pat.category)
@@ -258,19 +276,21 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         cell.helicopter.isHidden = true
         cell.sht.isHidden = true
         cell.heatinjury.isHidden = true
+        cell.lblHospitalInfoState.text = pat.getHospitalInfoState()
+        cell.hospitalInfoStateColorElement.backgroundColor = pat.getHospitalInfoState()
         if(pat.child == true)
         {
             cell.child.isHidden = false
         }
-        if(pat.helicopter == true)
+        if(pat.intubiert == true)
         {
             cell.helicopter.isHidden = false
         }
-        if(pat.sht == true)
+        if(pat.stabil == true)
         {
             cell.sht.isHidden = false
         }
-        if(pat.heatInjury == true)
+        if(pat.schockraum == true)
         {
             cell.heatinjury.isHidden = false
         }
@@ -284,7 +304,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
        
         var text = ""
-        var unitList = pat.fahrzeug?.allObjects as! [Unit]
+        let unitList = pat.fahrzeug?.allObjects as! [Unit]
         for car in unitList
         {
             text = text + car.callsign!
@@ -325,45 +345,13 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
             cell.birthDate.text = ""
         }
         
-        
+        cell.delegate = self
         
        
         
         
-        //Spacing
-        cell.contentView.backgroundColor = UIColor.clear
-        
-        var whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 60))
-        whiteRoundedView.backgroundColor = .white
-      
+
        
-        
-        
-        if(indexPath.section == 1)
-        {
-            whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
-           // whiteRoundedView.backgroundColor = .lightGray
-        }
-        else if(indexPath.section == 0)
-        {
-             whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
-            //whiteRoundedView.backgroundColor = .white
-        
-        }
-        whiteRoundedView.layer.masksToBounds = false
-        whiteRoundedView.layer.cornerRadius = 2.0
-        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: -1)
-        whiteRoundedView.layer.shadowOpacity = 0.2
-        
-        cell.ID.text = String(pat.id)
-        
-        
-        
-            if(!cell.alreadyLoaded)
-            {
-                cell.contentView.addSubview(whiteRoundedView)
-                cell.contentView.sendSubview(toBack: whiteRoundedView)
-            }
         
         cell.alreadyLoaded = true
         
@@ -371,7 +359,10 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    
+    @objc func longPress(indexPath : IndexPath)
+    {
+        
+    }
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -423,10 +414,14 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         super.viewDidLoad()
         patientTable.delegate = self
         patientTable.dataSource = self
+       
+        
+        
         
         // Do any additional setup after loading the view.
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -444,14 +439,6 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

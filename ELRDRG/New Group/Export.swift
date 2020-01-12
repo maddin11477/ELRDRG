@@ -264,13 +264,7 @@ class Export: NSObject {
     func generateUnit(unit : Unit) -> String
     {
         
-        let id = unit.patient?.id ?? -1
-        var sID = ""
-        let name = (unit.patient?.firstName ?? "") + " " + (unit.patient?.lastName ?? "")
-        if(id != -1)
-        {
-            sID = String(id)
-        }
+       
         var html = """
         <tr>
         <td style="width: 50%;" align="center" >
@@ -278,13 +272,27 @@ class Export: NSObject {
         </td>
         <td style="width: 50%;" align="center">
         """
-        if(unit.patient != nil)
+		if let victimList = unit.patient?.allObjects as? [Victim]
         {
-           html = html +
-            """
-            Patient \(sID) (\(name))</td> </tr>
-            """
+            for vic in victimList
+            {
+              let id = vic.id
+              var sID = ""
+              
+              if(id != -1)
+              {
+                  sID = String(id)
+              }
+              let name = (vic.firstName ?? "") + " " + (vic.lastName ?? "")
+              html = html +
+               """
+               Patient \(sID) (\(name)) <br>
+               """
+            }
         }
+        
+       
+        html = html + "</td></tr>"
         
         return html
     }
@@ -390,14 +398,18 @@ class Export: NSObject {
         formatter.dateFormat = "dd.MM.yyyy"
         var sDate = ""
         var sVerletzungen = ""
-        if(victim.heatInjury)
+        if(victim.schockraum)
         {
-            sVerletzungen = sVerletzungen + "Verbrennungen<br>"
+            sVerletzungen = sVerletzungen + "Schockraum<br>"
         }
-        if(victim.sht)
+        if(victim.stabil)
         {
-            sVerletzungen = sVerletzungen + "SHT<br>"
+            sVerletzungen = sVerletzungen + "stabil<br>"
         }
+		if(victim.intubiert)
+		{
+			sVerletzungen = sVerletzungen + "intubiert<br>"
+		}
         for injury in victim.verletzung?.allObjects as! [Injury] {
             sVerletzungen = sVerletzungen + "<br>" + (injury.diagnosis ?? "") + (injury.location ?? "")
         }

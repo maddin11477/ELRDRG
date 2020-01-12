@@ -33,7 +33,16 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBOutlet weak var txtBirthdate: UITextField!
     
+    @IBOutlet var hospitalInfoStateControl: UISegmentedControl!
+
     @IBOutlet weak var txtTransportzielBottomConstrain: NSLayoutConstraint!
+
+    
+    
+    @IBAction func hospitalInfoStateChanged(_ sender: Any) {
+        self.victim.setHospitalInfoState(hospitalState: (sender as! UISegmentedControl).selectedSegmentIndex)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(tableView == transportUnitTable)
@@ -110,6 +119,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         victim.hospital?.addToVictim(victim)
         txtTransportDestination.text = (victim.hospital?.name)! + " / " + (victim.hospital?.city!)!
         hospitalImage.isHidden = false
+		hospitalInfoStateControl.isHidden = false
     }
     
     func didSelectUnit(unit: BaseUnit) {
@@ -122,7 +132,9 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
                 {
                     if(availableUnit.callsign == unit.funkrufName && availableUnit.type == unit.type)
                     {
-                        availableUnit.patient = victim
+                        
+                        //availableUnit.patient = victim
+                        availableUnit.addToPatient(victim)
                         victim.addToFahrzeug(availableUnit)
                         isAvailable = true
                         
@@ -140,7 +152,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         let fahrzeug = unitData.baseUnit_To_Unit(baseUnit: unit)
         victim.addToFahrzeug(fahrzeug)
        // unitData.baseUnit_To_Unit(baseUnit: unit)
-        fahrzeug.patient = victim
+        fahrzeug.addToPatient(victim)
         data.saveData()
         transportUnitTable.reloadData()
         
@@ -191,19 +203,19 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func helicopterSwitched(_ sender: Any)
     {
-        victim.helicopter = helicopterSwitch.isOn
+		victim.intubiert = helicopterSwitch.isOn
         data.saveData()
     }
     
     @IBAction func heatInjurySwitched(_ sender: Any)
     {
-        victim.heatInjury = heatInjurySwitch.isOn
+        victim.schockraum = heatInjurySwitch.isOn
         data.saveData()
     }
     
     @IBAction func shtswitched(_ sender: Any)
     {
-        victim.sht = shtSwitch.isOn
+        victim.stabil = shtSwitch.isOn
         data.saveData()
     }
     
@@ -231,9 +243,13 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     @IBAction func deleteDestination_Click(_ sender: Any)
     {
         victim.hospital = nil
+        victim.setHospitalInfoState(hospitalState: 0)
         hospitalImage.isHidden = true
         data.saveData()
         txtTransportDestination.text = ""
+		hospitalInfoStateControl.isHidden = true
+		hospitalInfoStateControl.selectedSegmentIndex = 0
+		
     }
     
     @IBAction func chooseTrransportDestination(_ sender: Any)
@@ -259,16 +275,11 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         
         if(control.selectedSegmentIndex != UISegmentedControlNoSegment && control.selectedSegmentIndex > -1)
         {
-            
             victim.category = Int16(control.selectedSegmentIndex + 1)
             control.changeSelectedIndex(to: control.selectedSegmentIndex)
             data.saveData()
         }
         
-      
-        
-        
-       
     }
     
     
@@ -382,7 +393,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
        
         
         transportUnitTable.reloadData()
-        //categoryPicker.selectedSegmentIndex = Int(victim.category - 1 )
+       
         
         categoryPicker.changeSelectedIndex(to: Int(victim.category - 1))
         if let hospital = victim.hospital
@@ -406,9 +417,9 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         }
         
         childSwitch.isOn = victim.child
-        heatInjurySwitch.isOn = victim.heatInjury
-        shtSwitch.isOn = victim.sht
-        helicopterSwitch.isOn = victim.helicopter
+        heatInjurySwitch.isOn = victim.schockraum
+        shtSwitch.isOn = victim.stabil
+        helicopterSwitch.isOn = victim.intubiert
         
         
         toolBar = UIToolbar()
@@ -435,7 +446,15 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         let loc = Locale(identifier: "Ger")
         birthdatePicker?.locale = loc
         birthdatePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
-        
+        hospitalInfoStateControl.selectedSegmentIndex = self.victim.getHospitalInfoState()
+        if let _ = victim.hospital
+        {
+            hospitalInfoStateControl.isHidden = false
+        }
+        else
+        {
+            hospitalInfoStateControl.isHidden = true
+        }
         
     }
     
@@ -455,19 +474,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         data.saveData()
         txtAge.text = String(Int(ageStepper.value))
         
-        //self.view.endEditing(true)
+        
     }
-  
-    
-   
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-  
-    
 
 }

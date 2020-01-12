@@ -149,7 +149,7 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             let hospital = hospitals[indexPath.row]
             cell.Callsign.text = hospital.name
             cell.type.text = hospital.city
-            cell.crewCount.text = ""
+			cell.crewCount.text = String(Int((hospital.distance / 1000).rounded())) + " km"
             cell.pictureBox.image = UIImage(named: "hospital.png")
         }
         //do something
@@ -183,7 +183,8 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         super.viewDidLoad()
         
         units = unitData.getAllBaseUnits()
-        hospitals = hospitalData.getAllHospitals()
+		hospitals  = hospitalData.getAllHospitals()
+		
         searchBar.delegate = self
         
         table.delegate = self

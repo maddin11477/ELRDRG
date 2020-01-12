@@ -7,6 +7,11 @@
 //
 
 import UIKit
+protocol PatientTableViewLongPressRecognized {
+    func started(victimController : UIViewController)
+    func stop()
+}
+
 
 class PatientCustomTableViewCell: UITableViewCell {
     
@@ -32,9 +37,52 @@ class PatientCustomTableViewCell: UITableViewCell {
     @IBOutlet weak var heatinjury: UILabel!
     
     @IBOutlet weak var helicopter: UILabel!
+    @IBOutlet var hospitalInfoStateColorElement: UILabel!
     
+    public var delegate : PatientTableViewLongPressRecognized?
     public var alreadyLoaded : Bool = false
     public var background_View : UIView = UIView()
+    //public var victimList : [Victim] = []
+    public var victim : Victim?
+    
+    @IBOutlet var lblHospitalInfoState: UILabel!
+    
+    
+    func setupLongPressGesture() {
+        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(_:)))
+        longPressGesture.minimumPressDuration = 0.3 // 1 second press
+        longPressGesture.delegate = self
+        self.contentView.addGestureRecognizer(longPressGesture)
+        
+    }
+    
+    @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+
+                if let vic = victim
+                {
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+
+                    let patientController = storyBoard.instantiateViewController(withIdentifier: "PatientPopOverVC") as! PatientPopOverVC
+                   
+                    patientController.patient = vic
+                    //patientController.popoverPresentationController?.sourceView = self.contentView
+					patientController.modalPresentationStyle = .formSheet
+                    patientController.popoverPresentationController?.sourceView = self.contentView
+					
+                    self.delegate?.started(victimController: patientController)
+                }
+            
+        }
+        else if longPressGestureRecognizer.state == UIGestureRecognizerState.ended
+        {
+            self.delegate?.stop()
+        }
+        
+    }
+
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +91,9 @@ class PatientCustomTableViewCell: UITableViewCell {
         layoutMargins.left = 10
         layoutMargins.top = 10
         layoutMarginsDidChange()
+        setupLongPressGesture()
+        lblHospitalInfoState.text = victim?.getHospitalInfoState()
+        hospitalInfoStateColorElement.backgroundColor = victim?.getHospitalInfoState()
         
     
         

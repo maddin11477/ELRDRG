@@ -10,5 +10,69 @@ import UIKit
 import CoreData
 
 public class Unit: NSManagedObject {
-
 }
+
+extension Unit{
+
+    public func getVictimCount() -> Int{
+        if let victimList = self.patient?.allObjects as? [Victim]
+        {
+            return victimList.count
+        }
+        return 0
+    }
+    public func hasDestination() -> Bool
+    {
+        if let victimList = self.patient?.allObjects as? [Victim]
+        {
+            for vic in victimList
+            {
+                if let _ = vic.hospital
+                {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    public func getDestination() -> Hospital?
+    {
+        if let victimList = self.patient?.allObjects as? [Victim]
+        {
+            for vic in victimList
+            {
+                if let hospital = vic.hospital
+                {
+                    return hospital
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    
+    
+    
+    //Gibt die schwerwiegenste Kategorie zurück
+    public func getGlobalCategory()->Int16?
+    {
+        var category : Int16 = 10
+        if let victimList = self.patient?.allObjects as? [Victim]
+        {
+            for vic in victimList
+            {
+                if vic.category < category
+                {
+                    category = vic.category
+                }
+            }
+        }
+        return nil
+    }
+    
+    
+}
+    
+

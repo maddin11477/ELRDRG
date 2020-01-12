@@ -54,6 +54,7 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        print(indexPath.row)
        if(self.delegate != nil)
        {
         var row : Int = -1
@@ -114,10 +115,8 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
                 injuries.append(injurie)
             }
         }
+       
         table.reloadData()
-        
-        
-        
     }
 
     public var message : String = ""
@@ -153,7 +152,8 @@ class SelectInjuryTableVC: UIViewController, UITableViewDelegate, UITableViewDat
         table.delegate = self
         table.dataSource = self
         Searchbar.delegate = self
-        table.reloadData()
+        searchBar(self.Searchbar, textDidChange: Searchbar.text ?? "")
+        
     }
     
     func filter()

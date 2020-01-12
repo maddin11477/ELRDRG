@@ -41,40 +41,42 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.idLabel.text = String(documentations[indexPath.row].id)
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm dd.MM.yyyy"
+            cell.attchment = (documentations[indexPath.row].attachments?.allObjects as! [Attachment])[0]
             cell.dateLabel.text = formatter.string(from: documentations[indexPath.row].created!)
-            cell.descriptionLabel.text = documentations[indexPath.row].content ?? ""
-            cell.controlButton.setTitle("", for: .normal)
+            //cell.descriptionLabel.text = documentations[indexPath.row].content ?? ""
+            if #available(iOS 13.0, *)
+            {
+                cell.controlButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                cell.controlButton.setTitle("", for: .normal)
+            }
+            else
+            {
+                cell.controlButton.setTitle("PLAY", for: .normal)
+            }
+            cell.controlButton.imageView?.tintColor = UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0)
             cell.controlButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
             cell.controlButton.borderColor =  UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0)
-            
+            //cell.controlButton.setTitleColor(UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0), for: .normal)
             //Spacing
             //Spacing
             cell.contentView.backgroundColor = UIColor.clear
             cell.backgroundColor = UIColor.clear
-            var whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 90))
-            whiteRoundedView.backgroundColor = .white
-            
-            
-            
-            
-            
-            whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
-            // whiteRoundedView.backgroundColor = .lightGray
-            
-            
-            whiteRoundedView.layer.masksToBounds = false
-            whiteRoundedView.layer.cornerRadius = 2.0
-            whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: -1)
-            whiteRoundedView.layer.shadowOpacity = 0.2
-            
-            
-            
-            
-            if(!cell.alreadyLoaded)
+            cell.content.text = documentations[indexPath.row].content ?? ""
+            if(cell.content.text! == "")
             {
-                cell.contentView.addSubview(whiteRoundedView)
-                cell.contentView.sendSubview(toBack: whiteRoundedView)
+                cell.content.text = "AUDIORECORDING"
+                cell.content.textColor = UIColor(hue: 0.3889, saturation: 1, brightness: 0.59, alpha: 1.0)
             }
+            else
+            {
+                cell.content.textColor = UIColor(named: "Reverse_UIBackcolor")
+            }
+         
+            
+            
+            
+            
+           
             
             cell.alreadyLoaded = true
             
@@ -91,35 +93,10 @@ class DocumentationVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         cell.CreationDate.text = formatter.string(from: documentations[indexPath.row].created!)
         cell.ID.text = String(documentations[indexPath.row].id)
         cell.Content.text = documentations[indexPath.row].content
-        
+            
         //Spacing
-        cell.contentView.backgroundColor = UIColor.clear
-        cell.backgroundColor = UIColor.clear
-        var whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 90))
-        whiteRoundedView.backgroundColor = .white
-        
-        
-        
-        
-      
-            whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0])
-            // whiteRoundedView.backgroundColor = .lightGray
-        
-        
-        whiteRoundedView.layer.masksToBounds = false
-        whiteRoundedView.layer.cornerRadius = 2.0
-        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: -1)
-        whiteRoundedView.layer.shadowOpacity = 0.2
-        
        
-        
-        
-        if(!cell.alreadyLoaded)
-        {
-            cell.contentView.addSubview(whiteRoundedView)
-            cell.contentView.sendSubview(toBack: whiteRoundedView)
-        }
-        
+       
         cell.alreadyLoaded = true
         
         

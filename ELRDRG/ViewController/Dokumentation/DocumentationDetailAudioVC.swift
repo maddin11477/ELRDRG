@@ -29,8 +29,22 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
 
     @IBAction func saveAudioRecord(_ sender: UIBarButtonItem) {
         print("Audio gespeichert unter: \(storageLocation)")
-        docuHandler.SaveAudioDocumentation(audioName: audioName, description: descriptionTextField.text!, saveDate: Date())
-        audioPlayer.stop()
+        if let docu = audioDocumentation
+        {
+            docu.content = descriptionTextField.text ?? ""
+            docuHandler.UpdatedDocumentations()
+        }
+        else
+        {
+             docuHandler.SaveAudioDocumentation(audioName: audioName, description: descriptionTextField.text ?? "", saveDate: Date())
+        }
+       
+        
+        if let player = audioPlayer
+        {
+            
+            player.stop()
+        }
         dismiss(animated: true, completion: nil)
     }
     @IBAction func cancelAudioRecorder(_ sender: UIBarButtonItem) {

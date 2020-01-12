@@ -127,6 +127,8 @@ public class DocumentationHandler {
         DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
     }
     
+  
+    
     public func updatePhotoDocumentation(docu : Documentation, text : String?, picture : UIImage)
     {
         let uuidOfPhoto = NSUUID().uuidString

@@ -72,7 +72,7 @@ class DataHandler: NSObject {
         saveData()
     }
     
-    public func createUser(password : String, firstname : String, lastname : String, isAdmin : Bool)-> Int
+    public func createUser(password : String, firstname : String, lastname : String, isAdmin : Bool, eMail : String, phone : String)-> Int
     {
         //0 == already exists, 1 == true, -1 == wrong input values
         if(password != "" && firstname != "" && lastname != "")
@@ -89,7 +89,7 @@ class DataHandler: NSObject {
             }
             if(alreadyExists)
             {
-                return 0
+                return -1
             }
             
             let user = User(context: AppDelegate.viewContext)
@@ -98,6 +98,8 @@ class DataHandler: NSObject {
                    user.isAdmin = isAdmin
                    user.password = password
                     user.unique = UUID().uuidString
+                    user.phone = phone
+                    user.eMail = eMail
                    
                    
                    
@@ -106,7 +108,7 @@ class DataHandler: NSObject {
         }
         else
         {
-            return -1
+            return 0
         }
         
     }
@@ -176,6 +178,9 @@ class DataHandler: NSObject {
             print(error)
         }
     }
+    
+    
+    
     
     
 }

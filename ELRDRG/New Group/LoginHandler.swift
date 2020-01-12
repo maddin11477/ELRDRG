@@ -91,6 +91,12 @@ public struct LoginHandler {
         }
     }
     
+    public func deleteUser(user : User)
+    {
+        AppDelegate.viewContext.delete(user)
+        saveData()
+    }
+    
     public func getAllUsers() -> [User]
     {
         let userRequest: NSFetchRequest<User> = User.fetchRequest()

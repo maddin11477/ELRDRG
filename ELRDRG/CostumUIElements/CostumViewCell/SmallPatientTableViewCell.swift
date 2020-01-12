@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol changedUnitDelegate {
+    func reloadTable()
+}
+
 class SmallPatientTableViewCell: UITableViewCell {
 
     
@@ -20,13 +24,40 @@ class SmallPatientTableViewCell: UITableViewCell {
     @IBOutlet weak var lastName: UILabel!
     
     public var patient : Victim?
+    public var fahrzeug : Unit?
     
     
     @IBOutlet weak var destination: UILabel!
     
+    @IBOutlet var removeHospitalBtn: UIButton!
+    @IBOutlet var removePatientBtn: UIButton!
+    public var delegate : changedUnitDelegate?
+    
+    @IBOutlet var hospitalInfoStateColorElement: UILabel!
+    
+    @IBAction func removeHospital(_ sender: Any) {
+        
+        self.patient?.hospital = nil
+        DataHandler().saveData()
+        delegate?.reloadTable()
+        
+        
+    }
+    @IBAction func removePatient(_ sender: Any) {
+        if let pat = self.patient
+        {
+            self.fahrzeug?.removeFromPatient(pat)
+            DataHandler().saveData()
+            delegate?.reloadTable()
+        }
+        
+        
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 

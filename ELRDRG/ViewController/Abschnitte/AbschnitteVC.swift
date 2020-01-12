@@ -76,22 +76,22 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool
     {
-       /* if let sectionCell = session.items[0].localObject as? SectionTableViewCell
+       if let _ = session.items[0].localObject as? SectionTableViewCell
        {
             return true
         }
        else
        {
         return false
-        }*/
-        return true
+        }
+        //return true
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         
         
         print("test")
-        if let sectionCell = session.items[0].localObject as? SectionTableViewCell
+        if let _ = session.items[0].localObject as? SectionTableViewCell
         {
             return UICollectionViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
          }
@@ -244,10 +244,11 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             {
                 i = 2
             }
-            if(unit.patient?.hospital != nil)
+            
+           /* if(unit.patient?.hospital != nil)
             {
                 i=3
-            }
+            }*/
             
             count = count + i * 49
         }

@@ -9,6 +9,20 @@
 import UIKit
 import CoreData
 
-public class BaseHospital: NSManagedObject {
+public class BaseHospital: NSManagedObject, Comparable{
+}
 
+extension BaseHospital{
+	public static func < (lhs: BaseHospital, rhs: BaseHospital) -> Bool {
+		return lhs.distance < rhs.distance
+	}
+
+
+	public var distance : Double {
+		get{
+			return LocationHandler.shared().getDistance(RemoteLocation: self.lat, RemoteLocation: self.lng)		
+		}
+	}
+
+	
 }

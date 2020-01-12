@@ -24,6 +24,7 @@ class HospitalHandler: NSObject {
         let hospital = Hospital(context: AppDelegate.viewContext)
         hospital.name = baseHospital.name
         hospital.city = baseHospital.city
+
         return hospital
     }
     
@@ -45,7 +46,11 @@ class HospitalHandler: NSObject {
         do
         {
             let basehospitals = try AppDelegate.viewContext.fetch(userRequest)
-            return basehospitals
+
+			//Basehotel implements comparable Protocol
+			return basehospitals.sorted()
+
+
         }
         catch
         {

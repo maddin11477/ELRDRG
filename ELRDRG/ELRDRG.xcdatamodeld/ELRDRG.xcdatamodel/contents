@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19C39d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D49f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES" codeGenerationType="category">
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String"/>
@@ -31,7 +31,7 @@
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="documentation" inverseEntity="Attachment"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="documentations" inverseEntity="Mission"/>
     </entity>
-    <entity name="Hospital" representedClassName="Hospital" syncable="YES" codeGenerationType="class">
+    <entity name="Hospital" representedClassName=".Hospital" syncable="YES" codeGenerationType="category">
         <attribute name="city" optional="YES" attributeType="String"/>
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -71,7 +71,7 @@
         <attribute name="callsign" optional="YES" attributeType="String"/>
         <attribute name="crewCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Victim" inverseName="fahrzeug" inverseEntity="Victim"/>
+        <relationship name="patient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="fahrzeug" inverseEntity="Victim"/>
         <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="units" inverseEntity="Section"/>
     </entity>
     <entity name="User" representedClassName=".User" syncable="YES" codeGenerationType="category">
@@ -98,12 +98,13 @@
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="heatInjury" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="helicopter" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hospitalClearance" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="intubiert" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isDone" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
-        <attribute name="sht" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="schockraum" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="stabil" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="fahrzeug" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Unit" inverseName="patient" inverseEntity="Unit"/>
         <relationship name="hospital" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hospital" inverseName="victim" inverseEntity="Hospital"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="victims" inverseEntity="Mission"/>
@@ -116,13 +117,13 @@
         <element name="BaseSection" positionX="-819" positionY="-720" width="128" height="60"/>
         <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="88"/>
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
-        <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="120"/>
+        <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="118"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="105"/>
         <element name="Mission" positionX="-425" positionY="-613" width="128" height="180"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="105"/>
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>
-        <element name="Unit" positionX="-146" positionY="-163" width="128" height="120"/>
+        <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
         <element name="User" positionX="-478.65234375" positionY="-1069.65625" width="128" height="253"/>
-        <element name="Victim" positionX="-396" positionY="-367" width="128" height="300"/>
+        <element name="Victim" positionX="-396" positionY="-367" width="128" height="313"/>
     </elements>
 </model>

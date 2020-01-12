@@ -12,23 +12,22 @@ protocol VictimDropDelegate {
     func droppedVictim()
 }
 
-class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate {
+class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, changedUnitDelegate {
+    
+    func reloadTable() {
+        table.reloadData()
+        self.unitChangedDelegate?.reloadTable()
+    }
+    
+    
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         for item in coordinator.items
         {
             
             if let patient = item.dragItem.localObject as? Victim
             {
-                if(unit_?.patient != nil)
-                {
-                    
-                    let alert = UIAlertController(title: "Achtung", message: "Dem Fahrzeug wurde bereits ein Patient zugewiesen!" , preferredStyle: UIAlertControllerStyle.alert)
-                    let action = UIAlertAction(title: "OK", style: .default, handler: { action in
-                    })
-                    alert.addAction(action)
-                     UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
-                else if((patient.fahrzeug?.allObjects as! [Unit]).count > 0)
+               
+                if((patient.fahrzeug?.allObjects as! [Unit]).count > 0)
                 {
                     let messageString = "Der Patient wurde bereits dem " + ((patient.fahrzeug?.allObjects as! [Unit])[0].callsign ?? "unbekannt") + " zugeordnet."
                     let alert = UIAlertController(title: "Achtung", message: messageString, preferredStyle: UIAlertControllerStyle.alert)
@@ -36,12 +35,15 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
                 }
                 else
                 {
-                    unit_?.patient = patient
                     
-                    let secData = SectionHandler()
-                    secData.saveData()
-                    self.delegate?.droppedVictim()
-                    table.reloadData()
+                        unit_?.addToPatient(patient)
+                        let secData = SectionHandler()
+                        secData.saveData()
+                        self.delegate?.droppedVictim()
+                        table.reloadData()
+                    
+                    
+                    
                 }
                 
             }
@@ -55,7 +57,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        if let patient = session.items[0].localObject as? Victim
+        if let _ = session.items[0].localObject as? Victim
         {
             return true
         }
@@ -80,16 +82,14 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var height = 37
         var number : Int = 1
+        
         if(unit_?.patient != nil)
         {
-            height = 67
-            number = 2
-            
+            number = (unit_?.getVictimCount() ?? 0) + 1
+            height = 30 * number
         }
         
-        tableHeight.constant = CGFloat(height + 5)
-        
-        
+        tableHeight.constant = CGFloat(height )
         return number
         
     }
@@ -105,55 +105,73 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             cell.unitTypeImage.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit_!.type))
             return cell
         }
-        else if(indexPath.row == 1)
+        else if(indexPath.row > 0)
         {
             let cell = table.dequeueReusableCell(withIdentifier: "SmallPatientTableViewCell") as! SmallPatientTableViewCell
-            let victim = unit_?.patient
-            cell.firstName.text = "  " + (victim!.firstName ?? "") + " " + (victim!.lastName ?? "")
-            
-            cell.PatID.text = "Pat: " + String(victim!.id)
-            cell.category.text = String(victim!.category)
-            if(victim!.category == 1)
+            //let victim = (unit_?.patient?.allObjects as? [Victim])[indexPath.row - 1]
+            if let victimList = (unit_?.patient?.allObjects as? [Victim])
             {
-                cell.category.backgroundColor = UIColor.red
-            }
-            else if(victim!.category == 2)
-            {
-                cell.category.backgroundColor = UIColor.orange
-            }
-            else if(victim!.category == 3)
-            {
-                cell.category.backgroundColor = UIColor.green
-            }
-            else if(victim!.category == 4)
-            {
-                cell.category.backgroundColor = UIColor.blue
-            }
-            else
-            {
-                cell.category.backgroundColor = UIColor.black
+                let victim = victimList[indexPath.row - 1]
+                cell.firstName.text = "  " + (victim.firstName ?? "") + " " + (victim.lastName ?? "")
                 
+                cell.PatID.text = "Pat: " + String(victim.id)
+				if victim.category > -1
+				{
+					cell.category.text = String(victim.category)
+				}
+				else
+				{
+					cell.category.text = ""
+				}
+
+				cell.hospitalInfoStateColorElement.backgroundColor = victim.getHospitalInfoState()
+                if(victim.category == 1)
+                {
+                    cell.category.backgroundColor = UIColor.red
+                }
+                else if(victim.category == 2)
+                {
+                    cell.category.backgroundColor = UIColor.orange
+                }
+                else if(victim.category == 3)
+                {
+                    cell.category.backgroundColor = UIColor.green
+                }
+                else if(victim.category == 4)
+                {
+                    cell.category.backgroundColor = UIColor.blue
+                }
+                else
+                {
+					cell.category.backgroundColor = UIColor(named: "UIBackcolor_NEW")
+                }
                 
-            }
-            cell.patient = victim
-            if(victim!.hospital != nil)
-            {
-                cell.destination.text = "  " + (victim!.hospital!.name ?? "")
-            }
-            else
-            {
-                cell.destination.text = ""
+                cell.patient = victim
+                cell.fahrzeug = unit_
+                cell.delegate = self
+                
+                if(victim.hospital != nil)
+                {
+                    cell.removeHospitalBtn.isHidden = false
+                    cell.destination.text = "  " + (victim.hospital!.name ?? "")
+                }
+                else
+                {
+                    cell.destination.text = ""
+                    cell.removeHospitalBtn.isHidden = true
+                }
+                
+                return cell
             }
             
-            return cell
         }
-        else
-        {
-            let cell = table.dequeueReusableCell(withIdentifier: "SmallhospitalTableViewCell") as! SmallhospitalTableViewCell
-            cell.City.text = unit_!.patient!.hospital?.city
-            cell.Name.text = unit_!.patient!.hospital?.name
-            return cell
-        }
+        
+        //Überflüssig aber für die Sicherheit geb ich halt noch was zurück
+        let cell = table.dequeueReusableCell(withIdentifier: "SmallhospitalTableViewCell") as! SmallhospitalTableViewCell
+        //cell.City.text = unit_!.patient!.hospital?.city
+        //cell.Name.text = unit_!.patient!.hospital?.name
+        return cell
+        
        
     }
     
@@ -174,16 +192,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     public var delegate : VictimDropDelegate?
     
     public var unit_ : Unit?
-
-    
-    
- 
-    
-   
-    
-    
- 
-    
+    public var unitChangedDelegate : changedUnitDelegate?
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -32,6 +32,7 @@ class BenutzerListeViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ShowUserViewController") as! ShowUserViewController
         viewController.user = userList[indexPath.row]
+        viewController.delegete = self
         viewController.modalPresentationStyle = .formSheet
         viewController.popoverPresentationController?.sourceView = self.view
         self.present(viewController, animated: true, completion: nil)
@@ -42,8 +43,10 @@ class BenutzerListeViewController: UIViewController, UITableViewDelegate, UITabl
     {
         let addUserController = self.storyboard?.instantiateViewController(withIdentifier: "AddUserViewController") as! AddUserViewController
         addUserController.delegate = self
-        addUserController.modalPresentationStyle = .popover
+        addUserController.modalPresentationStyle = .formSheet
         addUserController.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+        //addUserController.popoverPresentationController?.sourceView = self.view
+        
         self.present(addUserController, animated: true, completion: nil)
       
     }

@@ -10,10 +10,12 @@ import UIKit
 import CoreData
 
 class UnitHandler: NSObject {
+	
 
       var delegate : UnitProtocol?
     
     enum UnitType: Int16 {
+        case all = -1
         case RTW = 0
         case KTW = 1
         case NEF = 2
@@ -29,6 +31,75 @@ class UnitHandler: NSObject {
         case wasserwacht = 10
         case elw = 11
     }
+    
+    public func getUsedUnits(UnitType type : UnitType = .all) -> [Unit]
+    {
+		
+        var units : [Unit] = []
+        let sections = SectionHandler().getSections()
+        let patients = DataHandler().getVictims()
+        for section in sections {
+            if let _units = section.units?.allObjects as? [Unit]
+            {
+                //Nur Units die keinen Patienten haben, units die patienten haben werden anschließend aus Patienten gelesen (sonst doppelt)
+				print(_units.count)
+				print("vorher:")
+				print(units.count)
+                units += _units.filter({
+					if let victims = $0.patient?.allObjects as? [Victim] {
+						if(victims.count > 0)
+						{
+							return false
+						}
+						else
+						{
+							return true
+						}
+
+                    }
+                    return true
+                })
+				print("nachher:")
+				print(units.count)
+            }
+        }
+        
+        for patient in patients
+        {
+            if let _units = patient.fahrzeug?.allObjects as? [Unit]
+            {
+                units += _units
+            }
+        }
+        if(type == .all)
+        {
+            return units
+        }
+        else
+        {
+            return units.filter({$0.type == type.rawValue})
+        }
+        
+    }
+
+
+	public func getFreeUsedUnits(UnitType type : UnitType = .all)->[Unit]
+	{
+		let units = getUsedUnits(UnitType: type).filter({
+			if let victims = $0.patient?.allObjects as? [Victim]
+			{
+				if(victims.count > 0)
+				{
+					return false
+				}
+			}
+			return true
+		})
+		return units
+	}
+
+    
+    
     public func addBaseUnit(callsign : String, type : UnitType, crewCount : Int16) -> BaseUnit
     {
         print("Adding Fahrzeug: " + callsign)

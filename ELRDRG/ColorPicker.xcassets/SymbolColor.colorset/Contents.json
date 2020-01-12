@@ -7,8 +7,11 @@
     {
       "idiom" : "universal",
       "color" : {
-        "platform" : "ios",
-        "reference" : "darkTextColor"
+        "color-space" : "gray-gamma-22",
+        "components" : {
+          "white" : "0.229",
+          "alpha" : "1.000"
+        }
       }
     },
     {
@@ -20,8 +23,11 @@
         }
       ],
       "color" : {
-        "platform" : "ios",
-        "reference" : "darkTextColor"
+        "color-space" : "gray-gamma-22",
+        "components" : {
+          "white" : "0.646",
+          "alpha" : "1.000"
+        }
       }
     }
   ]

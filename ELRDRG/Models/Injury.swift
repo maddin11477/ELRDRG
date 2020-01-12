@@ -10,5 +10,15 @@ import UIKit
 import CoreData
 
 public class Injury: NSManagedObject {
+}
 
+extension Injury
+{
+
+    public var displayText : String? {
+        get
+        {
+            return (diagnosis ?? " ") + " " + (location?.description ?? " ")
+        }
+    }
 }

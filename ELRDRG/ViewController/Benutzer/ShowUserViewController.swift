@@ -10,7 +10,7 @@ import UIKit
 
 class ShowUserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    public var delegete : AddUserDelegate?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -71,15 +71,54 @@ class ShowUserViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func deleteUser(_ sender: Any)
     {
-        let button = sender as? UIButton
+      /*  let button = sender as? UIButton
        
         let alert = UIAlertController(title: "Huubsi", message: "Funktion noch nicht implementiert", preferredStyle: .actionSheet)
              let action = UIAlertAction(title: "OK Cool", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)*/
+        let loginHandler = LoginHandler()
+        
+        let ownUser : User = loginHandler.getLoggedInUser()!
+        //Überpüfe ob eigener Benutzer ausgewählt wurde
+        if(ownUser.unique! == user!.unique!)
+        {
+            let alertController = UIAlertController(title: "NEIN!", message: "Sie können nicht Ihren eigenen Benutzer löschen!", preferredStyle: .actionSheet)
+            let action = UIAlertAction(title: "OK", style: .destructive, handler: nil)
+            alertController.addAction(action)
+            alertController.popoverPresentationController?.sourceView = self.view
+           self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        
+        //Warnen bevor Benutzer gelöscht wird
+        let userMessage : String = "Sind Sie sicher, dass Sie den Benutzer " + user!.firstName! + " " + user!.lastName! + " löschen möchten?"
+        let Alert = UIAlertController(title: "Löschen?", message: userMessage, preferredStyle: .alert)
+        let actionDelete = UIAlertAction(title: "Löschen", style: .destructive, handler: self.removeUser)
+        Alert.addAction(actionDelete)
+        let actionAbort = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+        Alert.addAction(actionAbort)
+        Alert.modalPresentationStyle = .popover
+        Alert.popoverPresentationController?.sourceView = self.view
+        self.present(Alert, animated: true, completion: nil)
     }
+    
+    
     @IBAction func editUser(_ sender: Any)
     {
         let alert = UIAlertController(title: "Huubsi", message: "Funktion noch nicht implementiert", preferredStyle: .actionSheet)
         let action = UIAlertAction(title: "OK Cool", style: .cancel, handler: nil)
+        alert.addAction(action)
+        //self.present(alert, animated: true, completion: nil)
+    }
+    
+    func removeUser(action : UIAlertAction)
+    {
+        let loginHandler = LoginHandler()
+        loginHandler.deleteUser(user: user!)
+        self.delegete?.addedUser()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBOutlet weak var lbl_area: UILabel!

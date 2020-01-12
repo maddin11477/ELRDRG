@@ -101,7 +101,7 @@ class CategorySegmentedControl: UISegmentedControl {
             }
             else
             {
-                subview.backgroundColor = subview.backgroundColor?.withAlphaComponent(0.2)
+                subview.backgroundColor = subview.backgroundColor?.withAlphaComponent(0.1)
             }
             index = index + 1
         }
@@ -111,27 +111,27 @@ class CategorySegmentedControl: UISegmentedControl {
             
             if(currentIndex == 0)
             {
-                sortedViews[currentIndex].backgroundColor = UIColor.red.withAlphaComponent(0.2)
+                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.1)
                 
             }
             else if(currentIndex == 1)
             {
-                sortedViews[currentIndex].backgroundColor = UIColor.orange.withAlphaComponent(0.2)
+                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.1)
                 
             }
             else if(currentIndex == 2)
             {
-                sortedViews[currentIndex].backgroundColor = UIColor.green.withAlphaComponent(0.2)
+                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.1)
                 
             }
             else if(currentIndex == 3)
             {
-                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.2)
+                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.1)
                 
             }
             else if(currentIndex == 4)
             {
-                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.2)
+                sortedViews[currentIndex].backgroundColor = UIColor.white.withAlphaComponent(0.1)
                 
             }
             

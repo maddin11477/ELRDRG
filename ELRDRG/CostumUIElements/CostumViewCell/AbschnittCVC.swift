@@ -11,8 +11,12 @@ protocol SectionDropProtocol {
     func dropedUnitInSection()
     func droppedPatientInUnit()
 }
-class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate, VictimDropDelegate, UIDropInteractionDelegate {
+class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate, VictimDropDelegate, UIDropInteractionDelegate, changedUnitDelegate {
    
+    func reloadTable() {
+        table.reloadData()
+    }
+    
     @IBOutlet weak var navBar: UINavigationBar!
     
     func costumEnableDropping(on view : UIView, DropInteractionDelegate: UIDropInteractionDelegate)
@@ -90,7 +94,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        //let destinationPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
+        
         for item in coordinator.items
         {
            
@@ -118,17 +122,19 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         else {
             return false
         }
-       // return session.canLoadObjects(ofClass: NSAttributedString.self)
+       
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         if let unit = session.items[0].localObject as? Unit
         {
-            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
            
         }
         else {
-            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)        }
+            return UITableViewDropProposal(operation: .move, intent: .automatic)
+            
+        }
         
     }
     
@@ -144,6 +150,46 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
        
         self.layer.shadowOffset = CGSize.zero
         self.layer.shadowRadius = 10
+        
+        let units = (section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })
+        for unit in units
+        {
+            if(unit.type == 0)
+            {
+                //RTW
+                anzahlRTW = 1 + anzahlRTW
+            }
+            else if(unit.type == 1)
+            {
+                //KTW
+                anzahlKTW = 1 + anzahlKTW
+            }
+            else if(unit.type == 2)
+            {
+                anzahlNEF = 1 + anzahlNEF
+            }
+            else if(unit.type == 3)
+            {
+                anzahlRTH = 1 + anzahlRTH
+            }
+            else if(unit.type == 4)
+            {
+                anzahlSonstige = 1 + anzahlSonstige
+            }
+            lblKTW.text = "KTW: " + String(anzahlKTW)
+            lblRTH.text = "RTH: " + String(anzahlRTH)
+            lblRTW.text = "RTW: " + String(anzahlRTW)
+            lblNEF.text = "NEF: " + String(anzahlNEF)
+            
+        }
+        
+        if(anzahl == 0)
+        {
+            lblKTW.text = "KTW: 0"
+            lblNEF.text = "NEF: 0"
+            lblRTH.text = "RTH: 0"
+            lblRTW.text = "RTW: 0"
+        }
         return anzahl
     }
     
@@ -176,7 +222,12 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         {
             let removePatient = UITableViewRowAction(style: .normal, title: "Patient entfernen") { (action, indexPath) in
                 let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
-                unit_.patient?.fahrzeug = nil
+                //Fahrzeugverknüpfung in Patientenobject wird gelöscht
+                for vic in unit_.patient?.allObjects as! [Victim]
+                {
+                    vic.fahrzeug = nil
+                }
+                //set wird geleert
                 unit_.patient = nil
                 let handler = SectionHandler()
                 handler.saveData()
@@ -186,12 +237,25 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
             removePatient.backgroundColor = UIColor.blue
             
             actions.append(removePatient)
-            if(unit.patient?.hospital != nil)
+            var hasHospital = false
+            for vic in unit.patient?.allObjects as! [Victim]
+            {
+                if vic.hospital != nil
+                {
+                    hasHospital = true
+                    break
+                }
+            }
+            if(hasHospital)
             {
                 let removeHospital = UITableViewRowAction(style: .destructive, title: "Ziel entfernen") { (action, indexPath) in
                     // delete item at indexPath
                      let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
-                    unit_.patient?.hospital = nil
+                    for vic in unit_.patient?.allObjects as! [Victim]
+                    {
+                        vic.hospital = nil
+                    }
+                    //unit_.patient?.hospital = nil
                     let handler = SectionHandler()
                     handler.saveData()
                     self.table.reloadData()
@@ -217,32 +281,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
          */
         let unit = (section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
         
-        if(unit.type == 0)
-        {
-            //RTW
-            anzahlRTW = 1 + anzahlRTW
-        }
-        else if(unit.type == 1)
-        {
-            //KTW
-            anzahlKTW = 1 + anzahlKTW
-        }
-        else if(unit.type == 2)
-        {
-            anzahlNEF = 1 + anzahlNEF
-        }
-        else if(unit.type == 3)
-        {
-            anzahlRTH = 1 + anzahlRTH
-        }
-        else if(unit.type == 4)
-        {
-            anzahlSonstige = 1 + anzahlSonstige
-        }
-        lblKTW.text = "KTW: " + String(anzahlKTW)
-        lblRTH.text = "RTH: " + String(anzahlRTH)
-        lblRTW.text = "RTW: " + String(anzahlRTW)
-        lblNEF.text = "NEF: " + String(anzahlNEF)
+      
         
      
         
@@ -250,6 +289,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         cell.unit_ = unit
         cell.delegate = self
         cell.setProperties()
+        cell.unitChangedDelegate = self
         
         return cell
         
