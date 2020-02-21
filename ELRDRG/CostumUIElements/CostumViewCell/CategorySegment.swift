@@ -164,16 +164,29 @@ class CategorySegmentedControl: UISegmentedControl {
         }
         
         
-        if(currentIndex == 3 || currentIndex == 4)
+        if(currentIndex == 3 )
         {
-            sortedViews[currentIndex].backgroundColor = UIColor.blue.withAlphaComponent(1)
+            sortedViews[currentIndex].backgroundColor = UIColor.lightGray.withAlphaComponent(1)
             if #available(iOS 13.0, *) {
-                self.selectedSegmentTintColor = UIColor.blue.withAlphaComponent(1)
+                self.selectedSegmentTintColor = UIColor.lightGray.withAlphaComponent(1)
             }
             
         }
+		else if(currentIndex == 4)
+		{
+			sortedViews[currentIndex].backgroundColor = UIColor.gray.withAlphaComponent(1)
+			sortedViews[currentIndex].tintColor = UIColor.white
+
+			sortedViews[currentIndex].tintColorDidChange()
+
+
+			sortedViews[currentIndex].tintColorDidChange()
+           
+		}
         else
         {
+			let titletextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+			self.setTitleTextAttributes(titletextAttributes, for: .selected)
             sortedViews[currentIndex].backgroundColor = sortedViews[currentIndex].backgroundColor?.withAlphaComponent(1)
         }
  

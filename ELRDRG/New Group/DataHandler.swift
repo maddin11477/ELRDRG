@@ -43,8 +43,8 @@ class DataHandler: NSObject {
     
     public func setEndDate()
     {
-        let mission = getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
-        mission.end = Date()
+        //let mission = getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        //mission.end = Date()
         saveData()
     }
     

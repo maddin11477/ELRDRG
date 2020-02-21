@@ -256,7 +256,7 @@ class Export: NSObject {
             <a>   Abschnitte</a><p class="fas fa-th-large" style="margin-bottom: 0px; float: right; margin: 6px;"></p>
             </div>
             \(sSections)
-            
+            <div class='pagebreak'></div>
             """
         return html
     }

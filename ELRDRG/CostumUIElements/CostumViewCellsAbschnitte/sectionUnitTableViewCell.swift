@@ -23,7 +23,31 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         for item in coordinator.items
         {
-            
+			if let pat = self.patient_
+			{
+				if let unit = item.dragItem.localObject as? Unit
+				{
+					unit.section?.removeFromUnits(unit)
+
+					unit.section = nil
+					unit.section = pat.section
+					unit.section?.addToUnits(unit)
+					unit.addToPatient(pat)
+					pat.addToFahrzeug(unit)
+					patient_!.section!.removeFromVictims(patient_!)
+					pat.section = nil
+					DataHandler().saveData()
+					if let delegate = self.delegate
+					{
+						delegate.droppedVictim()
+					}
+
+
+
+				}
+				table.reloadData()
+				return
+			}
             if let patient = item.dragItem.localObject as? Victim
             {
                
@@ -37,9 +61,12 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
                 {
                     
                         unit_?.addToPatient(patient)
+						patient.section?.removeFromVictims(patient)
+						patient.section = nil
                         let secData = SectionHandler()
                         secData.saveData()
                         self.delegate?.droppedVictim()
+
                         table.reloadData()
                     
                     
@@ -61,6 +88,10 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
         {
             return true
         }
+		if let _ = session.items[0].localObject as? Unit
+		{
+			return true
+		}
         else
         {
             return false
@@ -82,20 +113,36 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var height = 37
         var number : Int = 1
-        
-        if(unit_?.patient != nil)
-        {
-            number = (unit_?.getVictimCount() ?? 0) + 1
-            height = 30 * number
-        }
-        
-        tableHeight.constant = CGFloat(height )
-        return number
+		if let _ = self.unit_
+		{
+			//unit
+			if(unit_?.patient != nil)
+			{
+				number = (unit_?.getVictimCount() ?? 0) + 1
+				height = 30 * number
+			}
+
+			tableHeight.constant = CGFloat(height )
+			return number
+		}
+		else
+		{
+			number = 1
+			tableHeight.constant = CGFloat(26)
+			return number
+		}
+
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(indexPath.row == 0)
+
+		var row = indexPath.row
+		if let _ = self.patient_
+		{
+			row = 1
+		}
+        if(row == 0)
         {
             let unitData = UnitHandler()
             let cell = table.dequeueReusableCell(withIdentifier: "SmallUnitTableViewCell") as! SmallUnitTableViewCell
@@ -105,13 +152,22 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
             cell.unitTypeImage.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit_!.type))
             return cell
         }
-        else if(indexPath.row > 0)
+        else if(row > 0)
         {
             let cell = table.dequeueReusableCell(withIdentifier: "SmallPatientTableViewCell") as! SmallPatientTableViewCell
             //let victim = (unit_?.patient?.allObjects as? [Victim])[indexPath.row - 1]
+			var pat : Victim?
             if let victimList = (unit_?.patient?.allObjects as? [Victim])
             {
-                let victim = victimList[indexPath.row - 1]
+				 pat = victimList[indexPath.row - 1]
+			}
+			else
+			{
+				pat = self.patient_
+			}
+			if let victim = pat
+			{
+
                 cell.firstName.text = "  " + (victim.firstName ?? "") + " " + (victim.lastName ?? "")
                 
                 cell.PatID.text = "Pat: " + String(victim.id)
@@ -139,8 +195,15 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
                 }
                 else if(victim.category == 4)
                 {
-                    cell.category.backgroundColor = UIColor.blue
+					cell.category.text = ""
+					cell.category.backgroundColor = UIColor.lightGray
                 }
+				else if victim.category == 5
+				{
+					cell.category.text = ""
+					//cell.category.textColor = UIColor.white
+					cell.category.backgroundColor = UIColor.black
+				}
                 else
                 {
 					cell.category.backgroundColor = UIColor(named: "UIBackcolor_NEW")
@@ -192,6 +255,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
     public var delegate : VictimDropDelegate?
     
     public var unit_ : Unit?
+	public var patient_ : Victim?
     public var unitChangedDelegate : changedUnitDelegate?
     
     override func setSelected(_ selected: Bool, animated: Bool) {

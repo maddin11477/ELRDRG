@@ -44,12 +44,27 @@ class SmallPatientTableViewCell: UITableViewCell {
         
     }
     @IBAction func removePatient(_ sender: Any) {
-        if let pat = self.patient
-        {
-            self.fahrzeug?.removeFromPatient(pat)
-            DataHandler().saveData()
-            delegate?.reloadTable()
-        }
+		if let car = fahrzeug
+		{
+			if let pat = self.patient
+			{
+				car.removeFromPatient(pat)
+				pat.section = car.section
+				car.section?.addToVictims(pat)
+				DataHandler().saveData()
+				delegate?.reloadTable()
+			}
+		}else
+		{
+			if let pat = self.patient
+			{
+				pat.section?.removeFromVictims(pat)
+				pat.section = nil
+				delegate?.reloadTable()
+			}
+		}
+
+
         
         
     }

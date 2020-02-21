@@ -18,6 +18,39 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         injuryTable.reloadData()
         print("reloading")
     }
+
+
+	@IBAction func txt_Age_Edit_ended(_ sender: Any) {
+		if let s_Age = txtAge.text
+		{
+			if let age = Int16(s_Age)
+			{
+				self.victim.age = age
+				if let birthday = self.victim.birthdate
+				{
+					let formatter = DateFormatter()
+					formatter.dateFormat = "dd.MM.yyyy"
+					self.victim.birthdate = setAge(age: Int(age), date: birthday)
+					self.txtBirthdate.text = formatter.string(from: self.victim.birthdate ?? birthday)
+					data.saveData()
+				}
+			}
+
+		}
+	}
+
+	func setAge(age : Int, date : Date)->Date
+	{
+		let calender = Calendar.current
+		var components : DateComponents = calender.dateComponents([.day, .month, .year], from: date)
+		if let currentYear = calender.dateComponents([.year], from: Date()).year
+		{
+			components.year = currentYear - age
+			return calender.date(from: components) ?? date
+		}
+		return date
+	}
+
     
     @IBOutlet weak var helicopterSwitch: UISwitch!
     
@@ -68,9 +101,15 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         }
         if(editingStyle == .delete)
         {
-            let unit = (victim.fahrzeug?.allObjects as! [Unit])[indexPath.row]
-            unit.patient = nil
+			let unit = (victim.fahrzeug?.allObjects as! [Unit])[indexPath.row]
+			unit.removeFromPatient(self.victim)
             victim.removeFromFahrzeug(unit)
+			if victim.fahrzeug!.allObjects.count < 1
+			{
+				victim.section = unit.section
+				victim.section?.addToVictims(self.victim)
+			}
+
             data.saveData()
             transportUnitTable.reloadData()
         }

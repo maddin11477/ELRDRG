@@ -10,7 +10,25 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapVC: UIViewController, CLLocationManagerDelegate {
+class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewDelegate, MKMapViewDelegate {
+	func removeSection(section: Section?) {
+
+	}
+
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		let _view = MKAnnotationView(annotation: annotation, reuseIdentifier: "test")
+		let view = SectionAnnotationView()
+		view.delegate = self
+		self.sections = SectionHandler().getSections()
+		if(sections.count > 0)
+		{
+			view.setSection(section: sections[0])
+
+		}
+
+		return _view
+	}
+
 
     let locationManager = CLLocationManager()
     let selfPin = MKPointAnnotation()
@@ -33,7 +51,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    
+	var sections : [Section] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +64,19 @@ class MapVC: UIViewController, CLLocationManagerDelegate {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
         longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
+
+		let view = SectionAnnotationView()
+		view.delegate = self
+		self.sections = SectionHandler().getSections()
+		if(sections.count > 0)
+		{
+			view.setSection(section: sections[0])
+			let annoation = MKPointAnnotation()
+			annoation.coordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+			annoation.title = "TestSection Annotation"
+			mapView.addAnnotation(annoation)
+		}
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

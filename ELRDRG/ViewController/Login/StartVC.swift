@@ -9,7 +9,12 @@
 import UIKit
 import CoreData
 
-class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDelegate, UITableViewDataSource {
+class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDelegate, UITableViewDataSource, changedMissionDelegate {
+	func didEndEditingMission() {
+		missions = data.getAllMissions()
+		allowedMissions.reloadData()
+	}
+
     //Dies ist eine Teständerung
     var missions : [Mission] = []
     var Login: LoginHandler = LoginHandler()
@@ -86,6 +91,15 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         cell.Date.text = formatter.string(from: missions[indexPath.row].start!)
         cell.ID.text = String(indexPath.row + 1)
         cell.Reason.text = missions[indexPath.row].reason
+		if missions[indexPath.row].isFinished
+		{
+			cell.missionStateImage.image = UIImage(systemName: "checkmark.circle.fill")
+			cell.missionStateImage.tintColor = UIColor.green
+		}
+		cell.delegate = self
+		cell.mission = missions[indexPath.row]
+		cell.storyboard = self.storyboard
+		cell.viewController = self
         return cell
     }
     

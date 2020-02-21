@@ -10,11 +10,14 @@ import UIKit
 protocol SectionDropProtocol {
     func dropedUnitInSection()
     func droppedPatientInUnit()
+	func dropFailed(controller : UIAlertController)
 }
 class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDelegate, UITableViewDropDelegate, UITableViewDragDelegate, UnitSectionDelegate, VictimDropDelegate, UIDropInteractionDelegate, changedUnitDelegate {
    
     func reloadTable() {
         table.reloadData()
+		self.dropDelegate.dropedUnitInSection()
+		self.dropDelegate.droppedPatientInUnit()
     }
     
     @IBOutlet weak var navBar: UINavigationBar!
@@ -34,12 +37,16 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     func droppedVictim() {
         table.reloadData()
+		self.dropDelegate.dropedUnitInSection()
+		
         self.dropDelegate!.droppedPatientInUnit()
     }
     
     func handeledPatientDragDropAction() {
         table.reloadData()
     }
+
+
     
     
     
@@ -49,7 +56,17 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     
     private func dragItem(at indexpath : IndexPath) -> [UIDragItem]
     {
-        
+		if indexpath.section == 0
+		{
+			let string = NSAttributedString(string: String((section_?.victims?.allObjects as! [Victim])[indexpath.row].id))
+			let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+			let victim = (section_?.victims?.allObjects as! [Victim])[indexpath.row]
+			dragItem.localObject = victim
+			return [dragItem]
+
+		}
+		else
+		{
         let string = NSAttributedString(string: (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexpath.row].callsign!)
         
                 let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
@@ -58,7 +75,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
                 
                 return [dragItem]
             
-        
+		}
         
         
         
@@ -108,6 +125,30 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
                     self.dropDelegate.dropedUnitInSection()
                     table.reloadData()
                 }
+				else if let pat = item.dragItem.localObject as? Victim
+				{
+					if let anzahl = pat.fahrzeug?.allObjects.count
+					{
+						if anzahl < 1
+						{
+							section_?.addToVictims(pat)
+							pat.section = section_
+							SectionHandler().saveData()
+							self.dropDelegate.dropedUnitInSection()
+							table.reloadData()
+						}
+						else
+						{
+							let alertController = UIAlertController(title: "Nicht möglich", message: "Der Patient \(String(pat.id)) ist bereits Fahrzeug(en) zugeordnet. Fügen Sie das Fahrzeug dem Abschnitt hinzu.", preferredStyle: .alert)
+							let alertAction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
+							alertController.addAction(alertAction)
+							self.dropDelegate.dropFailed(controller: alertController)
+
+						}
+					}
+
+
+				}
             
             
         }
@@ -119,6 +160,10 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
             return true
            
         }
+		else if let _ = session.items[0].localObject as? Victim
+		{
+			return true
+		}
         else {
             return false
         }
@@ -126,19 +171,32 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        if let unit = session.items[0].localObject as? Unit
+        if let _ = session.items[0].localObject as? Unit
         {
             return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
            
         }
+		if let _ = session.items[0].localObject as? Victim
+		{
+			return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+		}
         else {
             return UITableViewDropProposal(operation: .move, intent: .automatic)
             
         }
         
     }
+
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 2
+	}
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		//einfach die Patienten anzeigen die kein fahrzeug zugeordnet wurden
+		if section == 0
+		{
+			return self.section_?.victims?.allObjects.count ?? 0
+		}
         let anzahl =  (section_?.units?.allObjects.count) ?? 0
          anzahlRTW = 0
          anzahlKTW = 0
@@ -271,6 +329,16 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		if indexPath.section == 0
+		{
+			let victims = section_?.victims?.allObjects as! [Victim]
+			let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
+			cell.patient_ = victims[indexPath.row]
+			cell.unit_ = nil
+			cell.setProperties()
+			cell.unitChangedDelegate = self
+			return cell
+		}
         let unitData = UnitHandler()
         /*
         case RTW = 0
@@ -287,6 +355,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
         
         let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
         cell.unit_ = unit
+		cell.patient_ = nil
         cell.delegate = self
         cell.setProperties()
         cell.unitChangedDelegate = self

@@ -9,6 +9,10 @@
 import UIKit
 
 class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate, OrganisationAddedTempObjectProtocoll{
+	func dropFailed(controller: UIAlertController) {
+		self.present(controller, animated: true, completion: nil)
+	}
+
     
     
     func createdUnit() {
@@ -347,7 +351,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             victims = []
             for victim in victimlist {
                 
-                if(victim.fahrzeug?.allObjects.count == 0)
+				if(victim.fahrzeug?.allObjects.count == 0 && victim.section == nil)
                 {
                     
                     victims.append(victim)

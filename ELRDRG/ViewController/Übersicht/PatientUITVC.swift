@@ -67,6 +67,7 @@ class PatientUITVC: UITableViewCell {
         lbl_SK.text = String(patient.category)
        
         lbl_SK.textColor = .black
+
         switch patient.category {
         case 1:
             lbl_SK.backgroundColor = .red
@@ -75,9 +76,12 @@ class PatientUITVC: UITableViewCell {
         case 3:
             lbl_SK.backgroundColor = .green
         case 4:
-            lbl_SK.backgroundColor = .blue
+			lbl_SK.text = "?"
+            lbl_SK.backgroundColor = .lightGray
         case 5:
-            lbl_SK.backgroundColor = .blue
+			lbl_SK.textColor = UIColor.white
+			lbl_SK.text = "tot"
+            lbl_SK.backgroundColor = .black
         default:
             lbl_SK.backgroundColor = .clear
         }

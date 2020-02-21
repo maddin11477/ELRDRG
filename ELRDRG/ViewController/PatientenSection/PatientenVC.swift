@@ -96,7 +96,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
    
     @IBAction func AddKatUngesichtet_click(_ sender: Any)
     {
-        data.ceateVictim(age: -1, category: -1, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
+        data.ceateVictim(age: -1, category: 4, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
         victimList = data.getVictims()
         patientTable.reloadData()
     }
@@ -333,12 +333,12 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         else if(pat.category == 4)
         {
             cell.category.backgroundColor = UIColor.white
-            cell.category.text = ""
+            cell.category.text = "?"
         }
         else if(pat.category == 5)
         {
             cell.category.backgroundColor = UIColor.black
-            cell.category.text = ""
+            cell.category.text = "tot"
         }
         if(pat.age == -1)
         {
@@ -394,7 +394,11 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
              
              let alert : UIAlertController = UIAlertController(title: "Löschen", message: "Sind Sie sicher, dass Sie Pat. " + (String(pat.id)) + " Löschen möchten?", preferredStyle: UIAlertControllerStyle.alert)
             let alertaction : UIAlertAction = UIAlertAction(title: "Löschen", style: .destructive, handler: { alert -> Void in
-               
+				pat.section?.removeFromVictims(pat)
+				for  car in pat.fahrzeug?.allObjects as! [Unit]
+				{
+					car.removeFromPatient(pat)
+				}
                 self.data.deleteVictim(victim: pat)
                 self.victimList = self.data.getVictims()
                 self.patientTable.reloadData()
