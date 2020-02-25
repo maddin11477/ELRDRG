@@ -424,6 +424,24 @@ class Export: NSObject {
         for unit in victim.fahrzeug?.allObjects as! [Unit] {
             sUnits = sUnits + ((unit.callsign) ?? "") + "\n"
         }
+
+		var destination = ""
+		if let hospital = victim.hospital
+		{
+			destination = hospital.name ?? ""
+		}
+
+		var angemeldet = ""
+		if victim.getHospitalInfoState()
+		{
+			angemeldet = """
+			<a>angemeldet:</a>  <a class="fas fa-check-square" style="color: green;"></a>
+			"""
+		}
+
+
+
+
         
         let html = """
         <div style="margin-top: 30px; margin-bottom: 30px;">
@@ -485,18 +503,16 @@ class Export: NSObject {
                             \(sUnits)
                         </td>
                         <td style="width: 37.5%; padding: 0px; " align="center" >
-                            
+
                         </td>
                     </tr>
                     <tr>
                         <td width="25%;" align="right" style="padding-right: 10px;">
                             <a class="fas fa-hospital" style="font-size: 1.3rem"></a>
                         </td>
-                        <td style="width: 37.5%" align="center">
-                            Leopoldina Schweinfurt
+                        <td style="width: 37.5%" align="center"> \(destination)
                         </td>
-                        <td style="width: 37.5%; padding: 0px; " align="center" >
-                            <a>angemeldet: </a><a> 20:30 </a><a class="fas fa-clock"></a>  <a class="fas fa-check-square" style="color: green;"></a>
+                        <td style="width: 37.5%; padding: 0px; " align="center" > \(angemeldet)
                         </td>
                     </tr>
                 </thead>
