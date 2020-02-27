@@ -12,7 +12,7 @@ protocol AddUserDelegate {
 }
 class AddUserViewController: UIViewController , UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -32,6 +32,8 @@ class AddUserViewController: UIViewController , UITableViewDataSource, UITableVi
              cell.Headline.text = "E-Mail"
         case 4:
              cell.Headline.text = "Telefonnummer"
+		case 5:
+			cell.Headline.text = "Funkrufname"
         default:
             cell.Headline.text = "Unbekannt"
         }
@@ -67,12 +69,13 @@ class AddUserViewController: UIViewController , UITableViewDataSource, UITableVi
         let password = (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! AddUserAttributeTableViewCell).TextField.text
         let eMail = (tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as! AddUserAttributeTableViewCell).TextField.text
         let phone = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! AddUserAttributeTableViewCell).TextField.text
+		let callsign = (tableView.cellForRow(at: IndexPath(row: 5, section : 0)) as! AddUserAttributeTableViewCell).TextField.text
         let dataHandler = DataHandler()
        
         var AlertView : UIAlertController
         
         //Resultcode: 0=already exists, 1=success, -1=wrong parameters
-        let resultCode = dataHandler.createUser(password: password ?? "", firstname: firstname ?? "", lastname: lastName ?? "", isAdmin: false, eMail: eMail ?? "", phone: phone ?? "")
+		let resultCode = dataHandler.createUser(password: password ?? "", firstname: firstname ?? "", lastname: lastName ?? "", isAdmin: false, eMail: eMail ?? "", phone: phone ?? "", callsign: callsign ?? "")
         
         if(resultCode == 1)
         {

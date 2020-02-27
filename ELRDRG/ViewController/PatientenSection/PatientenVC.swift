@@ -46,7 +46,7 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     @IBAction func AddKat3_click(_ sender: Any)
     {
-        data.ceateVictim(age: -1, category: 3, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
+        data.ceateVictim(age: -1, category: 3, firstName: nil, lastName: nil)
         
         victimList = data.getVictims()
         patientTable.reloadData()
@@ -96,23 +96,25 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
    
     @IBAction func AddKatUngesichtet_click(_ sender: Any)
     {
-        data.ceateVictim(age: -1, category: 4, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
+        data.ceateVictim(age: -1, category: 4, firstName: nil, lastName: nil)
         victimList = data.getVictims()
         patientTable.reloadData()
     }
     
     @IBAction func AddKat2_click(_ sender: Any)
     {
-        data.ceateVictim(age: -1, category: 2, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
+        data.ceateVictim(age: -1, category: 2, firstName: nil, lastName: nil)
         victimList = data.getVictims()
         patientTable.reloadData()
     }
     @IBAction func AddKat1_click(_ sender: Any)
     {
-        data.ceateVictim(age: -1, category: 1, firstName: nil, lastName: nil, id: Int16(victimList.count + 1))
+        data.ceateVictim(age: -1, category: 1, firstName: nil, lastName: nil)
         victimList = data.getVictims()
         patientTable.reloadData()
     }
+
+	
     
     func numberOfSections(in tableView: UITableView) -> Int {
         var sk1 : Int = 0
@@ -267,6 +269,14 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         cell.victim = pat
         //labels befüllen
         cell.ID.text = String(pat.id)
+		if pat.checkDoublePatID()
+		{
+			cell.ID.backgroundColor = UIColor.orange
+		}
+		else
+		{
+			cell.ID.backgroundColor = UIColor.clear
+		}
         cell.category.text = String(pat.category)
         cell.birthDate.text =  String(pat.age) + " j."
         cell.firstName.text = pat.firstName

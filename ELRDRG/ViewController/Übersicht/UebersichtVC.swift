@@ -9,7 +9,10 @@
 import UIKit
 
 class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, presentViewController {
-    
+
+	@IBOutlet var OverViewTitleItem: UINavigationItem!
+
+
     func presentController(controller: UIViewController) {
         self.present(controller, animated: true, completion: nil)
     }
@@ -91,6 +94,8 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     override func viewDidAppear(_ animated: Bool) {
         collectionView.reloadData()
+		let mission : Mission = DataHandler().getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
+		self.OverViewTitleItem.title = (mission.reason ?? "Übersicht")
         print("view did appear")
     }
     

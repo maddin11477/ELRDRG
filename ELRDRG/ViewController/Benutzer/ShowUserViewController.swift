@@ -12,26 +12,33 @@ class ShowUserViewController: UIViewController, UITableViewDelegate, UITableView
     
     public var delegete : AddUserDelegate?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Name") as! UserAttributeTableViewCell
-        if(indexPath.row == 0)
+		if(indexPath.row == 0)
+		{
+			cell.Description.text = "Funkrufname"
+			cell.Content.text = user!.callsign ?? ""
+			cell.propertyType = .UserType
+		}
+
+        if(indexPath.row == 1)
         {
             cell.Description.text = "Telefon"
             cell.Content.text = user!.phone ?? ""
             cell.propertyType = .PhoneNumber
             
         }
-        if(indexPath.row == 1)
+        if(indexPath.row == 2)
         {
             cell.Description.text = "E-Mail"
             cell.Content.text = user!.eMail ?? ""
             cell.propertyType = .eMail
         }
         
-        if(indexPath.row == 2)
+        if(indexPath.row == 3)
               {
                   cell.Description.text = "Benutzertyp"
                 if(user!.isAdmin)
@@ -46,7 +53,7 @@ class ShowUserViewController: UIViewController, UITableViewDelegate, UITableView
                   
                 cell.propertyType = .UserType
               }
-       
+
         
         return cell
     }

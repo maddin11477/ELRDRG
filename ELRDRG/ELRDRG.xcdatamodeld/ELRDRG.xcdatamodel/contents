@@ -49,6 +49,7 @@
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="missionTaskNumber" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="reason" optional="YES" attributeType="String"/>
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="unique" attributeType="String"/>
@@ -123,7 +124,7 @@
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
         <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="118"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="105"/>
-        <element name="Mission" positionX="-425" positionY="-613" width="128" height="208"/>
+        <element name="Mission" positionX="-425" positionY="-613" width="128" height="223"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="118"/>
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>

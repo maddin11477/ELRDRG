@@ -72,7 +72,7 @@ class DataHandler: NSObject {
         saveData()
     }
     
-    public func createUser(password : String, firstname : String, lastname : String, isAdmin : Bool, eMail : String, phone : String)-> Int
+	public func createUser(password : String, firstname : String, lastname : String, isAdmin : Bool, eMail : String, phone : String, callsign : String)-> Int
     {
         //0 == already exists, 1 == true, -1 == wrong input values
         if(password != "" && firstname != "" && lastname != "")
@@ -100,6 +100,7 @@ class DataHandler: NSObject {
                     user.unique = UUID().uuidString
                     user.phone = phone
                     user.eMail = eMail
+			user.callsign = callsign
                    
                    
                    
@@ -150,16 +151,26 @@ class DataHandler: NSObject {
         return mission.victims?.allObjects as! [Victim]
     }
     
-    public func ceateVictim (age : Int16, category: Int16, firstName : String?, lastName : String?, id : Int16)
+    public func ceateVictim (age : Int16, category: Int16, firstName : String?, lastName : String?)
     {
-        let pat : Victim = Victim(context: AppDelegate.viewContext)
+
+		let victims = DataHandler().getVictims()
+		var id = 0
+		for vic in victims {
+			if vic.id >= id
+			{
+				id = Int(vic.id)
+			}
+		}
+		id = id + 1
+		let pat : Victim = Victim(context: AppDelegate.viewContext)
         pat.age = age
-        pat.id = id
+        pat.id = Int16(id)
         pat.category = category
         pat.firstName = firstName
         pat.lastName = lastName
         print("uuid current mission: " + (login.getLoggedInUser()?.currentMissionUnique ?? "nil"))
-        
+
         let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
         mission.addToVictims(pat)
         saveData()

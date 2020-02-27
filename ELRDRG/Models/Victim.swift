@@ -43,7 +43,22 @@ extension Victim
         }
         return false
     }
-    
+
+	func checkDoublePatID() -> Bool
+	{
+		let victims = DataHandler().getVictims()
+		var isDouble = false
+		for vic in victims {
+			if (vic != self && vic.id == self.id)
+			{
+				isDouble = true
+				break
+			}
+		}
+
+		return isDouble
+	}
+
     public func getHospitalInfoState()->UIColor
     {
         switch self.hospitalClearance {

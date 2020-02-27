@@ -28,6 +28,7 @@ class MissionCostumTableViewCell: UITableViewCell {
 				let controller = board.instantiateViewController(withIdentifier: "ChangeMissionVC") as! ChangeMissionVC
 				controller.delegate = self.delegate
 				controller.mission = einsatz
+				controller.id = Int(ID.text ?? "-1") ?? -1
 				if let view_controller = viewController
 				{
 					view_controller.present(controller, animated: true, completion: nil)

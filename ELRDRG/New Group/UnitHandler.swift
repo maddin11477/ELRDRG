@@ -68,7 +68,14 @@ class UnitHandler: NSObject {
         {
             if let _units = patient.fahrzeug?.allObjects as? [Unit]
             {
-                units += _units
+				for car in _units
+				{
+					if units.contains(car) == false
+					{
+						units.append(car)
+					}
+				}
+               // units += _units
             }
         }
         if(type == .all)

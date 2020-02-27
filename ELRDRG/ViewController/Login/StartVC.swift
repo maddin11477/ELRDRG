@@ -54,6 +54,9 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		missions.sort {
+			$1.start! < $0.start!
+		}
         return missions.count
     }
     
@@ -89,7 +92,8 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         cell.Date.text = formatter.string(from: missions[indexPath.row].start!)
-        cell.ID.text = String(indexPath.row + 1)
+		let id =  missions.count - indexPath.row
+        cell.ID.text = String(id)
         cell.Reason.text = missions[indexPath.row].reason
 		if missions[indexPath.row].isFinished
 		{

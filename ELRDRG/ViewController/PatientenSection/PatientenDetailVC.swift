@@ -19,6 +19,33 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         print("reloading")
     }
 
+	func checkDoublePatID()
+	{
+		let victims = DataHandler().getVictims()
+		var isDouble = false
+		for vic in victims {
+			if (vic != self.victim && vic.id == victim.id)
+			{
+				isDouble = true
+				break
+			}
+		}
+
+		lblDoublePatID.isHidden = !isDouble
+	}
+
+
+	@IBAction func IDChanged(_ sender: Any) {
+		let newID = Int16(txtID.text ?? "-100")
+		if (Int(newID ?? -100) > -100 && newID != self.victim.id)
+		{
+			self.victim.id = newID ?? Int16(self.victim.id)
+			checkDoublePatID()
+			DataHandler().saveData()
+		}
+
+	}
+
 
 	@IBAction func txt_Age_Edit_ended(_ sender: Any) {
 		if let s_Age = txtAge.text
@@ -39,6 +66,9 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 		}
 	}
 
+	@IBOutlet var lblDoublePatID: UILabel!
+
+
 	func setAge(age : Int, date : Date)->Date
 	{
 		let calender = Calendar.current
@@ -50,6 +80,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 		}
 		return date
 	}
+	@IBOutlet var cmdStartStoppTransport: UIButton!
 
     
     @IBOutlet weak var helicopterSwitch: UISwitch!
@@ -227,11 +258,23 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     
     @IBAction func startTransport_Click(_ sender: Any)
     {
-        victim.isDone = Date()
-        data.saveData()
-        let formatter : DateFormatter = DateFormatter()
-        formatter.dateFormat = "HH:mm / dd.MM.yyyy"
-        lblTransportTime.text = formatter.string(from: victim.isDone!)
+		let button = sender as! UIButton
+		if let _ = victim.isDone
+		{
+
+			button.setTitle("Transportbeginn / Entlassen", for: .normal)
+			victim.isDone = nil
+			lblTransportTime.text = ""
+		}
+        else
+		{
+			victim.isDone = Date()
+			data.saveData()
+			let formatter : DateFormatter = DateFormatter()
+			formatter.dateFormat = "HH:mm / dd.MM.yyyy"
+			lblTransportTime.text = formatter.string(from: victim.isDone!)
+			button.setTitle("Transport zurück setzen", for: .normal)
+		}
         
     }
     @IBAction func isChildSwitched(_ sender: Any)
@@ -378,6 +421,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         victim.id = Int16(idStepper.value)
         data.saveData()
         txtID.text = String(Int16(idStepper.value))
+		checkDoublePatID()
         
     }
     
@@ -494,6 +538,15 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         {
             hospitalInfoStateControl.isHidden = true
         }
+		checkDoublePatID()
+		if let _ = self.victim.isDone
+		{
+			cmdStartStoppTransport.setTitle("Transport zurück setzen", for: .normal)
+		}
+		else
+		{
+			cmdStartStoppTransport.setTitle("Transportbeginn / Entlassen", for: .normal)
+		}
         
     }
     

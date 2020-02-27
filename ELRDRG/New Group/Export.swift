@@ -79,11 +79,25 @@ class Export: NSObject {
         let user = (mission.user!.firstName ?? "") + " " + (mission.user!.lastName ?? "")
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
-        let sDate = formatter.string(from: mission.start!)
+        let sDateStart = formatter.string(from: mission.start!)
         var kat1 : Int = 0
         var kat2 : Int = 0
         var kat3 : Int = 0
         var kat_unknown : Int = 0
+
+		formatter.dateFormat = "HH:mm"
+		let sStartTime = sDateStart + " / " + formatter.string(from: mission.start!) + " Uhr"
+
+		var sEndTime = ""
+		var sDateEnd = ""
+		if let endDate = mission.end
+		{
+			sEndTime = formatter.string(from: endDate) + " Uhr"
+			formatter.dateFormat = "dd.MM.yyyy"
+			sDateEnd = formatter.string(from: endDate)
+			sEndTime = sDateEnd + " / " + sEndTime
+
+		}
         
         for vic in mission.victims?.allObjects as! [Victim] {
             if(vic.category == 1)
@@ -108,105 +122,139 @@ class Export: NSObject {
         //let einsatzname : String = mission.reason ?? "unknown"
         let css = getCSSDATA()
         let header = """
-        <!doctype html>
-        <html><head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="ELRD EXPORT" content="width=device-width, initial-scale=1">
-        <title>ELRD Einsatz \(mission.reason ?? "")</title>
-            
-            
-        
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <style type="text/css">
-            .typeColumn {
-        }
-        
-        \(css)
-        </style>
-        </head>
-        <style>
-            @media print {
-                .pagebreak {
-                   clear: both;
-                page-break-after: always;
-                }
-            }
-        </style>
-        <body>
-        <div style="background-color: lightgray;  align-content: center; margin: 0 auto; width: 80%; margin-top: 30px;">
-                <div align="center" style="margin: 0 auto; align-content: center;">
-                
-                <p><a class="text-center" style="font-weight: 600; font-size: 30px; vertical-align: center; height: 50px; ">ELRD -</a><a style="font-size: 30px;">\(landkreis)</a></p>
-                    </div>
-            </div>
-            <div style="width: 80%; margin: 0 auto; align-content: center;   padding-top: 20px;">
-                <table style="border-collapse: collapse; border-color: black; border-width: 1; width: 100%;" border="0">
-                    <thead>
-                        <tr>
-                            <td align="right" style="padding-right: 40px; width: 50%;">
-                                Einsatz:
-                            </td>
-                            <td style="width: 50%;">
-                                \(scene)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" style="padding-right: 40px;">
-                                ELRD:
-                            </td>
-                            <td>
-                                \(user)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" style="padding-right: 40px;">
-                                Datum:
-                            </td>
-                            <td>
-                                \(sDate)
-                            </td>
-                        </tr>
-                    </thead>
-                    
-                </table>
-                <table style="margin-top: 40px; margin-bottom: 30px; width: 100%;" border="1">
-                    <thead>
-                        <tr>
-                            <td align="center" style="width: 25%">
-                                SK1
-                            </td>
-                            <td align="center" style="width: 25%;">
-                                SK2
-                            </td>
-                        
-                            <td align="center" style="width: 25%">
-                                SK3
-                            </td>
-                            <td align="center" style="width: 25%">
-                                ?
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" style="width: 25%; background-color: red;">
-                                \(String(kat1))
-                            </td>
-                            <td align="center" style="width: 25%; background-color: orange;">
-                                \(String(kat2))
-                            </td>
-                        
-                            <td align="center" style="width: 25%; background-color: greenyellow;">
-                                \(String(kat3))
-                            </td>
-                            <td align="center" style="width: 25%">
-                                \(String(kat_unknown))
-                            </td>
-                        </tr>
-                    
-                    </thead>
-                </table>
-        <div class='pagebreak'></div>
-        """
+					<!doctype html>
+					<html><head>
+					<meta charset="UTF-8">
+					<meta http-equiv="X-UA-Compatible" content="IE=edge">
+					<meta name="ELRD EXPORT" content="width=device-width, initial-scale=1">
+					<title>ELRD Einsatz \(mission.reason ?? "")</title>
+
+
+
+					<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+					<style type="text/css">
+						.typeColumn {
+					}
+
+					\(css)
+					</style>
+					</head>
+					<style>
+						@media print {
+							.pagebreak {
+							   clear: both;
+							page-break-after: always;
+							}
+						}
+					</style>
+					<body>
+					<div style="background-color: lightgray;  align-content: center; margin: 0 auto; width: 80%; margin-top: 30px;">
+							<div align="center" style="margin: 0 auto; align-content: center;">
+
+							<p><a class="text-center" style="font-weight: 600; font-size: 30px; vertical-align: center; height: 50px; ">ELRD </a><a style="font-size: 30px;">\(landkreis)</a></p>
+								</div>
+						</div>
+						<div style="width: 80%; margin: 0 auto; align-content: center;   padding-top: 20px;">
+							<table style="border-collapse: collapse; border-color: black; border-width: 1; width: 100%;" border="0">
+								<thead>
+									<tr>
+										<td align="right" style="padding-right: 40px; width: 50%;">
+											Einsatz:
+										</td>
+										<td style="width: 50%;">
+											\(scene)
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px; width: 50%;">
+											Einsatzort:
+										</td>
+										<td style="width: 50%;">
+											\(mission.location ?? "")
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px; width: 50%;">
+											Auftragsnummer:
+										</td>
+										<td style="width: 50%;">
+											\(String(mission.missionTaskNumber))
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px;">
+											ELRD:
+										</td>
+										<td>
+											\(user)
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px;">
+											Funkrufname:
+										</td>
+										<td>
+											\(mission.user?.callsign ?? "")
+										</td>
+									</tr>
+									
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px;">
+											Alarmzeit:
+										</td>
+										<td>
+											\(sStartTime)
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px;">
+											Endzeit:
+										</td>
+										<td>
+											\(sEndTime)
+										</td>
+									</tr>
+								</thead>
+
+							</table>
+							<table style="margin-top: 40px; margin-bottom: 30px; width: 100%;" border="1">
+								<thead>
+									<tr>
+										<td align="center" style="width: 25%">
+											SK1
+										</td>
+										<td align="center" style="width: 25%;">
+											SK2
+										</td>
+
+										<td align="center" style="width: 25%">
+											SK3
+										</td>
+										<td align="center" style="width: 25%">
+											?
+										</td>
+									</tr>
+									<tr>
+										<td align="center" style="width: 25%; background-color: red;">
+											\(String(kat1))
+										</td>
+										<td align="center" style="width: 25%; background-color: orange;">
+											\(String(kat2))
+										</td>
+
+										<td align="center" style="width: 25%; background-color: greenyellow;">
+											\(String(kat3))
+										</td>
+										<td align="center" style="width: 25%">
+											\(String(kat_unknown))
+										</td>
+									</tr>
+
+								</thead>
+							</table>
+					<div class='pagebreak'></div>
+					"""
         
         return header
 
@@ -301,7 +349,14 @@ class Export: NSObject {
     {
         var html = ""
         let handler = DocumentationHandler()
-        for entry in mission.documentations?.allObjects as! [Documentation] {
+		var entries = mission.documentations?.allObjects as! [Documentation]
+		entries.sort{
+			$1.created! > $0.created!
+		}
+		 
+
+
+        for entry in entries {
             let testid = "hallo" //String(entry.id)
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy hh:mm"
