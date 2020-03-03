@@ -188,22 +188,24 @@ class StammdatenImport: UITableViewCell {
             diag.diagnosis = value
             diag.loaction = "Thorax"
         }
-        
+
+		for value in wirbelsäule
+		{
+			let diag = BaseInjury(context: AppDelegate.viewContext)
+			diag.category = 6
+			diag.diagnosis = value
+			diag.loaction = "Wirbelsäule"
+		}
+
         for value in kopf
-        {
-            let diag = BaseInjury(context: AppDelegate.viewContext)
-            diag.category = 6
-            diag.diagnosis = value
-            diag.loaction = "Kopf"
-        }
-        
-        for value in wirbelsäule
         {
             let diag = BaseInjury(context: AppDelegate.viewContext)
             diag.category = 7
             diag.diagnosis = value
-            diag.loaction = "Wirbelsäule"
+            diag.loaction = "Kopf"
         }
+        
+
         
         saveData()
         

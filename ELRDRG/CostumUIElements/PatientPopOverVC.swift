@@ -15,12 +15,16 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+		//order head first
+		injuries.sort { $0.category > $1.category }
         return injuries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! injuryTVC
-        cell.content = injuries[indexPath.row].displayText
+		cell.content = injuries[indexPath.row].diagnosis
+		cell.locationtext.text = injuries[indexPath.row].location
         return cell
     }
     

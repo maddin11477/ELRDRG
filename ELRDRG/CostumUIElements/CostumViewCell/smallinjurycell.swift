@@ -11,6 +11,9 @@ import UIKit
 class smallinjurycell: UITableViewCell {
 
     @IBOutlet weak var injurytext: UILabel!
+
+	@IBOutlet var lbl_location: UILabel!
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

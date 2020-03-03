@@ -31,10 +31,14 @@ class DataHandler: NSObject {
         mission.start = Date()
         //Einsatzbenennung für GUI
         mission.reason = reason
+		//mission als nicht beendet markieren
+		mission.isFinished = false
         //Objekt wird in CoreData gespeichert
         saveData()
         //Objekt benachrichtigt über ein Update der verfügbaren Missions
-        delegate?.updatedMissionList(missionList: getAllMissions())
+		delegate?.updatedMissionList(missionList: getAllMissions(missions: true))
+
+
         //Ausgabe für Konsole
         print("Einsatz angelegt: " + mission.reason! + " Unique: " + mission.unique!)
     }
@@ -48,14 +52,35 @@ class DataHandler: NSObject {
         saveData()
     }
     
+	
     
-    
-    public func getAllMissions() -> [Mission]
+	public func getAllMissions(missions : Bool?) -> [Mission]
     {
+		let user = LoginHandler().getLoggedInUser()
         let missionRequest : NSFetchRequest<Mission> = Mission.fetchRequest()
         do
         {
-            let missionList = try AppDelegate.viewContext.fetch(missionRequest)
+            var missionList = try AppDelegate.viewContext.fetch(missionRequest)
+			if let ownMission = missions
+			{
+				if ownMission
+				{
+					missionList = missionList.filter{
+						$0.user?.callsign == user?.callsign
+					}
+				}
+				else
+				{
+					missionList = missionList.filter{
+						$0.user?.callsign != user?.callsign
+					}
+				}
+
+			}
+
+
+				//$0.user == user
+
             return missionList
         }
         catch
@@ -113,7 +138,13 @@ class DataHandler: NSObject {
         }
         
     }
-    
+
+
+	public func deleteMission(mission : Mission)
+	{
+		AppDelegate.viewContext.delete(mission)
+		saveData()
+	}
   
     
     public func getMissionFromUnique(unique : String) -> Mission?
@@ -140,9 +171,7 @@ class DataHandler: NSObject {
                 print(error)
                 return nil
             }
-            
-        
-    
+
     }
     
     public func getVictims() -> [Victim]

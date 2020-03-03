@@ -13,6 +13,10 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         
         
         injury.patient = victim
+		if injury.location == "Kopf"
+		{
+
+		}
         victim.addToVerletzung(injury)
         injuryData.saveData()
         injuryTable.reloadData()
@@ -102,7 +106,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     @IBOutlet weak var txtTransportzielBottomConstrain: NSLayoutConstraint!
 
     
-    
+	var injuries : [Injury] = []
     @IBAction func hospitalInfoStateChanged(_ sender: Any) {
         self.victim.setHospitalInfoState(hospitalState: (sender as! UISegmentedControl).selectedSegmentIndex)
     }
@@ -115,9 +119,11 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         }
         else if(tableView == injuryTable)
         {
-            let i =  victim.verletzung?.allObjects.count ?? 0
-            print(i)
-            return i
+			self.injuries = victim.verletzung?.allObjects as! [Injury]
+			self.injuries.sort {$0.category > $1.category }
+
+
+			return injuries.count
         }
         print(tableView)
         return 0
@@ -174,8 +180,9 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         else
         {
             let cell = injuryTable.dequeueReusableCell(withIdentifier: "smallinjurycell") as! smallinjurycell
-            let verletzung = (victim.verletzung?.allObjects[indexPath.row]) as! Injury
-            cell.injurytext.text = (verletzung.diagnosis ?? " ") + " " + (verletzung.location?.description ?? " ")
+			let verletzung = self.injuries[indexPath.row]
+            cell.injurytext.text = (verletzung.diagnosis ?? " ")
+			cell.lbl_location.text = verletzung.location
             return cell
         }
     }

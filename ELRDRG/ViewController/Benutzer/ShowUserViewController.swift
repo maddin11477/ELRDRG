@@ -8,12 +8,16 @@
 
 import UIKit
 
-class ShowUserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ShowUserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddUserDelegate {
     
     public var delegete : AddUserDelegate?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
+
+	func addedUser() {
+		self.tableView.reloadData()
+	}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Name") as! UserAttributeTableViewCell
@@ -61,6 +65,10 @@ class ShowUserViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBOutlet weak var tableView: UITableView!
     public var user : User?
+
+	@IBOutlet var cmd_editUser: UIButton!
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if(user != nil)
@@ -68,6 +76,15 @@ class ShowUserViewController: UIViewController, UITableViewDelegate, UITableView
             lbl_area.text = "Bereitschaft Rhön-Grabfeld"
             lbl_username.text = user!.firstName! + " " + user!.lastName!
         }
+
+		if LoginHandler().getLoggedInUser()?.unique! == user!.unique!
+		{
+			cmd_editUser.isHidden = false
+		}
+		else
+		{
+			cmd_editUser.isHidden = true
+		}
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -114,10 +131,11 @@ class ShowUserViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func editUser(_ sender: Any)
     {
-        let alert = UIAlertController(title: "Huubsi", message: "Funktion noch nicht implementiert", preferredStyle: .actionSheet)
-        let action = UIAlertAction(title: "OK Cool", style: .cancel, handler: nil)
-        alert.addAction(action)
-        //self.present(alert, animated: true, completion: nil)
+		let controller = self.storyboard?.instantiateViewController(identifier: "AddUserViewController") as! AddUserViewController
+		controller.user = self.user
+		controller.delegate = self
+		self.present(controller, animated: true, completion: nil)
+
     }
     
     func removeUser(action : UIAlertAction)

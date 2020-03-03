@@ -118,6 +118,11 @@ class Export: NSObject {
             }
             
         }
+		var missionNumber = String(mission.missionTaskNumber)
+		if mission.missionTaskNumber < 1
+		{
+			missionNumber = ""
+		}
         
         //let einsatzname : String = mission.reason ?? "unknown"
         let css = getCSSDATA()
@@ -178,7 +183,7 @@ class Export: NSObject {
 											Auftragsnummer:
 										</td>
 										<td style="width: 50%;">
-											\(String(mission.missionTaskNumber))
+											\(missionNumber)
 										</td>
 									</tr>
 									<tr>
@@ -213,6 +218,22 @@ class Export: NSObject {
 										</td>
 										<td>
 											\(sEndTime)
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px;">
+											Start Km-Stand:
+										</td>
+										<td>
+											\(mission.startKm ?? "")
+										</td>
+									</tr>
+									<tr>
+										<td align="right" style="padding-right: 40px;">
+											End Km-Stand:
+										</td>
+										<td>
+											\(mission.endKm ?? "")
 										</td>
 									</tr>
 								</thead>

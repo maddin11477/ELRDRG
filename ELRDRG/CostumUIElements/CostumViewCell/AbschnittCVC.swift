@@ -263,6 +263,10 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		if indexPath.section == 0
+		{
+			return []
+		}
         let unit = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
         var actions : [UITableViewRowAction] = []
         let delete = UITableViewRowAction(style: .destructive, title: "Fzg entfernen") { (action, indexPath) in

@@ -23,6 +23,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func createdSection() {
         print("createdSection")
         self.SourceTable.reloadData()
+		self.AbschnitteCollectionView.reloadData()
+
     }
     
     func droppedPatientInUnit() {
@@ -230,6 +232,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		self.sections = sectionData.getSections()
         return sections.count
     }
     
@@ -317,7 +320,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     @IBAction func AddObject(_ sender: Any) {
         let addView = self.storyboard?.instantiateViewController(withIdentifier: "CreateTempObjectViewController") as! CreateTempObjectViewController
-        addView.delegate = self
+		addView.delegate = self
         addView.modalPresentationStyle = .popover
         addView.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
         self.present(addView, animated: true, completion: nil)

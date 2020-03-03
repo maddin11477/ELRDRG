@@ -35,6 +35,10 @@ class ChangeMissionVC: UIViewController {
 
 	@IBOutlet var endTimePicker: UIDatePicker!
 
+	@IBOutlet var txtStartKm: UITextField!
+
+	@IBOutlet var txtEndKm: UITextField!
+
 
 	@IBAction func startTimeChanged(_ sender: Any) {
 		let formatter = DateFormatter()
@@ -94,12 +98,24 @@ class ChangeMissionVC: UIViewController {
 	}
 
 	@IBAction func deleteMission_click(_ sender: Any) {
-		let alertcontroller = UIAlertController(title: "Löschen", message: "Diese Funktion steht noch nicht zur Verfügung", preferredStyle: .alert)
-		let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+		let alertcontroller = UIAlertController(title: "Löschen", message: "Sind Sie sicher, dass Sie diesen Einsatz unwiederruflich löschen möchten?", preferredStyle: .alert)
+		let action = UIAlertAction(title: "OK", style: .default, handler: self.deleteMission)
 		alertcontroller.addAction(action)
+		let abort = UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil)
+		alertcontroller.addAction(abort)
 		self.present(alertcontroller, animated: true, completion: nil)
 	}
 
+	func deleteMission(information : Any)
+	{
+		if let einsatz = self.mission
+		{
+			DataHandler().deleteMission(mission: einsatz)
+			self.delegate?.didEndEditingMission()
+			self.dismiss(animated: true, completion: nil)
+		}
+
+	}
 
 	@IBAction func saveMission_click(_ sender: Any) {
 		if let einsatz = self.mission
@@ -107,6 +123,8 @@ class ChangeMissionVC: UIViewController {
 			einsatz.location = txtOrt.text
 			einsatz.reason = txtBezeichnung.text
 			einsatz.missionTaskNumber = Int32(txtAuftragsnummer.text ?? "") ?? -1
+			einsatz.startKm = txtStartKm.text
+			einsatz.endKm = txtEndKm.text
 			DataHandler().saveData()
 		}
 		if let del = self.delegate

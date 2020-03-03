@@ -19,42 +19,88 @@ class AddUserViewController: UIViewController , UITableViewDataSource, UITableVi
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "AddUserAttributeTableViewCell") as! AddUserAttributeTableViewCell
         
-        switch indexPath.row {
-        case 0:
-            
-            cell.Headline.text = "Vorname"
-        case 1:
-             cell.Headline.text = "Nachname"
-        case 2:
-             cell.Headline.text = "Passwort"
-             cell.TextField.isSecureTextEntry = true
-        case 3:
-             cell.Headline.text = "E-Mail"
-        case 4:
-             cell.Headline.text = "Telefonnummer"
-		case 5:
-			cell.Headline.text = "Funkrufname"
-        default:
-            cell.Headline.text = "Unbekannt"
-        }
+
+
+		if let currentuser = self.user
+		{
+			switch indexPath.row {
+			case 0:
+
+				cell.Headline.text = "Vorname"
+				cell.TextField.text = currentuser.firstName
+			case 1:
+				cell.Headline.text = "Nachname"
+				cell.TextField.text = currentuser.lastName
+			case 2:
+				cell.Headline.text = "Passwort"
+				cell.TextField.isSecureTextEntry = true
+				cell.TextField.text = currentuser.password
+			case 3:
+				cell.Headline.text = "E-Mail"
+				cell.TextField.text = currentuser.eMail
+			case 4:
+				cell.Headline.text = "Telefonnummer"
+				cell.TextField.text = currentuser.phone
+			case 5:
+				cell.Headline.text = "Funkrufname"
+				cell.TextField.text = currentuser.callsign
+			default:
+				cell.Headline.text = "Unbekannt"
+			}
+		}
+		else
+		{
+			switch indexPath.row {
+			case 0:
+
+				cell.Headline.text = "Vorname"
+			case 1:
+				cell.Headline.text = "Nachname"
+			case 2:
+				cell.Headline.text = "Passwort"
+				cell.TextField.isSecureTextEntry = true
+			case 3:
+				cell.Headline.text = "E-Mail"
+			case 4:
+				cell.Headline.text = "Telefonnummer"
+			case 5:
+				cell.Headline.text = "Funkrufname"
+			default:
+				cell.Headline.text = "Unbekannt"
+				}
+		}
         
         return cell
     }
     
 
     public var delegate : AddUserDelegate?
+	public var user : User?
+
+	@IBOutlet var cmd_create_safe: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         // Do any additional setup after loading the view.
+		if let _ = self.user
+		{
+			cmd_create_safe.setTitle("Speichern", for: .normal)
+		}
+		else
+		{
+			cmd_create_safe.setTitle("Benutzer anlegen", for: .normal)
+		}
     }
     
     
     @IBOutlet weak var tableView: UITableView!
     
-   
+
+
+
     @IBAction func exitViewController(_ sender: Any)
     {
         self.dismiss(animated: true, completion: nil)
@@ -75,43 +121,60 @@ class AddUserViewController: UIViewController , UITableViewDataSource, UITableVi
         var AlertView : UIAlertController
         
         //Resultcode: 0=already exists, 1=success, -1=wrong parameters
-		let resultCode = dataHandler.createUser(password: password ?? "", firstname: firstname ?? "", lastname: lastName ?? "", isAdmin: false, eMail: eMail ?? "", phone: phone ?? "", callsign: callsign ?? "")
-        
-        if(resultCode == 1)
-        {
-            AlertView = UIAlertController(title: "ERFOLG", message: "Der Benutzer wurde erfolgreich angelegt", preferredStyle: .actionSheet)
-             let action = UIAlertAction(title: "OK", style: .default, handler: createdUserCompletion)
-            AlertView.addAction(action)
-            AlertView.modalPresentationStyle = .formSheet
-            AlertView.popoverPresentationController?.sourceView = self.view
-              self.present(AlertView, animated: true, completion: nil)
-             self.delegate?.addedUser()
-           
-            
-           
-            
-        }
-        if(resultCode == 0)
-        {
-            
-             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            AlertView = UIAlertController(title: "ACHTUNG", message: "Alle Felder müssen ausgefüllt werden!", preferredStyle: .alert)
-            AlertView.addAction(action)
-             AlertView.modalPresentationStyle = .formSheet
-            AlertView.popoverPresentationController?.sourceView = self.view
-            self.present(AlertView, animated: true, completion: nil)
+		if let currentUser = self.user
+		{
+			currentUser.firstName = firstname
+			currentUser.lastName = lastName
+			currentUser.password = password
+			currentUser.eMail = eMail
+			currentUser.phone = phone
+			currentUser.callsign = callsign
+			dataHandler.saveData()
+			self.delegate?.addedUser()
+			self.dismiss(animated: true, completion: nil)
+		}
+		else
+		{
+			let resultCode = dataHandler.createUser(password: password ?? "", firstname: firstname ?? "", lastname: lastName ?? "", isAdmin: false, eMail: eMail ?? "", phone: phone ?? "", callsign: callsign ?? "")
+			if(resultCode == 1)
+			{
+				AlertView = UIAlertController(title: "ERFOLG", message: "Der Benutzer wurde erfolgreich angelegt", preferredStyle: .actionSheet)
+				let action = UIAlertAction(title: "OK", style: .default, handler: createdUserCompletion)
+				AlertView.addAction(action)
+				AlertView.modalPresentationStyle = .formSheet
+				AlertView.popoverPresentationController?.sourceView = self.view
+				self.present(AlertView, animated: true, completion: nil)
+				self.delegate?.addedUser()
 
-        }
+
+
+
+			}
+			if(resultCode == 0)
+			{
+
+				let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+				AlertView = UIAlertController(title: "ACHTUNG", message: "Alle Felder müssen ausgefüllt werden!", preferredStyle: .alert)
+				AlertView.addAction(action)
+				AlertView.modalPresentationStyle = .formSheet
+				AlertView.popoverPresentationController?.sourceView = self.view
+				self.present(AlertView, animated: true, completion: nil)
+
+			}
+
+			if(resultCode == -1)
+			{
+				let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+				AlertView = UIAlertController(title: "ACHTUNG", message: "Benutzer bereits vorhanden", preferredStyle: .alert)
+				AlertView.addAction(action)
+				AlertView.modalPresentationStyle = .formSheet
+				AlertView.popoverPresentationController?.sourceView = self.view
+				self.present(AlertView, animated: true, completion: nil)
+			}
+		}
+
         
-        if(resultCode == -1)
-        {
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            AlertView = UIAlertController(title: "ACHTUNG", message: "Benutzer bereits vorhanden", preferredStyle: .alert)
-            AlertView.addAction(action)
-            AlertView.modalPresentationStyle = .formSheet
-            AlertView.popoverPresentationController?.sourceView = self.view
-            self.present(AlertView, animated: true, completion: nil)
-        }
+
         
     }
     

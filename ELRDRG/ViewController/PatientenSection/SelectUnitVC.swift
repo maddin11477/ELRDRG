@@ -43,30 +43,52 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         if(type == .unitselector)
         {
             units = unitData.getAllBaseUnits()
+			units = units.filter {
+				if typeSelector.selectedSegmentIndex < 4 && $0.type == typeSelector.selectedSegmentIndex
+				{
+					return true
+				}
+				else if(typeSelector.selectedSegmentIndex == 4 && $0.type > 3)
+				{
+					return true
+				}
+				else
+				{
+					return false
+				}
+			}
             var newUnitList : [BaseUnit] = []
-            for unit in self.units
-            {
-                if(unit.funkrufName!.uppercased().contains(searchText.uppercased()))
-                {
-                    newUnitList.append(unit)
-                }
-            }
+			if searchText.count > 0
+			{
+				for unit in self.units
+				{
+					if(unit.funkrufName!.uppercased().contains(searchText.uppercased()))
+					{
+						newUnitList.append(unit)
+					}
+				}
+				units = newUnitList
+			}
+
             
-            units = newUnitList
+
         }
         else if(type == .hospitalselector)
         {
             hospitals = hospitalData.getAllHospitals()
             var newHospitalList : [BaseHospital] = []
-            for hospital in hospitals
-            {
-                let text : String = (hospital.city ?? "") + " " + (hospital.name ?? "")
-                if(text.uppercased().contains(searchText.uppercased()))
-                {
-                    newHospitalList.append(hospital)
-                }
-            }
-            hospitals = newHospitalList
+			if searchText.count > 0
+			{
+				for hospital in hospitals
+				{
+					let text : String = (hospital.city ?? "") + " " + (hospital.name ?? "")
+					if(text.uppercased().contains(searchText.uppercased()))
+					{
+						newHospitalList.append(hospital)
+					}
+				}
+				hospitals = newHospitalList
+			}
         }
         table.reloadData()
     }
@@ -80,6 +102,7 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         else
         {
+			units.sort { ($0.funkrufName ?? "") < ($1.funkrufName ?? "") }
             return units.count
         }
         
@@ -177,19 +200,32 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
+	@IBOutlet var typeSelector: UISegmentedControl!
+
+	@IBAction func typeSelectorChanged(_ sender: Any) {
+		searchBar(self.searchBar, textDidChange: self.searchBar.searchTextField.text ?? "")
+	}
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         units = unitData.getAllBaseUnits()
 		hospitals  = hospitalData.getAllHospitals()
-		
+		if self.type == .unitselector
+		{
+			typeSelector.isHidden = false
+		}
+		else
+		{
+			typeSelector.isHidden = true
+		}
         searchBar.delegate = self
         
         table.delegate = self
         table.dataSource = self
-        
+		searchBar(self.searchBar, textDidChange: self.searchBar.searchTextField.text ?? "")
 
         // Do any additional setup after loading the view.
     }

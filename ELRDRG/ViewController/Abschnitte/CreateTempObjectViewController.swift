@@ -8,8 +8,8 @@
 
 import UIKit
 protocol OrganisationAddedTempObjectProtocoll {
-    func createdUnit()
-    func createdSection()
+	func createdUnit()
+	func createdSection()
 }
 
 class CreateTempObjectViewController: UIViewController, UnitExtention {
@@ -54,8 +54,17 @@ class CreateTempObjectViewController: UIViewController, UnitExtention {
             
             if((alertController.textFields![0] as UITextField).text != "")
             {
+				
                 let sectionData : SectionHandler = SectionHandler()
-                sectionData.addBaseSection(identifier: sectionIdentifier!)
+				if SettingsHandler().getSettings().safe_new_sections_permanent
+				{
+					sectionData.addBaseSection(identifier: sectionIdentifier!)
+				}
+				if SettingsHandler().getSettings().add_new_sections_to_mission
+				{
+					sectionData.addSection(identifier: sectionIdentifier!)
+				}
+
                 self.delegate!.createdSection()
             }
             

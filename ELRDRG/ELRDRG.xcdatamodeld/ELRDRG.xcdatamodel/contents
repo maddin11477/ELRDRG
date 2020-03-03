@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D49f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19E242d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES" codeGenerationType="category">
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String"/>
@@ -46,12 +46,14 @@
     </entity>
     <entity name="Mission" representedClassName=".Mission" syncable="YES" codeGenerationType="category">
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endKm" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="missionTaskNumber" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="reason" optional="YES" attributeType="String"/>
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="startKm" optional="YES" attributeType="String"/>
         <attribute name="unique" attributeType="String"/>
         <relationship name="documentations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Documentation" inverseName="mission" inverseEntity="Documentation"/>
         <relationship name="sections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Section" inverseName="mission" inverseEntity="Section"/>
@@ -64,6 +66,12 @@
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="sections" inverseEntity="Mission"/>
         <relationship name="units" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Unit" inverseName="section" inverseEntity="Unit"/>
         <relationship name="victims" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="section" inverseEntity="Victim"/>
+    </entity>
+    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
+        <attribute name="add_new_sections_to_mission" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="add_standard_sections_automatically" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="safe_new_sections_permanent" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="showAllMissions" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="Shift" representedClassName=".Shift" syncable="YES" codeGenerationType="category">
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -124,8 +132,9 @@
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
         <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="118"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="105"/>
-        <element name="Mission" positionX="-425" positionY="-613" width="128" height="223"/>
+        <element name="Mission" positionX="-425" positionY="-613" width="128" height="253"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="118"/>
+        <element name="Settings" positionX="-819" positionY="-918" width="128" height="103"/>
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
         <element name="User" positionX="-478.65234375" positionY="-1069.65625" width="128" height="253"/>

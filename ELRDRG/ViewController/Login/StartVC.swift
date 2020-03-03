@@ -11,12 +11,13 @@ import CoreData
 
 class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDelegate, UITableViewDataSource, changedMissionDelegate {
 	func didEndEditingMission() {
-		missions = data.getAllMissions()
+		missions = data.getAllMissions(missions: true)
 		allowedMissions.reloadData()
 	}
 
     //Dies ist eine Teständerung
     var missions : [Mission] = []
+	var othersMissions : [Mission] = []
     var Login: LoginHandler = LoginHandler()
     let data: DataHandler = DataHandler()
     
@@ -26,7 +27,10 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     @IBOutlet weak var loginButton: UIBarButtonItem!
     @IBOutlet weak var lblCurrentUser: UIBarButtonItem!
     
-    
+
+	@IBOutlet var cmdSettings: UIBarButtonItem!
+
+
     @IBAction func newMission_Click(_ sender: Any)
     {
         let alertController = UIAlertController(title: "Einsatzname", message: "Stichwort für Schadensereignis", preferredStyle: .alert)
@@ -52,32 +56,93 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         
         
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		missions.sort {
-			$1.start! < $0.start!
-		}
-        return missions.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if(indexPath.row < missions.count)
-		{
-			Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
-			if let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarVC
-			{
-				nc.modalPresentationStyle = .fullScreen
-				self.present(nc, animated: true, completion: nil)
-			}
 
+	func numberOfSections(in tableView: UITableView) -> Int {
+		if SettingsHandler().getSettings().showAllMissions
+		{
+			return 2
 		}
 		else
 		{
-			let alertController = UIAlertController(title: "Index aus of Range! ", message: "Index: " +  String(indexPath.row), preferredStyle: .alert)
-			let alertaction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
-			alertController.addAction(alertaction)
-			self.present(alertController, animated: false, completion: nil)
+			return 1
+		}
+	}
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if section == 0
+		{
+			missions = DataHandler().getAllMissions(missions: true)
+			missions.sort {
+				$1.start! < $0.start!
+			}
+			return missions.count
+		}
+		else
+		{
+			othersMissions = DataHandler().getAllMissions(missions: false)
+			othersMissions.sort {
+				$1.start! < $0.start!
+			}
+			return othersMissions.count
+		}
 
+
+
+    }
+
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if section == 0
+		{
+			return "Eigene Einsätze"
+		}
+		else
+		{
+			return "Einsätze anderer Benutzer"
+		}
+	}
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if indexPath.section == 0
+		{
+			if(indexPath.row < missions.count)
+			{
+				Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
+				if let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarVC
+				{
+					nc.modalPresentationStyle = .fullScreen
+					self.present(nc, animated: true, completion: nil)
+				}
+
+			}
+			else
+			{
+				let alertController = UIAlertController(title: "Index aus of Range! ", message: "Index: " +  String(indexPath.row), preferredStyle: .alert)
+				let alertaction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
+				alertController.addAction(alertaction)
+				self.present(alertController, animated: false, completion: nil)
+
+			}
+		}
+		else
+		{
+			if(indexPath.row < othersMissions.count)
+			{
+				Login.setCurrentMissionUnique(unique: othersMissions[indexPath.row].unique!)
+				if let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarVC
+				{
+					nc.modalPresentationStyle = .fullScreen
+					self.present(nc, animated: true, completion: nil)
+				}
+
+			}
+			else
+			{
+				let alertController = UIAlertController(title: "Index aus of Range! ", message: "Index: " +  String(indexPath.row), preferredStyle: .alert)
+				let alertaction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
+				alertController.addAction(alertaction)
+				self.present(alertController, animated: false, completion: nil)
+
+			}
 		}
 
 
@@ -87,21 +152,35 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		var missionList : [Mission] = []
+		if indexPath.section == 0
+		{
+			missionList = self.missions
+		}
+		else
+		{
+			missionList = self.othersMissions
+		}
         let cell = allowedMissions.dequeueReusableCell(withIdentifier: "MissionCostumTableViewCell") as! MissionCostumTableViewCell
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
-        cell.Date.text = formatter.string(from: missions[indexPath.row].start!)
-		let id =  missions.count - indexPath.row
+        cell.Date.text = formatter.string(from: missionList[indexPath.row].start!)
+		let id =  missionList.count - indexPath.row
         cell.ID.text = String(id)
-        cell.Reason.text = missions[indexPath.row].reason
-		if missions[indexPath.row].isFinished
+        cell.Reason.text = missionList[indexPath.row].reason
+		if missionList[indexPath.row].isFinished
 		{
 			cell.missionStateImage.image = UIImage(systemName: "checkmark.circle.fill")
 			cell.missionStateImage.tintColor = UIColor.green
 		}
+		else
+		{
+			cell.missionStateImage.image = UIImage(systemName: "xmark.circle.fill")
+			cell.missionStateImage.tintColor = UIColor.lightGray
+		}
 		cell.delegate = self
-		cell.mission = missions[indexPath.row]
+		cell.mission = missionList[indexPath.row]
 		cell.storyboard = self.storyboard
 		cell.viewController = self
         return cell
@@ -114,7 +193,7 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     }
     
     
-    
+
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "showLoginPopover"{
@@ -123,6 +202,7 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             }
             else{
                 Login.loggOffUser()
+				cmdSettings.isEnabled = false
                 adaptUIForLoggedInUser(userLoggedIn: false)
                 return false
             }
@@ -145,7 +225,7 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         data.delegate = self
-        missions = data.getAllMissions()
+		missions = data.getAllMissions(missions: true)
         allowedMissions.delegate = self
         allowedMissions.dataSource = self
         allowedMissions.reloadData()
@@ -159,15 +239,19 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     func loginUser(user: User) {
         Login.loggInUser(user: user)
         adaptUIForLoggedInUser(userLoggedIn: true)
+		self.missions = DataHandler().getAllMissions(missions: true)
+		self.allowedMissions.reloadData()
+		self.cmdSettings.isEnabled = true
     }
     
     func adaptUIForLoggedInUser(userLoggedIn: Bool){
         if(userLoggedIn){
             loginButton.title = "Abmelden"
             lblCurrentUser.title = Login.getLoggedInUserName()
-            searchMissions.isHidden = false
+            searchMissions.isHidden = true
             allowedMissions.isHidden = false
             newMission.isHidden = false
+			cmdSettings.isEnabled = true
         }
         else{
             loginButton.title = "Anmelden"
@@ -175,11 +259,13 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             searchMissions.isHidden = true
             allowedMissions.isHidden = true
             newMission.isHidden = true
+			cmdSettings.isEnabled = false
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+		self.missions = DataHandler().getAllMissions(missions: true)
+		self.allowedMissions.reloadData()
         //Check of die Anwendung das erste mal gestartet wird, wenn ja dann Onboarding
         if(Login.isAppAlreadyLaunchedOnce()){
             //start application with normal UI and proceed
@@ -203,6 +289,7 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             }
             else {
                 adaptUIForLoggedInUser(userLoggedIn: false)
+
             }
         }
         else

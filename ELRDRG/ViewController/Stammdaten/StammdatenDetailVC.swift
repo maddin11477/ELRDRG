@@ -46,7 +46,66 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
     var injuries : [BaseInjury] = []
     var sections : [BaseSection] = []
     
-    
+
+
+	@IBAction func deleteAll(_ sender: Any) {
+		var typename = ""
+		switch type {
+		case .Abschnitte:
+			typename = "Abschnitte"
+			break;
+		case .Diagnosen:
+			typename = "Diagnosen"
+			break;
+		case .Fahrzeuge:
+			typename = "Fahrzeuge"
+			break
+		case .Kliniken:
+			typename = "Kliniken"
+
+		}
+		let controller = UIAlertController(title: "Löschen", message: "Sind Sie sicher, dass Sie alle \(typename) löschen möchten?", preferredStyle: .alert)
+		let yes = UIAlertAction(title: "Löschen", style: .destructive, handler: self.deleteAllEntries)
+		let no = UIAlertAction(title: "Abbrechen", style: .default, handler: nil)
+		controller.addAction(yes)
+		controller.addAction(no)
+		self.present(controller, animated: true, completion: nil)
+	}
+
+	func deleteAllEntries(information : Any)
+	{
+		switch type {
+		case .Abschnitte:
+			for section in self.sections {
+				AppDelegate.viewContext.delete(section)
+			}
+			break
+		case .Diagnosen:
+			for diagnose in self.injuries {
+				AppDelegate.viewContext.delete(diagnose)
+			}
+			break
+		case .Fahrzeuge:
+			for unit in self.units {
+				AppDelegate.viewContext.delete(unit)
+			}
+			break
+		case .Kliniken:
+			for hospital in self.hospitals {
+				AppDelegate.viewContext.delete(hospital)
+			}
+			break
+
+		}
+		DataHandler().saveData()
+		self.sections = sectionData.getAllSections()
+		self.hospitals = hospitalData.getAllHospitals()
+		self.units = unitData.getAllBaseUnits()
+		self.injuries = injuryData.getAllBaseInjury()
+		self.table.reloadData()
+	}
+
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(type == .Fahrzeuge)
         {
