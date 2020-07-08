@@ -82,14 +82,7 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     @IBAction func exportMission(_ sender: Any)
     {
-        let exportManager : Export = Export()
-        let dataHandler : DataHandler = DataHandler()
-        let mission : Mission = dataHandler.getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
-        let url = exportManager.createExportPDF(mission: mission)
-        let pdfViewer = self.storyboard?.instantiateViewController(withIdentifier: "ExportVC") as! ExportVC
-        pdfViewer.url = url.url
-        pdfViewer.htmlText = url.html
-        self.present(pdfViewer, animated: true, completion: nil)
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {

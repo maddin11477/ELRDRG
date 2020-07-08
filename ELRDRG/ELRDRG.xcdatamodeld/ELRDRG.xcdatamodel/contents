@@ -103,6 +103,7 @@
         <relationship name="shifts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Shift" inverseName="user" inverseEntity="Shift"/>
     </entity>
     <entity name="Victim" representedClassName=".Victim" syncable="YES" codeGenerationType="category">
+        <attribute name="additionalIfnormation" optional="YES" attributeType="String"/>
         <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="birthdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="category" optional="YES" attributeType="Integer 16" minValueString="1" maxValueString="5" defaultValueString="1" usesScalarValueType="YES"/>
@@ -110,6 +111,7 @@
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="handledUnit" optional="YES" attributeType="String"/>
         <attribute name="hospitalClearance" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="intubiert" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -138,6 +140,6 @@
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>
         <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
         <element name="User" positionX="-478.65234375" positionY="-1069.65625" width="128" height="253"/>
-        <element name="Victim" positionX="-396" positionY="-367" width="128" height="328"/>
+        <element name="Victim" positionX="-396" positionY="-367" width="128" height="358"/>
     </elements>
 </model>

@@ -191,6 +191,35 @@ class UnitHandler: NSObject {
         }
         return []
     }
+
+	public func getUnusedBaseUnits(unittype : UnitType = .all) -> [BaseUnit]
+	{
+		//gibt alle BaseUnits zurück, die noch nicht in verwendung sind
+		var returnList : [BaseUnit] = []
+		let baseUnits = getAllBaseUnits()
+		let usedUnits = getFreeUsedUnits()
+		for baseUnit in baseUnits
+		{
+			var isAvailable = false
+			for  unit in usedUnits {
+				if unit.callsign == baseUnit.funkrufName
+				{
+					isAvailable = true
+				}
+			}
+			if isAvailable == false
+			{
+				returnList.append(baseUnit)
+			}
+		}
+		if unittype != .all
+		{
+			returnList = returnList.filter(){
+				$0.type == unittype.rawValue
+			}
+		}
+		return returnList
+	}
     
     public func saveData()
     {

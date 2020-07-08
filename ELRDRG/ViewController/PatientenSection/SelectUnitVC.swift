@@ -11,6 +11,7 @@ import UIKit
 protocol unitSelectedProtocol {
     func didSelectUnit(unit : BaseUnit)
     func didSelectHospital(hospital : BaseHospital)
+	func didselectUsedUnit(unit : Unit)
 }
 
 class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UnitExtention, UISearchBarDelegate {
@@ -22,6 +23,8 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     let hospitalData = HospitalHandler()
      let unitData = UnitHandler()
     var units : [BaseUnit] = []
+	var usedUnits : [Unit] = []
+
     var hospitals : [BaseHospital] = []
     public var delegate : unitSelectedProtocol?
     public var type : availableTypes = .unitselector
@@ -39,44 +42,107 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
        
-        
-        if(type == .unitselector)
-        {
-            units = unitData.getAllBaseUnits()
-			units = units.filter {
-				if typeSelector.selectedSegmentIndex < 4 && $0.type == typeSelector.selectedSegmentIndex
-				{
-					return true
-				}
-				else if(typeSelector.selectedSegmentIndex == 4 && $0.type > 3)
-				{
-					return true
-				}
-				else
-				{
-					return false
-				}
+
+        table.reloadData()
+    }
+
+	func numberOfSections(in tableView: UITableView) -> Int {
+		if type == .unitselector
+		{
+			return 2
+		}
+		else {
+			return 1
+		}
+
+	}
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        //do something
+       // used hospitals separieren
+
+		if(type == .unitselector)
+		{
+			if section == 0{
+
+					usedUnits = unitData.getUsedUnits()
+					usedUnits = usedUnits.filter {
+						if typeSelector.selectedSegmentIndex < 4 && $0.type == typeSelector.selectedSegmentIndex
+						{
+							if searchText.count > 0
+							{
+								return $0.callsign!.uppercased().contains(searchText.uppercased());
+							}
+							else
+							{
+								return true
+							}
+						}
+						else if(typeSelector.selectedSegmentIndex == 4 && $0.type > 3)
+						{
+							if searchText.count > 0
+							{
+								return $0.callsign!.uppercased().contains(searchText.uppercased());
+							}
+							else
+							{
+								return true
+							}
+						}
+						else
+						{
+							return false
+						}
+					}
+
+				usedUnits.sort { ($0.callsign ?? "") < ($1.callsign ?? "") }
+				return usedUnits.count
 			}
-            var newUnitList : [BaseUnit] = []
-			if searchText.count > 0
+
+			else
 			{
-				for unit in self.units
-				{
-					if(unit.funkrufName!.uppercased().contains(searchText.uppercased()))
+				units = unitData.getUnusedBaseUnits()
+				units = units.filter {
+					if typeSelector.selectedSegmentIndex < 4 && $0.type == typeSelector.selectedSegmentIndex
 					{
-						newUnitList.append(unit)
+						return true
+					}
+					else if(typeSelector.selectedSegmentIndex == 4 && $0.type > 3)
+					{
+						return true
+					}
+					else
+					{
+						return false
 					}
 				}
-				units = newUnitList
+				var newUnitList : [BaseUnit] = []
+				if searchText.count > 0
+				{
+					for unit in self.units
+					{
+						if(unit.funkrufName!.uppercased().contains(searchText.uppercased()))
+						{
+							newUnitList.append(unit)
+						}
+					}
+					units = newUnitList
+					units.sort { ($0.funkrufName ?? "") < ($1.funkrufName ?? "") }
+
+				}
+
+				return units.count
 			}
 
-            
 
-        }
-        else if(type == .hospitalselector)
-        {
-            hospitals = hospitalData.getAllHospitals()
-            var newHospitalList : [BaseHospital] = []
+
+
+		}
+		else if(type == .hospitalselector)
+		{
+			hospitals = hospitalData.getAllHospitals()
+			var newHospitalList : [BaseHospital] = []
 			if searchText.count > 0
 			{
 				for hospital in hospitals
@@ -89,22 +155,10 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 				}
 				hospitals = newHospitalList
 			}
-        }
-        table.reloadData()
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //do something
-        if(type == .hospitalselector)
-        {
-            return hospitals.count
-        }
-        else
-        {
-			units.sort { ($0.funkrufName ?? "") < ($1.funkrufName ?? "") }
-            return units.count
-        }
+			return hospitals.count
+		}
+		//einfang
+		return 0
         
     }
     @IBAction func AddCostum(_ sender: Any)
@@ -154,18 +208,47 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         alertController.addAction(abortaction)
         self.present(alertController, animated: true, completion: nil)
     }
+
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if type == .unitselector
+		{
+			if section == 0
+			{
+				return "Bereits im Einsatz"
+			}
+			else{
+				return "Stammdaten"
+			}
+		}
+		return ""
+	}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "selectUnitCell") as! UnitSelectCostumTableViewCell
         if(type == .unitselector)
         {
-            let unit = units[indexPath.row]
-            cell.Callsign.text = unit.funkrufName
-            
-            cell.crewCount.text = ""
-            
-            cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
-            cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
+
+			if indexPath.section == 0
+			{
+				let unit = usedUnits[indexPath.row]
+				cell.Callsign.text = unit.callsign
+				cell.crewCount.text = ""
+				cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
+				cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
+				cell.backgroundColor = UIColor(hue: 0.2917, saturation: 0.35, brightness: 0.92, alpha: 1.0)
+			}
+			else
+			{
+				let unit = units[indexPath.row]
+				cell.Callsign.text = unit.funkrufName
+
+				cell.crewCount.text = ""
+
+				cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
+				cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
+				cell.backgroundColor = UIColor.white
+			}
+
         }
         else
         {
@@ -174,6 +257,7 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.type.text = hospital.city
 			cell.crewCount.text = String(Int((hospital.distance / 1000).rounded())) + " km"
             cell.pictureBox.image = UIImage(named: "hospital.png")
+			cell.backgroundColor = UIColor.white
         }
         //do something
      
@@ -182,14 +266,29 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(type == .unitselector)
-        {
-            self.delegate!.didSelectUnit(unit: units[indexPath.row])
-        }
-        else
-        {
-            self.delegate!.didSelectHospital(hospital: hospitals[indexPath.row])
-        }
+		if indexPath.section == 0
+		{
+			if(type == .unitselector)
+			{
+				self.delegate!.didselectUsedUnit(unit: usedUnits[indexPath.row])
+			}
+			else
+			{
+				self.delegate!.didSelectHospital(hospital: hospitals[indexPath.row])
+			}
+		}
+		else
+		{
+			if(type == .unitselector)
+			{
+				self.delegate!.didSelectUnit(unit: units[indexPath.row])
+			}
+			else
+			{
+				self.delegate!.didSelectHospital(hospital: hospitals[indexPath.row])
+			}
+		}
+
         
         self.dismiss(animated: true, completion: nil)
     }

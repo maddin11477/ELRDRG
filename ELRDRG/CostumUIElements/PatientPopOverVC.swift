@@ -43,7 +43,9 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet var lbl_destination: UILabel!
     
     @IBOutlet var lbl_transportation_time: UILabel!
-    
+
+	@IBOutlet var lbl_additionalInfo: UILabel!
+
     
     @IBOutlet var tableView: UITableView!
     
@@ -68,6 +70,7 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         lbl_unit.text = ""
         lbl_destination.text = ""
         lbl_transportation_time.text = ""
+		lbl_additionalInfo.text = ""
         injuries.removeAll()
         if let pat = self.patient
         {
@@ -106,18 +109,27 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
            
            //UNITS
            var s_unit : String = ""
-           if let units = pat.fahrzeug?.allObjects as? [Unit]
-           {
-               for unit in units {
-                   
-                   s_unit += (unit.callsign ?? "")
-                   if(unit != units[units.count - 1])
-                   {
-                      s_unit += "\n"
-                   }
-               }
-               self.lbl_unit.text = s_unit
-           }
+			if let s_handledUnits = pat.handledUnit
+			{
+				s_unit = s_handledUnits + " (versorgt)"
+
+			}
+			else
+			{
+				if let units = pat.fahrzeug?.allObjects as? [Unit]
+				{
+					for unit in units {
+
+						s_unit += (unit.callsign ?? "")
+						if(unit != units[units.count - 1])
+						{
+							s_unit += "\n"
+						}
+					}
+					
+				}
+			}
+			self.lbl_unit.text = s_unit
            
            //DESTINATION
            if let destination = pat.hospital
@@ -125,6 +137,9 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
                lbl_destination.text = (destination.name ?? "") + " " + (destination.city ?? "")
                
            }
+
+			//Additional info
+			lbl_additionalInfo.text = pat.additionalIfnormation
            
            
            self.injuries = (pat.verletzung?.allObjects as? [Injury]) ?? []

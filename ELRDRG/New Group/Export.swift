@@ -9,7 +9,7 @@
 import UIKit
 struct exportStruct {
     public var html : String
-    public var url : URL
+   // public var url : URL?
 }
 
 class Export: NSObject {
@@ -25,8 +25,8 @@ class Export: NSObject {
     
     //  Create Paper Size for print
     
-    let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
-    let printable = page.insetBy(dx: 0, dy: 0)
+    let page = CGRect(x: 0, y: 0, width: 595.2, height: 801.8)
+    let printable = page.insetBy(dx: 0, dy: 70)
     
     render.setValue(NSValue(cgRect: page), forKey: "paperRect")
     render.setValue(NSValue(cgRect: printable), forKey: "printableRect")
@@ -54,16 +54,31 @@ class Export: NSObject {
     
     }
     
-    public func createExportPDF(mission : Mission) -> exportStruct
+	public func createExportPDF(mission : Mission, Header : Bool, Patients : Bool, Sections : Bool, Docu : Bool) -> exportStruct
     {
-        var htmlString = ""
-        htmlString = htmlString + createHeader(mission: mission)
-        htmlString = htmlString + createPatientRegion(mission: mission)
-        htmlString = htmlString + createSectionRegion(mission: mission)
-        htmlString = htmlString + generateDocu(mission: mission)
+		var htmlString = ""
+
+			htmlString = htmlString + createHeader(mission: mission, createMissionInfo: Header)
+
+
+		if Patients {
+			htmlString = htmlString + createPatientRegion(mission: mission)
+		}
+
+		if Sections
+		{
+			htmlString = htmlString + createSectionRegion(mission: mission)
+		}
+
+		if Docu {
+			htmlString = htmlString + generateDocu(mission: mission)
+		}
+
+		htmlString = htmlString + "</body></html>"
+	//	htmlString = htmlString + PatientenExport.getHTML()
         //print(htmlString)
-        let url = PDFCreator.generatePDFfromHTML(html: htmlString)
-        let pdfstrukt = exportStruct(html: htmlString, url: url)
+        //let url = nil//PDFCreator.generatePDFfromHTML(html: htmlString)
+        let pdfstrukt = exportStruct(html: htmlString)//, url: url)
         print(htmlString)
         return pdfstrukt
         
@@ -72,7 +87,7 @@ class Export: NSObject {
     
     
     
-    func createHeader(mission : Mission) -> String
+	func createHeader(mission : Mission, createMissionInfo : Bool) -> String
     {
         let landkreis = "Rhön-Grabfeld"
         let scene = mission.reason!
@@ -126,7 +141,7 @@ class Export: NSObject {
         
         //let einsatzname : String = mission.reason ?? "unknown"
         let css = getCSSDATA()
-        let header = """
+        var header = """
 					<!doctype html>
 					<html><head>
 					<meta charset="UTF-8">
@@ -148,15 +163,45 @@ class Export: NSObject {
 						@media print {
 							.pagebreak {
 							   clear: both;
-							page-break-after: always;
+								page-break-after: always;
 							}
+
+							.nobreak {
+								page-break-inside: avoid;
+							}
+
+							.bodyclass {
+							width: 80%;
+							align-content: center;
+							margin: 0 auto;
+							padding-left: 10%;
+							padding-right: 10%;
+							}
+
+
+
+
+
+						}
+
+						.bodyclass{
+						padding: 0%;
 						}
 					</style>
-					<body>
-					<div style="background-color: lightgray;  align-content: center; margin: 0 auto; width: 80%; margin-top: 30px;">
-							<div align="center" style="margin: 0 auto; align-content: center;">
 
-							<p><a class="text-center" style="font-weight: 600; font-size: 30px; vertical-align: center; height: 50px; ">ELRD </a><a style="font-size: 30px;">\(landkreis)</a></p>
+		"""
+
+if createMissionInfo == false
+{
+	header = header + "<body class='bodyclass' \">"
+	return header
+		}
+
+					header = header + """
+					<body ><div style="background-color: lightgray;  align-content: center; margin: 0 auto; width: 80%; margin-top: 0px;">
+							<div align="center" style="margin: 0 auto; align-content: center; margin-top: 50px;">
+
+							<p><a class="text-center" style="font-weight: 600; font-size: 30px; vertical-align: center; height: 50px; ">ELRD </a><a style="font-size: 30px;">\(landkreis)</a><br><a style="font-size: 10px; padding-top: 0px;">Sponsered by SEG IuK / UG-SanEL Rhön-Grabfeld</a></p>
 								</div>
 						</div>
 						<div style="width: 80%; margin: 0 auto; align-content: center;   padding-top: 20px;">
@@ -284,19 +329,17 @@ class Export: NSObject {
     func createPatientRegion(mission : Mission) -> String
     {
         var html = """
-            <div style="background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-top: 30px;">
+            <div style="background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-top: 50px;">
             
             <a>   Patienten</a><p class="fas fa-clipboard-list" style="margin-bottom: 0px; float: right; margin: 6px;"></p>
             </div>
             """
         var i = 0
-        for patient in mission.victims?.allObjects as! [Victim] {
-            if(i == 4)
-            {
-                i = 0
-                html = html + "<div class='pagebreak'></div>"
-            }
-            html = html + generateVictim(victim: patient)
+		var victims = mission.victims?.allObjects as! [Victim]
+		victims.sort(by: { $0.id < $1.id})
+        for victim in victims {
+
+            html = html + generateVictim(victim: victim)
             i = i+1
         }
         html = html + "<div class='pagebreak'></div>"
@@ -306,21 +349,20 @@ class Export: NSObject {
     func createSectionRegion(mission : Mission) -> String
     {
         var sSections = ""
-        var i = 0
+        //var i = 0
         for section in mission.sections?.allObjects as! [Section] {
             sSections = sSections + "<br>" + generateSection(section: section)
-            i = i + 1
+           /* i = i + 1
             if(i == 3)
             {
                 sSections = sSections + "<div class='pagebreak'></div>"
                 i = 0
-            }
+            }*/
             
         }
+
         let html = """
-            <br>
-            
-            <div style="background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-bottom: 30px;">
+            <div style="background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-bottom: 30px; margin-top: 30px;">
             
             <a>   Abschnitte</a><p class="fas fa-th-large" style="margin-bottom: 0px; float: right; margin: 6px;"></p>
             </div>
@@ -368,7 +410,10 @@ class Export: NSObject {
     
     func generateDocu(mission : Mission) -> String
     {
-        var html = ""
+        var html = """
+			<div style='background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-bottom: 30px; margin-top: 20px;'>
+					<a>   Dokumentation</a><p class='fas fa-th-large" style="margin-bottom: 0px; float: right; margin: 6px;'></p>
+		"""
         let handler = DocumentationHandler()
 		var entries = mission.documentations?.allObjects as! [Documentation]
 		entries.sort{
@@ -376,11 +421,11 @@ class Export: NSObject {
 		}
 		 
 
-
+		var i = 0
         for entry in entries {
-            let testid = "hallo" //String(entry.id)
+            let testid = String(entry.id)
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy hh:mm"
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
             let sDate = formatter.string(from: entry.created!) + " Uhr"
             let content = entry.content ?? ""
             
@@ -393,38 +438,56 @@ class Export: NSObject {
                     let data : NSData = UIImageJPEGRepresentation(image!, 1.0)! as NSData
                     
                     let base64img : String = data.base64EncodedString(options: .lineLength64Characters)
-                    img_html = "<img src=\"data:image/jpeg;base64," + base64img + "\" style=\"width: 100%;\">"
+					img_html = "<tr><td style=\"width: auto;\" colspan=\"2\"><img  src=\"data:image/jpeg;base64," + base64img + "\" style=\"width: 100%; \"></td></tr>"
                     print(img_html)
                   
                 }
                 
             }
-            html = html  + """
+
+			var nextHasImage = false
+			if (i + 1) < entries.count
+			{
+				for attachement in entries[i + 1].attachments?.allObjects as! [Attachment]
+				{
+					if(attachement.type == DocumentationType.Photo.rawValue)
+					{
+						nextHasImage = true
+					}
+				}
+			}
+
+
+
+            html = html + """
             
-            <div style='background-color: lightgray; height: 40px; vertical-align: center; padding: 10px; font-size: 1.3rem; padding: 5px; margin-bottom: 30px; margin-top: 30px;'>
-            <a>   Dokumentation</a><p class='fas fa-th-large" style="margin-bottom: 0px; float: right; margin: 6px;'></p>
-            <table style='border-collapse: collapse; border-color: black; border-width: 1; width: 100%; margin-top: 20px;'  border='1'>
+
+            <table class="nobreak"  style="border-collapse: collapse; border-color: black; border-width: 1; width: 100%; margin-top: 20px;" border="1">
             <thead>
             <tr>
-                <td style=\"padding: 5px; width: 200px\">
+                <td style="padding: 5px; width: 20%;" valign="top">
                     Nr: \(testid) <br>Zeit: <br>\(sDate)
                 </td>
-                <td style='padding: 5px;'>
+                <td style="padding: 5px;" valign="top">
                     \(content)
                 </td>
                 
             </tr>
-            <tr>
-                <td tyle="width: 100%;" colspan="2">
+
                     \(img_html)
-                </td>
-            </tr>
-                </thead>
+
+            </thead>
             </table>
              
-            </div>
-            <div class='pagebreak'></div>
+
+
             """
+
+			if nextHasImage
+			{
+				html = html + "<div class=\"pagebreak\"></div>"
+			}
+			i = i + 1
             
         }
         return html
@@ -442,7 +505,7 @@ class Export: NSObject {
             fahrzeuge = fahrzeuge + "\n" + generateUnit(unit: unit)
         }
         let html = """
-        <div style="width: 100%; margin-bottom: 30px;">
+        <div  class="nobreak" style="width: 100%; margin-bottom: 30px;">
         <div style="background-color: orange; border: 1px solid black; border-bottom: 0px solid black;">
         <a style="padding-left: 3px;">\(section.identifier ?? "unknown")</a><p class="fas fa-clone" style="float: right; margin: 3px; margin-right: 8px;"> </p>
         </div>
@@ -497,9 +560,21 @@ class Export: NSObject {
         }
         
         var sUnits = ""
-        for unit in victim.fahrzeug?.allObjects as! [Unit] {
-            sUnits = sUnits + ((unit.callsign) ?? "") + "\n"
-        }
+		if let s_handledUnits = victim.handledUnit
+		{
+			if s_handledUnits.count > 3
+			{
+				sUnits = "Durch " + s_handledUnits + " versorgt"
+			}
+
+		}
+		else
+		{
+			for unit in victim.fahrzeug?.allObjects as! [Unit] {
+				sUnits = sUnits + ((unit.callsign) ?? "") + "\n"
+			}
+		}
+
 
 		var destination = ""
 		if let hospital = victim.hospital
@@ -515,13 +590,92 @@ class Export: NSObject {
 			"""
 		}
 
+		let  html = """
 
+
+		<div class="nobreak" style="margin-top: 30px; margin-bottom: 30px;">
+		<table border="1" style="width: 100%; margin-top: 30px;">
+		<thead>
+		<tr>
+		<td align="right" style="padding-right: 10px; vertical-align: middle; display: table-cell; margin-top: 13px; background-color: red">
+		Patient \(String(victim.id))
+
+		</td>
+		</tr>
+		<tr>
+		<td width="25%;" align="right" style="padding-right: 10px;">
+		Name:
+		</td>
+		<td style="width: 37.5%" align="center">
+		\(victim.firstName ?? "")
+		</td>
+		<td style="width: 37.5%" align="center">
+		\(victim.lastName ?? "")
+		</td>
+		</tr>
+		<tr>
+		<td width="25%;" align="right" style="padding-right: 10px;">
+		Geb. Datum:
+		</td>
+		<td style="width: 37.5%" align="center" >
+		\(sDate)
+		</td>
+		<td style="width: 37.5%" align="center">
+
+		</td>
+		</tr>
+		<tr>
+		<td width="25%;" align="right" style="padding-right: 10px;">
+		SK:
+		</td>
+		<td style="width: 37.5%" align="center">
+		\(String(victim.category))
+		</td>
+		<td style="width: 37.5%" align="center">
+
+		</td>
+		</tr>
+		<tr>
+		<td width="25%;" align="right" style="padding-right: 10px; vertical-align: top;">
+		Verletzungsmuster:
+		</td>
+		<td style="width: 37.5%" align="center">
+		\(sVerletzungen)
+		</td>
+		<td></td>
+		</tr>
+		<tr>
+		<td width="25%;" align="right" style="padding-right: 10px;">
+		<a class="fas fa-ambulance" style="font-size: 1.3rem"></a>
+		</td>
+		<td style="width: 37.5%" align="center">
+		\(sUnits)
+		</td>
+		<td style="width: 37.5%; padding: 0px; " align="center" >
+
+		</td>
+		</tr>
+		<tr>
+		<td width="25%;" align="right" style="padding-right: 10px;">
+		<a class="fas fa-hospital" style="font-size: 1.3rem"></a>
+		</td>
+		<td style="width: 37.5%" align="center"> \(destination)
+		</td>
+		<td style="width: 37.5%; padding: 0px; " align="center" > \(angemeldet)
+		</td>
+		</tr>
+		</thead>
+		</table>
+		</div>
+		"""
 
 
         
-        let html = """
-        <div style="margin-top: 30px; margin-bottom: 30px;">
-            <table border="1" style="width: 100%;">
+       /* let html = """
+
+
+		<div class="nopagebreak" style="margin-top: 6rem; margin-bottom: 30px;">
+            <table border="1" style="width: 100%; margin-top: 30px;">
                 <thead>
                     <tr>
                         <td align="right" style="padding-right: 10px; vertical-align: middle; display: table-cell; margin-top: 13px; background-color: red">
@@ -594,7 +748,7 @@ class Export: NSObject {
                 </thead>
             </table>
         </div>
-        """
+        """*/
         return html
     }
     

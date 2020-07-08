@@ -120,10 +120,31 @@ class DocumentationDetailPhotoVC: UIViewController, UIImagePickerControllerDeleg
             self.imageView.image = info[UIImagePickerControllerEditedImage] as? UIImage
             self.imageView.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleBottomMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue) | UInt8(UIViewAutoresizing.flexibleRightMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleLeftMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleTopMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleWidth.rawValue)))
             self.imageView.contentMode = UIViewContentMode.scaleAspectFit
+			if picker.sourceType == .camera
+			{
+				UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+			}
+
             self.dismiss(animated: true, completion: nil)
         }
 
     }
+
+	//MARK: - Add image to Library
+	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+		if let error = error {
+			// we got back an error!
+			showAlertWith(title: "Save error", message: error.localizedDescription)
+		} else {
+			showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
+		}
+	}
+
+	func showAlertWith(title: String, message: String){
+		let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "OK", style: .default))
+		present(ac, animated: true)
+	}
     
 
 

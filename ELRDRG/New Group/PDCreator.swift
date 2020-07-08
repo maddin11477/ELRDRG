@@ -13,18 +13,27 @@ class PDFCreator: NSObject {
     {
         let render = UIPrintPageRenderer()
         let fmt = UIMarkupTextPrintFormatter(markupText: html)
+		fmt.contentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
         render.addPrintFormatter(fmt, startingAtPageAt: 0)
-        
-        let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
-        render.setValue(page, forKey: "paperRect")
-        render.setValue(page, forKey: "printableRect")
+		render.headerHeight = 20
+
+        let pageLandscape = CGRect(x: 0, y: 0, width: 781.8, height: 595.2)
+		let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4, 72 dpi
+		let printable = page.insetBy(dx: 80, dy: 80)
+
+		render.setValue(NSValue(cgRect: page), forKey: "paperRect")
+		render.setValue(NSValue(cgRect: printable), forKey: "printableRect")
         
         let pdfData = NSMutableData()
-        UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+		UIGraphicsBeginPDFContextToData(pdfData, page, nil)
         
         for i in 0..<render.numberOfPages {
-            UIGraphicsBeginPDFPage()
-            render.drawPage(at: i, in: UIGraphicsGetPDFContextBounds())
+            //UIGraphicsBeginPDFPage()
+			//render.drawHeaderForPage(at: i, in: UIGraphicsGetPDFContextBounds())
+
+				 render.drawContentForPage(at: i, in: UIGraphicsGetPDFContextBounds())//(at: i, in: UIGraphicsGetPDFContextBounds())
+			
+
         }
         
         UIGraphicsEndPDFContext()

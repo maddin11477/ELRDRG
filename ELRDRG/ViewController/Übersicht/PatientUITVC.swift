@@ -47,20 +47,28 @@ class PatientUITVC: UITableViewCell {
         lbl_lastName.text = patient.lastName ?? ""
 		lbl_hospital.text = patient.hospital?.name ?? ""
 		var fahrzeuge : String = ""
-		if let units = patient.fahrzeug?.allObjects as? [Unit]
+		if let s_handledUnit = patient.handledUnit
 		{
-			for unit in units
+			fahrzeuge = s_handledUnit + " (v)"
+		}
+		else
+		{
+			if let units = patient.fahrzeug?.allObjects as? [Unit]
 			{
-				if unit != units[units.count - 1]
+				for unit in units
 				{
-					fahrzeuge = fahrzeuge + (unit.callsign ?? "") + ", "
-				}
-				else
-				{
-					fahrzeuge = fahrzeuge + (unit.callsign ?? "")
+					if unit != units[units.count - 1]
+					{
+						fahrzeuge = fahrzeuge + (unit.callsign ?? "") + ", "
+					}
+					else
+					{
+						fahrzeuge = fahrzeuge + (unit.callsign ?? "")
+					}
 				}
 			}
 		}
+
 
 		lbl_unit.text = fahrzeuge
 

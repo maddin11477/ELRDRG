@@ -314,17 +314,23 @@ class PatientenVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         }
        
         var text = ""
-        let unitList = pat.fahrzeug?.allObjects as! [Unit]
-        for car in unitList
-        {
-            text = text + car.callsign!
-            if(car != unitList[unitList.count - 1])
-            {
-                text = text + ","
-            }
-            
-        }
-        
+		if let s_units = pat.handledUnit
+		{
+			text = s_units + " (versorgt)"
+		}
+		else
+		{
+			let unitList = pat.fahrzeug?.allObjects as! [Unit]
+			for car in unitList
+			{
+				text = text + car.callsign!
+				if(car != unitList[unitList.count - 1])
+				{
+					text = text + ", "
+				}
+
+			}
+		}
         cell.unit.text = text
         
         //Farbe einstellen

@@ -207,6 +207,10 @@ class ChangeMissionVC: UIViewController {
 
 
 			}
+
+
+			txtStartKm.text = einsatz.startKm
+			txtEndKm.text = einsatz.endKm
 		}
        
     }

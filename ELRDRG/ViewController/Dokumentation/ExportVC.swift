@@ -8,12 +8,13 @@
 
 import UIKit
 import WebKit
+import PDFKit
 
 class ExportVC: UIViewController, WKNavigationDelegate {
 
     public var htmlText : String?
     public var url : URL?
-    
+	public var data : NSMutableData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,32 @@ class ExportVC: UIViewController, WKNavigationDelegate {
             
         }
     }
+
+	override func viewWillDisappear(_ animated: Bool) {
+		let fileManager = FileManager.default
+		let myDocuments = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!.absoluteURL
+		do{
+
+		}
+
+
+		do {
+			let mydocs = try fileManager.contentsOfDirectory(at: myDocuments, includingPropertiesForKeys: [URLResourceKey(rawValue: ".pdf")], options: .skipsSubdirectoryDescendants)
+			for url in mydocs
+			{
+				print(url.absoluteString)
+				if url.absoluteString.contains(".pdf")
+				{
+					try fileManager.removeItem(at: url)
+					print(url)
+				}
+
+			}
+
+		} catch {
+			return
+		}
+	}
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("didfinish")
@@ -47,13 +74,12 @@ class ExportVC: UIViewController, WKNavigationDelegate {
         let render = UIPrintPageRenderer()
         render.addPrintFormatter((self.webView?.viewPrintFormatter())!, startingAtPageAt: 0)
         
-        //Give your needed size
-        let pagewidth = 8.5 * 72.0
-        let pageheight = 11 * 72.0
-        let page = CGRect(x: 0, y: 0, width: pagewidth , height: pageheight)
-        
-        render.setValue(NSValue(cgRect:page),forKey:"paperRect")
-        render.setValue(NSValue(cgRect:page), forKey: "printableRect")
+		let pageLandscape = CGRect(x: 0, y: 10, width: 791.8, height: 595.2) // A4, 72 dpi
+		let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4, 72
+		let printable = page.insetBy(dx: 0, dy: 0)
+
+		render.setValue(NSValue(cgRect: page), forKey: "paperRect")
+		render.setValue(NSValue(cgRect: printable), forKey: "printableRect")
         
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData,page, nil)
@@ -63,7 +89,11 @@ class ExportVC: UIViewController, WKNavigationDelegate {
             
             UIGraphicsBeginPDFPage();
             let bounds = UIGraphicsGetPDFContextBounds()
-            render.drawPage(at: i-1 , in: bounds)
+
+				render.drawPage(at: i-1 , in: bounds)
+			
+
+
         }
         
         UIGraphicsEndPDFContext();
@@ -74,6 +104,7 @@ class ExportVC: UIViewController, WKNavigationDelegate {
         url = fileURL
         if !FileManager.default.fileExists(atPath:fileURL.path) {
             do {
+
                 try pdfData.write(to: fileURL)
                 print("file saved")
                 
@@ -96,11 +127,13 @@ class ExportVC: UIViewController, WKNavigationDelegate {
         // 2
         if(url != nil)
         {
-            
+
         let activity = UIActivityViewController(
-            activityItems: ["Export Speichern", url!],
+            activityItems: ["Export Speichern", url],
             applicationActivities: nil
         )
+
+
             activity.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
         
         // 3

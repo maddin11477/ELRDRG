@@ -17,6 +17,7 @@
 		01225AE6213F19A300033225 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = 01225AE5213F19A300033225 /* hospital.png */; };
 		01225AE8213F1B4700033225 /* icon-injury.png in Resources */ = {isa = PBXBuildFile; fileRef = 01225AE7213F1B4700033225 /* icon-injury.png */; };
 		01225AEA213F1B6A00033225 /* InjuryCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */; };
+		01229C7E2411A740003BB5F3 /* ExportSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01229C7D2411A740003BB5F3 /* ExportSettingsViewController.swift */; };
 		012508072135AED40065FDF0 /* missionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508062135AED40065FDF0 /* missionProtocol.swift */; };
 		0125080A2135B3AB0065FDF0 /* MissionCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */; };
 		0125080C2135DE630065FDF0 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125080B2135DE630065FDF0 /* TabBarVC.swift */; };
@@ -50,6 +51,7 @@
 		0156738F23CA562E00BC2B53 /* Hospital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0156738E23CA562E00BC2B53 /* Hospital.swift */; };
 		0165068F239D6AE600921FAD /* PatientUITVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0165068E239D6AE600921FAD /* PatientUITVC.swift */; };
 		01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01650BAC2249871400886510 /* CreateTempObjectViewController.swift */; };
+		0177A9352425137300F35819 /* NoticeBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177A9342425137300F35819 /* NoticeBookViewController.swift */; };
 		018042B7213A7179008B1784 /* PatientenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B6213A7179008B1784 /* PatientenVC.swift */; };
 		018042B9213A7866008B1784 /* PatientCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */; };
 		018042BC213A9A60008B1784 /* humonbody01.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042BB213A9A60008B1784 /* humonbody01.png */; };
@@ -75,6 +77,8 @@
 		019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081C82141A62F00AB7620 /* HospitalProtocol.swift */; };
 		019081CB2141A65900AB7620 /* InjuryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CA2141A65900AB7620 /* InjuryProtocol.swift */; };
 		019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */; };
+		01A042E524129DB000D15970 /* PatientenExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A042E424129DB000D15970 /* PatientenExport.swift */; };
+		01A042E72412A1AC00D15970 /* brk_kompaktlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A042E62412A1AB00D15970 /* brk_kompaktlogo.png */; };
 		01A20266233D62C200F70498 /* bootstrap-4.0.0 ELRD.css in Resources */ = {isa = PBXBuildFile; fileRef = 01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */; settings = {ASSET_TAGS = (HTML, ); }; };
 		01A87CF623F3194C004DA83C /* SectionAnnotation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A87CF523F3194C004DA83C /* SectionAnnotation.xib */; };
 		01A87CF923F3228E004DA83C /* UnitXIBCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A87CF823F3228E004DA83C /* UnitXIBCustomTableViewCell.swift */; };
@@ -144,6 +148,7 @@
 		01225AE5213F19A300033225 /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		01225AE7213F1B4700033225 /* icon-injury.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-injury.png"; sourceTree = "<group>"; };
 		01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryCostumTableViewCell.swift; sourceTree = "<group>"; };
+		01229C7D2411A740003BB5F3 /* ExportSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingsViewController.swift; sourceTree = "<group>"; };
 		012508062135AED40065FDF0 /* missionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = missionProtocol.swift; sourceTree = "<group>"; };
 		012508092135B3AB0065FDF0 /* MissionCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0125080B2135DE630065FDF0 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 		0156738E23CA562E00BC2B53 /* Hospital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hospital.swift; sourceTree = "<group>"; };
 		0165068E239D6AE600921FAD /* PatientUITVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITVC.swift; sourceTree = "<group>"; };
 		01650BAC2249871400886510 /* CreateTempObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTempObjectViewController.swift; sourceTree = "<group>"; };
+		0177A9342425137300F35819 /* NoticeBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoticeBookViewController.swift; path = NoticeBook/NoticeBookViewController.swift; sourceTree = "<group>"; };
 		018042B6213A7179008B1784 /* PatientenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientenVC.swift; sourceTree = "<group>"; };
 		018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCustomTableViewCell.swift; sourceTree = "<group>"; };
 		018042BB213A9A60008B1784 /* humonbody01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humonbody01.png; sourceTree = "<group>"; };
@@ -202,6 +208,8 @@
 		019081C82141A62F00AB7620 /* HospitalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalProtocol.swift; sourceTree = "<group>"; };
 		019081CA2141A65900AB7620 /* InjuryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryProtocol.swift; sourceTree = "<group>"; };
 		019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInjuryVC.swift; sourceTree = "<group>"; };
+		01A042E424129DB000D15970 /* PatientenExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientenExport.swift; sourceTree = "<group>"; };
+		01A042E62412A1AB00D15970 /* brk_kompaktlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brk_kompaktlogo.png; sourceTree = "<group>"; };
 		01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-4.0.0 ELRD.css"; sourceTree = "<group>"; };
 		01A87CF523F3194C004DA83C /* SectionAnnotation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionAnnotation.xib; sourceTree = "<group>"; };
 		01A87CF823F3228E004DA83C /* UnitXIBCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitXIBCustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -379,6 +387,7 @@
 		018042BA213A9A3D008B1784 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				01A042E62412A1AB00D15970 /* brk_kompaktlogo.png */,
 				010CBD1924083F7D0021357D /* Bell412_drf.png */,
 				010CBD1824083F7D0021357D /* Hof41_10_1.png */,
 				014200FE23804B3E00C2834C /* BRK_KV_LOGO.jpg */,
@@ -416,6 +425,7 @@
 				01FB07B922B7E4E9002D6359 /* PDCreator.swift */,
 				01D9025F23BB8136009F9E75 /* LocationHandler.swift */,
 				010CBD20240A83650021357D /* SettingsHandler.swift */,
+				01A042E424129DB000D15970 /* PatientenExport.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
@@ -451,6 +461,7 @@
 				01C662A323A04A5600BD6AFE /* UnitsCVC.swift */,
 				01C662A523A0534E00BD6AFE /* UnitCVC.swift */,
 				0146EB2D23A416CF0003AB41 /* UnitsOverViewCVC.swift */,
+				01229C7D2411A740003BB5F3 /* ExportSettingsViewController.swift */,
 			);
 			name = "Übersicht";
 			path = "Übersicht";
@@ -557,6 +568,7 @@
 				0139E4932156C65E001970FE /* Login */,
 				0139E4922156C63A001970FE /* PatientenSection */,
 				0139E4962156C7DC001970FE /* Abschnitte */,
+				0177A9342425137300F35819 /* NoticeBookViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -644,6 +656,7 @@
 				5B6D775F21305AB500DDFA2B /* ColorPicker.xcassets in Resources */,
 				01C4F483215F92F8008B5B82 /* spine-png-4.png in Resources */,
 				018042BE213A9B98008B1784 /* humanbody02.png in Resources */,
+				01A042E72412A1AC00D15970 /* brk_kompaktlogo.png in Resources */,
 				010CBD1B24083F7E0021357D /* Bell412_drf.png in Resources */,
 				01C4F48721628CFA008B5B82 /* Kat-KTW.png in Resources */,
 				010CBD1A24083F7E0021357D /* Hof41_10_1.png in Resources */,
@@ -674,6 +687,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */,
+				01A042E524129DB000D15970 /* PatientenExport.swift in Sources */,
 				0165068F239D6AE600921FAD /* PatientUITVC.swift in Sources */,
 				019081C72141A5F600AB7620 /* UnitProtocol.swift in Sources */,
 				012FE86F23897CBE005D24FD /* ShowUserViewController.swift in Sources */,
@@ -697,6 +711,7 @@
 				01C662A623A0534E00BD6AFE /* UnitCVC.swift in Sources */,
 				0139E4A9215708D7001970FE /* sectionUnitTableViewCell.swift in Sources */,
 				5B41E9B5212C5F5300525804 /* StartVC.swift in Sources */,
+				0177A9352425137300F35819 /* NoticeBookViewController.swift in Sources */,
 				014DA89D225F9B1600C42F5C /* Export.swift in Sources */,
 				0139E4A02156D7A3001970FE /* SectionTableViewCell.swift in Sources */,
 				0139E48F21516747001970FE /* smallinjurycell.swift in Sources */,
@@ -758,6 +773,7 @@
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				5B4A600D213C6EA900844F85 /* DocumentationHandler.swift in Sources */,
 				012FE873238B29E2005D24FD /* AddUserAttributeTableViewCell.swift in Sources */,
+				01229C7E2411A740003BB5F3 /* ExportSettingsViewController.swift in Sources */,
 				5BF467F0214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift in Sources */,
 				01C4F47D215E5F40008B5B82 /* CategorySegment.swift in Sources */,
 				5B4A600F213C73E100844F85 /* DocumentationTableViewCell.swift in Sources */,
@@ -916,7 +932,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
@@ -938,7 +954,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;

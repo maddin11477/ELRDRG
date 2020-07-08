@@ -63,6 +63,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
                         unit_?.addToPatient(patient)
 						patient.section?.removeFromVictims(patient)
 						patient.section = nil
+						patient.handledUnit = nil
                         let secData = SectionHandler()
                         secData.saveData()
                         self.delegate?.droppedVictim()

@@ -23,6 +23,15 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         print("reloading")
     }
 
+	@IBAction func additionalInfoChanged(_ sender: Any) {
+		self.victim.additionalIfnormation = lbl_additionalInfo.text
+		data.saveData()
+	}
+
+
+
+
+
 	func checkDoublePatID()
 	{
 		let victims = DataHandler().getVictims()
@@ -94,7 +103,12 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     @IBOutlet weak var childSwitch: UISwitch!
     
     @IBOutlet weak var heatInjurySwitch: UISwitch!
-    
+
+	@IBOutlet var lblHandledByUnit: UILabel!
+
+	@IBOutlet var cmdAddUnit: UIButton!
+
+
     private var birthdatePicker : UIDatePicker?
     
     private var toolBar : UIToolbar?
@@ -105,7 +119,100 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 
     @IBOutlet weak var txtTransportzielBottomConstrain: NSLayoutConstraint!
 
-    
+	@IBOutlet var cmdUnitLeave: RoundButton!
+
+	@IBOutlet var lbl_additionalInfo: UITextField!
+
+
+
+
+	@IBAction func unitsLeave(_ sender: Any) {
+		if cmdUnitLeave.title(for: .normal) == "Entlassen"
+		{
+			let units = victim.fahrzeug?.allObjects as! [Unit]
+			var text = ""
+			var i = 0
+			for unit in units
+			{
+				text = text + (unit.callsign ?? "")
+				if(i<units.count - 1)
+				{
+					text = text + "\n"
+				}
+				deleteUnit(index: 0)
+				i = i + 1
+			}
+			victim.handledUnit = text
+			victim.isDone = Date()
+			let formatter : DateFormatter = DateFormatter()
+			formatter.dateFormat = "dd.MM.yyyy"// um HH:mm"
+			let s_date = formatter.string(from: victim.isDone!)
+			formatter.dateFormat = "HH:mm"
+			text = "Durch folgende Einheit versorgt:\n\n" + text
+			lblHandledByUnit.text = text
+			let s_time = formatter.string(from: victim.isDone!)
+
+			//text = text + "\n\n Entlassen am \(s_date) um \(s_time) Uhr"
+			text = s_time +  " / " + s_date + "(entlassen)"
+			lblTransportTime.text = text
+			data.saveData()
+			if let _ = victim.hospital
+			{
+				let controller = UIAlertController(title: "Transportziel", message: "Soll das Transportziel entfernt werden?", preferredStyle: .alert)
+				let yes = UIAlertAction(title: "JA", style: .default, handler: { action in
+					self.victim.hospital = nil
+					self.data.saveData()
+					self.hospitalInfoStateControl.selectedSegmentIndex = 0
+					self.hospitalInfoStateControl.isHidden = true
+					self.txtTransportDestination.text = ""
+					self.hospitalImage.isHidden = true
+
+				})
+				let NO = UIAlertAction(title: "NEIN", style: .cancel, handler: nil)
+				controller.addAction(yes)
+				controller.addAction(NO)
+				self.present(controller, animated: true, completion: nil)
+			}
+
+
+
+
+
+			//SET UI
+			transportUnitTable.isHidden = true
+			lblHandledByUnit.isHidden = false
+
+			cmdStartStoppTransport.isHidden = true
+			cmdUnitLeave.setTitle("Löschen", for: .normal)
+			cmdUnitLeave.borderColor = UIColor.red
+			cmdUnitLeave.tintColor = UIColor.red
+			cmdAddUnit.isHidden = true
+
+
+
+		}
+		else
+		{
+			victim.handledUnit = nil
+			transportUnitTable.isHidden = false
+			lblHandledByUnit.isHidden = true
+			lblHandledByUnit.text = ""
+			cmdStartStoppTransport.isHidden = false
+			cmdStartStoppTransport.setTitle("Transportbeginn", for: .normal)
+			cmdUnitLeave.setTitle("Entlassen", for: .normal)
+			cmdUnitLeave.borderColor = cmdAddUnit.backgroundColor ?? UIColor.gray
+			cmdUnitLeave.tintColor = cmdAddUnit.backgroundColor ?? UIColor.gray
+			cmdAddUnit.isHidden = false
+			victim.isDone = nil
+			lblTransportTime.text = ""
+			self.data.saveData()
+
+		}
+
+
+
+	}
+
 	var injuries : [Injury] = []
     @IBAction func hospitalInfoStateChanged(_ sender: Any) {
         self.victim.setHospitalInfoState(hospitalState: (sender as! UISegmentedControl).selectedSegmentIndex)
@@ -115,7 +222,16 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(tableView == transportUnitTable)
         {
-            return victim.fahrzeug?.allObjects.count ?? 0
+             let i = victim.fahrzeug?.allObjects.count ?? 0
+			if i == 0
+			{
+				cmdStartStoppTransport.isHidden = true
+			}
+			else if (i > 0 && victim.handledUnit == nil)
+			{
+				cmdStartStoppTransport.isHidden = false
+			}
+			return i
         }
         else if(tableView == injuryTable)
         {
@@ -136,21 +252,28 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
             injuryTable.reloadData()
             return
         }
+		//transportUnitTable - Transport Unit Table
         if(editingStyle == .delete)
         {
-			let unit = (victim.fahrzeug?.allObjects as! [Unit])[indexPath.row]
-			unit.removeFromPatient(self.victim)
-            victim.removeFromFahrzeug(unit)
-			if victim.fahrzeug!.allObjects.count < 1
-			{
-				victim.section = unit.section
-				victim.section?.addToVictims(self.victim)
-			}
-
-            data.saveData()
-            transportUnitTable.reloadData()
+			deleteUnit(index: indexPath.row)
         }
     }
+
+	func deleteUnit(index : Int)
+	{
+		let unit = (victim.fahrzeug?.allObjects as! [Unit])[index]
+		unit.removeFromPatient(self.victim)
+		victim.removeFromFahrzeug(unit)
+		if victim.fahrzeug!.allObjects.count < 1
+		{
+			victim.section = unit.section
+			victim.section?.addToVictims(self.victim)
+		}
+
+		data.saveData()
+		transportUnitTable.reloadData()
+
+	}
     
     @IBAction func addInjury_click(_ sender: Any)
     {
@@ -191,13 +314,16 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
     @IBOutlet weak var transportUnitTable: UITableView!
     
     
-    func didSelectHospital(hospital: BaseHospital) {
+    func didSelectHospital(hospital: BaseHospital)
+	{
         victim.hospital = hospitalData.BaseHospital_to_Hospital(baseHospital: hospital)
         victim.hospital?.addToVictim(victim)
         txtTransportDestination.text = (victim.hospital?.name)! + " / " + (victim.hospital?.city!)!
         hospitalImage.isHidden = false
 		hospitalInfoStateControl.isHidden = false
     }
+
+
     
     func didSelectUnit(unit: BaseUnit) {
         var isAvailable : Bool = false
@@ -213,6 +339,12 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
                         //availableUnit.patient = victim
                         availableUnit.addToPatient(victim)
                         victim.addToFahrzeug(availableUnit)
+						if let sec = victim.section
+						{
+							sec.addToUnits(availableUnit)
+							availableUnit.section = sec
+						}
+						victim.section = nil
                         isAvailable = true
                         
                     }
@@ -230,12 +362,38 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         victim.addToFahrzeug(fahrzeug)
        // unitData.baseUnit_To_Unit(baseUnit: unit)
         fahrzeug.addToPatient(victim)
+		if let sec = victim.section
+		{
+			sec.addToUnits(fahrzeug)
+			fahrzeug.section = sec
+		}
+		victim.section = nil
         data.saveData()
         transportUnitTable.reloadData()
         
        
         
     }
+
+	func didselectUsedUnit(unit: Unit) {
+		//Adding current patient to selected usedUnit
+		let data = SectionHandler()
+		unit.addToPatient(self.victim)
+		victim.addToFahrzeug(unit)
+		if let sec = victim.section
+		{
+			sec.addToUnits(unit)
+			unit.section = sec
+		}
+		victim.section = nil
+		data.saveData()
+		transportUnitTable.reloadData()
+	}
+
+
+
+
+
     let hospitalData : HospitalHandler = HospitalHandler()
     let unitData : UnitHandler = UnitHandler()
     let injuryData : InjuryHandler = InjuryHandler()
@@ -269,7 +427,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 		if let _ = victim.isDone
 		{
 
-			button.setTitle("Transportbeginn / Entlassen", for: .normal)
+			button.setTitle("Transportbeginn", for: .normal)
 			victim.isDone = nil
 			lblTransportTime.text = ""
 		}
@@ -280,7 +438,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 			let formatter : DateFormatter = DateFormatter()
 			formatter.dateFormat = "HH:mm / dd.MM.yyyy"
 			lblTransportTime.text = formatter.string(from: victim.isDone!)
-			button.setTitle("Transport zurück setzen", for: .normal)
+			button.setTitle("Trp. zurücksetzen", for: .normal)
 		}
         
     }
@@ -548,11 +706,48 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 		checkDoublePatID()
 		if let _ = self.victim.isDone
 		{
-			cmdStartStoppTransport.setTitle("Transport zurück setzen", for: .normal)
+			cmdStartStoppTransport.setTitle("Trp. zurücksetzen", for: .normal)
 		}
 		else
 		{
-			cmdStartStoppTransport.setTitle("Transportbeginn / Entlassen", for: .normal)
+			cmdStartStoppTransport.setTitle("Transportbeginn", for: .normal)
+		}
+
+		if let info = self.victim.additionalIfnormation
+		{
+			lbl_additionalInfo.text = info
+		}
+
+
+		if let text = victim.handledUnit
+		{
+			let s_text = "Durch folgende Einheiten versorgt:\n\n" + text
+			lblTransportTime.text = (lblTransportTime.text ?? "") + "(entlassen)"
+
+
+
+			transportUnitTable.isHidden = true
+			lblHandledByUnit.isHidden = false
+			lblHandledByUnit.text = s_text
+			cmdStartStoppTransport.isHidden = true
+			cmdUnitLeave.setTitle("Löschen", for: .normal)
+			cmdUnitLeave.borderColor = UIColor.red
+			cmdUnitLeave.tintColor = UIColor.red
+			cmdAddUnit.isHidden = true
+
+		}
+		else
+		{
+			victim.handledUnit = nil
+			transportUnitTable.isHidden = false
+			lblHandledByUnit.isHidden = true
+			lblHandledByUnit.text = ""
+			cmdStartStoppTransport.isHidden = false
+			cmdUnitLeave.setTitle("Entlassen", for: .normal)
+			cmdUnitLeave.borderColor = cmdAddUnit.backgroundColor ?? UIColor.gray
+			cmdUnitLeave.tintColor = cmdAddUnit.backgroundColor ?? UIColor.gray
+			cmdAddUnit.isHidden = false
+
 		}
         
     }

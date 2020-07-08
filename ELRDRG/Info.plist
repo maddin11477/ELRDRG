@@ -51,6 +51,8 @@
 	<string>Benötigt GPS um die Karte zu zentrieren</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Benötigt Zugriff um Sprachaufnahmen für Einsatzdokumention hinzufügen zu können</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Bilder zur Einsatzdokumention werden in der Fotos App des iPad abgelegt.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Benötigt Zugriff um Fotos der Doku hinzuzufügen zu können</string>
 	<key>UIAppFonts</key>
@@ -82,6 +84,8 @@
 		<string>Privacy - Location Always and When In Use Usage Description</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 </dict>
 </plist>
