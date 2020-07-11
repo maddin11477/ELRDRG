@@ -49,6 +49,7 @@
 		015589CE239ED42700BEEAE3 /* DocuCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015589CD239ED42700BEEAE3 /* DocuCVC.swift */; };
 		015589D0239ED4D300BEEAE3 /* PatientOverViewTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015589CF239ED4D300BEEAE3 /* PatientOverViewTVC.swift */; };
 		0156738F23CA562E00BC2B53 /* Hospital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0156738E23CA562E00BC2B53 /* Hospital.swift */; };
+		015872E424B60BA60085A68E /* UnitPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015872E324B60BA60085A68E /* UnitPattern.swift */; };
 		0165068F239D6AE600921FAD /* PatientUITVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0165068E239D6AE600921FAD /* PatientUITVC.swift */; };
 		01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01650BAC2249871400886510 /* CreateTempObjectViewController.swift */; };
 		0177A9352425137300F35819 /* NoticeBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177A9342425137300F35819 /* NoticeBookViewController.swift */; };
@@ -180,6 +181,7 @@
 		015589CD239ED42700BEEAE3 /* DocuCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocuCVC.swift; sourceTree = "<group>"; };
 		015589CF239ED4D300BEEAE3 /* PatientOverViewTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientOverViewTVC.swift; sourceTree = "<group>"; };
 		0156738E23CA562E00BC2B53 /* Hospital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hospital.swift; sourceTree = "<group>"; };
+		015872E324B60BA60085A68E /* UnitPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitPattern.swift; sourceTree = "<group>"; };
 		0165068E239D6AE600921FAD /* PatientUITVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITVC.swift; sourceTree = "<group>"; };
 		01650BAC2249871400886510 /* CreateTempObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTempObjectViewController.swift; sourceTree = "<group>"; };
 		0177A9342425137300F35819 /* NoticeBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoticeBookViewController.swift; path = NoticeBook/NoticeBookViewController.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				01D9025F23BB8136009F9E75 /* LocationHandler.swift */,
 				010CBD20240A83650021357D /* SettingsHandler.swift */,
 				01A042E424129DB000D15970 /* PatientenExport.swift */,
+				015872E324B60BA60085A68E /* UnitPattern.swift */,
 			);
 			name = Klassen;
 			path = "New Group";
@@ -693,6 +696,7 @@
 				012FE86F23897CBE005D24FD /* ShowUserViewController.swift in Sources */,
 				01A87CF923F3228E004DA83C /* UnitXIBCustomTableViewCell.swift in Sources */,
 				0139E4A22156D983001970FE /* SectionHandler.swift in Sources */,
+				015872E424B60BA60085A68E /* UnitPattern.swift in Sources */,
 				01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */,
 				5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */,
 				019081C52141A47B00AB7620 /* HospitalHandler.swift in Sources */,
@@ -932,7 +936,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
@@ -954,7 +958,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;

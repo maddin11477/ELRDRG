@@ -65,16 +65,28 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
 			return [dragItem]
 
 		}
-		else
+		else if indexpath.section == 1
 		{
         let string = NSAttributedString(string: (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexpath.row].callsign!)
         
-                let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
-               let car  = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexpath.row]
+			   let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+				let car  = section_!.getUnits()[indexpath.row]
                     dragItem.localObject = car
-                
+
                 return [dragItem]
             
+		}
+		else if indexpath.section == 2
+		{
+			let string = NSAttributedString(string: "Pattern")
+			let pattern = self.section_!.getPatterns()[indexpath.row]
+			let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
+			dragItem.localObject = pattern
+			return [dragItem]
+		}
+		else
+		{
+			return []
 		}
         
         
@@ -149,13 +161,20 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
 
 
 				}
+				else if let pat = item.dragItem.localObject as? UnitPattern
+				{
+					section_?.droppedPattern(pattern: pat)
+
+					self.dropDelegate.dropedUnitInSection()
+					table.reloadData()
+				}
             
             
         }
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        if let unit = session.items[0].localObject as? Unit
+        if let _ = session.items[0].localObject as? Unit
         {
             return true
            
@@ -164,7 +183,12 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
 		{
 			return true
 		}
-        else {
+		else if let _ = session.items[0].localObject as? UnitPattern
+		{
+			return true
+		}
+        else
+		{
             return false
         }
        
@@ -180,100 +204,204 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
 		{
 			return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
 		}
+		if let _ = session.items[0].localObject as? UnitPattern
+		{
+			return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+		}
         else {
             return UITableViewDropProposal(operation: .move, intent: .automatic)
             
         }
         
     }
+	
+
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+
+
+		return 3
 	}
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		//einfach die Patienten anzeigen die kein fahrzeug zugeordnet wurden
 		if section == 0
 		{
-			return self.section_?.victims?.allObjects.count ?? 0
+			//Design SETUP
+			self.layer.shadowColor = UIColor.black.cgColor
+			self.layer.shadowOffset = CGSize.zero
+			self.layer.shadowRadius = 10
+
+			//Victims
+			self.victims = self.section_!.getVictims()
+			return self.victims!.count
+
 		}
-        let anzahl =  (section_?.units?.allObjects.count) ?? 0
-         anzahlRTW = 0
-         anzahlKTW = 0
-         anzahlRTH = 0
-         anzahlNEF = 0
-         anzahlSonstige = 0
-        
-        self.layer.shadowColor = UIColor.black.cgColor
-       
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10
-        
-        let units = (section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })
-        for unit in units
-        {
-            if(unit.type == 0)
-            {
-                //RTW
-                anzahlRTW = 1 + anzahlRTW
-            }
-            else if(unit.type == 1)
-            {
-                //KTW
-                anzahlKTW = 1 + anzahlKTW
-            }
-            else if(unit.type == 2)
-            {
-                anzahlNEF = 1 + anzahlNEF
-            }
-            else if(unit.type == 3)
-            {
-                anzahlRTH = 1 + anzahlRTH
-            }
-            else if(unit.type == 4)
-            {
-                anzahlSonstige = 1 + anzahlSonstige
-            }
-            lblKTW.text = "KTW: " + String(anzahlKTW)
-            lblRTH.text = "RTH: " + String(anzahlRTH)
-            lblRTW.text = "RTW: " + String(anzahlRTW)
-            lblNEF.text = "NEF: " + String(anzahlNEF)
-            
-        }
-        
-        if(anzahl == 0)
-        {
-            lblKTW.text = "KTW: 0"
-            lblNEF.text = "NEF: 0"
-            lblRTH.text = "RTH: 0"
-            lblRTW.text = "RTW: 0"
-        }
-        return anzahl
+		else if(section == 1)
+		{
+			//Units
+			self.units = self.section_!.getUnits()
+			return self.units!.count
+		}
+		else
+		{
+			//Unit Patterns
+			self.patterns = self.section_!.getPatterns()
+			return self.patterns!.count
+		}
+
     }
     
      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        let unit = section_?.units?.allObjects[(indexPath.row)] as! Unit
-        unit.section = nil
-        section_!.removeFromUnits(unit)
-        
-        let handler = SectionHandler()
-        handler.saveData()
-        table.reloadData()
-        self.dropDelegate.dropedUnitInSection()
+		switch editingStyle {
+
+		// ------ DELETE -------------------------------------
+		case .delete:
+
+
+			switch indexPath.section {
+
+
+			// **** VICTIM ****
+			case 0:
+				if let victim = section_?.getVictims()[indexPath.row]
+				{
+					victim.section = nil
+					section_!.removeFromVictims(victim)
+				}
+				break
+
+
+			// **** UNIT *****
+			case 1:
+				if let unit = section_?.getUnits()[indexPath.row]
+				{
+					unit.section = nil
+					section_!.removeFromUnits(unit)
+				}
+				break
+
+
+			// **** PATTERN ****
+			case 2:
+				if let pattern = section_?.getPatterns()[indexPath.row]
+				{
+					for unit in pattern.units
+					{
+						unit.section = nil
+						section_!.removeFromUnits(unit)
+					}
+					pattern.victim.section = nil
+				}
+				break
+			default:
+				break
+			}
+			break;
+
+
+		// ------- INSERT ------------------------------------
+		case .insert:
+			break;
+		default:
+			break;
+		}
+
+		// -------- SAVING CHANGES ---------
+		let handler = SectionHandler()
+		handler.saveData()
+		table.reloadData()
+		self.dropDelegate.dropedUnitInSection()
+
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		if indexPath.section == 0
 		{
-			return []
+			return [] // no action because section 0 = Victims section (victims have own remove button)
 		}
         let unit = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
         var actions : [UITableViewRowAction] = []
         let delete = UITableViewRowAction(style: .destructive, title: "Fzg entfernen") { (action, indexPath) in
-            let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
-            unit.section = nil
-            self.section_!.removeFromUnits(unit)
-            
+           // let unit_ = (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
+
+
+
+
+
+			switch indexPath.section {
+
+
+			// **** VICTIM ****
+			case 0:
+				if let victim = self.section_?.getVictims()[indexPath.row]
+				{
+					victim.section = nil
+					self.section_!.removeFromVictims(victim)
+				}
+				break
+
+
+			// **** UNIT *****
+			case 1:
+				if let unit = self.section_?.getUnits()[indexPath.row]
+				{
+					unit.section = nil
+					self.section_!.removeFromUnits(unit)
+				}
+				break
+
+
+			// **** PATTERN ****
+			case 2:
+
+
+				if let pattern = self.section_?.getPatterns()[indexPath.row]
+				{
+					let controller = UIAlertController(title: "FZG entfernen", message: "Welches Fahrzeug soll entfernt werden?", preferredStyle: .alert)
+
+
+					for unit in pattern.units
+					{
+						let action = UIAlertAction(title: unit.callsign ?? "", style: .default, handler: {(alert: UIAlertAction!) in
+							let victim = unit.getVictims()![0]
+							victim.removeFromFahrzeug(unit)
+							unit.removeFromPatient(victim)
+							self.table.reloadData()
+							let handler = SectionHandler()
+							handler.saveData()
+							self.dropDelegate.dropedUnitInSection()
+
+
+
+						})
+						controller.addAction(action)
+
+						//unit.section = nil
+						//self.section_!.removeFromUnits(unit)
+					}
+					let abort = UIAlertAction(title: "Abbrechen", style: .destructive, handler: nil)
+					controller.addAction(abort)
+					var parentResponder : UIResponder? = self
+					while parentResponder != nil{
+						parentResponder = parentResponder!.next
+						if let viewController = parentResponder as? UIViewController{
+
+							viewController.present(controller, animated: true, completion: nil)
+							break
+						}
+					}
+					//TODO: Controller presenten
+					pattern.victim.section = nil
+				}
+				break
+			default:
+				break
+			}
+
+
+
+
             let handler = SectionHandler()
             handler.saveData()
             self.table.reloadData()
@@ -298,7 +426,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
             }
             removePatient.backgroundColor = UIColor.blue
             
-            actions.append(removePatient)
+            //actions.append(removePatient)
             var hasHospital = false
             for vic in unit.patient?.allObjects as! [Victim]
             {
@@ -333,38 +461,60 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+		// ------- VICTIMS --------
 		if indexPath.section == 0
 		{
-			let victims = section_?.victims?.allObjects as! [Victim]
+			//------- PATIENTS / VICTIMS
+			
 			let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
-			cell.patient_ = victims[indexPath.row]
+			cell.patient_ = self.victims![indexPath.row]
 			cell.unit_ = nil
+			cell.type = .Victim
+			cell.setProperties()
+			cell.unitChangedDelegate = self
+
+			return cell
+		}
+
+
+		// ------- Units --------
+		else if indexPath.section == 1
+		{
+
+			let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
+			cell.type = .Unit
+			cell.unit_ = self.units![indexPath.row]
+			cell.patient_ = nil
+			cell.delegate = self
 			cell.setProperties()
 			cell.unitChangedDelegate = self
 			return cell
 		}
-        let unitData = UnitHandler()
-        /*
-        case RTW = 0
-        case KTW = 1
-        case NEF = 2
-        case RTH = 3
-        case HVO = 4
-         */
-        let unit = (section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexPath.row]
-        
-      
-        
-     
-        
-        let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
-        cell.unit_ = unit
-		cell.patient_ = nil
-        cell.delegate = self
-        cell.setProperties()
-        cell.unitChangedDelegate = self
-        
-        return cell
+
+
+		// ------- PATTERNS --------
+		else if indexPath.section == 2
+		{
+			//------- PATTERNS
+
+			
+
+			let cell = table.dequeueReusableCell(withIdentifier: "SectionUnitTableViewCell") as! sectionUnitTableViewCell
+			cell.type = .UnitPattern
+			cell.unit_ = nil
+			cell.patient_ = nil
+			cell.pattern = self.patterns![indexPath.row]
+			cell.delegate = self
+			cell.setProperties()
+			cell.unitChangedDelegate = self
+			return cell
+		}
+		else
+		{
+			return UITableViewCell(style: .default, reuseIdentifier: "SectionUnitTableViewCell")
+		}
+
         
     }
     
@@ -372,6 +522,9 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
     
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
     public var section_ : Section?
+	public var units : [Unit]?
+	public var patterns : [UnitPattern]?
+	public var victims : [Victim]?
    public var dropDelegate : SectionDropProtocol!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var Abschnittname: UINavigationItem!

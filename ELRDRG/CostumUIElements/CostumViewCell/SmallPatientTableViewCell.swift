@@ -25,7 +25,7 @@ class SmallPatientTableViewCell: UITableViewCell {
     
     public var patient : Victim?
     public var fahrzeug : Unit?
-    
+	public var pattern : UnitPattern?
     
     @IBOutlet weak var destination: UILabel!
     
@@ -48,20 +48,83 @@ class SmallPatientTableViewCell: UITableViewCell {
 		{
 			if let pat = self.patient
 			{
+				var setAlone = true
 				car.removeFromPatient(pat)
-				pat.section = car.section
-				car.section?.addToVictims(pat)
+				if let units = pat.getUnits()
+				{
+					for unit in units
+					{
+						if unit.section != nil
+						{
+							setAlone = false
+						}
+					}
+				}
+				if setAlone
+				{
+					pat.section = car.section
+					car.section?.addToVictims(pat)
+				}
+				else
+				{
+
+				}
+
 				DataHandler().saveData()
 				delegate?.reloadTable()
 			}
-		}else
+		}
+
+		if let pat = self.patient
 		{
-			if let pat = self.patient
+
+				if let units = pat.getUnits()
+				{
+
+
+					for unit in units
+					{
+						unit.removeFromPatient(pat)
+					}
+					if units.count > 0
+					{
+						pat.section = units[0].section
+					}
+				}
+				else
+				{
+					pat.section?.removeFromVictims(pat)
+					pat.section = nil
+				}
+
+				DataHandler().saveData()
+				delegate?.reloadTable()
+
+		}
+
+		if let pat = self.pattern?.victim
+		{
+			if let units = pat.getUnits()
+			{
+
+
+				for unit in units
+				{
+					unit.removeFromPatient(pat)
+				}
+				if units.count > 0
+				{
+					pat.section = units[0].section
+				}
+			}
+			else
 			{
 				pat.section?.removeFromVictims(pat)
 				pat.section = nil
-				delegate?.reloadTable()
 			}
+
+			DataHandler().saveData()
+			delegate?.reloadTable()
 		}
 
 

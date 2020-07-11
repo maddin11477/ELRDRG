@@ -31,7 +31,47 @@ class SectionHandler: NSObject {
     }
   
     
-    
+	public static func getTableItemsCount(section : Section) -> ([Unit], [UnitPattern])
+	{
+		var newUnits : [Unit] = []
+		var newUnitPatterns : [UnitPattern] = []
+		var newVictims : [Victim] = []
+		//Units
+		let units : [Unit] = (section.units?.allObjects as? [Unit]) ?? []
+		for unit in units {
+
+			//each unit has to be investigated
+			if let victims = unit.getVictims()
+			{
+				//Only one victim allowed and is allowed to be added only once
+				if victims.count == 1 && newVictims.contains(victims[0]) == false
+				{
+
+					if let pattern = UnitPattern.generatePattern(newVictim: victims[0])
+					{
+						newUnitPatterns.append(pattern)
+						newVictims.append(victims[0])
+					}
+					else
+					{
+						newUnits.append(unit)
+					}
+				}
+				else
+				{
+					if victims.count > 0 && newVictims.contains(victims[0]) == false
+					{
+						newUnits.append(unit)
+					}
+
+				}
+
+			}
+		}
+
+
+		return (newUnits, newUnitPatterns)
+	}
     
     
     public func getMissionFromUnique(unique : String) -> Mission?

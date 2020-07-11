@@ -51,7 +51,15 @@ extension Unit{
         
         return nil
     }
-    
+
+	public func getVictims()->[Victim]?
+	{
+		if let victims = self.patient?.allObjects as? [Victim]
+		{
+			return victims
+		}
+		return nil
+	}
     
     
     

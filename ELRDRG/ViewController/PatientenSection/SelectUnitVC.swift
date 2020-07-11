@@ -64,9 +64,10 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
 		if(type == .unitselector)
 		{
-			if section == 0{
+			if section == 0
+			{
 
-					usedUnits = unitData.getUsedUnits()
+					self.usedUnits = unitData.getUsedUnits()
 					usedUnits = usedUnits.filter {
 						if typeSelector.selectedSegmentIndex < 4 && $0.type == typeSelector.selectedSegmentIndex
 						{
@@ -131,7 +132,23 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 					units.sort { ($0.funkrufName ?? "") < ($1.funkrufName ?? "") }
 
 				}
-
+				newUnitList = []
+				for unit in units{
+					var available = false
+					for usedUnit in usedUnits
+					{
+						if usedUnit.callsign == unit.funkrufName
+						{
+							available = true
+						}
+					}
+					if !available
+					{
+						newUnitList.append(unit)
+					}
+				}
+				units = newUnitList
+				units.sort { ($0.funkrufName ?? "") < ($1.funkrufName ?? "") }
 				return units.count
 			}
 

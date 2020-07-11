@@ -77,5 +77,14 @@ extension Victim
     {
         return Int(self.hospitalClearance)
     }
+
+	public func getUnits()-> [Unit]?
+	{
+		if let units = self.fahrzeug?.allObjects as? [Unit]
+		{
+			return units
+		}
+		return nil
+	}
 }
 

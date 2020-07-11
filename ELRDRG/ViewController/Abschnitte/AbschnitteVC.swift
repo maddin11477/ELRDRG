@@ -18,6 +18,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     func createdUnit() {
         //
         self.SourceTable.reloadData()
+		self.AbschnitteCollectionView.reloadData()
     }
     
     func createdSection() {
@@ -243,27 +244,6 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         view.table.dropDelegate = view
         view.dropDelegate = self
         view.table.dragDelegate = view
-        var count = 0
-        for unit in sections[indexPath.row].units?.allObjects as! [Unit]
-        {
-            var i = 1
-            if(unit.patient != nil)
-            {
-                i = 2
-            }
-            
-           /* if(unit.patient?.hospital != nil)
-            {
-                i=3
-            }*/
-            
-            count = count + i * 49
-        }
-       
-        //view.tableHeight.constant = CGFloat(count)
-        
-        //view.layer.borderColor = UIColor.black.cgColor
-        //view.layer.borderWidth = 1
         
         
         view.table.delegate = view
@@ -561,6 +541,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         AbschnitteCollectionView.dragInteractionEnabled = true
         
         SourceTable.dragInteractionEnabled = true
+
         
         
     }
