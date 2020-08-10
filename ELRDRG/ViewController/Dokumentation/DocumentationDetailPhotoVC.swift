@@ -136,7 +136,7 @@ class DocumentationDetailPhotoVC: UIViewController, UIImagePickerControllerDeleg
 			// we got back an error!
 			showAlertWith(title: "Save error", message: error.localizedDescription)
 		} else {
-			showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
+			//showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
 		}
 	}
 

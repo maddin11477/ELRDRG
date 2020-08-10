@@ -110,7 +110,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
 					unit.section?.addToUnits(unit)
 					unit.addToPatient(pat)
 					pat.addToFahrzeug(unit)
-					pat.section!.removeFromVictims(pat)
+					pat.section?.removeFromVictims(pat)
 					pat.section = nil
 					DataHandler().saveData()
 					if let delegate = self.delegate

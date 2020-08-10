@@ -14,7 +14,7 @@ class UnitHandler: NSObject {
 
       var delegate : UnitProtocol?
     
-    enum UnitType: Int16 {
+     enum UnitType: Int16 {
         case all = -1
         case RTW = 0
         case KTW = 1

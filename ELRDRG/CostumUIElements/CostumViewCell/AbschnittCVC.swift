@@ -67,10 +67,10 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
 		}
 		else if indexpath.section == 1
 		{
-        let string = NSAttributedString(string: (self.section_!.units!.allObjects as! [Unit]).sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })[indexpath.row].callsign!)
+			let string = NSAttributedString(string: "Unit")
         
 			   let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
-				let car  = section_!.getUnits()[indexpath.row]
+				let car  = section_?.getUnits()[indexpath.row]
                     dragItem.localObject = car
 
                 return [dragItem]
@@ -224,9 +224,19 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
 	}
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+
+
+
 		//einfach die Patienten anzeigen die kein fahrzeug zugeordnet wurden
 		if section == 0
 		{
+			//Fill counter display
+			lblRTW.text = "RTW: " + String(self.section_?.getUnitbyType(type: .RTW).count ?? 0)
+			lblKTW.text = "KTW: " + String(self.section_?.getUnitbyType(type: .KTW).count ?? 0)
+			lblNEF.text = "NEF: " + String(self.section_?.getUnitbyType(type: .NEF).count ?? 0)
+			lblRTH.text = "RTH: " + String(self.section_?.getUnitbyType(type: .RTH).count ?? 0)
+
 			//Design SETUP
 			self.layer.shadowColor = UIColor.black.cgColor
 			self.layer.shadowOffset = CGSize.zero

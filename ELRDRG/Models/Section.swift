@@ -17,6 +17,24 @@ public protocol SectionDelegate{
 
 }
 
+public enum UnitType: Int16 {
+	case all = -1
+	case RTW = 0
+	case KTW = 1
+	case NEF = 2
+	case RTH = 3
+
+	case Sonstiges = 4
+	case Krad = 5
+	case kdow = 6
+
+	case MTW = 7
+	case LKW = 8
+	case KTWkats = 9
+	case wasserwacht = 10
+	case elw = 11
+}
+
 public class Section: NSManagedObject {
 	public var delegate : SectionDelegate?
 }
@@ -83,15 +101,31 @@ extension Section {
 
 	public func getUnits()->[Unit]
 	{
+		var returnList : [Unit] = []
+
 		if var units = self.units?.allObjects as? [Unit]
 		{
 			units = units.filter{ !UnitPattern.checkForPattern(unit: $0) }
-			return units.sorted(by: { $0.callsign!.lowercased() < $1.callsign!.lowercased() })
+			returnList.append(contentsOf: units)
 		}
-		else
-		{
-			return []
+
+
+		return returnList
+
+	}
+
+	public func getUnitbyType(type : UnitType)->[Unit]
+	{
+		var units = getUnits()
+		for pattern in self.getPatterns() {
+			units.append(contentsOf: pattern.units)
 		}
+
+		units = units.filter{
+			$0.type == type.rawValue
+		}
+		return units
+
 	}
 
 
