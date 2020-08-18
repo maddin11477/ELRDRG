@@ -9,8 +9,9 @@
 import UIKit
 import WebKit
 import PDFKit
+import MessageUI
 
-class ExportVC: UIViewController, WKNavigationDelegate {
+class ExportVC: UIViewController, WKNavigationDelegate, MFMailComposeViewControllerDelegate {
 
     public var htmlText : String?
     public var url : URL?
@@ -102,6 +103,7 @@ class ExportVC: UIViewController, WKNavigationDelegate {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileURL = documentsDirectory.appendingPathComponent(UUID().uuidString + ".pdf")
         url = fileURL
+		data = pdfData
         if !FileManager.default.fileExists(atPath:fileURL.path) {
             do {
 
@@ -123,23 +125,81 @@ class ExportVC: UIViewController, WKNavigationDelegate {
     }
     
     
-    @IBAction func Safe(_ sender: Any) {
-        // 2
-        if(url != nil)
-        {
+		@IBAction func Safe(_ sender: Any) {
+			// 2
+			if !MFMailComposeViewController.canSendMail() {
+				self.openActivity(sender: sender)
+				return
+			}
+			if(url != nil)
+			{
+				let alertcontroller = UIAlertController(title: "Mail an ILS?", message: "Es wird eine Vorlage für das versenden an die ILS erstellt", preferredStyle: .alert)
+				let action = UIAlertAction(title: "JA", style: .default, handler: { action in
+					self.openMailToILS()
+				})
+				let abortaction = UIAlertAction(title: "NEIN", style: .cancel, handler: { action in
+					self.openActivity(sender: sender)
+				})
 
-        let activity = UIActivityViewController(
-            activityItems: ["Export Speichern", url],
-            applicationActivities: nil
-        )
+				alertcontroller.addAction(action)
+				alertcontroller.addAction(abortaction)
+				self.present(alertcontroller, animated: true, completion: nil)
 
 
-            activity.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
-        
-        // 3
-        present(activity, animated: true, completion: nil)
-        }
-    }
+			}
+		}
+
+	func openMailToILS(){
+
+			if let _ = url
+			{
+				let mission = DataHandler().getCurrentMission()
+				
+				let composeVC = MFMailComposeViewController()
+				composeVC.setToRecipients(["Jonas.Wehner@iCloud.com"])
+				composeVC.setSubject("Einsatzbericht ELRD Rhön-Grabfeld - " + (mission?.reason ?? ""))
+				let body = """
+				Sehr geehrte Kollegen,
+
+				im Anhang der Einsatzbericht des aktuellen ELRD-Einsatzes.
+
+				Mit freundlichen Grüßen
+
+				\((mission?.user?.firstName ?? "") + "   " + (mission?.user?.lastName ?? ""))
+				Einsatzleiter Rettungsdienst Rhön-Grabfeld
+
+"""
+				composeVC.setMessageBody(body, isHTML: false)
+				//composeVC.mailComposeDelegate = self
+
+				composeVC.addAttachmentData(data as! Data, mimeType: ".pdf", fileName: (mission?.reason ?? "unknown.pdf") + ".pdf")
+				self.present(composeVC, animated: true, completion: nil)
+		}
+
+
+		}
+
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+		self.dismiss(animated: true, completion: nil)
+	}
+
+		func openActivity(sender : Any)
+		{
+			if(url == nil)
+			{
+				return
+			}
+			let activity = UIActivityViewController(
+				activityItems: ["Einsatzbericht Speichern", url!],
+				applicationActivities: nil
+			)
+
+
+			activity.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
+
+			// 3
+			present(activity, animated: true, completion: nil)
+		}
     }
     
     

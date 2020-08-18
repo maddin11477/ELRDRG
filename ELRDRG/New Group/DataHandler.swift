@@ -179,6 +179,16 @@ class DataHandler: NSObject {
         let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
         return mission.victims?.allObjects as! [Victim]
     }
+
+	public func getCurrentMission()-> Mission?
+	{
+		if let currentMissionUnique = login.getLoggedInUser()?.currentMissionUnique
+		{
+			return getMissionFromUnique(unique: currentMissionUnique)
+		}
+		return nil
+		//return let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)
+	}
     
     public func ceateVictim (age : Int16, category: Int16, firstName : String?, lastName : String?)
     {

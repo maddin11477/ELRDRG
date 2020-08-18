@@ -98,7 +98,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
 				}
 			}
 
-			if let pat = self.patient_
+			if let pat = self.patient_  //current celltype = patient
 			{
 				if let unit = item.dragItem.localObject as? Unit
 				{
@@ -112,7 +112,7 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
 					pat.addToFahrzeug(unit)
 					pat.section?.removeFromVictims(pat)
 					pat.section = nil
-					DataHandler().saveData()
+					UnitHandler().saveData()
 					if let delegate = self.delegate
 					{
 						delegate.droppedVictim()
@@ -120,9 +120,10 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
 
 
 
+
 				}
 				table.reloadData()
-				return
+
 			}
             if let patient = item.dragItem.localObject as? Victim
             {
