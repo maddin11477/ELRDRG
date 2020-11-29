@@ -46,7 +46,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             EditViewsWidthConstraints.constant = 418
         }
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
         
@@ -63,7 +63,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         for item in coordinator.items
         {
             
-            if let sectionCell = item.dragItem.localObject as? SectionTableViewCell
+            if let sectionCell = item.dragItem.localObject as? AbschnitteSectionTVC
             {
                 
                 
@@ -83,7 +83,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool
     {
-       if let _ = session.items[0].localObject as? SectionTableViewCell
+       if let _ = session.items[0].localObject as? AbschnitteSectionTVC
        {
             return true
         }
@@ -98,7 +98,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         
         print("test")
-        if let _ = session.items[0].localObject as? SectionTableViewCell
+        if let _ = session.items[0].localObject as? AbschnitteSectionTVC
         {
             return UICollectionViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
          }
@@ -213,7 +213,7 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         {
                 let string = NSURL(fileURLWithPath: "testfileNotImportantWhatIsWrittenHere")
                 let dragItem = UIDragItem(itemProvider: NSItemProvider(object: string))
-                if let abschnitt = (SourceTable.cellForRow(at: indexpath) as? SectionTableViewCell)
+                if let abschnitt = (SourceTable.cellForRow(at: indexpath) as? AbschnitteSectionTVC)
                 {
                     dragItem.localObject = abschnitt
                     
@@ -427,10 +427,10 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         else
         {
             //Einsatzabschnitte
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell") as! SectionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell") as! AbschnitteSectionTVC
             let section = baseSections[indexPath.row]
             cell.Name.text = section.identifier
-            cell.zusatz.text = ""
+            
             return cell
         }
     }

@@ -10,7 +10,8 @@ import UIKit
 
 class GeneralSettingsVC: UITableViewController {
 
-
+    @IBOutlet weak var txt_commandRegion: UITextField!
+    
 	@IBOutlet var generate_sections_automatically_switch: UISwitch!
 
 	@IBOutlet var add_newSections_toMission_switch: UISwitch!
@@ -19,6 +20,17 @@ class GeneralSettingsVC: UITableViewController {
 
 	@IBOutlet var show_all_users_switch: UISwitch!
 
+    @IBOutlet weak var txt_ILSMailAdresse: UITextField!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if let setting = self.einstellungen
+        {
+            setting.ils_mailAdress = txt_ILSMailAdresse.text
+            setting.commanderRegion = txt_commandRegion.text
+            let _ = SettingsHandler().save()
+        }
+    }
+    
 
 	var einstellungen : Settings?
 	
@@ -32,6 +44,8 @@ class GeneralSettingsVC: UITableViewController {
 			self.add_newSections_toMission_switch.isOn = setting.add_new_sections_to_mission
 			self.safe_new_sections_permanent_switch.isOn = setting.safe_new_sections_permanent
 			self.show_all_users_switch.isOn = setting.showAllMissions
+            self.txt_ILSMailAdresse.text = setting.ils_mailAdress
+            self.txt_commandRegion.text = setting.commanderRegion
 		}
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

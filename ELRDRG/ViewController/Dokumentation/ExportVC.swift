@@ -154,9 +154,20 @@ class ExportVC: UIViewController, WKNavigationDelegate, MFMailComposeViewControl
 			if let _ = url
 			{
 				let mission = DataHandler().getCurrentMission()
-				
+                let setting = SettingsHandler().getSettings()
 				let composeVC = MFMailComposeViewController()
-				composeVC.setToRecipients(["Jonas.Wehner@iCloud.com"])
+               // composeVC.delegate = self
+                composeVC.mailComposeDelegate = self
+                var mailadressen : [String] = []
+                if setting.ils_mailAdress != nil && setting.ils_mailAdress != ""
+                {
+                    mailadressen.append(setting.ils_mailAdress!)
+                }
+                if let mailadress = mission?.user?.eMail
+                {
+                    mailadressen.append(mailadress)
+                }
+                composeVC.setToRecipients(mailadressen)
 				composeVC.setSubject("Einsatzbericht ELRD Rhön-Grabfeld - " + (mission?.reason ?? ""))
 				let body = """
 				Sehr geehrte Kollegen,
@@ -166,7 +177,7 @@ class ExportVC: UIViewController, WKNavigationDelegate, MFMailComposeViewControl
 				Mit freundlichen Grüßen
 
 				\((mission?.user?.firstName ?? "") + "   " + (mission?.user?.lastName ?? ""))
-				Einsatzleiter Rettungsdienst Rhön-Grabfeld
+				Einsatzleiter Rettungsdienst \((setting.commanderRegion ?? "")!)
 
 """
 				composeVC.setMessageBody(body, isHTML: false)
@@ -180,6 +191,7 @@ class ExportVC: UIViewController, WKNavigationDelegate, MFMailComposeViewControl
 		}
 
 	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
 		self.dismiss(animated: true, completion: nil)
 	}
 

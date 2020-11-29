@@ -17,7 +17,7 @@ class DataHandler: NSObject {
     
     var delegate : missionProtocol?
     
-    
+    var notificationDelegate : NotificationDelegate?
     
     public func addMission(reason : String?)
     {
@@ -33,17 +33,42 @@ class DataHandler: NSObject {
         mission.reason = reason
 		//mission als nicht beendet markieren
 		mission.isFinished = false
-        //Objekt wird in CoreData gespeichert
-        saveData()
+        
+        
+        
+        
         //Objekt benachrichtigt über ein Update der verfügbaren Missions
 		delegate?.updatedMissionList(missionList: getAllMissions(missions: true))
-
+        SectionHandler().addDefaultSections(mission: mission)
 
         //Ausgabe für Konsole
         print("Einsatz angelegt: " + mission.reason! + " Unique: " + mission.unique!)
+        
+        let notification = createNotification(sender: LoginHandler().getLoggedInUserName(), content: "Einsatz '\((reason) ?? "")' wurde neu erstellt.")
+        mission.addToNotifications(notification)
+        //Objekt wird in CoreData gespeichert
+        saveData()
     }
     
-   
+    public func createNotification(sender : String, content : String)->Notification
+    {
+        let notification = Notification(context: AppDelegate.viewContext)
+        notification.sender = sender
+        notification.content = content
+        notification.date = Date()
+        let mission = getCurrentMission()
+        mission?.addToNotifications(notification)
+        self.notificationDelegate?.refreshNotifications?(notifications: getNotifications())
+        saveData()
+        
+        //Pushbenachrichtigung
+        let manager = LocalNotificationManager()
+       
+        manager.addNotification(title: notification.sender ?? "", content: notification.content ?? "")
+        manager.schedule()
+        
+        return notification
+    }
     
     public func setEndDate()
     {
@@ -89,6 +114,65 @@ class DataHandler: NSObject {
         }
         return []
     }
+    
+    
+    
+    public func deleteNotifications(index : Int? = nil)
+    {
+        let mission = getCurrentMission()
+        var notifications = getNotifications()
+        if let i = index
+        {
+            let notify = notifications.remove(at: i)
+            
+            mission?.removeFromNotifications(notify)
+            AppDelegate.viewContext.delete(notify)
+        }
+        else
+        {
+            
+            if let notifications = mission?.notifications?.allObjects as? [Notification]
+            {
+                for  notify in notifications {
+                    mission?.removeFromNotifications(notify)
+                    AppDelegate.viewContext.delete(notify)
+                }
+                
+            }
+            
+        }
+        
+        saveData()
+    }
+    
+    public func getNotifications()->[Notification]
+    {
+        let mission = getCurrentMission()
+        if var notifications = mission?.notifications?.allObjects as? [Notification]
+        {
+            notifications = notifications.sorted {
+                if let date = $0.date, let date1 = $1.date
+                {
+                    return date < date1
+                }
+                else
+                {
+                    return false
+                }
+                
+            }
+            return notifications
+        }
+        else
+        {
+            return []
+        }
+        
+    }
+    
+ 
+    
+    
     
     public func deleteVictim(victim : Victim)
     {
@@ -178,6 +262,15 @@ class DataHandler: NSObject {
     {
         let mission : Mission = getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
         return mission.victims?.allObjects as! [Victim]
+    }
+    
+    public func getJSONVictims()->String
+    {
+        let encoder = JSONEncoder()
+        
+        let data = try! encoder.encode(getVictims())
+        return String(bytes: data, encoding: .utf8) ?? ""
+        
     }
 
 	public func getCurrentMission()-> Mission?

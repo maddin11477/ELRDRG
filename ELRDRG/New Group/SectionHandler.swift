@@ -105,7 +105,10 @@ class SectionHandler: NSObject {
     
     public func deleteSection(sec : Section)
     {
-        
+        if let annotation = sec.mapAnnotation
+        {
+            SectionMapAnnotation.delete(annotation: annotation)
+        }
         AppDelegate.viewContext.delete(sec)
         
         saveData()
@@ -122,7 +125,45 @@ class SectionHandler: NSObject {
         return array
     }
     
-  
+    func addDefaultSections(mission : Mission)
+    {
+        if SettingsHandler().getSettings().add_standard_sections_automatically
+        {
+           let sections = getAllSections()
+           var defaultSections : [BaseSection] = []
+           for sec in sections {
+               if sec.allwaysExits
+               {
+                   defaultSections.append(sec)
+               }
+           }
+           
+           defaultSections.sort{ $1.counter > $0.counter }
+           for sec in defaultSections {
+               self.createDefaultSection(identifier: sec.identifier ?? "", mission: mission)
+           }
+           saveData()
+        }
+       
+        
+    }
+    
+    private func createDefaultSection(identifier : String, mission : Mission)
+    {
+        let section = Section(context: AppDelegate.viewContext)
+        section.identifier = identifier
+        var highest = 0
+        for sec in mission.sections?.allObjects as! [Section]
+        {
+            if sec.id > highest
+            {
+                highest = Int(sec.id)
+            }
+        }
+        section.id = Int16(highest + 1)
+        mission.addToSections(section)
+        
+    }
     
     public func addSection(identifier : String)
     {

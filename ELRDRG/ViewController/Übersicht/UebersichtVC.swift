@@ -70,7 +70,7 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     let data : DataHandler = DataHandler()
     var victims : [Victim] = []
     @IBOutlet var collectionView: UICollectionView!
-    
+  
     
     
     @IBAction func endMission_Click(_ sender: Any)
@@ -90,6 +90,8 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
 		let mission : Mission = DataHandler().getMissionFromUnique(unique: (login.getLoggedInUser()?.currentMissionUnique)!)!
 		self.OverViewTitleItem.title = (mission.reason ?? "Übersicht")
         print("view did appear")
+        
+        
     }
     
     override func viewDidLoad() {
@@ -128,6 +130,7 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     func ProcessBadges()
     {
+        
         var countDone : Int = 0
               var countNotDone : Int = 0
               
@@ -142,7 +145,7 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
                   }
               }
               if let tabItems = tabBarController?.tabBar.items {
-                  // In this case we want to modify the badge number of the third tab:
+                  
                   let tabItem = tabItems[3]
                   if(countNotDone > 0)
                   {

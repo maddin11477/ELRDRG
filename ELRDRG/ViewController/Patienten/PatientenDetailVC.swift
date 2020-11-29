@@ -46,6 +46,8 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 
 		lblDoublePatID.isHidden = !isDouble
 	}
+    
+    
 
 
 	@IBAction func IDChanged(_ sender: Any) {
@@ -683,9 +685,11 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         toolBar!.isUserInteractionEnabled = true
         
         birthdatePicker = UIDatePicker()
+        
         if let date = victim.birthdate
         {
             birthdatePicker?.date = date
+            
         }
         
         txtBirthdate.inputView = birthdatePicker
@@ -694,6 +698,9 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         let loc = Locale(identifier: "Ger")
         birthdatePicker?.locale = loc
         birthdatePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        if #available(iOS 14, *) {
+            birthdatePicker?.preferredDatePickerStyle = .wheels
+            }
         hospitalInfoStateControl.selectedSegmentIndex = self.victim.getHospitalInfoState()
         if let _ = victim.hospital
         {

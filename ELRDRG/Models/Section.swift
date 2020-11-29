@@ -37,9 +37,12 @@ public enum UnitType: Int16 {
 
 public class Section: NSManagedObject {
 	public var delegate : SectionDelegate?
+    public var mapAnnotation : SectionMapAnnotation?
 }
 
 extension Section {
+    
+   
 
 	public func getPatterns() -> [UnitPattern]
 	{
@@ -113,7 +116,17 @@ extension Section {
 		return returnList
 
 	}
-
+    
+    public func getAllUnits()->[Unit]
+    {
+        var returnList : [Unit] = []
+        if let units = self.units?.allObjects as? [Unit]
+        {
+            returnList = units
+        }
+        return returnList
+    }
+    
 	public func getUnitbyType(type : UnitType)->[Unit]
 	{
 		var units = getUnits()

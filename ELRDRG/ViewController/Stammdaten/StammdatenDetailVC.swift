@@ -153,7 +153,9 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell") as! SectionTableViewCell
             cell.Name.text = sections[indexPath.row].identifier!
-            cell.zusatz.text = ""
+            cell.section = sections[indexPath.row]
+            cell.setup()
+            //cell.zusatz.text = ""
             return cell
         }
         else
@@ -201,7 +203,9 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
     
     @IBOutlet weak var navBarItem: UINavigationItem!
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        DataHandler().saveData()
+    }
     
    
     

@@ -89,7 +89,7 @@ class Export: NSObject {
     
 	func createHeader(mission : Mission, createMissionInfo : Bool) -> String
     {
-        let landkreis = "Rhön-Grabfeld"
+        let landkreis = (SettingsHandler().getSettings().commanderRegion ?? "")!
         let scene = mission.reason!
         let user = (mission.user!.firstName ?? "") + " " + (mission.user!.lastName ?? "")
         let formatter = DateFormatter()

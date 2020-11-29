@@ -116,6 +116,7 @@ class AbschnittCVC: UICollectionViewCell,UITableViewDataSource, UITableViewDeleg
             car.section = nil
         }
         lecdata.deleteSection(sec: section_!)
+        
         self.dropDelegate.dropedUnitInSection()
         
         

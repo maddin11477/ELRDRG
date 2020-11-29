@@ -252,7 +252,12 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 				cell.crewCount.text = ""
 				cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
 				cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
-				cell.backgroundColor = UIColor(hue: 0.2917, saturation: 0.35, brightness: 0.92, alpha: 1.0)
+                var brightness = 0.92
+                if traitCollection.userInterfaceStyle == .dark
+                {
+                    brightness = 0.32
+                }
+                cell.backgroundColor = UIColor(hue: 0.2917, saturation: 0.35, brightness: CGFloat(brightness), alpha: 1.0)
 			}
 			else
 			{
@@ -263,7 +268,7 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
 				cell.pictureBox.image = UIImage(named: unitData.BaseUnit_To_UnitTypeString(id: unit.type))
 				cell.type.text = unitData.BaseUnit_To_UnitTypeString(id: unit.type)
-				cell.backgroundColor = UIColor.white
+				//cell.backgroundColor = UIColor.white
 			}
 
         }
@@ -274,7 +279,7 @@ class SelectUnitVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             cell.type.text = hospital.city
 			cell.crewCount.text = String(Int((hospital.distance / 1000).rounded())) + " km"
             cell.pictureBox.image = UIImage(named: "hospital.png")
-			cell.backgroundColor = UIColor.white
+			//cell.backgroundColor = UIColor.clear
         }
         //do something
      
