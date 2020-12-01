@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+protocol AbschnitteSectionTVCDelegate {
+    func addSection(section : BaseSection)
+}
 class AbschnitteSectionTVC: UITableViewCell {
 
     override func awakeFromNib() {
@@ -17,6 +19,15 @@ class AbschnitteSectionTVC: UITableViewCell {
     
     @IBOutlet weak var Name: UILabel!
     
+    public var section : BaseSection?
+    public var delegate : AbschnitteSectionTVCDelegate?
+    
+    @IBAction func addSection(_ sender: Any) {
+        if let sec = self.section
+        {
+            self.delegate?.addSection(section: sec)
+        }
+    }
     
 
     override func setSelected(_ selected: Bool, animated: Bool) {

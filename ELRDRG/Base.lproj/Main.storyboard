@@ -2288,17 +2288,17 @@
                                 </connections>
                             </button>
                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBX-MX-phg">
-                                <rect key="frame" x="141" y="125" width="627" height="849"/>
+                                <rect key="frame" x="622" y="125" width="402" height="593"/>
                                 <color key="backgroundColor" name="UIBackcolor_NEW"/>
                                 <constraints>
                                     <constraint firstAttribute="width" id="XM5-UX-n4e"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SmallUnitTableViewCell" rowHeight="49" id="HoF-mc-t7r" customClass="SmallUnitTableViewCell" customModule="ELRDRG" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="627" height="49"/>
+                                        <rect key="frame" x="0.0" y="28" width="402" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HoF-mc-t7r" id="b9a-Yl-aJQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="627" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="402" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RTW.png" translatesAutoresizingMaskIntoConstraints="NO" id="Edu-6o-OpO">
@@ -2361,10 +2361,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SmallPatientTableViewCell" rowHeight="45" id="GyW-LY-bBC" customClass="SmallPatientTableViewCell" customModule="ELRDRG" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="77" width="627" height="45"/>
+                                        <rect key="frame" x="0.0" y="77" width="402" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GyW-LY-bBC" id="WjG-dE-ABZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="627" height="45"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="402" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="humanbody02.png" translatesAutoresizingMaskIntoConstraints="NO" id="BfD-Tn-vGk">
@@ -2438,17 +2438,17 @@
                                             <outlet property="lastName" destination="PpC-GU-o5Y" id="W85-0U-oac"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SectionTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SectionTableViewCell" rowHeight="45" id="9VE-7K-zRx" customClass="AbschnitteSectionTVC" customModule="ELRDRG" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="122" width="627" height="45"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SectionTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SectionTableViewCell" focusStyle="custom" rowHeight="45" id="9VE-7K-zRx" customClass="AbschnitteSectionTVC" customModule="ELRDRG" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="122" width="402" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9VE-7K-zRx" id="qBA-C3-xBr">
-                                            <rect key="frame" x="0.0" y="0.0" width="627" height="45"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="402" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einsatzabschnitt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OB-pe-vPM">
-                                                    <rect key="frame" x="8" y="0.0" width="380" height="45"/>
+                                                    <rect key="frame" x="8" y="0.0" width="250" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="380" id="01F-Yg-UgC"/>
+                                                        <constraint firstAttribute="width" constant="250" id="01F-Yg-UgC"/>
                                                         <constraint firstAttribute="height" constant="45" id="Tvn-Zp-bKO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2464,13 +2464,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cme-Qe-vjd">
+                                                    <rect key="frame" x="268" y="11" width="18" height="22"/>
+                                                    <state key="normal" image="plus" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="addSection:" destination="9VE-7K-zRx" eventType="touchUpInside" id="kLb-j0-1dH"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="5OB-pe-vPM" firstAttribute="leading" secondItem="qBA-C3-xBr" secondAttribute="leading" constant="8" id="60K-sa-HMb"/>
                                                 <constraint firstItem="Qzd-Vw-CEp" firstAttribute="top" secondItem="qBA-C3-xBr" secondAttribute="top" id="AEj-bg-gjZ"/>
                                                 <constraint firstItem="5OB-pe-vPM" firstAttribute="top" secondItem="qBA-C3-xBr" secondAttribute="top" id="J9N-eQ-KZp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Cme-Qe-vjd" secondAttribute="bottom" constant="1" id="NcP-bC-VBi"/>
+                                                <constraint firstItem="Cme-Qe-vjd" firstAttribute="leading" secondItem="5OB-pe-vPM" secondAttribute="trailing" constant="10" id="VF3-lk-mGy"/>
                                                 <constraint firstAttribute="bottom" secondItem="Qzd-Vw-CEp" secondAttribute="bottom" id="VHJ-as-2SU"/>
                                                 <constraint firstAttribute="bottom" secondItem="5OB-pe-vPM" secondAttribute="bottom" id="WLi-tG-Cpr"/>
+                                                <constraint firstItem="Cme-Qe-vjd" firstAttribute="top" secondItem="qBA-C3-xBr" secondAttribute="topMargin" id="XU3-FB-jk7"/>
                                                 <constraint firstAttribute="trailing" secondItem="Qzd-Vw-CEp" secondAttribute="trailing" id="aqP-g9-F9J"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2585,7 +2595,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5d-y4-tsn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3561.71875" y="1706.25"/>
+            <point key="canvasLocation" x="-3561.9140624999995" y="1706.25"/>
         </scene>
         <!--Tagebuch-->
         <scene sceneID="uok-iT-XSo">
@@ -7469,7 +7479,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaP-iv-rDU">
                                 <rect key="frame" x="16" y="137" width="268" height="276"/>
-                                <string key="text">Mittels Drag&amp;Drop lassen sich die Einsatzabschnitte auf der Karte platzieren. Wollen Sie die Position eines Abschnittes ändern, ziehen Sie diesen einfach erneut aus der List auf die gewünschte Position auf der Karte. Anschließend wird  der ausgewählten Einsatzabschnittes auf der Karte aktualisiert. (Die Lagekarte wird aktuell noch nicht in der Exportfunktion unterstützt)</string>
+                                <string key="text">Mittels Drag&amp;Drop lassen sich die Einsatzabschnitte auf der Karte platzieren. Wollen Sie die Position eines Abschnittes ändern, ziehen Sie diesen einfach erneut aus der Liste auf die gewünschte Position auf der Karte. Anschließend wird  der ausgewählten Einsatzabschnitt auf der Karte aktualisiert. (Die Lagekarte wird aktuell noch nicht in der Exportfunktion unterstützt)</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -7591,34 +7601,34 @@
             <size key="intrinsicContentSize" width="30" height="34"/>
         </designable>
         <designable name="52x-Ll-uRo">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="5Iq-jr-wmf">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="6hL-No-yf8">
             <size key="intrinsicContentSize" width="78" height="30"/>
         </designable>
         <designable name="CSA-ii-CxB">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="FCr-ge-IOO">
             <size key="intrinsicContentSize" width="74" height="33"/>
         </designable>
         <designable name="GrC-be-slK">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="Ovk-f3-qhG">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="bQb-H6-yq2">
             <size key="intrinsicContentSize" width="15" height="21"/>
         </designable>
         <designable name="c68-rB-3oR">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="grU-TF-buA">
-            <size key="intrinsicContentSize" width="30" height="39"/>
+            <size key="intrinsicContentSize" width="30" height="35"/>
         </designable>
         <designable name="oUY-oR-RLV">
             <size key="intrinsicContentSize" width="30" height="24"/>
@@ -7655,6 +7665,7 @@
         <image name="person.crop.square.fill" catalog="system" width="128" height="114"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="printer.fill" catalog="system" width="128" height="111"/>
         <image name="rectangle.3.offgrid.fill" catalog="system" width="128" height="81"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>

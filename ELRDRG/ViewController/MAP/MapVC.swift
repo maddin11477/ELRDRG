@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import PencilKit
+
 
 
 
@@ -24,6 +26,31 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         
         
     }
+    var canvasView : PKCanvasView?
+    var window : UIWindow?
+    var toolPicker : PKToolPicker?
+    func draw()
+    {
+        let canvasView = PKCanvasView(frame: .zero)
+        
+        canvasView.translatesAutoresizingMaskIntoConstraints = false
+                canvasView.isOpaque = false
+                view.addSubview(canvasView)
+                
+                canvasView.backgroundColor = .clear
+                
+                NSLayoutConstraint.activate([
+                    canvasView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
+                    canvasView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                    canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                ])
+        
+        self.canvasView = canvasView
+    }
+    
+    
+    
     
     @IBOutlet weak var inProgressIndicator: UIActivityIndicatorView!
     
@@ -227,10 +254,12 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     @IBOutlet weak var mapView: MKMapView!
     
 	var sections : [Section] = []
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+       
         
         //SectionTable
         self.sectionTable.dataSource = self
@@ -249,10 +278,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
 		let view = SectionAnnotationView()
 		view.delegate = self
 		self.sections = SectionHandler().getSections()
-		
-        
-         self.sectionTableWidth.constant = 0
-        
+        self.sectionTableWidth.constant = 0
         self.sections = SectionHandler().getSections()
         for section in self.sections {
             if section.coordinate_lat != 0.0 && section.coordinate_lng != 0.0
@@ -260,17 +286,27 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
                 addAnnotationOnLocation(section: section)
             }
         }
-        
-        
-        
-        
-
     }
     
     
     
     override func viewDidAppear(_ animated: Bool) {
         updateMapContent()
+        
+        
+        if  let cView = canvasView, let window = self.window, let tpicker = PKToolPicker.shared(for: window)
+        {
+            
+            tpicker.setVisible(true, forFirstResponder: cView)
+            tpicker.addObserver(cView)
+            cView.becomeFirstResponder()
+            
+        }
+        else
+        {
+            return
+        }
+       
     }
     
     func updateMapContent()
@@ -297,39 +333,28 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
                     an.reloadData()
                 }
             }
-                
-            
-            
     }
+    
+    
+    private var setRegion : Bool = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let _: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         //print("locations = \(locValue.latitude) \(locValue.longitude)")
        
         self.locationManager.stopUpdatingLocation()
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
-        self.mapView.setRegion(region, animated: true)
+        if !setRegion
+        {
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+            self.mapView.setRegion(region, animated: true)
+            setRegion = true
+        }
+        
         
         selfPin.coordinate = locations[0].coordinate
-        //mapView.addAnnotation(selfPin)
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func handleLongPress (gesture: UILongPressGestureRecognizer) {
-       /* if gesture.state == UIGestureRecognizerState.began {
-            let touchPoint: CGPoint = gesture.location(in: mapView)
-            let newCoordinate: CLLocationCoordinate2D = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-          
-                //addAnnotationOnLocation(pointedCoordinate: newCoordinate)
-            mapView.reloadInputViews()
-            updateSectionMarkers()
-            
-        }*/
-    }
     
     func addAnnotationOnLocation(section : Section) {
         
@@ -344,23 +369,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         mapView.addAnnotation(annotation)
         section.mapAnnotation = annotation
        updateMapContent()
-        //updateSectionMarkers()
-        //SectionMapAnnotation.reloadDatas()
-        //mapView.reloadInputViews()
+       
         
     }
-    
-    func updateSectionMarkers()
-    {
-        let markers = self.mapView.annotations
-        for marker in markers {
-            if let annoation = marker as? SectionMapAnnotation
-            {
-                annoation.reloadData()
-            }
-        }
-    }
-    
     
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
            if let marker = annotation as? SectionMapAnnotation
@@ -415,6 +426,16 @@ extension UIImage {
 
     return newImage!
   }
+}
+
+extension PKCanvasView{
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return DragOrDraw.disableDrawing
+    }
+}
+
+class DragOrDraw{
+    static var disableDrawing = true
 }
 
 

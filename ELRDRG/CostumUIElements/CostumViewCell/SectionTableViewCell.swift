@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol SectionTableViewCellDelegate {
+    func addSection(section : BaseSection)
+}
+
 class SectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var Name: UILabel!
     
     var section : BaseSection?
+    var delegate : SectionTableViewCellDelegate?
     
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var allwaysExistsSwitch: UISwitch!
@@ -20,6 +25,15 @@ class SectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lbl_numberDescription: UILabel!
     
+    
+    
+    @IBAction func addSection(_ sender: Any) {
+        if let sec = self.section
+        {
+            self.delegate?.addSection(section: sec)
+        }
+        
+    }
     
     
     @IBAction func allwaysExitsSwitch(_ sender: Any) {

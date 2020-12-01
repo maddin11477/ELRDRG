@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import PerfectCZlib
-//import PerfectHTTP
 import HttpSwift
 
 

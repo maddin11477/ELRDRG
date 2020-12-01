@@ -129,6 +129,7 @@ public protocol SectionMapAnnotationDelegate {
         self.headline.frame = CGRect(x: -54, y: 0, width: 200, height: 21)
         self.headline.backgroundColor = UIColor.white
         self.headline.tintColor = UIColor.black
+        self.headline.textColor = UIColor.black
         setTableHeight()
         //x: -75
         let backgroundView = UIView(frame: CGRect(x: -75, y: 0, width: 150, height: 21))

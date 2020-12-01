@@ -8,10 +8,16 @@
 
 import UIKit
 
-class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate, OrganisationAddedTempObjectProtocoll{
+class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDragDelegate, SectionDropProtocol, UICollectionViewDropDelegate, OrganisationAddedTempObjectProtocoll, AbschnitteSectionTVCDelegate{
 	func dropFailed(controller: UIAlertController) {
 		self.present(controller, animated: true, completion: nil)
 	}
+    
+    func addSection(section: BaseSection) {
+        SectionHandler().addSection(identifier: section.identifier ?? "")
+        dropedUnitInSection()
+        self.AbschnitteCollectionView.reloadData()
+    }
 
     
     
@@ -430,6 +436,8 @@ class AbschnitteVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell") as! AbschnitteSectionTVC
             let section = baseSections[indexPath.row]
             cell.Name.text = section.identifier
+            cell.section = section
+            cell.delegate = self
             
             return cell
         }
