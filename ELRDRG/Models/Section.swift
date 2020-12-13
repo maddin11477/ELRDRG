@@ -153,7 +153,7 @@ extension Section {
 				sec.removeFromUnits(unit)
 			}
 			unit.section = nil
-
+            
 			if let secUnits = self.units?.allObjects as? [Unit]
 			{
 				if !secUnits.contains(unit)

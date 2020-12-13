@@ -10,5 +10,6 @@ import UIKit
 import CoreData
 
 public class User: NSManagedObject{
+    
 
 }

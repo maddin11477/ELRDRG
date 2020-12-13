@@ -44,6 +44,10 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
             {
                 self.data.addMission(reason: text!)
             }
+            else
+            {
+                self.data.addMission(reason: "Neuer Einsatz")
+            }
             
         })
         
@@ -106,7 +110,8 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
 		{
 			if(indexPath.row < missions.count)
 			{
-				Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
+				
+                Login.setCurrentMissionUnique(unique: missions[indexPath.row].unique!)
 				if let nc = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarVC
 				{
 					nc.modalPresentationStyle = .fullScreen

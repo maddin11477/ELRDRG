@@ -29,6 +29,28 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     var canvasView : PKCanvasView?
     var window : UIWindow?
     var toolPicker : PKToolPicker?
+    
+    
+    @IBAction func createScreenShotToDocu(_ sender: Any)
+    {
+        
+        let render = UIGraphicsImageRenderer(size: self.mapView.bounds.size)
+        let image = render.image { ctx in
+          self.mapView.drawHierarchy(in: self.mapView.bounds, afterScreenUpdates: true)
+        }
+        
+        DocumentationHandler().SavePhotoDocumentation(picture: image, description: "Ausschnitt aus Lagekarte", saveDate: Date())
+        var userName = "unbekannt"
+        if let user = LoginHandler().getLoggedInUser()
+        {
+            userName = (user.firstName ?? "") + " " + (user.lastName ?? "")
+        }
+        let _ = DataHandler().createNotification(sender: userName, content: "Lagekartenausschnitt wurde der Dokumentation hinzugefügt")
+            
+        
+        
+    }
+    
     func draw()
     {
         let canvasView = PKCanvasView(frame: .zero)

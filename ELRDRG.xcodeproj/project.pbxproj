@@ -56,6 +56,11 @@
 		01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01650BAC2249871400886510 /* CreateTempObjectViewController.swift */; };
 		0174FE842567A100009DB167 /* AbschnitteSectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0174FE832567A100009DB167 /* AbschnitteSectionTVC.swift */; };
 		0177A9352425137300F35819 /* NoticeBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177A9342425137300F35819 /* NoticeBookViewController.swift */; };
+		017A7E9A2576CDB8001676DA /* DocuTemplatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A7E992576CDB8001676DA /* DocuTemplatesViewController.swift */; };
+		017A7E9D2576CF83001676DA /* DocuTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A7E9C2576CF83001676DA /* DocuTemplateTableViewCell.swift */; };
+		017A7EA62576D2C3001676DA /* DocuTemplateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A7EA52576D2C3001676DA /* DocuTemplateDetailViewController.swift */; };
+		017A7EAB2576D575001676DA /* DocumentationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A7EAA2576D575001676DA /* DocumentationTemplate.swift */; };
+		017A7EAE2576EE26001676DA /* DocumentationTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017A7EAD2576EE26001676DA /* DocumentationTemplateTableViewCell.swift */; };
 		018042B7213A7179008B1784 /* PatientenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B6213A7179008B1784 /* PatientenVC.swift */; };
 		018042B9213A7866008B1784 /* PatientCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */; };
 		018042BC213A9A60008B1784 /* humonbody01.png in Resources */ = {isa = PBXBuildFile; fileRef = 018042BB213A9A60008B1784 /* humonbody01.png */; };
@@ -198,6 +203,11 @@
 		01650BAC2249871400886510 /* CreateTempObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTempObjectViewController.swift; sourceTree = "<group>"; };
 		0174FE832567A100009DB167 /* AbschnitteSectionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbschnitteSectionTVC.swift; sourceTree = "<group>"; };
 		0177A9342425137300F35819 /* NoticeBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoticeBookViewController.swift; path = NoticeBook/NoticeBookViewController.swift; sourceTree = "<group>"; };
+		017A7E992576CDB8001676DA /* DocuTemplatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocuTemplatesViewController.swift; sourceTree = "<group>"; };
+		017A7E9C2576CF83001676DA /* DocuTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocuTemplateTableViewCell.swift; sourceTree = "<group>"; };
+		017A7EA52576D2C3001676DA /* DocuTemplateDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocuTemplateDetailViewController.swift; sourceTree = "<group>"; };
+		017A7EAA2576D575001676DA /* DocumentationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationTemplate.swift; sourceTree = "<group>"; };
+		017A7EAD2576EE26001676DA /* DocumentationTemplateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationTemplateTableViewCell.swift; sourceTree = "<group>"; };
 		018042B6213A7179008B1784 /* PatientenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientenVC.swift; sourceTree = "<group>"; };
 		018042B8213A7866008B1784 /* PatientCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCustomTableViewCell.swift; sourceTree = "<group>"; };
 		018042BB213A9A60008B1784 /* humonbody01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humonbody01.png; sourceTree = "<group>"; };
@@ -361,6 +371,7 @@
 				5B4A6005213C641300844F85 /* DocumentationVC.swift */,
 				5B4A6016213EFCBF00844F85 /* DocumentationDetailAudioVC.swift */,
 				01FB07BB22CA51A1002D6359 /* ExportVC.swift */,
+				017A7EAD2576EE26001676DA /* DocumentationTemplateTableViewCell.swift */,
 			);
 			path = Dokumentation;
 			sourceTree = "<group>";
@@ -368,6 +379,7 @@
 		0139E4952156C719001970FE /* Stammdaten */ = {
 			isa = PBXGroup;
 			children = (
+				017A7EA22576D1AA001676DA /* DocuTemplates */,
 				018042C5213BFAD1008B1784 /* StammdatenDetailVC.swift */,
 				018042CB213C0217008B1784 /* CreateUnitVC.swift */,
 				019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */,
@@ -415,6 +427,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		017A7EA22576D1AA001676DA /* DocuTemplates */ = {
+			isa = PBXGroup;
+			children = (
+				017A7E9C2576CF83001676DA /* DocuTemplateTableViewCell.swift */,
+				017A7E992576CDB8001676DA /* DocuTemplatesViewController.swift */,
+				017A7EA52576D2C3001676DA /* DocuTemplateDetailViewController.swift */,
+			);
+			path = DocuTemplates;
 			sourceTree = "<group>";
 		};
 		018042BA213A9A3D008B1784 /* Images */ = {
@@ -591,6 +613,7 @@
 				5B84BB8D21315CC100DA1073 /* Shift.swift */,
 				0156738E23CA562E00BC2B53 /* Hospital.swift */,
 				01F8DB3C252B6AE300CA97C0 /* Notification.swift */,
+				017A7EAA2576D575001676DA /* DocumentationTemplate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -742,6 +765,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				017A7EA62576D2C3001676DA /* DocuTemplateDetailViewController.swift in Sources */,
 				5B6D775D213052AD00DDFA2B /* LoginHandler.swift in Sources */,
 				01A042E524129DB000D15970 /* PatientenExport.swift in Sources */,
 				0165068F239D6AE600921FAD /* PatientUITVC.swift in Sources */,
@@ -780,8 +804,11 @@
 				014C37D423D6309700605ECB /* ChangeMissionVC.swift in Sources */,
 				015589D0239ED4D300BEEAE3 /* PatientOverViewTVC.swift in Sources */,
 				5B4A6015213DAAE800844F85 /* MapVC.swift in Sources */,
+				017A7E9D2576CF83001676DA /* DocuTemplateTableViewCell.swift in Sources */,
 				019081C32141A46E00AB7620 /* UnitHandler.swift in Sources */,
+				017A7EAE2576EE26001676DA /* DocumentationTemplateTableViewCell.swift in Sources */,
 				018DDCDF24F0151600BB468E /* SectionMapAnnotation.swift in Sources */,
+				017A7E9A2576CDB8001676DA /* DocuTemplatesViewController.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
 				01D9026023BB8136009F9E75 /* LocationHandler.swift in Sources */,
 				5B4A6017213EFCBF00844F85 /* DocumentationDetailAudioVC.swift in Sources */,
@@ -795,6 +822,7 @@
 				5B4A6009213C654800844F85 /* RoundButton.swift in Sources */,
 				5B4A600B213C6A2800844F85 /* DocumentationDetailTextVC.swift in Sources */,
 				01F8DB37252B62E600CA97C0 /* HttpServer.swift in Sources */,
+				017A7EAB2576D575001676DA /* DocumentationTemplate.swift in Sources */,
 				018042E6213F002F008B1784 /* UnitCostumTableViewCell.swift in Sources */,
 				5B4A6011213C7A4C00844F85 /* DocumentationProtocol.swift in Sources */,
 				5B6D77572130508E00DDFA2B /* BaseInjury.swift in Sources */,
@@ -1000,7 +1028,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
@@ -1022,7 +1050,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;

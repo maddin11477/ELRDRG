@@ -18,6 +18,56 @@ public enum DocumentationType: Int16{
 
 public class DocumentationHandler {
 
+    
+    public func createDocumentaitonTemplate(text : String) -> DocumentationTemplate
+    {
+        let template = DocumentationTemplate(context: AppDelegate.viewContext)
+        template.content = text
+        saveData()
+        return template
+    }
+    
+    public func deleteTemplateDocumentationTemplate(template : DocumentationTemplate)
+    {
+        AppDelegate.viewContext.delete(template)
+        saveData()
+    }
+    
+    public func getDocumentationTemplates() -> [DocumentationTemplate]
+    {
+        
+        let userRequest : NSFetchRequest<DocumentationTemplate> = DocumentationTemplate.fetchRequest()
+        do
+        {
+            var documentationTemplate : [DocumentationTemplate] = try AppDelegate.viewContext.fetch(userRequest)
+            documentationTemplate.sort(by: { $0.useCounter > $1.useCounter})
+            return documentationTemplate
+
+        
+
+        }
+        catch
+        {
+            print(error)
+        }
+        let documentationTemplates : [DocumentationTemplate] = []
+        return documentationTemplates
+    }
+    public func saveData()
+    {
+        //save to database
+        do
+        {
+            try AppDelegate.viewContext.save()
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+
+    
+    
     var login: LoginHandler = LoginHandler()
     var data: DataHandler = DataHandler()
     
@@ -37,30 +87,39 @@ public class DocumentationHandler {
         }
     }
     
-    private func getLastDocuID() -> Int16 {
+    private func getLastDocuID(mission : Mission? = nil) -> Int16 {
         //TODO: Hier muss noch gefiltert werden, damit auch eine ID pro Lage generiert wird...
-        let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
-        let request: NSFetchRequest<Documentation> = Documentation.fetchRequest()
-        request.predicate = NSPredicate(format: "mission == %@", mission)
-        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
-        request.fetchLimit = 1
-        do
+        var einsatz : Mission? = mission
+        if mission == nil
         {
-            let entries = try AppDelegate.viewContext.fetch(request)
+            einsatz = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!
+        }
+        if let _ = einsatz
+        {
             
-            if(entries.count < 1)
+            let request: NSFetchRequest<Documentation> = Documentation.fetchRequest()
+            request.predicate = NSPredicate(format: "mission == %@", einsatz!)
+            request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+            request.fetchLimit = 1
+            do
             {
+                let entries = try AppDelegate.viewContext.fetch(request)
                 
-                return 0
+                if(entries.count < 1)
+                {
+                    
+                    return 0
+                }
+                print("ID \(entries[0].id)")
+                return entries[0].id
+                
             }
-            print("ID \(entries[0].id)")
-            return entries[0].id
-            
+            catch
+            {
+                print(error)
+            }
         }
-        catch
-        {
-            print(error)
-        }
+        
         return 0
     }
     
@@ -78,6 +137,19 @@ public class DocumentationHandler {
         data.saveData()
         DocumentationHandler.delegate?.updatedMDocumentationList(docuList: mission.documentations?.allObjects as! [Documentation])
         print("Dokueintrag \(textcontent) erfolgreich gespeichert: \(savedate)")
+    }
+    
+    //Dateien in der Datenbank speichern
+    public func AddTextDocumentation(mission : Mission, textcontent: String, savedate : Date){
+        let docuEntry = Documentation(context: AppDelegate.viewContext)
+        docuEntry.id = getLastDocuID(mission: mission) + 1
+        
+        docuEntry.created = savedate
+        docuEntry.content = textcontent
+        mission.addToDocumentations(docuEntry)
+        
+        data.saveData()
+       
     }
     
     public func UpdatedDocumentations()

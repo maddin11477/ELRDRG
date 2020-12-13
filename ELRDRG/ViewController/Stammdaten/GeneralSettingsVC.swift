@@ -31,9 +31,19 @@ class GeneralSettingsVC: UITableViewController {
         }
     }
     
-
+    @IBOutlet weak var startNewMissionWithAudioRecordingSwitch: UISwitch!
+    
 	var einstellungen : Settings?
 	
+    @IBAction func startNewMissionWithAudioRecording(_ sender: Any) {
+        if let toggleSwitch = sender as? UISwitch, let setting = self.einstellungen
+        {
+            setting.startWithAudioRecorder = toggleSwitch.isOn
+            let _ = SettingsHandler().save()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.einstellungen = SettingsHandler().getSettings()
@@ -46,7 +56,8 @@ class GeneralSettingsVC: UITableViewController {
 			self.show_all_users_switch.isOn = setting.showAllMissions
             self.txt_ILSMailAdresse.text = setting.ils_mailAdress
             self.txt_commandRegion.text = setting.commanderRegion
-		}
+            self.startNewMissionWithAudioRecordingSwitch.isOn = setting.startWithAudioRecorder
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

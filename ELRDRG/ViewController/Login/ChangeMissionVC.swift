@@ -38,6 +38,23 @@ class ChangeMissionVC: UIViewController {
 	@IBOutlet var txtStartKm: UITextField!
 
 	@IBOutlet var txtEndKm: UITextField!
+    
+    func setupInputViews()
+    {
+        if let einsatz = self.mission
+        {
+            self.lblEndZeit.isEnabled = !einsatz.isFinished
+            self.lblStartZeit.isEnabled = !einsatz.isFinished
+            self.endTimePicker.isEnabled = !einsatz.isFinished
+            self.startTimePicker.isEnabled = !einsatz.isFinished
+            self.txtStartKm.isEnabled = !einsatz.isFinished
+            self.txtEndKm.isEnabled = !einsatz.isFinished
+            self.txtOrt.isEnabled = !einsatz.isFinished
+            self.txtBezeichnung.isEnabled = !einsatz.isFinished
+            self.IDheadline.isEnabled = !einsatz.isFinished
+        }
+        
+    }
 
 
 	@IBAction func startTimeChanged(_ sender: Any) {
@@ -63,6 +80,19 @@ class ChangeMissionVC: UIViewController {
 	public var delegate : changedMissionDelegate?
 
 	@IBAction func EndMission_click(_ sender: Any) {
+        if let mission = self.mission
+        {
+            if mission.isFinished
+            {
+                let alertController = UIAlertController(title: "Einsatz erneut öffnen?", message: "Sicher, dass Sie den Einsatz öffnen möchten?", preferredStyle: .alert)
+                let actionController = UIAlertAction(title: "Nein", style: .default, handler: nil)
+                let actionController1 = UIAlertAction(title: "Öffnen", style: .destructive, handler: self.openMission)
+                alertController.addAction(actionController)
+                alertController.addAction(actionController1)
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+        }
 		let alertController = UIAlertController(title: "Einsatz beenden?", message: "Sicher, dass Sie den Einsatz abschließen möchten? Änderungen können anschließend nicht rückgängig gemacht werden!", preferredStyle: .alert)
 		let actionController = UIAlertAction(title: "Nein", style: .default, handler: nil)
 		let actionController1 = UIAlertAction(title: "Beenden", style: .destructive, handler: self.endMission)
@@ -80,22 +110,29 @@ class ChangeMissionVC: UIViewController {
 		{
 			self.HeaderImage.image = UIImage(systemName: "checkmark.circle.fill")
 			self.HeaderImage.tintColor = UIColor.green
-
-			einsatz.isFinished = true
-			if einsatz.end == nil
-			{
-				einsatz.end = Date()
-				endTimePicker.setDate(einsatz.end!, animated: true)
-				let formatter = DateFormatter()
-				formatter.dateFormat = "dd.MM.yyyy - HH:mm"
-				lblEndZeit.text = formatter.string(from: einsatz.end!) + " Uhr"
-			}
-			self.cmd_endMission.isHidden = true
-
-
-			DataHandler().saveData()
+            self.cmd_endMission.isHidden = false
+            self.cmd_endMission.setTitle("Einsatz öffnen", for: .normal)
+            einsatz.endMission()
+            endTimePicker.setDate(einsatz.end!, animated: true)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy - HH:mm"
+            lblEndZeit.text = formatter.string(from: einsatz.end!) + " Uhr"
+            self.setupInputViews()
 		}
 	}
+    
+    func openMission(sender : Any)
+    {
+        if let mission = self.mission
+        {
+            self.HeaderImage.image = UIImage(systemName: "folder.circle.fill")
+            self.HeaderImage.tintColor = UIColor.gray
+            self.cmd_endMission.isHidden = false
+            self.cmd_endMission.setTitle("Einsatz beenden", for: .normal)
+            mission.reOpen()
+            self.setupInputViews()
+        }
+    }
 
 	@IBAction func deleteMission_click(_ sender: Any) {
 		let alertcontroller = UIAlertController(title: "Löschen", message: "Sind Sie sicher, dass Sie diesen Einsatz unwiederruflich löschen möchten?", preferredStyle: .alert)
@@ -203,14 +240,16 @@ class ChangeMissionVC: UIViewController {
 			{
 				self.HeaderImage.image = UIImage(systemName: "checkmark.circle.fill")
 				self.HeaderImage.tintColor = UIColor.green
-				self.cmd_endMission.isHidden = true
-
-
+				self.cmd_endMission.isHidden = false
+                
 			}
-
+            
+            self.cmd_endMission.setTitle(einsatz.isFinished ? "Einsatz öffnen":"Einsatz beenden", for: .normal)
+            
 
 			txtStartKm.text = einsatz.startKm
 			txtEndKm.text = einsatz.endKm
+            self.setupInputViews()
 		}
        
     }

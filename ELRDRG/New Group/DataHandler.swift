@@ -70,6 +70,12 @@ class DataHandler: NSObject {
         return notification
     }
     
+    
+    
+    
+    
+    
+    
     public func setEndDate()
     {
         //let mission = getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!

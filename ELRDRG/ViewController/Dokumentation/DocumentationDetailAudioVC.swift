@@ -26,6 +26,7 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
     let docuHandler: DocumentationHandler = DocumentationHandler()
     public var audioDocumentation : Documentation?
     
+    
 
     @IBAction func saveAudioRecord(_ sender: UIBarButtonItem) {
         print("Audio gespeichert unter: \(storageLocation)")
@@ -65,7 +66,10 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if DocumentationHandler().getAllDocumentations().count == 0
+        {
+            self.descriptionTextField.text = "Einsatzübernahme ILS"
+        }
         if(audioDocumentation == nil){
             //neue Aufnahme
             print("Neue Aufnahme")

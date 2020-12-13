@@ -113,6 +113,20 @@ class UebersichtVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         collectionView.collectionViewLayout.invalidateLayout()
         ProcessBadges() //loads current States to set Badges
         
+      
+        //check if audiorecorder should be opened
+        if DocumentationHandler().getAllDocumentations().count == 0 && SettingsHandler().getSettings().startWithAudioRecorder
+        {
+            if let nc = storyboard?.instantiateViewController(withIdentifier: "DocumentationDetailAudioVC") as? DocumentationDetailAudioVC
+            {
+                nc.modalPresentationStyle = .formSheet
+               
+                self.presentController(controller: nc)
+            }
+        }
+        
+        
+        
         
     }
     

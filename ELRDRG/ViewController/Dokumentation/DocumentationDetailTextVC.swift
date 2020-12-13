@@ -8,13 +8,43 @@
 
 import UIKit
 
-class DocumentationDetailTextVC: UIViewController {
-
+class DocumentationDetailTextVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var templates : [DocumentationTemplate] = []
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.templates = DocumentationHandler().getDocumentationTemplates()
+        return templates.count
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentationTemplateTableViewCell") as! DocumentationTemplateTableViewCell
+        cell.lbl_Template.text = templates[indexPath.row].content
+        return cell
+    }
+    
+    @IBOutlet weak var docuTemplateList: UITableView!
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+         self.TextContent.text = templates[indexPath.row].content
+         self.templates[indexPath.row].increment()
+         self.docuTemplateList.reloadData()
+    }
+    
+    
     var DocuHandler: DocumentationHandler = DocumentationHandler()
     public var documentation : Documentation?
     @IBOutlet weak var labelCaption: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.docuTemplateList.dataSource = self
+        self.docuTemplateList.delegate = self
+        self.docuTemplateList.reloadData()
+        
         if(documentation != nil)
         {
             TextContent.text = documentation!.content ?? ""
