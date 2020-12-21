@@ -473,6 +473,7 @@
 		0183A589212CA9EE006036FA /* Klassen */ = {
 			isa = PBXGroup;
 			children = (
+				017A1DB025901857002D7649 /* StatisticHandler.swift */,
 				01D7BEAD258C20BA009BA463 /* dbIDManager.swift */,
 				0183A587212CA9E7006036FA /* DataHandler.swift */,
 				5B6D775C213052AD00DDFA2B /* LoginHandler.swift */,
@@ -622,7 +623,6 @@
 				01F8DB3C252B6AE300CA97C0 /* Notification.swift */,
 				017A7EAA2576D575001676DA /* DocumentationTemplate.swift */,
 				01710198258C168E006EFD94 /* BaseEntity.swift */,
-				017A1DB025901857002D7649 /* StatisticHandler.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1040,7 +1040,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
@@ -1062,7 +1062,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;

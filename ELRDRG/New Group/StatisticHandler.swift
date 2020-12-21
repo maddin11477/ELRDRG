@@ -14,6 +14,7 @@ public class StatisticHandler
     public enum MissionType : String, CaseIterable{
         case none = "Einsatzart auswählen"
         case Brand = "Brand"
+        case BMA = "BMA"
         case VU = "VU"
         case Gefahrgut = "Gefahrgut"
         case PolSituation = "Polizei Sonderlage"

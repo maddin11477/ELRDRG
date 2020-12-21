@@ -57,6 +57,22 @@ extension NSManagedObject{
             if let objList = objects as? [dbInterface]
             {
                 var nextIndex = getNextID(objects: objList)
+                var zeroCounter = 0
+                for o in objList
+                {
+                    if o.getID() == 0
+                    {
+                        zeroCounter = zeroCounter + 1
+                    }
+                }
+                if zeroCounter > 1
+                {
+                    for o in objList
+                    {
+                        o.setID(id: -1)
+                    }
+                }
+                nextIndex = getNextID(objects: objList)
                 for o in objList {
                     print(o.getID())
                     if o.getID() == nil || o.getID() == -1
