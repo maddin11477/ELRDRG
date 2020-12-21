@@ -9,11 +9,19 @@
 import UIKit
 import CoreData
 
-public class Unit: NSManagedObject {
+public class Unit: NSManagedObject , dbInterface{
 }
 
 extension Unit{
 
+    public func getID() -> Int32? {
+        return self.dbID
+    }
+    
+    public func setID(id: Int32) {
+        self.dbID = id
+    }
+    
     public func getVictimCount() -> Int{
         if let victimList = self.patient?.allObjects as? [Victim]
         {

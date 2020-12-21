@@ -28,6 +28,9 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return cell
     }
     
+    @IBOutlet weak var lbl_patILSNR: UILabel!
+    
+    
 	@IBOutlet var lbl_SK_big: UILabel!
 
     @IBOutlet var lbl_sk: UILabel!
@@ -78,7 +81,7 @@ class PatientPopOverVC: UIViewController, UITableViewDelegate, UITableViewDataSo
            self.lbl_name.text = (pat.firstName ?? "") + " " + (pat.lastName ?? "")
            self.lbl_pat_id.text = String(pat.id)
 			self.lbl_SK_big.text = String(pat.id)
-          
+            self.lbl_patILSNR.text = pat.patILSNR ?? ""
            //Transport Time
            if let date = pat.isDone
            {

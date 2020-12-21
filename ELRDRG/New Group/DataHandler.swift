@@ -46,6 +46,7 @@ class DataHandler: NSObject {
         
         let notification = createNotification(sender: LoginHandler().getLoggedInUserName(), content: "Einsatz '\((reason) ?? "")' wurde neu erstellt.")
         mission.addToNotifications(notification)
+        NSManagedObject.refreshIDs(entity: Mission.self)
         //Objekt wird in CoreData gespeichert
         saveData()
     }
@@ -84,7 +85,19 @@ class DataHandler: NSObject {
     }
     
 	
-    
+    /**
+     
+           - 'missions == TRUE':
+             Es werden alle Missions unabhängig
+             des aktuell eingeloggten Benutzer
+             zurück gegeben
+     
+           - 'missions == FALSE':
+             Es werden nur die Missions
+             zurück gegeben, die durch den
+             aktuellen Benutzer erstellt wurden
+     
+     */
 	public func getAllMissions(missions : Bool?) -> [Mission]
     {
 		let user = LoginHandler().getLoggedInUser()
@@ -92,22 +105,19 @@ class DataHandler: NSObject {
         do
         {
             var missionList = try AppDelegate.viewContext.fetch(missionRequest)
-			if let ownMission = missions
+			if let ownMission = missions, ownMission == true
 			{
-				if ownMission
-				{
+				
 					missionList = missionList.filter{
 						$0.user?.callsign == user?.callsign
 					}
-				}
-				else
-				{
-					missionList = missionList.filter{
-						$0.user?.callsign != user?.callsign
-					}
-				}
-
 			}
+            else
+            {
+                missionList = missionList.filter{
+                    $0.user?.callsign != user?.callsign
+                }
+            }
 
 
 				//$0.user == user

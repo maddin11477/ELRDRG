@@ -269,7 +269,9 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        dbManager.refreshAlldbIDs()
 		self.missions = DataHandler().getAllMissions(missions: true)
+        
 		self.allowedMissions.reloadData()
         //Check of die Anwendung das erste mal gestartet wird, wenn ja dann Onboarding
         if(Login.isAppAlreadyLaunchedOnce()){

@@ -246,6 +246,19 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
 			//TODO: generate Unit Cell
 			let relatedUnit = unit_!
 			cell.funkRufName.text = relatedUnit.callsign
+            cell.funkRufName.tintColor = .black
+            cell.funkRufName.textColor = .black
+            if let patList = relatedUnit.getVictims()
+            {
+                if patList.count <= 0
+                {
+                    cell.backgroundColor =  UIColor.green
+                }
+                else
+                {
+                    cell.backgroundColor =  UIColor.orange
+                }
+            }
 			cell.unitTypeImage.image = UIImage(named: UnitHandler().BaseUnit_To_UnitTypeString(id: relatedUnit.type))
 			return cell
 		}

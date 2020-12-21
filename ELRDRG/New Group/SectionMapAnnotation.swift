@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import UIKit
 
 public protocol SectionMapAnnotationDelegate {
      func annoationChanged()
@@ -47,6 +48,9 @@ public protocol SectionMapAnnotationDelegate {
         }
         print("numberOfRowsinSection")
         self.units = self.section.getAllUnits()
+        self.units.sort(by: {
+            return $0.getVictims()?.count ?? 0 < $1.getVictims()?.count ?? 0
+        })
         setTableHeight()
         return self.units.count
     }
@@ -76,7 +80,17 @@ public protocol SectionMapAnnotationDelegate {
         //cell.img = self.units[indexPath.row]
         cell.callSign.text =  " " + (self.units[indexPath.row].callsign ?? "failUnit")
         //cell.callSign.backgroundColor = UIColor.blue
-        cell.backgroundColor = UIColor.orange
+        if self.units[indexPath.row].getVictims()?.count == 0
+        {
+            cell.backgroundColor = UIColor.green
+        }
+        else
+        {
+            cell.backgroundColor = UIColor.orange
+        }
+        cell.callSign.tintColor = UIColor.black
+        cell.callSign.textColor = UIColor.black
+        
     
         
         return cell
@@ -101,11 +115,36 @@ public protocol SectionMapAnnotationDelegate {
     public var table : UITableView
     public var headline : UILabel
     var image : UIImage = UIImage(systemName: "rectangle.stack.fill") ?? UIImage(named: "iuk.png")!
+    var arrowShape : CALayer?
     public var annotationview : UIView?
     
     public func getTable()->UIView
     {
         return table
+    }
+    
+    
+    //Pfeil des MapMarkers zur korrekten Koordinate
+    public func getArrow()->CALayer?
+    {
+        //with: 200 - 75 = 125
+        let freeform = UIBezierPath()
+        freeform.move(to: CGPoint(x: 0, y: 0))
+        freeform.addLine(to: CGPoint(x: -30, y: 25))
+        freeform.addLine(to: CGPoint(x: -107, y: 25))
+        freeform.addLine(to: CGPoint(x: -107, y: 30))
+        freeform.addLine(to: CGPoint(x: 113, y: 30))
+        freeform.addLine(to: CGPoint(x: 113, y: 25))
+        freeform.addLine(to: CGPoint(x: 30, y: 25))
+        freeform.close()
+        let shape = CAShapeLayer()
+        shape.path = freeform.cgPath
+        shape.strokeColor = UIColor.white.cgColor
+        shape.fillColor = UIColor.white.cgColor
+        shape.lineWidth = 2.0
+        shape.position = CGPoint(x: 0, y: 0)
+        arrowShape = shape
+        return arrowShape
     }
     
     public func getAnnotationUIView()->UIView
@@ -114,25 +153,32 @@ public protocol SectionMapAnnotationDelegate {
         {
             return view
         }
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 300))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 330))
+       
+        //Pfeil zur korrekten Koordinate wird hinzugefügt
+        if let layer = getArrow()
+        {
+            view.layer.addSublayer(layer)
+        }
+     
         //x:-75 zuvor
-        self.table.frame = CGRect(x: -75, y: 21, width: 217, height: 100)
+        self.table.frame = CGRect(x: -108, y: 51, width: 217, height: 100)
        
         table.backgroundColor = .white
         table.backgroundView?.backgroundColor = .white
         //x: -70
-         let imageView = UIImageView(frame: CGRect(x: -70, y: 2, width: 17, height: 17))
+         let imageView = UIImageView(frame: CGRect(x: -103, y: 32, width: 17, height: 17))
         imageView.image = self.image
         imageView.tintColor = UIColor.black
         imageView.backgroundColor = UIColor.white
         // headline: -54
-        self.headline.frame = CGRect(x: -54, y: 0, width: 200, height: 21)
+        self.headline.frame = CGRect(x: -86, y: 30, width: 200, height: 21)
         self.headline.backgroundColor = UIColor.white
         self.headline.tintColor = UIColor.black
         self.headline.textColor = UIColor.black
         setTableHeight()
         //x: -75
-        let backgroundView = UIView(frame: CGRect(x: -75, y: 0, width: 150, height: 21))
+        let backgroundView = UIView(frame: CGRect(x: -108, y: 30, width: 150, height: 21))
         backgroundView.backgroundColor = UIColor.white
         view.addSubview(backgroundView)
         view.addSubview(self.table)
@@ -156,12 +202,12 @@ public protocol SectionMapAnnotationDelegate {
         let height = self.units.count * 21
         //x: -75
         
-        self.table.frame = CGRect(x: -75, y: 21, width: 222, height: height)
+        self.table.frame = CGRect(x: -108, y: 51, width: 222, height: height)
         
     
         
-        self.table.backgroundView?.backgroundColor = UIColor.red
-        self.table.backgroundColor = UIColor.green
+        
+        
         
     }
     
@@ -186,10 +232,10 @@ public protocol SectionMapAnnotationDelegate {
         }
         // self.units =  self.section.getAllUnits()
        
-        self.headline = UILabel(frame: CGRect(x: 0, y: 0, width: 183, height: 30))
+        self.headline = UILabel(frame: CGRect(x: -103, y: 30, width: 183, height: 30))
         self.headline.backgroundColor = .lightGray
         self.headline.text = "  " + (section.identifier ?? "")
-        self.table = UITableView(frame: CGRect(x: 0, y: 0, width: 183, height: 50))
+        self.table = UITableView(frame: CGRect(x: -108, y: 0, width: 183, height: 50))
         self.table.register(UnitMapTableViewCell.self, forCellReuseIdentifier: "UnitCell")
         super.init()
          self.coordinate = CLLocationCoordinate2D(latitude: section.coordinate_lat, longitude: section.coordinate_lng)

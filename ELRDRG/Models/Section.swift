@@ -35,9 +35,16 @@ public enum UnitType: Int16 {
 	case elw = 11
 }
 
-public class Section: NSManagedObject {
+public class Section: NSManagedObject, dbInterface {
 	public var delegate : SectionDelegate?
     public var mapAnnotation : SectionMapAnnotation?
+    public func getID() -> Int32? {
+        return self.dbID
+    }
+    
+    public func setID(id: Int32) {
+        self.dbID = id
+    }
 }
 
 extension Section {

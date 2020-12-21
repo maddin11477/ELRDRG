@@ -64,9 +64,15 @@ public class notificationJsonArray : NSObject, Codable{
     }
 }
 
-public class Notification: NSManagedObject {
+public class Notification: NSManagedObject, dbInterface {
     
+    public func getID() -> Int32? {
+        return self.dbID
+    }
     
+    public func setID(id: Int32) {
+        self.dbID = id
+    }
     
     public func toJsonObject()-> jsonNotification
     {

@@ -12,7 +12,27 @@ protocol changedMissionDelegate {
 	func didEndEditingMission()
 }
 
-class ChangeMissionVC: UIViewController {
+class ChangeMissionVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return StatisticHandler.MissionType.allCases.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return StatisticHandler.MissionType.allCases[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if let mission = self.mission
+        {
+            mission.missionType = StatisticHandler.MissionType.allCases[row].rawValue
+            DataHandler().saveData()
+        }
+        
+    }
 
 	var mission : Mission?
 	var id : Int?
@@ -55,7 +75,10 @@ class ChangeMissionVC: UIViewController {
         }
         
     }
-
+    
+    
+    @IBOutlet weak var missionTypePickerView: UIPickerView!
+    
 
 	@IBAction func startTimeChanged(_ sender: Any) {
 		let formatter = DateFormatter()
@@ -117,6 +140,7 @@ class ChangeMissionVC: UIViewController {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy - HH:mm"
             lblEndZeit.text = formatter.string(from: einsatz.end!) + " Uhr"
+            missionTypePickerView.isUserInteractionEnabled = false
             self.setupInputViews()
 		}
 	}
@@ -194,17 +218,41 @@ class ChangeMissionVC: UIViewController {
 		}
 
 	}
-
-
+    
+    func loadPickerView()
+    {
+        if let einsatz = self.mission
+        {
+            //self.missionTypePickerView.reloadAllComponents()
+            let missionType = StatisticHandler.MissionType.init(rawValue: einsatz.missionType ?? StatisticHandler.MissionType.allCases[0].rawValue)
+            var row = -1
+            if let type = missionType
+            {
+                row = StatisticHandler.MissionType.allCases.index(of: type) ?? 0
+            }
+            else
+            {
+                row = 0
+            }
+            
+            self.missionTypePickerView.selectRow(row, inComponent: 0, animated: false)
+        }
+        
+    }
+    
+  
 
     override func viewDidLoad() {
         super.viewDidLoad()
+       
 		if let einsatz = self.mission
 		{
 			self.txtOrt.text = einsatz.location ?? ""
 			self.txtBezeichnung.text = einsatz.reason ?? ""
 			self.IDheadline.text = "Einsatz ID: " + String(self.id ?? -1)
-
+            self.missionTypePickerView.delegate = self
+            self.missionTypePickerView.dataSource = self
+            loadPickerView()
 			if einsatz.missionTaskNumber > 0
 			{
 				txtAuftragsnummer.text = String(einsatz.missionTaskNumber)
@@ -250,6 +298,8 @@ class ChangeMissionVC: UIViewController {
 			txtStartKm.text = einsatz.startKm
 			txtEndKm.text = einsatz.endKm
             self.setupInputViews()
+            
+            
 		}
        
     }

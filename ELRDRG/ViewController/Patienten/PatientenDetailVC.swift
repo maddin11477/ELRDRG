@@ -125,7 +125,8 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 
 	@IBOutlet var lbl_additionalInfo: UITextField!
 
-
+    @IBOutlet weak var patILSNR: UITextField!
+    
 
 
 	@IBAction func unitsLeave(_ sender: Any) {
@@ -149,7 +150,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
 			let formatter : DateFormatter = DateFormatter()
 			formatter.dateFormat = "dd.MM.yyyy"// um HH:mm"
 			let s_date = formatter.string(from: victim.isDone!)
-			formatter.dateFormat = "HH:mm"
+			formatter.dateFormat = "hh:mm"
 			text = "Durch folgende Einheit versorgt:\n\n" + text
 			lblHandledByUnit.text = text
 			let s_time = formatter.string(from: victim.isDone!)
@@ -481,6 +482,10 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         data.saveData()
     }
     
+    @IBAction func ILNR_didEndEditing(_ sender: Any) {
+        victim.patILSNR = patILSNR.text ?? ""
+        data.saveData()
+    }
     
     
     @IBAction func txtLastName_editingDidEnd(_ sender: Any)
@@ -624,6 +629,7 @@ class PatientenDetailVC: UIViewController, unitSelectedProtocol, UITableViewDele
         // Do any additional setup after loading the view.
         txtID.text = String(victim.id)
         txtAge.text = String(victim.age)
+        patILSNR.text = victim.patILSNR ?? ""
         if(victim.age == -1)
         {
             txtAge.text = ""

@@ -10,6 +10,8 @@ import UIKit
 
 class PatientOverViewTVC: UITableViewCell {
 
+    
+    
     @IBOutlet var lbl_sk1: UILabel!
     @IBOutlet var lbl_sk2: UILabel!
     @IBOutlet var lbl_sk3: UILabel!

@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20A5343j" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES" codeGenerationType="category">
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="NO"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String"/>
         <relationship name="documentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Documentation" inverseName="attachments" inverseEntity="Documentation"/>
     </entity>
     <entity name="BaseHospital" representedClassName=".BaseHospital" syncable="YES" codeGenerationType="category">
         <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="BaseInjury" representedClassName=".BaseInjury" syncable="YES" codeGenerationType="category">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="diagnosis" attributeType="String"/>
         <attribute name="loaction" optional="YES" attributeType="String"/>
     </entity>
     <entity name="BaseSection" representedClassName="BaseSection" syncable="YES" codeGenerationType="class">
         <attribute name="allwaysExits" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="counter" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
     </entity>
     <entity name="BaseUnit" representedClassName=".BaseUnit" syncable="YES" codeGenerationType="category">
         <attribute name="crewCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="funkrufName" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Documentation" representedClassName=".Documentation" syncable="YES" codeGenerationType="category">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="documentation" inverseEntity="Attachment"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="documentations" inverseEntity="Mission"/>
     </entity>
     <entity name="DocumentationTemplate" representedClassName=".DocumentationTemplate" syncable="YES" codeGenerationType="category">
         <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="useCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Hospital" representedClassName=".Hospital" syncable="YES" codeGenerationType="category">
         <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -46,17 +54,20 @@
     </entity>
     <entity name="Injury" representedClassName=".Injury" syncable="YES" codeGenerationType="category">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="diagnosis" optional="YES" attributeType="String"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Victim" inverseName="verletzung" inverseEntity="Victim"/>
     </entity>
     <entity name="Mission" representedClassName=".Mission" syncable="YES" codeGenerationType="category">
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="NO"/>
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endKm" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="missionTaskNumber" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="missionType" optional="YES" attributeType="String"/>
         <attribute name="reason" optional="YES" attributeType="String"/>
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="startKm" optional="YES" attributeType="String"/>
@@ -71,12 +82,14 @@
         <attribute name="acknowledged" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="sender" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Section" representedClassName=".Section" syncable="YES" codeGenerationType="category">
         <attribute name="coordinate_lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="coordinate_lng" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
         <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="sections" inverseEntity="Mission"/>
@@ -87,12 +100,14 @@
         <attribute name="add_new_sections_to_mission" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="add_standard_sections_automatically" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="commanderRegion" optional="YES" attributeType="String"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="ils_mailAdress" optional="YES" attributeType="String"/>
         <attribute name="safe_new_sections_permanent" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="showAllMissions" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startWithAudioRecorder" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="Shift" representedClassName=".Shift" syncable="YES" codeGenerationType="category">
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uniqueIdentifier" optional="YES" attributeType="String"/>
@@ -101,6 +116,7 @@
     <entity name="Unit" representedClassName=".Unit" syncable="YES" codeGenerationType="category">
         <attribute name="callsign" optional="YES" attributeType="String"/>
         <attribute name="crewCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="patient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="fahrzeug" inverseEntity="Victim"/>
         <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="units" inverseEntity="Section"/>
@@ -109,6 +125,7 @@
         <attribute name="area" optional="YES" attributeType="String"/>
         <attribute name="callsign" optional="YES" attributeType="String"/>
         <attribute name="currentMissionUnique" optional="YES" attributeType="String"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="eMail" optional="YES" attributeType="String"/>
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="isAdmin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -128,6 +145,7 @@
         <attribute name="category" optional="YES" attributeType="Integer 16" minValueString="1" maxValueString="5" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="child" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="handledUnit" optional="YES" attributeType="String"/>
@@ -136,6 +154,7 @@
         <attribute name="intubiert" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isDone" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="patILSNR" optional="YES" attributeType="String"/>
         <attribute name="schockraum" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="stabil" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="fahrzeug" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Unit" inverseName="patient" inverseEntity="Unit"/>
@@ -145,22 +164,22 @@
         <relationship name="verletzung" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Injury" inverseName="patient" inverseEntity="Injury"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="-1026" positionY="-250" width="128" height="88"/>
-        <element name="BaseHospital" positionX="-632" positionY="-864" width="128" height="89"/>
-        <element name="BaseInjury" positionX="-936" positionY="-874" width="128" height="88"/>
-        <element name="BaseSection" positionX="-819" positionY="-720" width="128" height="74"/>
-        <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="88"/>
-        <element name="Documentation" positionX="-711" positionY="-355" width="128" height="118"/>
-        <element name="DocumentationTemplate" positionX="-753.8865356445312" positionY="-1007.648361206055" width="128" height="73"/>
-        <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="118"/>
-        <element name="Injury" positionX="-369" positionY="-9" width="128" height="105"/>
-        <element name="Mission" positionX="-425" positionY="-613" width="128" height="254"/>
-        <element name="Notification" positionX="-819" positionY="-909" width="128" height="104"/>
-        <element name="Section" positionX="-119" positionY="-349" width="128" height="134"/>
-        <element name="Settings" positionX="-819" positionY="-918" width="128" height="134"/>
-        <element name="Shift" positionX="-209" positionY="-792" width="128" height="103"/>
-        <element name="Unit" positionX="-146" positionY="-163" width="128" height="118"/>
-        <element name="User" positionX="-478.65234375" positionY="-1069.65625" width="128" height="253"/>
-        <element name="Victim" positionX="-396" positionY="-367" width="128" height="358"/>
+        <element name="Attachment" positionX="-1026" positionY="-250" width="128" height="89"/>
+        <element name="BaseHospital" positionX="-632" positionY="-864" width="128" height="104"/>
+        <element name="BaseInjury" positionX="-936" positionY="-874" width="128" height="89"/>
+        <element name="BaseSection" positionX="-819" positionY="-720" width="128" height="89"/>
+        <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="89"/>
+        <element name="Documentation" positionX="-711" positionY="-355" width="128" height="119"/>
+        <element name="DocumentationTemplate" positionX="-753.8865356445312" positionY="-1007.648361206055" width="128" height="74"/>
+        <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="119"/>
+        <element name="Injury" positionX="-369" positionY="-9" width="128" height="104"/>
+        <element name="Mission" positionX="-425" positionY="-613" width="128" height="284"/>
+        <element name="Notification" positionX="-819" positionY="-909" width="128" height="119"/>
+        <element name="Section" positionX="-119" positionY="-349" width="128" height="149"/>
+        <element name="Settings" positionX="-819" positionY="-918" width="128" height="149"/>
+        <element name="Shift" positionX="-209" positionY="-792" width="128" height="104"/>
+        <element name="Unit" positionX="-146" positionY="-163" width="128" height="119"/>
+        <element name="User" positionX="-478.65234375" positionY="-1069.65625" width="128" height="254"/>
+        <element name="Victim" positionX="-396" positionY="-367" width="128" height="374"/>
     </elements>
 </model>

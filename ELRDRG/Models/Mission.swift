@@ -9,8 +9,14 @@
 import UIKit
 import CoreData
 
-public class Mission: NSManagedObject {
+public class Mission: NSManagedObject, dbInterface {
+    public func getID() -> Int32? {
+        return Int32(self.dbID ?? -1)
+    }
     
+    public func setID(id: Int32) {
+        self.dbID = id as! NSNumber
+    }
     
         public func endMission()
         {
