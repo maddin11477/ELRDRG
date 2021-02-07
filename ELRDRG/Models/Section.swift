@@ -45,11 +45,19 @@ public class Section: NSManagedObject, dbInterface {
     public func setID(id: Int32) {
         self.dbID = id
     }
+    
+    
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Section.self))
+        }
+            
+    }
 }
 
 extension Section {
-    
-   
 
 	public func getPatterns() -> [UnitPattern]
 	{

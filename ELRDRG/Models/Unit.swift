@@ -22,6 +22,15 @@ extension Unit{
         self.dbID = id
     }
     
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Unit.self))
+        }
+    }
+            
+    
     public func getVictimCount() -> Int{
         if let victimList = self.patient?.allObjects as? [Victim]
         {

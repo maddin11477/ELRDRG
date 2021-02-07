@@ -37,6 +37,8 @@
 		0139E4A521570736001970FE /* sectionUnitFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */; };
 		0139E4A72157084C001970FE /* sectionUnitHalfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */; };
 		0139E4A9215708D7001970FE /* sectionUnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */; };
+		013A570625CD993B007483E8 /* DrawingMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A570525CD993B007483E8 /* DrawingMapOverlay.swift */; };
+		013A571C25D057E0007483E8 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A571B25D057E0007483E8 /* MapOverlay.swift */; };
 		0142010023804B3F00C2834C /* Iuk.png in Resources */ = {isa = PBXBuildFile; fileRef = 014200FD23804B3E00C2834C /* Iuk.png */; };
 		0142010123804B3F00C2834C /* BRK_KV_LOGO.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 014200FE23804B3E00C2834C /* BRK_KV_LOGO.jpg */; };
 		0142010223804B3F00C2834C /* Logo_final_CMYK.png in Resources */ = {isa = PBXBuildFile; fileRef = 014200FF23804B3F00C2834C /* Logo_final_CMYK.png */; };
@@ -157,6 +159,19 @@
 		5BF467F0214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF467EF214AD9B200BCE3EF /* DocumentationAudioTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		014692FF25903FC9001EEFB1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		010042CB2266561E00E0360D /* fa-regular-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-regular-400.ttf"; sourceTree = "<group>"; };
 		010042CC2266562600E0360D /* fa-brands-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-brands-400.ttf"; sourceTree = "<group>"; };
@@ -188,6 +203,8 @@
 		0139E4A421570736001970FE /* sectionUnitFullTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitFullTableViewCell.swift; sourceTree = "<group>"; };
 		0139E4A62157084C001970FE /* sectionUnitHalfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitHalfTableViewCell.swift; sourceTree = "<group>"; };
 		0139E4A8215708D7001970FE /* sectionUnitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sectionUnitTableViewCell.swift; sourceTree = "<group>"; };
+		013A570525CD993B007483E8 /* DrawingMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingMapOverlay.swift; sourceTree = "<group>"; };
+		013A571B25D057E0007483E8 /* MapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
 		014200FD23804B3E00C2834C /* Iuk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Iuk.png; sourceTree = "<group>"; };
 		014200FE23804B3E00C2834C /* BRK_KV_LOGO.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BRK_KV_LOGO.jpg; sourceTree = "<group>"; };
 		014200FF23804B3F00C2834C /* Logo_final_CMYK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_final_CMYK.png; sourceTree = "<group>"; };
@@ -540,6 +557,7 @@
 				01E5EBE824FBD7640068E619 /* SectionsUIViewController.swift */,
 				01E5EBEC24FBD8EF0068E619 /* MapSectionTVC.swift */,
 				018C6F702573E145005BDC56 /* ExplanationVC.swift */,
+				013A570525CD993B007483E8 /* DrawingMapOverlay.swift */,
 			);
 			path = MAP;
 			sourceTree = "<group>";
@@ -623,6 +641,7 @@
 				01F8DB3C252B6AE300CA97C0 /* Notification.swift */,
 				017A7EAA2576D575001676DA /* DocumentationTemplate.swift */,
 				01710198258C168E006EFD94 /* BaseEntity.swift */,
+				013A571B25D057E0007483E8 /* MapOverlay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -680,6 +699,7 @@
 				5B41E9AB212C5F5300525804 /* Sources */,
 				5B41E9AC212C5F5300525804 /* Frameworks */,
 				5B41E9AD212C5F5300525804 /* Resources */,
+				014692FF25903FC9001EEFB1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -791,6 +811,7 @@
 				018042C8213BFEF8008B1784 /* StammdatenProtocol.swift in Sources */,
 				5B6D77512130505F00DDFA2B /* Attachment.swift in Sources */,
 				019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */,
+				013A571C25D057E0007483E8 /* MapOverlay.swift in Sources */,
 				0139E49121541391001970FE /* InjuryTC.swift in Sources */,
 				014201052380617100C2834C /* AddUserViewController.swift in Sources */,
 				5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */,
@@ -860,6 +881,7 @@
 				0146EB2E23A416CF0003AB41 /* UnitsOverViewCVC.swift in Sources */,
 				5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */,
 				01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */,
+				013A570625CD993B007483E8 /* DrawingMapOverlay.swift in Sources */,
 				01FA9167234D0E4400D7BB27 /* BenutzerListeViewController.swift in Sources */,
 				5B84BB90213162AC00DA1073 /* LoginPopupVC.swift in Sources */,
 				0139E49C2156D16A001970FE /* SmallPatientTableViewCell.swift in Sources */,

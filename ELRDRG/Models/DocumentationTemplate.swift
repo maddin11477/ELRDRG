@@ -19,6 +19,15 @@ public class DocumentationTemplate: NSManagedObject, dbInterface {
         self.dbID = id
     }
     
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: DocumentationTemplate.self))
+        }
+    }
+            
+    
     public func increment()
     {
         self.useCounter = self.useCounter + 1

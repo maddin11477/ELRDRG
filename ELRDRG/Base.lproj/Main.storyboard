@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1849,7 +1849,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IdB-aV-fEP">
-                                <rect key="frame" x="0.0" y="52" width="723" height="666"/>
+                                <rect key="frame" x="0.0" y="44" width="723" height="674"/>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4dn-OD-F4P">
                                 <rect key="frame" x="723" y="94" width="301" height="624"/>
@@ -1919,6 +1919,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Karte" id="TDA-Qe-dcr">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="pencil" catalog="system" style="plain" id="khs-Zx-fAT">
+                                            <connections>
+                                                <action selector="enableDrawing:" destination="J7N-O0-X3S" id="VgC-cb-zbo"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <rightBarButtonItems>
                                             <barButtonItem title="Item" image="info.circle" catalog="system" id="MUV-qe-M9i">
                                                 <connections>
@@ -1977,6 +1982,7 @@
                             <constraint firstItem="4dn-OD-F4P" firstAttribute="leading" secondItem="cnA-1g-dBh" secondAttribute="trailing" constant="141" id="VBW-h9-2ye"/>
                             <constraint firstItem="cnA-1g-dBh" firstAttribute="leading" secondItem="v8M-XH-5ub" secondAttribute="leading" constant="446" id="byt-09-5pN"/>
                             <constraint firstItem="4dn-OD-F4P" firstAttribute="trailing" secondItem="v8M-XH-5ub" secondAttribute="trailing" id="cn4-I6-JDS"/>
+                            <constraint firstItem="IdB-aV-fEP" firstAttribute="top" secondItem="bEs-5A-41t" secondAttribute="bottom" id="dL0-Bf-hki"/>
                             <constraint firstItem="iuY-Sm-bLv" firstAttribute="bottom" secondItem="v8M-XH-5ub" secondAttribute="bottom" id="dPr-Fo-Wwy"/>
                             <constraint firstItem="bEs-5A-41t" firstAttribute="leading" secondItem="v8M-XH-5ub" secondAttribute="leading" id="ezl-9k-sew"/>
                             <constraint firstItem="4dn-OD-F4P" firstAttribute="leading" secondItem="iuY-Sm-bLv" secondAttribute="trailing" id="jtA-Tg-cvy"/>
@@ -1985,13 +1991,13 @@
                             <constraint firstItem="bEs-5A-41t" firstAttribute="trailing" secondItem="v8M-XH-5ub" secondAttribute="trailing" id="oUy-Ao-yRG"/>
                             <constraint firstItem="XnJ-bH-QzN" firstAttribute="width" secondItem="4dn-OD-F4P" secondAttribute="width" id="pNH-dp-GoL"/>
                             <constraint firstItem="bEs-5A-41t" firstAttribute="top" secondItem="v8M-XH-5ub" secondAttribute="top" id="siq-ZB-wYk"/>
-                            <constraint firstItem="IdB-aV-fEP" firstAttribute="top" secondItem="bEs-5A-41t" secondAttribute="bottom" constant="8" id="vKI-Nb-tuu"/>
                             <constraint firstItem="XnJ-bH-QzN" firstAttribute="trailing" secondItem="v8M-XH-5ub" secondAttribute="trailing" id="yOg-uR-cp8"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Karte" image="map.fill" catalog="system" id="IiB-Wh-J5p"/>
                     <navigationItem key="navigationItem" id="boQ-4o-dwG"/>
                     <connections>
+                        <outlet property="cmdEnableDrawing" destination="khs-Zx-fAT" id="JRi-wo-7re"/>
                         <outlet property="inProgressIndicator" destination="cnA-1g-dBh" id="Ddd-1w-ID0"/>
                         <outlet property="mapView" destination="IdB-aV-fEP" id="lNo-S6-2Vm"/>
                         <outlet property="sectionTable" destination="4dn-OD-F4P" id="qep-v6-8rb"/>
@@ -7785,7 +7791,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9dz-71-SAP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1492" y="840"/>
+            <point key="canvasLocation" x="-1496" y="888"/>
         </scene>
         <!--SectionsUI View Controller-->
         <scene sceneID="CFN-dH-98a">
@@ -7982,9 +7988,6 @@
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -8002,48 +8005,6 @@
         </systemColor>
         <systemColor name="quaternaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="scrollViewTexturedBackgroundColor">
-            <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="scrollViewTexturedBackgroundColor">
             <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

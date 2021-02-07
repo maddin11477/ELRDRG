@@ -13,7 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
-    public var server : httpServer = httpServer()
+   // public var server : httpServer = httpServer()
 
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
          UNUserNotificationCenter.current().delegate = self
         // Override point for customization after application launch.
 		let _ = LocationHandler.shared().getCurrentLocation()
-        server.start()
+        
         return true
     }
 

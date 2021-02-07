@@ -15,6 +15,16 @@ public class User: NSManagedObject, dbInterface{
         return self.dbID
     }
     
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: User.self))
+        }
+    }
+    
+    
+    
     public func setID(id: Int32) {
         self.dbID = id
     }

@@ -11,10 +11,18 @@ import CoreData
 
 public class Attachment: NSManagedObject, dbInterface {
     public func getID() -> Int32? {
-        return self.dbID as! Int32
+        return self.dbID 
     }
     
     public func setID(id: Int32) {
-        self.dbID = NSNumber(value: id)
+        self.dbID = id
+    }
+    
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID =  NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Attachment.self))
+        }
     }
 }

@@ -30,6 +30,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     var window : UIWindow?
     var toolPicker : PKToolPicker?
     
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+            if let mapDrawing = overlay as? DrawingMapOverlay
+            {
+                return DrawingMapOverlayView(overlay: overlay, overlayImage: mapDrawing.image)
+            }
+        return MKOverlayRenderer()
+    }
     
     @IBAction func createScreenShotToDocu(_ sender: Any)
     {
@@ -45,31 +53,70 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         {
             userName = (user.firstName ?? "") + " " + (user.lastName ?? "")
         }
-        let _ = DataHandler().createNotification(sender: userName, content: "Lagekartenausschnitt wurde der Dokumentation hinzugefügt")
+        let _ = DataHandler().createNotification(sender: userName, content: "Lagekartenausschnitt wurde dem Tagebuch hinzugefügt")
             
+        
+        
+    }
+    var drawingEnabled : Bool = false
+    
+    //Enables and disables Drawing
+    @IBAction func enableDrawing(_ sender: Any) {
+        
+        cmdEnableDrawing.image = UIImage(systemName: "pencil")
+        draw()
+        disableDrawing()
+        removeNavigationBar()
+        draw()
+        drawingEnabled = true
+        
+    }
+    
+    @IBOutlet weak var cmdEnableDrawing: UIBarButtonItem!
+    
+    func disableDrawing()
+    {
+        
+        if let view = canvasView
+        {
+            view.removeFromSuperview()
+            toolPicker?.removeObserver(self.canvasView!)
+        }
+        cmdEnableDrawing.style = .plain
+        
+        cmdEnableDrawing.image = UIImage(systemName: "pencil")
         
         
     }
     
     func draw()
     {
-        let canvasView = PKCanvasView(frame: .zero)
+        
+        let frame = CGRect(x: mapView.frame.minX, y: mapView.frame.minY - 30, width: mapView.frame.width, height: mapView.frame.height)
+        let canvasView = PKCanvasView(frame: frame)
         
         canvasView.translatesAutoresizingMaskIntoConstraints = false
                 canvasView.isOpaque = false
+                
+                
+        canvasView.backgroundColor = .clear
                 view.addSubview(canvasView)
-                
-                canvasView.backgroundColor = .clear
-                
-                NSLayoutConstraint.activate([
-                    canvasView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
-                    canvasView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                ])
+               
         
         self.canvasView = canvasView
+        setNavigationBar()
+        
+        guard let window = view.window,
+        let toolPicker = PKToolPicker.shared(for: window) else { return }
+        toolPicker.setVisible(true, forFirstResponder: self.canvasView!)
+        
+        toolPicker.addObserver(self.canvasView!)
+        
+        canvasView.becomeFirstResponder()
+        
+        //self.viewDidAppear(true)
     }
+    
     
     
     
@@ -281,8 +328,12 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         
+        //cmdEnableDrawing.image = UIImage(systemName: "Pencil")
+        cmdEnableDrawing.style = .plain
+        cmdEnableDrawing.image = UIImage(systemName: "pencil")
+        //cmdEnableDrawing.title = "Zeichnen"
+        self.navigationItem.leftBarButtonItem = cmdEnableDrawing
         //SectionTable
         self.sectionTable.dataSource = self
         self.sectionTable.delegate = self
@@ -297,6 +348,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         
         
         mapView.delegate = self
+        mapView.isRotateEnabled = false
 		let view = SectionAnnotationView()
 		view.delegate = self
 		self.sections = SectionHandler().getSections()
@@ -308,27 +360,37 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
                 addAnnotationOnLocation(section: section)
             }
         }
+        
+        //Load Drawings
+        mapView.addOverlays(MapOverlay.getAllDrawingOverlays())
     }
     
     
+    func beginDrawing()
+    {
+        if #available(iOS 13.0, *) {
+             let canvasView = PKCanvasView(frame: self.view.bounds)
+             guard
+             let window = view.window,
+             let toolPicker = PKToolPicker.shared(for: window) else { return }
+            
+             toolPicker.setVisible(true, forFirstResponder: canvasView)
+             toolPicker.addObserver(canvasView)
+             canvasView.becomeFirstResponder()
+          canvasView.backgroundColor = .clear
+             view.addSubview(canvasView)
+        } else {
+             // Fallback on earlier versions
+        }
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
-        updateMapContent()
         
-        
-        if  let cView = canvasView, let window = self.window, let tpicker = PKToolPicker.shared(for: window)
-        {
-            
-            tpicker.setVisible(true, forFirstResponder: cView)
-            tpicker.addObserver(cView)
-            cView.becomeFirstResponder()
-            
-        }
-        else
-        {
-            return
-        }
+        super.viewDidAppear(animated) // Manquait
        
+        updateMapContent()
+                  
     }
     
     func updateMapContent()
@@ -398,7 +460,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
            if let marker = annotation as? SectionMapAnnotation
            {
-               let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "TestAnotation")
+               let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "TestAnnotation")
             print("subviews: ")
             print(annotationView.subviews.count)
                if annotationView.subviews.count > 0
@@ -423,10 +485,96 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
            
        }
     
+    var toggleDrawItem : UIBarButtonItem!
+    var saveImageBtn : UIBarButtonItem!
+    var disableDraw : Bool = false
+    var navigationBar : UINavigationBar?
+    
+    @objc func dragDrawToggler(){
+        
+        //DragOrDraw.disableDrawing = !DragOrDraw.disableDrawing
+        disableDrawing()
+        removeNavigationBar()
+    }
+    
+    func clippedImageForRect(clipRect: CGRect, inView view: UIView) -> UIImage? {
+            UIGraphicsBeginImageContextWithOptions(clipRect.size, true, UIScreen.main.scale)
+            if let ctx = UIGraphicsGetCurrentContext(){
+                ctx.translateBy(x: -clipRect.origin.x, y: -clipRect.origin.y);
+                view.layer.render(in: ctx)
+                let img = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                return img
+            }
+            return nil
+    }
+    
+    @objc func saveDrawing()
+    {
+        if let view = canvasView
+        {
+            let frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: view.frame.height - 8)
+            print("CanvasViewHeight:")
+            print(frame.height)
+            print("CanvasViewWidth:")
+            print(frame.width)
+            let image = view.drawing.image(from: frame, scale: 1.0)
+            //var maprect = mapView.visibleMapRect
+            
+            let overlay = DrawingMapOverlay(drawing: image, bounds: mapView.visibleMapRect, coordinate: mapView.centerCoordinate)
+            print("MapRectHeight:")
+            print(mapView.visibleMapRect.height)
+            print("MapRectWidth:")
+            print(mapView.visibleMapRect.width)
+            
+            mapView.add(overlay)
+        }
+        
+        disableDrawing()
+        removeNavigationBar()
+    }
     
     
     
-   
+    func setNavigationBar() {
+
+        toggleDrawItem = UIBarButtonItem(title: "zurück", style: .plain, target: self, action: #selector(dragDrawToggler))
+        //toggleDrawItem.image = UIImage(systemName: "pencil.slash")
+        saveImageBtn = UIBarButtonItem(title: "Speichern", style: .plain, target: self, action: #selector(saveDrawing))
+    let navigationItem = UINavigationItem(title: "Zeichnen")
+    
+    navigationItem.leftBarButtonItem = toggleDrawItem
+    navigationItem.leftBarButtonItem?.image = UIImage(systemName: "pencil.slash")
+        navigationItem.rightBarButtonItem = saveImageBtn
+    navigationBar = UINavigationBar(frame: .zero)
+    navigationBar?.isTranslucent = false
+        navigationBar!.largeContentTitle = "Zeichnen"
+    navigationBar!.setItems([navigationItem], animated: false)
+    navigationBar!.translatesAutoresizingMaskIntoConstraints = false
+    
+    view.addSubview(navigationBar!)
+    navigationBar!.backgroundColor = .clear
+    NSLayoutConstraint.activate([
+    navigationBar!.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+    navigationBar!.heightAnchor.constraint(equalToConstant: 60),
+    navigationBar!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    navigationBar!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    ])
+    }
+    
+    func removeNavigationBar()
+    {
+        navigationBar?.removeFromSuperview()
+        cmdEnableDrawing.style = .bordered
+        //cmdEnableDrawing.image = UIImage(systemName: "pencil.slash")
+        self.navigationItem.leftBarButtonItem = cmdEnableDrawing
+        
+    }
+    
+    
+    
+    
+    
 
 }
 
@@ -454,6 +602,10 @@ extension PKCanvasView{
     override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return DragOrDraw.disableDrawing
     }
+    
+    
+    
+    
 }
 
 class DragOrDraw{

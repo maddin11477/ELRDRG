@@ -74,6 +74,14 @@ public class Notification: NSManagedObject, dbInterface {
         self.dbID = id
     }
     
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Notification.self))
+        }
+    }
+    
     public func toJsonObject()-> jsonNotification
     {
         let notification = jsonNotification()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20A5343j" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20E5172i" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES" codeGenerationType="category">
-        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="NO"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uniqueName" optional="YES" attributeType="String"/>
         <relationship name="documentation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Documentation" inverseName="attachments" inverseEntity="Documentation"/>
@@ -59,8 +59,17 @@
         <attribute name="location" optional="YES" attributeType="String"/>
         <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Victim" inverseName="verletzung" inverseEntity="Victim"/>
     </entity>
+    <entity name="MapOverlay" representedClassName=".MapOverlay" syncable="YES" codeGenerationType="category">
+        <attribute name="coordinateLAT" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="coordinateLNG" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="frameHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="frameMinX" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="frameMinY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="frameWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+    </entity>
     <entity name="Mission" representedClassName=".Mission" syncable="YES" codeGenerationType="category">
-        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="NO"/>
+        <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endKm" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -74,6 +83,7 @@
         <attribute name="unique" attributeType="String"/>
         <relationship name="documentations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Documentation" inverseName="mission" inverseEntity="Documentation"/>
         <relationship name="notifications" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notification"/>
+        <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapOverlay"/>
         <relationship name="sections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Section" inverseName="mission" inverseEntity="Section"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="missions" inverseEntity="User"/>
         <relationship name="victims" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Victim" inverseName="mission" inverseEntity="Victim"/>
@@ -173,7 +183,8 @@
         <element name="DocumentationTemplate" positionX="-753.8865356445312" positionY="-1007.648361206055" width="128" height="74"/>
         <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="119"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="104"/>
-        <element name="Mission" positionX="-425" positionY="-613" width="128" height="284"/>
+        <element name="MapOverlay" positionX="-819" positionY="-909" width="128" height="134"/>
+        <element name="Mission" positionX="-425" positionY="-613" width="128" height="299"/>
         <element name="Notification" positionX="-819" positionY="-909" width="128" height="119"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="149"/>
         <element name="Settings" positionX="-819" positionY="-918" width="128" height="149"/>

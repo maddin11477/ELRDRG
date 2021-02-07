@@ -17,7 +17,16 @@ public class Victim: NSManagedObject, Encodable, dbInterface {
     public func setID(id: Int32) {
         self.dbID = id
     }
+    
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Victim.self))
+        }
+    }
 }
+
 
 public class jsonVictim : NSObject, Codable {
     public var name : String?

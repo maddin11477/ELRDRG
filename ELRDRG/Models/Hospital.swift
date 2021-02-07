@@ -17,5 +17,14 @@ public class Hospital: NSManagedObject, dbInterface {
     public func setID(id: Int32) {
         self.dbID = id
     }
+    
+    convenience init() {
+        self.init()
+        if self.dbID == -1
+        {
+            self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Hospital.self))
+        }
+    }
+            
 
 }
