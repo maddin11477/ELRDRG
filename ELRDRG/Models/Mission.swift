@@ -14,6 +14,8 @@ public class Mission: NSManagedObject, dbInterface {
         return self.dbID
     }
     
+    private var dataHandler = DataHandler()
+    
     public func setID(id: Int32) {
         self.dbID = id
     }
@@ -42,7 +44,7 @@ public class Mission: NSManagedObject, dbInterface {
         {
             DocumentationHandler().AddTextDocumentation(mission: self, textcontent: "Einsatz / Lage wurde durch unbekannt beendet.", savedate: Date())
         }
-        DataHandler().saveData()
+        self.dataHandler.saveData()
     }
     
     public func reOpen()
@@ -56,6 +58,15 @@ public class Mission: NSManagedObject, dbInterface {
         {
             DocumentationHandler().AddTextDocumentation(mission: self, textcontent: "Einsatz / Lage wurde von unbekannt erneut geöffnet.", savedate: Date())
         }
-        DataHandler().saveData()
+        self.dataHandler.saveData()
+    }
+    
+    public func save()
+    {
+        do{
+            try! AppDelegate.viewContext.save()
+        }
+        
+       
     }
 }

@@ -10,10 +10,15 @@
 		010042CD2266562600E0360D /* fa-brands-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010042CC2266562600E0360D /* fa-brands-400.ttf */; };
 		010042CF2266562C00E0360D /* fa-solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010042CE2266562C00E0360D /* fa-solid-900.ttf */; };
 		010042D02266563300E0360D /* fa-regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010042CB2266561E00E0360D /* fa-regular-400.ttf */; };
+		0106A08025DB596C008DC22B /* CircleMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106A07F25DB596C008DC22B /* CircleMapOverlay.swift */; };
+		0106A08225DB5D8D008DC22B /* BaseMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0106A08125DB5D8D008DC22B /* BaseMapOverlay.swift */; };
+		010C475525D62A1F00AF4C54 /* overlayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C475425D62A1F00AF4C54 /* overlayListViewController.swift */; };
+		010C475725D62AF400AF4C54 /* overlayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C475625D62AF400AF4C54 /* overlayTVC.swift */; };
 		010CBD1A24083F7E0021357D /* Hof41_10_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 010CBD1824083F7D0021357D /* Hof41_10_1.png */; };
 		010CBD1B24083F7E0021357D /* Bell412_drf.png in Resources */ = {isa = PBXBuildFile; fileRef = 010CBD1924083F7D0021357D /* Bell412_drf.png */; };
 		010CBD1F240A82450021357D /* GeneralSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CBD1E240A82450021357D /* GeneralSettingsVC.swift */; };
 		010CBD21240A83650021357D /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CBD20240A83650021357D /* SettingsHandler.swift */; };
+		0110D56825DB720C00B73601 /* BaseMapOverlayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0110D56725DB720C00B73601 /* BaseMapOverlayTVC.swift */; };
 		01225AE6213F19A300033225 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = 01225AE5213F19A300033225 /* hospital.png */; };
 		01225AE8213F1B4700033225 /* icon-injury.png in Resources */ = {isa = PBXBuildFile; fileRef = 01225AE7213F1B4700033225 /* icon-injury.png */; };
 		01225AEA213F1B6A00033225 /* InjuryCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */; };
@@ -176,10 +181,15 @@
 		010042CB2266561E00E0360D /* fa-regular-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-regular-400.ttf"; sourceTree = "<group>"; };
 		010042CC2266562600E0360D /* fa-brands-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-brands-400.ttf"; sourceTree = "<group>"; };
 		010042CE2266562C00E0360D /* fa-solid-900.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-solid-900.ttf"; sourceTree = "<group>"; };
+		0106A07F25DB596C008DC22B /* CircleMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMapOverlay.swift; sourceTree = "<group>"; };
+		0106A08125DB5D8D008DC22B /* BaseMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMapOverlay.swift; sourceTree = "<group>"; };
+		010C475425D62A1F00AF4C54 /* overlayListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = overlayListViewController.swift; sourceTree = "<group>"; };
+		010C475625D62AF400AF4C54 /* overlayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = overlayTVC.swift; sourceTree = "<group>"; };
 		010CBD1824083F7D0021357D /* Hof41_10_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hof41_10_1.png; sourceTree = "<group>"; };
 		010CBD1924083F7D0021357D /* Bell412_drf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bell412_drf.png; sourceTree = "<group>"; };
 		010CBD1E240A82450021357D /* GeneralSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsVC.swift; sourceTree = "<group>"; };
 		010CBD20240A83650021357D /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
+		0110D56725DB720C00B73601 /* BaseMapOverlayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMapOverlayTVC.swift; sourceTree = "<group>"; };
 		01225AE5213F19A300033225 /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		01225AE7213F1B4700033225 /* icon-injury.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-injury.png"; sourceTree = "<group>"; };
 		01225AE9213F1B6A00033225 /* InjuryCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryCostumTableViewCell.swift; sourceTree = "<group>"; };
@@ -558,6 +568,9 @@
 				01E5EBEC24FBD8EF0068E619 /* MapSectionTVC.swift */,
 				018C6F702573E145005BDC56 /* ExplanationVC.swift */,
 				013A570525CD993B007483E8 /* DrawingMapOverlay.swift */,
+				010C475425D62A1F00AF4C54 /* overlayListViewController.swift */,
+				010C475625D62AF400AF4C54 /* overlayTVC.swift */,
+				0110D56725DB720C00B73601 /* BaseMapOverlayTVC.swift */,
 			);
 			path = MAP;
 			sourceTree = "<group>";
@@ -642,6 +655,8 @@
 				017A7EAA2576D575001676DA /* DocumentationTemplate.swift */,
 				01710198258C168E006EFD94 /* BaseEntity.swift */,
 				013A571B25D057E0007483E8 /* MapOverlay.swift */,
+				0106A08125DB5D8D008DC22B /* BaseMapOverlay.swift */,
+				0106A07F25DB596C008DC22B /* CircleMapOverlay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -803,6 +818,7 @@
 				012FE86F23897CBE005D24FD /* ShowUserViewController.swift in Sources */,
 				01A87CF923F3228E004DA83C /* UnitXIBCustomTableViewCell.swift in Sources */,
 				0139E4A22156D983001970FE /* SectionHandler.swift in Sources */,
+				0110D56825DB720C00B73601 /* BaseMapOverlayTVC.swift in Sources */,
 				015872E424B60BA60085A68E /* UnitPattern.swift in Sources */,
 				01ED51F52145217A0059618E /* SelectUnitVC.swift in Sources */,
 				5B6D774D2130502C00DDFA2B /* Injury.swift in Sources */,
@@ -828,6 +844,7 @@
 				0139E4A02156D7A3001970FE /* SectionTableViewCell.swift in Sources */,
 				0139E48F21516747001970FE /* smallinjurycell.swift in Sources */,
 				5B4A6006213C641300844F85 /* DocumentationVC.swift in Sources */,
+				0106A08225DB5D8D008DC22B /* BaseMapOverlay.swift in Sources */,
 				012FE87123897D4D005D24FD /* UserAttributeTableViewCell.swift in Sources */,
 				5B6D775B213050A300DDFA2B /* BaseUnit.swift in Sources */,
 				0125080E2135E9B80065FDF0 /* UebersichtVC.swift in Sources */,
@@ -843,6 +860,7 @@
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
 				01D9026023BB8136009F9E75 /* LocationHandler.swift in Sources */,
 				5B4A6017213EFCBF00844F85 /* DocumentationDetailAudioVC.swift in Sources */,
+				0106A08025DB596C008DC22B /* CircleMapOverlay.swift in Sources */,
 				5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */,
 				01F8DB3D252B6AE300CA97C0 /* Notification.swift in Sources */,
 				5B4A6013213D82C800844F85 /* SessionHandler.swift in Sources */,
@@ -871,6 +889,7 @@
 				0146EB2A23A2BA860003AB41 /* PatientPopOverVC.swift in Sources */,
 				010CBD21240A83650021357D /* SettingsHandler.swift in Sources */,
 				5BB940E32141A121007DDCCC /* DocumentationDetailPhotoVC.swift in Sources */,
+				010C475525D62A1F00AF4C54 /* overlayListViewController.swift in Sources */,
 				014FCAF022089C17004C0A33 /* SmallhospitalTableViewCell.swift in Sources */,
 				0139E4A521570736001970FE /* sectionUnitFullTableViewCell.swift in Sources */,
 				5B6D774721304FF400DDFA2B /* Victim.swift in Sources */,
@@ -879,6 +898,7 @@
 				019081C12141A45C00AB7620 /* InjuryHandler.swift in Sources */,
 				012508072135AED40065FDF0 /* missionProtocol.swift in Sources */,
 				0146EB2E23A416CF0003AB41 /* UnitsOverViewCVC.swift in Sources */,
+				010C475725D62AF400AF4C54 /* overlayTVC.swift in Sources */,
 				5B6D77592130509900DDFA2B /* BaseHospital.swift in Sources */,
 				01ED51F7214526B60059618E /* UnitSelectCostumTableViewCell.swift in Sources */,
 				013A570625CD993B007483E8 /* DrawingMapOverlay.swift in Sources */,
@@ -1062,7 +1082,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
@@ -1084,7 +1104,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;

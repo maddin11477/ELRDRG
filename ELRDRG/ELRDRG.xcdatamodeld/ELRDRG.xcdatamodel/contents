@@ -19,6 +19,11 @@
         <attribute name="diagnosis" attributeType="String"/>
         <attribute name="loaction" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="BaseMapOverlay" representedClassName=".BaseMapOverlay" syncable="YES" codeGenerationType="category">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="baseMapOverlays" inverseEntity="Mission"/>
+    </entity>
     <entity name="BaseSection" representedClassName="BaseSection" syncable="YES" codeGenerationType="class">
         <attribute name="allwaysExits" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="counter" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -30,6 +35,9 @@
         <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="funkrufName" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CircleMapOverlay" representedClassName=".CircleMapOverlay" parentEntity="BaseMapOverlay" syncable="YES" codeGenerationType="category">
+        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Documentation" representedClassName=".Documentation" syncable="YES" codeGenerationType="category">
         <attribute name="content" optional="YES" attributeType="String"/>
@@ -81,6 +89,7 @@
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="startKm" optional="YES" attributeType="String"/>
         <attribute name="unique" attributeType="String"/>
+        <relationship name="baseMapOverlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BaseMapOverlay" inverseName="mission" inverseEntity="BaseMapOverlay"/>
         <relationship name="documentations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Documentation" inverseName="mission" inverseEntity="Documentation"/>
         <relationship name="notifications" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notification"/>
         <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MapOverlay"/>
@@ -174,17 +183,19 @@
         <relationship name="verletzung" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Injury" inverseName="patient" inverseEntity="Injury"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="-1026" positionY="-250" width="128" height="89"/>
+        <element name="Attachment" positionX="-815.1972045898438" positionY="-170.1892242431641" width="128" height="89"/>
         <element name="BaseHospital" positionX="-632" positionY="-864" width="128" height="104"/>
         <element name="BaseInjury" positionX="-936" positionY="-874" width="128" height="89"/>
+        <element name="BaseMapOverlay" positionX="-810" positionY="-900" width="128" height="74"/>
         <element name="BaseSection" positionX="-819" positionY="-720" width="128" height="89"/>
         <element name="BaseUnit" positionX="-792" positionY="-871" width="128" height="89"/>
+        <element name="CircleMapOverlay" positionX="-693" positionY="-846" width="128" height="44"/>
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="119"/>
-        <element name="DocumentationTemplate" positionX="-753.8865356445312" positionY="-1007.648361206055" width="128" height="74"/>
+        <element name="DocumentationTemplate" positionX="-753.8865356445312" positionY="-1007.648361206055" width="128" height="88"/>
         <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="119"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="104"/>
         <element name="MapOverlay" positionX="-819" positionY="-909" width="128" height="134"/>
-        <element name="Mission" positionX="-425" positionY="-613" width="128" height="299"/>
+        <element name="Mission" positionX="-425" positionY="-613" width="128" height="314"/>
         <element name="Notification" positionX="-819" positionY="-909" width="128" height="119"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="149"/>
         <element name="Settings" positionX="-819" positionY="-918" width="128" height="149"/>

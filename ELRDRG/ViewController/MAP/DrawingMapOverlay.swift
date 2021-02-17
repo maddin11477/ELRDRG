@@ -24,12 +24,17 @@ public class DrawingMapOverlay: NSObject, MKOverlay {
         self.image = drawing
         super.init()
         
+        
+     }
+    
+    public func saveToMission()
+    {
         let mapoverlay = MapOverlay.toMapOverlay(drawingMapOverlay: self)
         let handler = DataHandler()
         let mission = handler.getCurrentMission()
         mission?.addToOverlays(mapoverlay)
         handler.saveData()
-     }
+    }
     
 
     

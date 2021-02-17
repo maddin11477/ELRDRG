@@ -44,6 +44,8 @@ public class MapOverlay: NSManagedObject {
         return mapOverlays
     }
     
+    
+    
     public static func toMapOverlay(drawingMapOverlay : DrawingMapOverlay)->MapOverlay
     {
        
@@ -58,5 +60,10 @@ public class MapOverlay: NSManagedObject {
         overlay.frameMinX = drawingMapOverlay.boundingMapRect.minX
         overlay.frameMinY = drawingMapOverlay.boundingMapRect.minY
         return overlay
+    }
+    
+    public static func deleteOverlay(overlay : MapOverlay)
+    {
+        
     }
 }

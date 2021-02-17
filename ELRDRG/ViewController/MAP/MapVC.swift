@@ -11,24 +11,143 @@ import MapKit
 import CoreLocation
 import PencilKit
 
+public protocol MapVCdelegate {
+    func addedOverlay(overlay : DrawingMapOverlay)
+    func addedOverlay(overlay : BaseMapOverlay)
+    func reloadOverlays()
+}
 
 
-
-class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewDelegate, MKMapViewDelegate, MapSectionsProtocol, SectionMapAnnotationDelegate, UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
+class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewDelegate, MKMapViewDelegate, MapSectionsProtocol, SectionMapAnnotationDelegate, UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate, overlayListViewControllerDelegate {
+    func deletedBaseOverlay(overlay: BaseMapOverlay) {
+        loadOverlays()
+    }
+    
+    func didSelectBaseOverlay(overlay: BaseMapOverlay) {
+        self.mapView.setCenter(overlay.getCoordinate(), animated: true)
+    }
+    
+    func deletedOverlay(overlay: DrawingMapOverlay) {
+        loadOverlays()
+        print("MAPVC deletedMapOverlay")
+    }
+    
+    func reloadOverlays() {
+        loadOverlays()
+    }
+    
+    func didSelectOverlay(overlay: DrawingMapOverlay) {
+        self.mapView.setCenter(overlay.coordinate, animated: true)
+    }
+    
     func removeSection(section: Section?) {
         //not needed
     }
     
+    public static var controller : MapVC?
+    public var overlayLVC : overlayListViewController?
     
-    func annoationdeleted(annotation: SectionMapAnnotation) {
+     func annoationdeleted(annotation: SectionMapAnnotation) {
             //Section deleted -> SEctionAnnotation has to be removed also
             self.mapView.removeAnnotation(annotation)
-        
-        
     }
     var canvasView : PKCanvasView?
     var window : UIWindow?
     var toolPicker : PKToolPicker?
+    public var delegate : MapVCdelegate?
+    
+    @IBOutlet weak var overlayListWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var cmdOverlaySlide: UIButton!
+    
+    func overlayListSlideLeft(animated : Bool = true)
+    {
+        //HIDE <<---
+        overlayListWidth.constant = 0
+        cmdOverlaySlide.setImage(UIImage(systemName: "rectangle.righthalf.inset.fill.arrow.right"), for: .normal)
+        
+        if animated
+        {
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func overlayListSlideRight(animated : Bool = true)
+    {
+        //SHOW ---->>
+        overlayListWidth.constant = 300
+        cmdOverlaySlide.setImage(UIImage(systemName: "rectangle.lefthalf.inset.fill.arrow.left"), for: .normal)
+        if animated
+        {
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+    }
+    
+    
+    
+    @IBAction func overlayListSlide(_ sender: Any) {
+        
+        if overlayListWidth.constant > 0
+        {
+            overlayListSlideLeft()
+            
+        }
+        else
+        {
+            overlayListSlideRight()
+        }
+        
+    }
+    
+    @IBAction func printMap(_ sender: Any) {
+        //Screenshot of view controller (minus status/Nav bar)
+        self.mapView.showsUserLocation = false
+            sectionTableSlideRight(button: nil, animated: false)
+            overlayListSlideLeft(animated: false)
+        while(overlayListWidth.constant > 0 && sectionTableWidth.constant > 0)
+            {
+                sleep(2000)
+            }
+                    
+            
+            let render = UIGraphicsImageRenderer(size: self.mapView.bounds.size)
+            
+            let image = render.image { ctx in
+              self.mapView.drawHierarchy(in: self.mapView.bounds, afterScreenUpdates: true)
+            }
+
+           ///Print screenshot
+           let printController = UIPrintInteractionController.shared
+           let printInfo = UIPrintInfo(dictionary:nil)
+
+           printInfo.jobName = "printing an image"
+           printInfo.outputType = .photo
+
+           printController.printInfo = printInfo
+           printController.printingItem = image
+           printController.present(animated: true)  { (_, isPrinted, error) in if error == nil {
+               if isPrinted {
+                   print("image is printed")
+               }else{
+                   print("image is not printed")
+               }
+               }
+           }
+        self.mapView.showsUserLocation = true
+
+    }
+    
+    
+    @IBAction func addCircle(_ sender: Any) {
+       
+    }
+    
+    
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
@@ -36,6 +155,11 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
             {
                 return DrawingMapOverlayView(overlay: overlay, overlayImage: mapDrawing.image)
             }
+            else if let circle = overlay as? MKCircle
+            {
+                return circle.getRenderer()
+            }
+            
         return MKOverlayRenderer()
     }
     
@@ -62,7 +186,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     
     //Enables and disables Drawing
     @IBAction func enableDrawing(_ sender: Any) {
-        
+        overlayListSlideLeft()
+        sectionTableSlideRight(button: sidebarButton)
         cmdEnableDrawing.image = UIImage(systemName: "pencil")
         draw()
         disableDrawing()
@@ -268,18 +393,52 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         //updateMapContent()
     }
     let sidebarposition = 300
+    
+    func sectionTableSlideLeft(button : UIButton? = nil, animated : Bool = true)
+    {
+        self.sidebarButton.setImage(UIImage(systemName: "rectangle.righthalf.inset.fill.arrow.right"), for: .normal)
+        //btn.setTitle("", for: .normal)
+        sectionTableWidth.constant = CGFloat(sidebarposition)
+        if animated
+        {
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func sectionTableSlideRight(button : UIButton? = nil, animated : Bool = true)
+    {
+        if button == nil
+        {
+            self.sidebarButton.setImage(UIImage(systemName: "rectangle.lefthalf.inset.fill.arrow.left"), for: .normal)
+        }
+        else
+        {
+            button?.setImage(UIImage(systemName: "rectangle.lefthalf.inset.fill.arrow.left"), for: .normal)
+        }
+        
+        //btn.setTitle("", for: .normal)
+        sectionTableWidth.constant = 0
+        if animated
+        {
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+    }
     @IBAction func showSideBar_Click(_ sender: Any) {
         
         let btn : UIButton = sender as! UIButton
         if(sectionTableWidth.constant == CGFloat(sidebarposition))
         {
-            btn.setTitle("", for: .normal)
-            sectionTableWidth.constant = 0
+            
+            sectionTableSlideRight(button: btn)
         }
         else
         {
-            btn.setTitle("", for: .normal)
-            sectionTableWidth.constant = CGFloat(sidebarposition)
+           sectionTableSlideLeft(button: btn)
         }
         
         UIView.animate(withDuration: 0.3) {
@@ -328,7 +487,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        MapVC.controller = self
         //cmdEnableDrawing.image = UIImage(systemName: "Pencil")
         cmdEnableDrawing.style = .plain
         cmdEnableDrawing.image = UIImage(systemName: "pencil")
@@ -361,8 +520,80 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
             }
         }
         
-        //Load Drawings
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        self.mapView.addGestureRecognizer(longPressRecognizer)
+
+        
+        loadOverlays()
+        overlayListSlideLeft()
+        sectionTableSlideRight(button: sidebarButton)
+    }
+    var position : CLLocationCoordinate2D?
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == UIGestureRecognizer.State.began {
+            let tempPos = gestureReconizer.location(in: self.mapView)
+            position = self.mapView.convert(tempPos, toCoordinateFrom: mapView)
+            let controller = UIAlertController(title: "Wähle Aktion", message: "", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Kreis hinzufügen", style: .default, handler: {
+                action in
+                self.addCircle()
+            })
+            controller.addAction(action)
+            let abort = UIAlertAction(title: "Abbrechen", style: .destructive, handler: nil )
+            controller.addAction(abort)
+            self.present(controller, animated: true, completion: nil)
+        }
+            
+    }
+    
+    func addCircle()
+    {
+        print("addcircle")
+        if let _ = position
+        {
+            var text_Field : UITextField?
+            let alertController = UIAlertController(title: "Kreis hinzufügen", message: "Geben Sie den gewünschten Radius in Meter [m] an", preferredStyle: .alert)
+            alertController.addTextField{
+                textField in
+                textField.textAlignment = .center
+                textField.keyboardType = .numberPad
+                text_Field = textField
+                
+            }
+            let addcircle = UIAlertAction(title: "Hinzufügen", style: .default, handler: {
+                action in
+                let radius = Double(text_Field?.text ?? "500") ?? 500.0
+                
+                if let pos = self.position
+                {
+                    let circleOverlay = CircleMapOverlay(latitude: pos.latitude, longitude: pos.longitude, radius: radius)
+                    self.mapView.addOverlays(circleOverlay.getOverlays())
+                    self.delegate?.addedOverlay(overlay: circleOverlay)
+                }
+            })
+            alertController.addAction(addcircle)
+            let abort = UIAlertAction(title: "Abbrechen", style: .cancel, handler: {
+            aciton in
+                self.position = nil
+            })
+            alertController.addAction(abort)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    func loadOverlays()
+    {
+        mapView.removeOverlays(mapView.overlays)
         mapView.addOverlays(MapOverlay.getAllDrawingOverlays())
+        
+        //mapView.addOverlays(CircleMapOverlay(radius: 500.0).getOverlay())
+        mapView.addOverlays(BaseMapOverlay.getAllOverlays())
+        mapView.reloadInputViews()
+        
     }
     
     
@@ -390,6 +621,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         super.viewDidAppear(animated) // Manquait
        
         updateMapContent()
+        self.overlayLVC = overlayListViewController.controller
+        self.overlayLVC?.delegate = self
+        
                   
     }
     
@@ -514,20 +748,16 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         if let view = canvasView
         {
             let frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: view.frame.height - 8)
-            print("CanvasViewHeight:")
-            print(frame.height)
-            print("CanvasViewWidth:")
-            print(frame.width)
-            let image = view.drawing.image(from: frame, scale: 1.0)
-            //var maprect = mapView.visibleMapRect
             
+            let image = view.drawing.image(from: frame, scale: 1.0)
+        
             let overlay = DrawingMapOverlay(drawing: image, bounds: mapView.visibleMapRect, coordinate: mapView.centerCoordinate)
-            print("MapRectHeight:")
-            print(mapView.visibleMapRect.height)
-            print("MapRectWidth:")
-            print(mapView.visibleMapRect.width)
+            //save the new drawing to the current mission
+            overlay.saveToMission()
+            
             
             mapView.add(overlay)
+            self.delegate?.addedOverlay(overlay: overlay)
         }
         
         disableDrawing()
@@ -565,7 +795,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     func removeNavigationBar()
     {
         navigationBar?.removeFromSuperview()
-        cmdEnableDrawing.style = .bordered
+        cmdEnableDrawing.style = .plain
         //cmdEnableDrawing.image = UIImage(systemName: "pencil.slash")
         self.navigationItem.leftBarButtonItem = cmdEnableDrawing
         
