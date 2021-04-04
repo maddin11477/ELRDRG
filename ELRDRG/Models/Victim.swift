@@ -19,7 +19,7 @@ public class Victim: NSManagedObject, Encodable, dbInterface {
     }
     
     convenience init() {
-        self.init()
+        self.init(context: AppDelegate.viewContext)
         if self.dbID == -1
         {
             self.dbID = NSManagedObject.getNextID(objects: NSManagedObject.getAll(entity: Victim.self))

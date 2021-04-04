@@ -160,6 +160,12 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
                 return circle.getRenderer()
             }
             
+        
+        if let mapProvider = self.mapProvider, let _ = overlay as? BaseTileOverlay
+        {
+            return mapProvider.getTileRenderer(overlay: overlay)
+        }
+        
         return MKOverlayRenderer()
     }
     
@@ -456,21 +462,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     }
     
 
-
+    var mapProvider : MapProvider?
     let locationManager = CLLocationManager()
     let selfPin = MKPointAnnotation()
     
     @IBAction func SegementControllChanged(_ sender: UISegmentedControl) {
-        switch (sender.selectedSegmentIndex) {
-        case 0:
-            mapView.mapType = .standard
-        case 1:
-            mapView.mapType = .satellite
-        default:
-            mapView.mapType = .hybrid
+        if let provider = self.mapProvider, let providerType = MapProviderType.init(rawValue: sender.selectedSegmentIndex)
+        {
+            
+            provider.setProvider(provider: providerType)
         }
     }
     
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        print(self.mapView.camera.centerCoordinateDistance)
+    }
    
     @IBSegueAction func sectionsController(_ coder: NSCoder) -> SectionsUIViewController? {
         print("segue")
@@ -482,11 +488,37 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     @IBOutlet weak var mapView: MKMapView!
     
 	var sections : [Section] = []
+    var scale : MKScaleView?
     
-   
+    func showScale(visible : Bool)
+   {
+        if let scale = self.scale
+        {
+            scale.scaleVisibility = visible ? .visible : .visible
+        }
+        else
+        {
+            self.scale = MKScaleView(mapView: mapView)
+            self.scale?.scaleVisibility = .visible
+            self.mapView.addSubview(self.scale!)
+            
+            self.scale!.translatesAutoresizingMaskIntoConstraints = false
+            let horizontal = self.scale!.leadingAnchor.constraint(equalTo: self.mapView.leadingAnchor, constant: 20)
+            let vertical = self.scale!.topAnchor.constraint(equalTo: self.mapView.topAnchor, constant: 20)
+            NSLayoutConstraint.activate([horizontal,vertical])
+            self.showScale(visible: visible)
+            
+        }
+        
+   }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showScale(visible: true)
+        self.mapProvider = MapProvider(mapView: self.mapView)
+        self.mapProvider?.setProvider(provider: .AppleMap)
         MapVC.controller = self
         //cmdEnableDrawing.image = UIImage(systemName: "Pencil")
         cmdEnableDrawing.style = .plain
@@ -528,6 +560,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
         overlayListSlideLeft()
         sectionTableSlideRight(button: sidebarButton)
     }
+    
+    
     var position : CLLocationCoordinate2D?
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state == UIGestureRecognizer.State.began {
@@ -587,12 +621,25 @@ class MapVC: UIViewController, CLLocationManagerDelegate, SectionAnnotationViewD
     
     func loadOverlays()
     {
-        mapView.removeOverlays(mapView.overlays)
+        //remove all Overlays but not tiles
+        for overlay in mapView.overlays {
+            if let _ = overlay as? MKTileOverlay
+            {
+                
+            }
+            else
+            {
+                mapView.remove(overlay)
+            }
+        }
+       // mapView.removeOverlays(mapView.overlays)
         mapView.addOverlays(MapOverlay.getAllDrawingOverlays())
         
         //mapView.addOverlays(CircleMapOverlay(radius: 500.0).getOverlay())
         mapView.addOverlays(BaseMapOverlay.getAllOverlays())
+        
         mapView.reloadInputViews()
+        
         
     }
     

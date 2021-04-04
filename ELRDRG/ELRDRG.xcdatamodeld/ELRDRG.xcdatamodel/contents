@@ -67,6 +67,13 @@
         <attribute name="location" optional="YES" attributeType="String"/>
         <relationship name="patient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Victim" inverseName="verletzung" inverseEntity="Victim"/>
     </entity>
+    <entity name="MapDrawingOverlay" representedClassName=".MapDrawingOverlay" parentEntity="BaseMapOverlay" syncable="YES" codeGenerationType="category">
+        <attribute name="frameHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="frameWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="frameX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="frameY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+    </entity>
     <entity name="MapOverlay" representedClassName=".MapOverlay" syncable="YES" codeGenerationType="category">
         <attribute name="coordinateLAT" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="coordinateLNG" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -104,6 +111,10 @@
         <attribute name="dbID" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="sender" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="RectangleMapOverlay" representedClassName=".RectangleMapOverlay" parentEntity="BaseMapOverlay" syncable="YES" codeGenerationType="category">
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="width" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Section" representedClassName=".Section" syncable="YES" codeGenerationType="category">
         <attribute name="coordinate_lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -192,11 +203,13 @@
         <element name="CircleMapOverlay" positionX="-693" positionY="-846" width="128" height="44"/>
         <element name="Documentation" positionX="-711" positionY="-355" width="128" height="119"/>
         <element name="DocumentationTemplate" positionX="-753.8865356445312" positionY="-1007.648361206055" width="128" height="88"/>
+        <element name="MapDrawingOverlay" positionX="-720" positionY="-900" width="128" height="104"/>
         <element name="Hospital" positionX="-816.35546875" positionY="-619.69921875" width="128" height="119"/>
         <element name="Injury" positionX="-369" positionY="-9" width="128" height="104"/>
         <element name="MapOverlay" positionX="-819" positionY="-909" width="128" height="134"/>
         <element name="Mission" positionX="-425" positionY="-613" width="128" height="314"/>
         <element name="Notification" positionX="-819" positionY="-909" width="128" height="119"/>
+        <element name="RectangleMapOverlay" positionX="-729" positionY="-909" width="128" height="59"/>
         <element name="Section" positionX="-119" positionY="-349" width="128" height="149"/>
         <element name="Settings" positionX="-819" positionY="-918" width="128" height="149"/>
         <element name="Shift" positionX="-209" positionY="-792" width="128" height="104"/>

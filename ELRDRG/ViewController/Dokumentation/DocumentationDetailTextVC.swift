@@ -44,7 +44,9 @@ class DocumentationDetailTextVC: UIViewController, UITableViewDelegate, UITableV
         self.docuTemplateList.dataSource = self
         self.docuTemplateList.delegate = self
         self.docuTemplateList.reloadData()
-        
+        self.TextContent.layer.borderColor = UIColor.gray.cgColor
+        self.TextContent.layer.borderWidth = 0.5
+        self.TextContent.layer.cornerRadius = 5
         if(documentation != nil)
         {
             TextContent.text = documentation!.content ?? ""
