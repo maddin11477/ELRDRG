@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0100345C2637864C00BEA1F1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0100345B2637864C00BEA1F1 /* Server.swift */; };
 		010042CD2266562600E0360D /* fa-brands-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010042CC2266562600E0360D /* fa-brands-400.ttf */; };
 		010042CF2266562C00E0360D /* fa-solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010042CE2266562C00E0360D /* fa-solid-900.ttf */; };
 		010042D02266563300E0360D /* fa-regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 010042CB2266561E00E0360D /* fa-regular-400.ttf */; };
@@ -52,6 +53,7 @@
 		0146EB2A23A2BA860003AB41 /* PatientPopOverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146EB2923A2BA860003AB41 /* PatientPopOverVC.swift */; };
 		0146EB2C23A2BB830003AB41 /* injuryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146EB2B23A2BB830003AB41 /* injuryTVC.swift */; };
 		0146EB2E23A416CF0003AB41 /* UnitsOverViewCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0146EB2D23A416CF0003AB41 /* UnitsOverViewCVC.swift */; };
+		0147B4282638B5F800030DBF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0147B4272638B5F800030DBF /* Log.swift */; };
 		014C37D423D6309700605ECB /* ChangeMissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014C37D323D6309700605ECB /* ChangeMissionVC.swift */; };
 		014DA89D225F9B1600C42F5C /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014DA89C225F9B1600C42F5C /* Export.swift */; };
 		014FCAF022089C17004C0A33 /* SmallhospitalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */; };
@@ -59,6 +61,7 @@
 		015589D0239ED4D300BEEAE3 /* PatientOverViewTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015589CF239ED4D300BEEAE3 /* PatientOverViewTVC.swift */; };
 		0156738F23CA562E00BC2B53 /* Hospital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0156738E23CA562E00BC2B53 /* Hospital.swift */; };
 		015872E424B60BA60085A68E /* UnitPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015872E324B60BA60085A68E /* UnitPattern.swift */; };
+		0161331D267EA3DA008DAE8F /* MissionImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161331C267EA3DA008DAE8F /* MissionImageTableViewCell.swift */; };
 		016308FA2564043B00E3D091 /* HttpSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 016308F92564043B00E3D091 /* HttpSwift */; };
 		0165068F239D6AE600921FAD /* PatientUITVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0165068E239D6AE600921FAD /* PatientUITVC.swift */; };
 		01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01650BAC2249871400886510 /* CreateTempObjectViewController.swift */; };
@@ -89,6 +92,11 @@
 		018042E6213F002F008B1784 /* UnitCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */; };
 		018042E8213F1812008B1784 /* HosiptalCostumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018042E7213F1812008B1784 /* HosiptalCostumTableViewCell.swift */; };
 		0183A588212CA9E7006036FA /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0183A587212CA9E7006036FA /* DataHandler.swift */; };
+		018A068A265B06B0003B6E90 /* CommanderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A0689265B06B0003B6E90 /* CommanderTableViewCell.swift */; };
+		018A068C266CE8DC003B6E90 /* MissionGeneralInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A068B266CE8DC003B6E90 /* MissionGeneralInfoCollectionViewCell.swift */; };
+		018A068F266D6F42003B6E90 /* iMissionMetaDataCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A068E266D6F42003B6E90 /* iMissionMetaDataCVC.swift */; };
+		018A0691267694E6003B6E90 /* MissionCommanderCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A0690267694E6003B6E90 /* MissionCommanderCVC.swift */; };
+		018A0693267AA43A003B6E90 /* missionCategoryCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A0692267AA43A003B6E90 /* missionCategoryCVC.swift */; };
 		018C6F712573E145005BDC56 /* ExplanationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018C6F702573E145005BDC56 /* ExplanationVC.swift */; };
 		018DDCDF24F0151600BB468E /* SectionMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018DDCDE24F0151600BB468E /* SectionMapAnnotation.swift */; };
 		018DDCE124F0169300BB468E /* UnitMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018DDCE024F0169300BB468E /* UnitMapTableViewCell.swift */; };
@@ -99,12 +107,14 @@
 		019081C92141A62F00AB7620 /* HospitalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081C82141A62F00AB7620 /* HospitalProtocol.swift */; };
 		019081CB2141A65900AB7620 /* InjuryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CA2141A65900AB7620 /* InjuryProtocol.swift */; };
 		019081CD2141ADD200AB7620 /* CreateInjuryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */; };
+		0193028D267BE11E001D8D3C /* MissionDateCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0193028C267BE11E001D8D3C /* MissionDateCVC.swift */; };
 		01A042E524129DB000D15970 /* PatientenExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A042E424129DB000D15970 /* PatientenExport.swift */; };
 		01A042E72412A1AC00D15970 /* brk_kompaktlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 01A042E62412A1AB00D15970 /* brk_kompaktlogo.png */; };
 		01A20266233D62C200F70498 /* bootstrap-4.0.0 ELRD.css in Resources */ = {isa = PBXBuildFile; fileRef = 01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */; settings = {ASSET_TAGS = (HTML, ); }; };
 		01A87CF623F3194C004DA83C /* SectionAnnotation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A87CF523F3194C004DA83C /* SectionAnnotation.xib */; };
 		01A87CF923F3228E004DA83C /* UnitXIBCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A87CF823F3228E004DA83C /* UnitXIBCustomTableViewCell.swift */; };
 		01A87CFB23F32362004DA83C /* SectionAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A87CFA23F32362004DA83C /* SectionAnnotationView.swift */; };
+		01ADBEB12637735B00A386EC /* StammdatenServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ADBEB02637735B00A386EC /* StammdatenServerViewController.swift */; };
 		01BFFA2D239D4FC200688341 /* PatientCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFFA2C239D4FC200688341 /* PatientCVC.swift */; };
 		01C3853A25DDD98E001C35DE /* MapDrawingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C3853925DDD98E001C35DE /* MapDrawingOverlay.swift */; };
 		01C4F47B215AA94B008B5B82 /* StammdatenImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */; };
@@ -184,6 +194,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0100345B2637864C00BEA1F1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		010042CB2266561E00E0360D /* fa-regular-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-regular-400.ttf"; sourceTree = "<group>"; };
 		010042CC2266562600E0360D /* fa-brands-400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-brands-400.ttf"; sourceTree = "<group>"; };
 		010042CE2266562C00E0360D /* fa-solid-900.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fa-solid-900.ttf"; sourceTree = "<group>"; };
@@ -229,6 +240,7 @@
 		0146EB2923A2BA860003AB41 /* PatientPopOverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPopOverVC.swift; sourceTree = "<group>"; };
 		0146EB2B23A2BB830003AB41 /* injuryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = injuryTVC.swift; sourceTree = "<group>"; };
 		0146EB2D23A416CF0003AB41 /* UnitsOverViewCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsOverViewCVC.swift; sourceTree = "<group>"; };
+		0147B4272638B5F800030DBF /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		014C37D323D6309700605ECB /* ChangeMissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMissionVC.swift; sourceTree = "<group>"; };
 		014DA89C225F9B1600C42F5C /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		014FCAEF22089C17004C0A33 /* SmallhospitalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallhospitalTableViewCell.swift; sourceTree = "<group>"; };
@@ -236,6 +248,7 @@
 		015589CF239ED4D300BEEAE3 /* PatientOverViewTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientOverViewTVC.swift; sourceTree = "<group>"; };
 		0156738E23CA562E00BC2B53 /* Hospital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hospital.swift; sourceTree = "<group>"; };
 		015872E324B60BA60085A68E /* UnitPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitPattern.swift; sourceTree = "<group>"; };
+		0161331C267EA3DA008DAE8F /* MissionImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionImageTableViewCell.swift; sourceTree = "<group>"; };
 		0165068E239D6AE600921FAD /* PatientUITVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientUITVC.swift; sourceTree = "<group>"; };
 		01650BAC2249871400886510 /* CreateTempObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTempObjectViewController.swift; sourceTree = "<group>"; };
 		01710198258C168E006EFD94 /* BaseEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEntity.swift; sourceTree = "<group>"; };
@@ -265,6 +278,11 @@
 		018042E5213F002F008B1784 /* UnitCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitCostumTableViewCell.swift; sourceTree = "<group>"; };
 		018042E7213F1812008B1784 /* HosiptalCostumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HosiptalCostumTableViewCell.swift; sourceTree = "<group>"; };
 		0183A587212CA9E7006036FA /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
+		018A0689265B06B0003B6E90 /* CommanderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommanderTableViewCell.swift; sourceTree = "<group>"; };
+		018A068B266CE8DC003B6E90 /* MissionGeneralInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionGeneralInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		018A068E266D6F42003B6E90 /* iMissionMetaDataCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMissionMetaDataCVC.swift; sourceTree = "<group>"; };
+		018A0690267694E6003B6E90 /* MissionCommanderCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCommanderCVC.swift; sourceTree = "<group>"; };
+		018A0692267AA43A003B6E90 /* missionCategoryCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = missionCategoryCVC.swift; sourceTree = "<group>"; };
 		018C6F702573E145005BDC56 /* ExplanationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationVC.swift; sourceTree = "<group>"; };
 		018DDCDE24F0151600BB468E /* SectionMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionMapAnnotation.swift; sourceTree = "<group>"; };
 		018DDCE024F0169300BB468E /* UnitMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMapTableViewCell.swift; sourceTree = "<group>"; };
@@ -275,12 +293,14 @@
 		019081C82141A62F00AB7620 /* HospitalProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalProtocol.swift; sourceTree = "<group>"; };
 		019081CA2141A65900AB7620 /* InjuryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryProtocol.swift; sourceTree = "<group>"; };
 		019081CC2141ADD200AB7620 /* CreateInjuryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInjuryVC.swift; sourceTree = "<group>"; };
+		0193028C267BE11E001D8D3C /* MissionDateCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDateCVC.swift; sourceTree = "<group>"; };
 		01A042E424129DB000D15970 /* PatientenExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientenExport.swift; sourceTree = "<group>"; };
 		01A042E62412A1AB00D15970 /* brk_kompaktlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brk_kompaktlogo.png; sourceTree = "<group>"; };
 		01A20265233D62C200F70498 /* bootstrap-4.0.0 ELRD.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-4.0.0 ELRD.css"; sourceTree = "<group>"; };
 		01A87CF523F3194C004DA83C /* SectionAnnotation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionAnnotation.xib; sourceTree = "<group>"; };
 		01A87CF823F3228E004DA83C /* UnitXIBCustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitXIBCustomTableViewCell.swift; sourceTree = "<group>"; };
 		01A87CFA23F32362004DA83C /* SectionAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionAnnotationView.swift; sourceTree = "<group>"; };
+		01ADBEB02637735B00A386EC /* StammdatenServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenServerViewController.swift; sourceTree = "<group>"; };
 		01BFFA2C239D4FC200688341 /* PatientCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientCVC.swift; sourceTree = "<group>"; };
 		01C3853925DDD98E001C35DE /* MapDrawingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDrawingOverlay.swift; sourceTree = "<group>"; };
 		01C4F47A215AA94B008B5B82 /* StammdatenImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StammdatenImport.swift; sourceTree = "<group>"; };
@@ -414,7 +434,8 @@
 			children = (
 				5B41E9B4212C5F5300525804 /* StartVC.swift */,
 				5B84BB8F213162AC00DA1073 /* LoginPopupVC.swift */,
-				014C37D323D6309700605ECB /* ChangeMissionVC.swift */,
+				018A0689265B06B0003B6E90 /* CommanderTableViewCell.swift */,
+				0161331C267EA3DA008DAE8F /* MissionImageTableViewCell.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -444,6 +465,7 @@
 				01FA9166234D0E4400D7BB27 /* BenutzerListeViewController.swift */,
 				01FA9168234D0F5000D7BB27 /* BenutzerTableViewCell.swift */,
 				010CBD1E240A82450021357D /* GeneralSettingsVC.swift */,
+				01ADBEB02637735B00A386EC /* StammdatenServerViewController.swift */,
 			);
 			path = Stammdaten;
 			sourceTree = "<group>";
@@ -546,6 +568,27 @@
 			);
 			name = Klassen;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		018A068D266D6EFC003B6E90 /* EinsatzMetadaten */ = {
+			isa = PBXGroup;
+			children = (
+				0193028B267BE0DC001D8D3C /* CollectionViewCells */,
+				014C37D323D6309700605ECB /* ChangeMissionVC.swift */,
+				018A068E266D6F42003B6E90 /* iMissionMetaDataCVC.swift */,
+			);
+			path = EinsatzMetadaten;
+			sourceTree = "<group>";
+		};
+		0193028B267BE0DC001D8D3C /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				018A0692267AA43A003B6E90 /* missionCategoryCVC.swift */,
+				018A0690267694E6003B6E90 /* MissionCommanderCVC.swift */,
+				018A068B266CE8DC003B6E90 /* MissionGeneralInfoCollectionViewCell.swift */,
+				0193028C267BE11E001D8D3C /* MissionDateCVC.swift */,
+			);
+			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		01A20264233D62A100F70498 /* HTML */ = {
@@ -691,6 +734,8 @@
 				01F8DB3C252B6AE300CA97C0 /* Notification.swift */,
 				017A7EAA2576D575001676DA /* DocumentationTemplate.swift */,
 				01710198258C168E006EFD94 /* BaseEntity.swift */,
+				0100345B2637864C00BEA1F1 /* Server.swift */,
+				0147B4272638B5F800030DBF /* Log.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -716,6 +761,7 @@
 				014201032380615600C2834C /* Benutzer */,
 				0139E4952156C719001970FE /* Stammdaten */,
 				0139E4942156C6CF001970FE /* Dokumentation */,
+				018A068D266D6EFC003B6E90 /* EinsatzMetadaten */,
 				0139E4932156C65E001970FE /* Login */,
 				0139E4922156C63A001970FE /* Patienten */,
 				0139E4962156C7DC001970FE /* Abschnitte */,
@@ -867,6 +913,8 @@
 				014201052380617100C2834C /* AddUserViewController.swift in Sources */,
 				5B84BB8E21315CC100DA1073 /* Shift.swift in Sources */,
 				018042C6213BFAD1008B1784 /* StammdatenDetailVC.swift in Sources */,
+				0161331D267EA3DA008DAE8F /* MissionImageTableViewCell.swift in Sources */,
+				018A0691267694E6003B6E90 /* MissionCommanderCVC.swift in Sources */,
 				5B41E9BB212C5F5300525804 /* ELRDRG.xcdatamodeld in Sources */,
 				0156738F23CA562E00BC2B53 /* Hospital.swift in Sources */,
 				019081CB2141A65900AB7620 /* InjuryProtocol.swift in Sources */,
@@ -894,13 +942,17 @@
 				018DDCDF24F0151600BB468E /* SectionMapAnnotation.swift in Sources */,
 				017A7E9A2576CDB8001676DA /* DocuTemplatesViewController.swift in Sources */,
 				5B41E9D1212C6CA700525804 /* User.swift in Sources */,
+				018A0693267AA43A003B6E90 /* missionCategoryCVC.swift in Sources */,
 				01D9026023BB8136009F9E75 /* LocationHandler.swift in Sources */,
 				5B4A6017213EFCBF00844F85 /* DocumentationDetailAudioVC.swift in Sources */,
 				0106A08025DB596C008DC22B /* CircleMapOverlay.swift in Sources */,
+				018A068C266CE8DC003B6E90 /* MissionGeneralInfoCollectionViewCell.swift in Sources */,
 				5B6D774F2130503C00DDFA2B /* Documentation.swift in Sources */,
 				01F8DB3D252B6AE300CA97C0 /* Notification.swift in Sources */,
+				018A068A265B06B0003B6E90 /* CommanderTableViewCell.swift in Sources */,
 				5B4A6013213D82C800844F85 /* SessionHandler.swift in Sources */,
 				01BFFA2D239D4FC200688341 /* PatientCVC.swift in Sources */,
+				018A068F266D6F42003B6E90 /* iMissionMetaDataCVC.swift in Sources */,
 				01E5EBE924FBD7640068E619 /* SectionsUIViewController.swift in Sources */,
 				01F8DB39252B630F00CA97C0 /* NotificationsViewController.swift in Sources */,
 				018042E8213F1812008B1784 /* HosiptalCostumTableViewCell.swift in Sources */,
@@ -953,11 +1005,14 @@
 				0139E49A2156C9E2001970FE /* AbschnitteVC.swift in Sources */,
 				01C662A223A0344000BD6AFE /* TextDocuTVC.swift in Sources */,
 				01C3853A25DDD98E001C35DE /* MapDrawingOverlay.swift in Sources */,
+				0147B4282638B5F800030DBF /* Log.swift in Sources */,
 				01650BAD2249871400886510 /* CreateTempObjectViewController.swift in Sources */,
 				015589CE239ED42700BEEAE3 /* DocuCVC.swift in Sources */,
 				01ED51F921484A060059618E /* SelectInjuryVC.swift in Sources */,
+				0193028D267BE11E001D8D3C /* MissionDateCVC.swift in Sources */,
 				5B6D77492130501100DDFA2B /* Section.swift in Sources */,
 				0139BB2A2566AF5C0047D53C /* NotificationManager.swift in Sources */,
+				0100345C2637864C00BEA1F1 /* Server.swift in Sources */,
 				5B4A600D213C6EA900844F85 /* DocumentationHandler.swift in Sources */,
 				01F8DB3B252B664800CA97C0 /* NotificationsTVC.swift in Sources */,
 				012FE873238B29E2005D24FD /* AddUserAttributeTableViewCell.swift in Sources */,
@@ -971,6 +1026,7 @@
 				0146EB2C23A2BB830003AB41 /* injuryTVC.swift in Sources */,
 				018042CC213C0217008B1784 /* CreateUnitVC.swift in Sources */,
 				010CBD1F240A82450021357D /* GeneralSettingsVC.swift in Sources */,
+				01ADBEB12637735B00A386EC /* StammdatenServerViewController.swift in Sources */,
 				5B7AE74221319693007552C3 /* LoginProtocol.swift in Sources */,
 				0183A588212CA9E7006036FA /* DataHandler.swift in Sources */,
 				018042C4213BF5C1008B1784 /* SettingsVC.swift in Sources */,
@@ -1122,7 +1178,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;
@@ -1144,7 +1200,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ELRD;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = BQXP47B3R7;
 				INFOPLIST_FILE = ELRDRG/Info.plist;

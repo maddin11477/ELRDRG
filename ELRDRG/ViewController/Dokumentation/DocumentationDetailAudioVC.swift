@@ -101,9 +101,9 @@ class DocumentationDetailAudioVC: UIViewController, AVAudioRecorderDelegate, AVA
                             
                             
                             
-                            var settingsAction = UIAlertAction(title: "Einstellungen", style: .default) { (_) -> Void in
+                            let settingsAction = UIAlertAction(title: "Einstellungen", style: .default) { (_) -> Void in
                                 let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
-                                UIApplication.shared.open(settingsUrl as! URL, options: [:], completionHandler: nil)
+                                UIApplication.shared.open(settingsUrl! as URL, options: [:], completionHandler: nil)
                                 }
                             alertView.addAction(settingsAction)
                             

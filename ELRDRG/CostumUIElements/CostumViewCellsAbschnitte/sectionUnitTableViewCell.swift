@@ -132,7 +132,9 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
                 {
                     let messageString = "Der Patient wurde bereits dem " + ((patient.fahrzeug?.allObjects as! [Unit])[0].callsign ?? "unbekannt") + " zugeordnet."
                     let alert = UIAlertController(title: "Achtung", message: messageString, preferredStyle: UIAlertControllerStyle.alert)
-                    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                    //UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                    UIApplication.shared.inputViewController?.present(alert, animated: true, completion: nil)
+                    
                 }
                 else
                 {
@@ -416,7 +418,8 @@ class sectionUnitTableViewCell: UITableViewCell, UITableViewDataSource, UITableV
 			//TODO: generate Unit Cell from unit List in UnitPattern
 			let unit = self.pattern!.units[indexPath.row]
 			cell.funkRufName.text = unit.callsign
-
+            cell.backgroundColor = .orange
+            cell.funkRufName.textColor = .black
 			cell.unitTypeImage.image = UIImage(named: UnitHandler().BaseUnit_To_UnitTypeString(id: unit.type))
 			return cell
 		}

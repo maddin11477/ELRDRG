@@ -45,7 +45,7 @@ class DocuTemplatesViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DocuTemplateTableViewCell") as! DocuTemplateTableViewCell
         cell.set(template: docuTemplates[indexPath.row])
-        print(docuTemplates[indexPath.row].content)
+        
         return cell
     }
     

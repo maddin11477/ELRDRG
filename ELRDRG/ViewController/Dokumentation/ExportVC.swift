@@ -75,7 +75,7 @@ class ExportVC: UIViewController, WKNavigationDelegate, MFMailComposeViewControl
         let render = UIPrintPageRenderer()
         render.addPrintFormatter((self.webView?.viewPrintFormatter())!, startingAtPageAt: 0)
         
-		let pageLandscape = CGRect(x: 0, y: 10, width: 791.8, height: 595.2) // A4, 72 dpi
+		//let pageLandscape = CGRect(x: 0, y: 10, width: 791.8, height: 595.2) // A4, 72 dpi
 		let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4, 72
 		let printable = page.insetBy(dx: 0, dy: 0)
 
@@ -183,7 +183,7 @@ class ExportVC: UIViewController, WKNavigationDelegate, MFMailComposeViewControl
 				composeVC.setMessageBody(body, isHTML: false)
 				//composeVC.mailComposeDelegate = self
 
-				composeVC.addAttachmentData(data as! Data, mimeType: ".pdf", fileName: (mission?.reason ?? "unknown.pdf") + ".pdf")
+                composeVC.addAttachmentData(data! as Data, mimeType: ".pdf", fileName: (mission?.reason ?? "unknown.pdf") + ".pdf")
 				self.present(composeVC, animated: true, completion: nil)
 		}
 

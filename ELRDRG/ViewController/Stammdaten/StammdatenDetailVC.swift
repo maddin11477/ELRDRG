@@ -416,7 +416,7 @@ class StammdatenDetailVC: UIViewController , UnitProtocol, HospitalProtocol, Inj
             let hospitalCity = (alertController.textFields![1] as UITextField).text
             if((alertController.textFields![0] as UITextField).text != "" && (alertController.textFields![1] as UITextField).text != "")
             {
-                self.hospitalData.addBaseHospital(name: hospitalName!, city: hospitalCity!)
+                let _ = self.hospitalData.addBaseHospital(name: hospitalName!, city: hospitalCity!)
                 self.hospitalData.delegate?.createdHospital()
             }
            

@@ -13,6 +13,7 @@ protocol OrganisationAddedTempObjectProtocoll {
 }
 
 class CreateTempObjectViewController: UIViewController, UnitExtention {
+   
     func createdUnit(unit: BaseUnit) {
         delegate!.createdUnit()
         self.dismiss(animated: true, completion: nil)
@@ -58,7 +59,7 @@ class CreateTempObjectViewController: UIViewController, UnitExtention {
                 let sectionData : SectionHandler = SectionHandler()
 				if SettingsHandler().getSettings().safe_new_sections_permanent
 				{
-					sectionData.addBaseSection(identifier: sectionIdentifier!)
+					let _ = sectionData.addBaseSection(identifier: sectionIdentifier!)
 				}
 				if SettingsHandler().getSettings().add_new_sections_to_mission
 				{

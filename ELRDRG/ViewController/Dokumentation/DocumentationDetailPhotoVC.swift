@@ -115,7 +115,7 @@ class DocumentationDetailPhotoVC: UIViewController, UIImagePickerControllerDeleg
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        if let mediaType = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let _ = info[UIImagePickerControllerOriginalImage] as? UIImage {
             //photo
             self.imageView.image = info[UIImagePickerControllerEditedImage] as? UIImage
             self.imageView.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleBottomMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue) | UInt8(UIViewAutoresizing.flexibleRightMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleLeftMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleTopMargin.rawValue) | UInt8(UIViewAutoresizing.flexibleWidth.rawValue)))

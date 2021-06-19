@@ -14,6 +14,37 @@ public class Mission: NSManagedObject, dbInterface {
         return self.dbID
     }
     
+    func getThumbnail()->UIImage?
+    {
+        let documents = self.documentations?.allObjects as? [Documentation] ?? []
+        //If a picture is marked as thumbnail
+        for docu in documents {
+            if docu.thumbnail
+            {
+                let attachments = docu.attachments?.allObjects as! [Attachment]
+                if attachments.count > 0
+                {
+                    return DocumentationHandler().getImage(pictureName: attachments[0].uniqueName!)
+                }
+                
+                
+            }
+        }
+        
+        //no Image marked as Thumbnail
+        for docu in documents {
+            let attachments = docu.attachments?.allObjects as! [Attachment]
+            if attachments.count > 0 && attachments[0].type == DocumentationType.Photo.rawValue
+            {
+                return DocumentationHandler().getImage(pictureName: attachments[0].uniqueName!)
+            }
+        }
+        
+        //if no photo is availabel
+        return nil
+        
+    }
+    
     private var dataHandler = DataHandler()
     
     public func setID(id: Int32) {

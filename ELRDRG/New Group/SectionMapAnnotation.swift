@@ -37,7 +37,7 @@ public protocol SectionMapAnnotationDelegate {
         let sections = SectionHandler().getSections()
         for current_section in sections
         {
-            if let sectionIdentifier = self.section.identifier
+            if let _ = self.section.identifier
             {
                 if current_section.identifier! == self.section.identifier!
                 {

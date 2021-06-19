@@ -166,8 +166,11 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
 		{
 			missionList = self.othersMissions
 		}
-        let cell = allowedMissions.dequeueReusableCell(withIdentifier: "MissionCostumTableViewCell") as! MissionCostumTableViewCell
-        
+        let cell = allowedMissions.dequeueReusableCell(withIdentifier: "MissionImageTableViewCell") as! MissionImageTableViewCell
+        cell.load(mission: missionList[indexPath.row])
+        let id =  missionList.count - indexPath.row
+        cell.lblID.text = String(id)
+        /*
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         cell.Date.text = formatter.string(from: missionList[indexPath.row].start!)
@@ -176,16 +179,17 @@ class StartVC: UIViewController, LoginProtocol, missionProtocol, UITableViewDele
         cell.Reason.text = missionList[indexPath.row].reason
 		if missionList[indexPath.row].isFinished
 		{
-			cell.missionStateImage.image = UIImage(systemName: "checkmark.circle.fill")
-			cell.missionStateImage.tintColor = UIColor.green
+			cell.missionStateImage.image = UIImage(systemName: "lock.fill")
+            cell.missionStateImage.tintColor = UIColor.systemGreen
 		}
 		else
 		{
-			cell.missionStateImage.image = UIImage(systemName: "xmark.circle.fill")
-			cell.missionStateImage.tintColor = UIColor.lightGray
+			cell.missionStateImage.image = UIImage(systemName: "lock.open.fill")
+			cell.missionStateImage.tintColor = UIColor.systemGray
 		}
-		cell.delegate = self
-		cell.mission = missionList[indexPath.row]
+		
+		cell.mission = missionList[indexPath.row]*/
+         cell.delegate = self
 		cell.storyboard = self.storyboard
 		cell.viewController = self
         return cell

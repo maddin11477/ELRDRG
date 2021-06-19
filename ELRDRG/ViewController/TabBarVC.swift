@@ -14,7 +14,7 @@ class TabBarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         return
-        if let tabItems = self.tabBar.items {
+        /*if let tabItems = self.tabBar.items {
             
             // In this case we want to modify the badge number of the third tab:
             let tabItem = tabItems[4]
@@ -30,7 +30,7 @@ class TabBarVC: UITabBarController {
             }
                 
             
-        }
+        }*/
         // Do any additional setup after loading the view.
     }
 

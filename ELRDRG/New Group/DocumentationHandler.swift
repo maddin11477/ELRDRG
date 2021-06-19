@@ -180,7 +180,7 @@ public class DocumentationHandler {
     
     public func SavePhotoDocumentation(picture: UIImage, description: String, saveDate: Date){
         let uuidOfPhoto = NSUUID().uuidString
-        let storagePath = saveImageToDocumentDirectory(image: picture, uuid: uuidOfPhoto)
+        let _ = saveImageToDocumentDirectory(image: picture, uuid: uuidOfPhoto)
         
         //get current mission
         let mission = data.getMissionFromUnique(unique: (login.getLoggedInUser()!.currentMissionUnique!))!

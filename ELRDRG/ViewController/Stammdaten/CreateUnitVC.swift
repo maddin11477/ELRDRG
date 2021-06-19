@@ -10,6 +10,7 @@ import UIKit
 public protocol UnitExtention
 {
     func createdUnit(unit : BaseUnit)
+    
 }
 class CreateUnitVC: UIViewController {
 
@@ -49,8 +50,15 @@ class CreateUnitVC: UIViewController {
         {
             unitdata = UnitHandler()
         }
+        
+        
+        
+        
         let unit = self.unitdata!.addBaseUnit(callsign: txtCallSign.text!, type: UnitHandler.UnitType(rawValue: Int16(UnitTypePicker.selectedSegmentIndex))!, crewCount: Int16(CrewCountStepper.value))
+        unit.tempBaseUnit = !SettingsHandler().getSettings().safedynCreatedUnit
         self.unitdata!.saveData()
+       
+        
         if let del = self.unitdata?.delegate
         {
             del.createdUnit()
@@ -59,6 +67,7 @@ class CreateUnitVC: UIViewController {
         {
             localDel.createdUnit(unit : unit)
         }
+      
         
         //self.delegate!.createdUnit(unit: unit)
         self.presentingViewController?.dismiss(animated: true, completion: nil)

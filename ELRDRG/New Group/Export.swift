@@ -757,7 +757,7 @@ if createMissionInfo == false
     
     func getCSSDATA() -> String
     {
-        var css =
+        let css =
 """
 
 :root {

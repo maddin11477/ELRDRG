@@ -17,7 +17,7 @@ class PDFCreator: NSObject {
         render.addPrintFormatter(fmt, startingAtPageAt: 0)
 		render.headerHeight = 20
 
-        let pageLandscape = CGRect(x: 0, y: 0, width: 781.8, height: 595.2)
+       
 		let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4, 72 dpi
 		let printable = page.insetBy(dx: 80, dy: 80)
 

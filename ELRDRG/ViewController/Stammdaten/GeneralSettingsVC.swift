@@ -22,6 +22,9 @@ class GeneralSettingsVC: UITableViewController {
 
     @IBOutlet weak var txt_ILSMailAdresse: UITextField!
     
+    
+    @IBOutlet weak var safeDynCreatedUnit: UISwitch!
+    
     override func viewWillDisappear(_ animated: Bool) {
         if let setting = self.einstellungen
         {
@@ -57,6 +60,7 @@ class GeneralSettingsVC: UITableViewController {
             self.txt_ILSMailAdresse.text = setting.ils_mailAdress
             self.txt_commandRegion.text = setting.commanderRegion
             self.startNewMissionWithAudioRecordingSwitch.isOn = setting.startWithAudioRecorder
+            self.safeDynCreatedUnit.isOn = setting.safedynCreatedUnit
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -72,6 +76,15 @@ class GeneralSettingsVC: UITableViewController {
 			let _ = SettingsHandler().save()
 		}
 	}
+    
+    @IBAction func safeDynCreatedInjuries(_ sender: Any) {
+        if let setting = einstellungen
+        {
+            setting.safedynCreatedUnit = self.safeDynCreatedUnit.isOn
+            let _ = SettingsHandler().save()
+        }
+    }
+    
 
 	@IBAction func showAllMissions_changed(_ sender: Any) {
 		if let setting = einstellungen

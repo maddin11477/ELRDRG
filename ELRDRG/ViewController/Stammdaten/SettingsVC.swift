@@ -42,6 +42,13 @@ class SettingsVC: UITableViewController {
            // self.present(vc, animated: true, completion: nil)
             
         }
+        else if(indexPath.section == 2 && indexPath.row == 0)
+        {
+            //Server Stammdaten Einstellungen
+            let vc = self.storyboard?.instantiateViewController(identifier: "StammdatenServerViewController") as! StammdatenServerViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
         
     }
     
