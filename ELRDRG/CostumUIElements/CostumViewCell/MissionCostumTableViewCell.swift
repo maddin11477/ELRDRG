@@ -20,6 +20,8 @@ class MissionCostumTableViewCell: UITableViewCell {
 	var storyboard : UIStoryboard?
 	var delegate : changedMissionDelegate?
 	var viewController : UIViewController?
+    
+    
 	@IBAction func changeMission(_ sender: Any) {
 		if let einsatz = mission
 		{
